@@ -83,9 +83,11 @@ def calculate_raf(diagnosis_codes: List[str],
     coefficients = apply_coefficients(demographics, hcc_set, interactions, model_name)
 
     hcc_chronic = set()
+    interactions_chronic = {}
     for hcc in hcc_set:
         if is_chronic_mapping.get((hcc, model_name), False):
             hcc_chronic.add(hcc)
+        interactions_chronic = apply_interactions(demographics, hcc_chronic, model_name)
 
     demographic_interactions = {}
     for key, value in interactions.items():
@@ -104,11 +106,13 @@ def calculate_raf(diagnosis_codes: List[str],
                                                    model_name)
     coefficients_chronic_only = apply_coefficients(demographics, 
                                                    hcc_chronic, 
-                                                   demographic_interactions, 
+                                                   interactions_chronic, 
                                                    model_name)
     
     # Calculate risk scores
+    print(f"Coefficients: {coefficients}")
     risk_score = sum(coefficients.values())
+    print(f"Risk Score: {risk_score}")
     risk_score_demographics = sum(coefficients_demographics.values())
     risk_score_chronic_only = sum(coefficients_chronic_only.values()) - risk_score_demographics
     risk_score_hcc = risk_score - risk_score_demographics

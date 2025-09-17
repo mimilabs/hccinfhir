@@ -565,17 +565,99 @@ except ModelNotFoundError as e:
     print(f"Model configuration error: {e}")
 ```
 
+### Custom Valuesets
+
+Users can generate custom and more specific valuesets using the mimilabs data lakehouse.
+
+For example, the valuesets in the package are created as follows:
+
+`ra_dx_to_cc_mapping_2026.csv`
+```sql
+WITH latest_years AS (
+  SELECT 
+    model_name,
+    MAX(year) as latest_year
+  FROM mimi_ws_1.cmspayment.ra_dx_to_cc_mapping 
+  WHERE model_type = 'Initial'
+    AND year <= 2026  -- Don't go beyond 2026
+  GROUP BY model_name
+)
+SELECT 
+  r.diagnosis_code, 
+  r.cc, 
+  r.model_name
+FROM mimi_ws_1.cmspayment.ra_dx_to_cc_mapping r
+INNER JOIN latest_years l 
+  ON r.model_name = l.model_name 
+  AND r.year = l.latest_year
+WHERE r.model_type = 'Initial'
+ORDER BY r.model_name, r.diagnosis_code;
+```
+
+`ra_hierarchies_2026.csv`
+```sql
+WITH latest_dates AS (
+  SELECT 
+    model_domain,
+    model_version,
+    model_fullname,
+    MAX(eff_last_date) as latest_eff_last_date
+  FROM mimi_ws_1.cmspayment.ra_hierarchies 
+  GROUP BY model_domain, model_version, model_fullname
+)
+SELECT 
+  r.cc_parent, 
+  r.cc_child, 
+  r.model_domain, 
+  r.model_version, 
+  r.model_fullname
+FROM mimi_ws_1.cmspayment.ra_hierarchies r
+INNER JOIN latest_dates l 
+  ON r.model_domain = l.model_domain 
+  AND r.model_version = l.model_version
+  AND r.model_fullname = l.model_fullname
+  AND r.eff_last_date = l.latest_eff_last_date
+ORDER BY r.model_domain, r.model_version, r.model_fullname, r.cc_parent, r.cc_child;
+```
+
+
+`ra_coefficients_2026.csv`
+```sql
+WITH preferred_records AS (
+  SELECT 
+    model_domain,
+    model_version,
+    MAX(eff_last_date) as latest_eff_last_date
+  FROM mimi_ws_1.cmspayment.ra_coefficients
+  GROUP BY model_domain, model_version
+)
+SELECT 
+  r.coefficient,
+  r.value, 
+  r.model_domain, 
+  r.model_version
+FROM mimi_ws_1.cmspayment.ra_coefficients r
+INNER JOIN preferred_records p
+  ON r.model_domain = p.model_domain 
+  AND r.model_version = p.model_version
+  AND r.eff_last_date = p.latest_eff_last_date
+ORDER BY r.model_domain, r.model_version, r.coefficient;
+```   
+
+`ra_eligible_cpt_hcpcs_2026.csv`
+```sql
+SELECT DISTINCT cpt_hcpcs_code
+FROM mimi_ws_1.cmspayment.ra_eligible_cpt_hcpcs
+WHERE is_included = 'yes' AND YEAR(mimi_src_file_date) = 2025;
+```
+
+
 ## 🧪 Testing
 
 ```bash
-# Install development dependencies
-pip install -e ".[dev]"
-
-# Run tests
-pytest tests/
-
-# Run with coverage
-pytest --cov=hccinfhir tests/
+$ hatch shell
+$ pip install -e .
+$ pytest tests/*
 ```
 
 ## 📄 License

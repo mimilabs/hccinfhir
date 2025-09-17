@@ -2,6 +2,29 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Information
+
+**Current Version**: 0.1.5
+**Package Name**: hccinfhir
+**Description**: A Python library for calculating HCC (Hierarchical Condition Category) risk adjustment scores from healthcare claims data
+**License**: Apache 2.0
+**Python Requirements**: 3.9+
+
+### What This Library Does
+
+HCCInFHIR processes healthcare data to calculate Medicare risk adjustment scores used for payment calculations. It supports multiple input formats:
+
+1. **FHIR ExplanationOfBenefit resources** - from CMS Blue Button 2.0 API
+2. **X12 837 claim files** - from clearinghouses and encounter data
+3. **Direct diagnosis codes** - for quick calculations
+4. **Service-level data** - standardized internal format
+
+The library implements the official CMS-HCC risk adjustment methodology, including:
+- Diagnosis code to HCC mapping
+- Hierarchical condition category rules
+- Demographic coefficients and interactions
+- RAF (Risk Adjustment Factor) score calculations
+
 ## Development Commands
 
 ### Testing
@@ -22,6 +45,224 @@ hatch publish                  # Publish to PyPI (maintainers only)
 - Install new dependencies by updating `pyproject.toml` dependencies
 - Core dependency: `pydantic >= 2.10.3`
 - Development dependency: `pytest`
+
+## How Scripts and Modules Work
+
+### Main Entry Points
+
+#### 1. HCCInFHIR Class (`hccinfhir.py`)
+The main processor class with three execution methods:
+
+```python
+from hccinfhir import HCCInFHIR, Demographics
+
+# Initialize processor
+processor = HCCInFHIR(
+    filter_claims=True,  # Apply CMS filtering rules
+    model_name="CMS-HCC Model V28",  # HCC model to use
+    proc_filtering_filename="ra_eligible_cpt_hcpcs_2026.csv",  # CPT/HCPCS filtering
+    dx_cc_mapping_filename="ra_dx_to_cc_2026.csv"  # Diagnosis mapping
+)
+```
+
+**Method 1: `run()` - Process FHIR EOB Resources**
+```python
+# Input: List of FHIR ExplanationOfBenefit resources
+eob_list = [{"resourceType": "ExplanationOfBenefit", ...}]
+demographics = Demographics(age=67, sex="F")
+
+result = processor.run(eob_list, demographics)
+```
+
+**Method 2: `run_from_service_data()` - Process Service-Level Data**
+```python
+# Input: Standardized ServiceLevelData objects
+service_data = [ServiceLevelData(...)]
+demographics = Demographics(age=67, sex="F")
+
+result = processor.run_from_service_data(service_data, demographics)
+```
+
+**Method 3: `calculate_from_diagnosis()` - Direct Diagnosis Processing**
+```python
+# Input: List of diagnosis codes
+diagnosis_codes = ["E11.9", "I10", "N18.3"]  # ICD-10 codes
+demographics = Demographics(age=67, sex="F")
+
+result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+```
+
+### Core Processing Pipeline
+
+#### Step 1: Data Extraction (`extractor.py`, `extractor_fhir.py`, `extractor_837.py`)
+
+**Extract from FHIR:**
+```python
+from hccinfhir.extractor import extract_sld, extract_sld_list
+
+# Single EOB
+eob = {"resourceType": "ExplanationOfBenefit", ...}
+service_data = extract_sld(eob)
+
+# Multiple EOBs
+eob_list = [eob1, eob2, eob3]
+service_data_list = extract_sld_list(eob_list)
+```
+
+**Extract from X12 837:**
+```python
+from hccinfhir.extractor_837 import extract_sld_from_837
+
+# X12 837 claim text
+x12_text = "ISA*00*          *00*          *ZZ*..."
+service_data = extract_sld_from_837(x12_text)
+```
+
+#### Step 2: Filtering (`filter.py`)
+```python
+from hccinfhir.filter import apply_filter
+from hccinfhir.utils import load_proc_filtering
+
+# Load CPT/HCPCS codes for filtering
+professional_cpt = load_proc_filtering("ra_eligible_cpt_hcpcs_2026.csv")
+
+# Apply CMS filtering rules
+filtered_data = apply_filter(service_data_list, professional_cpt)
+```
+
+#### Step 3: Risk Calculation (`model_calculate.py`)
+```python
+from hccinfhir.model_calculate import calculate_raf
+
+result = calculate_raf(
+    diagnosis_codes=["E11.9", "I10"],
+    model_name="CMS-HCC Model V28",
+    age=67,
+    sex="F",
+    dual_elgbl_cd="N",
+    orec="0",
+    # ... other demographics
+)
+```
+
+### Individual Model Components
+
+#### Demographics Processing (`model_demographics.py`)
+```python
+from hccinfhir.model_demographics import get_demographic_coefficients
+
+coeffs = get_demographic_coefficients(
+    age=67, sex="F", dual_elgbl_cd="N",
+    model_name="CMS-HCC Model V28"
+)
+```
+
+#### Diagnosis to HCC Mapping (`model_dx_to_cc.py`)
+```python
+from hccinfhir.model_dx_to_cc import get_dx_to_cc_list
+
+# Map diagnosis codes to HCCs
+hcc_list = get_dx_to_cc_list(
+    diagnosis_codes=["E11.9", "I10"],
+    dx_to_cc_mapping=dx_mapping_data
+)
+```
+
+#### Hierarchy Processing (`model_hierarchies.py`)
+```python
+from hccinfhir.model_hierarchies import apply_hierarchies
+
+# Apply HCC hierarchical rules
+final_hccs = apply_hierarchies(
+    hcc_list=["HCC18", "HCC85"],
+    model_name="CMS-HCC Model V28"
+)
+```
+
+### Sample Data Usage
+
+#### Working with Sample Data (`samples.py`)
+```python
+from hccinfhir import get_eob_sample, get_837_sample
+
+# Get FHIR EOB sample
+eob = get_eob_sample("sample_01")  # Individual sample
+eob_list = get_eob_sample("sample_200")  # 200-record dataset
+
+# Get X12 837 sample
+x12_text = get_837_sample("sample_01")  # Professional claim
+x12_text = get_837_sample("sample_inst_01")  # Institutional claim
+
+# Process sample data
+processor = HCCInFHIR()
+demographics = Demographics(age=67, sex="F")
+result = processor.run([eob], demographics)
+```
+
+### Utility Functions
+
+#### Data Loading (`utils.py`)
+```python
+from hccinfhir.utils import load_proc_filtering, load_dx_to_cc_mapping
+
+# Load filtering data
+cpt_codes = load_proc_filtering("ra_eligible_cpt_hcpcs_2026.csv")
+
+# Load diagnosis mapping
+dx_mapping = load_dx_to_cc_mapping("ra_dx_to_cc_2026.csv")
+```
+
+### Execution Patterns
+
+#### Pattern 1: End-to-End FHIR Processing
+```python
+# Complete workflow from FHIR to RAF score
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+eob_list = get_eob_sample("sample_200")
+demographics = Demographics(age=67, sex="F", dual_elgbl_cd="N")
+
+result = processor.run(eob_list, demographics)
+print(f"RAF Score: {result.risk_score}")
+print(f"HCCs: {result.hcc_list}")
+```
+
+#### Pattern 2: Step-by-Step Processing
+```python
+# Manual control over each step
+from hccinfhir.extractor import extract_sld_list
+from hccinfhir.filter import apply_filter
+from hccinfhir.model_calculate import calculate_raf
+
+# Step 1: Extract
+service_data = extract_sld_list(eob_list)
+
+# Step 2: Filter
+filtered_data = apply_filter(service_data, professional_cpt)
+
+# Step 3: Calculate
+diagnosis_codes = list({code for sld in filtered_data for code in sld.claim_diagnosis_codes})
+result = calculate_raf(diagnosis_codes, "CMS-HCC Model V28", age=67, sex="F")
+```
+
+#### Pattern 3: Batch Processing Multiple Patients
+```python
+# Process multiple patients
+patients = [
+    {"eobs": eob_list_1, "demographics": Demographics(age=65, sex="M")},
+    {"eobs": eob_list_2, "demographics": Demographics(age=72, sex="F")},
+]
+
+processor = HCCInFHIR()
+results = []
+
+for patient in patients:
+    result = processor.run(patient["eobs"], patient["demographics"])
+    results.append({
+        "patient_id": patient.get("id"),
+        "risk_score": result.risk_score,
+        "hccs": result.hcc_list
+    })
+```
 
 ## Architecture Overview
 

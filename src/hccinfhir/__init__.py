@@ -21,7 +21,7 @@ from .samples import (
     list_available_samples
 )
 
-__version__ = "0.1.2"
+__version__ = "0.1.5"
 __author__ = "Yubin Park"
 __email__ = "yubin.park@mimilabs.ai"
 

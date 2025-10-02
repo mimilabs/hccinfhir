@@ -162,8 +162,8 @@ def extract_sld_fhir(eob_data: dict) -> List[ServiceLevelData]:
                                eob.billablePeriod.get_service_date() if eob.billablePeriod else None),
                 'place_of_service': item.locationCodeableConcept.get_code(SYSTEMS['context']['place'])
                                   if item.locationCodeableConcept else None,
-                'modifiers': [m.get_code(SYSTEMS['procedures']['hcpcs']) 
-                            for m in (item.modifier or []) if m],
+                'modifiers': [code for m in (item.modifier or [])
+                              if m and (code := m.get_code(SYSTEMS['procedures']['hcpcs'])) is not None],
                 'allowed_amount': next((adj.get('amount', {}).get('value')
                                       for adj in (item.adjudication or [])
                                       if any(c.get('code') == 'eligible'

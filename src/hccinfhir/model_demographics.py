@@ -1,16 +1,18 @@
-from typing import Union
-from hccinfhir.datamodels import Demographics
+from typing import Union, Optional
+from hccinfhir.datamodels import Demographics, PrefixOverride
     
-def categorize_demographics(age: Union[int, float], 
-                       sex: str, 
+def categorize_demographics(age: Union[int, float],
+                       sex: str,
                        dual_elgbl_cd: str = None,
-                       orec: str = None, 
+                       orec: str = None,
                        crec: str = None,
                        version: str = 'V2',
                        new_enrollee: bool = False,
                        snp: bool = False,
                        low_income: bool = False,
-                       graft_months: int = None
+                       lti: bool = False,
+                       graft_months: int = None,
+                       prefix_override: Optional[PrefixOverride] = None
                        ) -> Demographics:
     """
     Categorize a beneficiary's demographics into risk adjustment categories.
@@ -23,10 +25,15 @@ def categorize_demographics(age: Union[int, float],
         sex: Beneficiary sex ('M'/'F' or '1'/'2')
         dual_elgbl_cd: Dual eligibility code ('00'-'10')
         orec: Original reason for entitlement code ('0'-'3')
-        crec: Current reason for entitlement code ('0'-'3') 
+        crec: Current reason for entitlement code ('0'-'3')
         version: Version of categorization to use ('V2', 'V4', 'V6')
         new_enrollee: Whether beneficiary is a new enrollee
         snp: Whether beneficiary is in a Special Needs Plan
+        low_income: Whether beneficiary is low income (RxHCC only)
+        lti: Whether beneficiary is long-term institutionalized
+        graft_months: Number of months since transplant (ESRD only)
+        prefix_override: Optional prefix to override demographic detection
+            (e.g., 'DI_', 'DNE_', 'INS_', 'CFA_', etc.)
 
     Returns:
         Demographics object containing derived fields like age/sex category,
@@ -82,6 +89,44 @@ def categorize_demographics(age: Union[int, float],
     esrd_crec = crec in {'2', '3'} if crec else False
     esrd = esrd_orec or esrd_crec
 
+    # Override demographics based on prefix_override
+    if prefix_override:
+        # ESRD model prefixes
+        esrd_prefixes = {'DI_', 'DNE_', 'GI_', 'GNE_', 'GFPA_', 'GFPN_', 'GNPA_', 'GNPN_'}
+        # CMS-HCC new enrollee prefixes
+        new_enrollee_prefixes = {'NE_', 'SNPNE_', 'DNE_', 'GNE_'}
+        # CMS-HCC community prefixes
+        community_prefixes = {'CNA_', 'CND_', 'CFA_', 'CFD_', 'CPA_', 'CPD_'}
+        # Institutionalized prefix
+        institutional_prefixes = {'INS_', 'GI_'}
+        
+        # TODO: RxHCC prefixes
+
+        # Set esrd flag
+        if prefix_override in esrd_prefixes:
+            esrd = True
+
+        # Set new_enrollee flag
+        if prefix_override in new_enrollee_prefixes:
+            new_enrollee = True
+        elif prefix_override in community_prefixes or prefix_override in institutional_prefixes:
+            new_enrollee = False
+
+        # Set dual eligibility flags based on prefix
+        if prefix_override in {'CFA_', 'CFD_', 'GFPA_', 'GFPN_'}:
+            is_fbd = True
+            is_pbd = False
+        elif prefix_override in {'CPA_', 'CPD_'}:
+            is_fbd = False
+            is_pbd = True
+        elif prefix_override in {'CNA_', 'CND_', 'GNPA_', 'GNPN_'}:
+            is_fbd = False
+            is_pbd = False
+
+        # Set lti flag based on prefix
+        if prefix_override in institutional_prefixes:
+            lti = True
+
     result_dict = {
         'version': version,
         'non_aged': non_aged,
@@ -97,6 +142,7 @@ def categorize_demographics(age: Union[int, float],
         'fbd': is_fbd,
         'pbd': is_pbd,
         'esrd': esrd,
+        'lti': lti,
         'graft_months': graft_months,
         'low_income': low_income
     }
@@ -131,10 +177,14 @@ def categorize_demographics(age: Union[int, float],
         if orec is None or orec == '':
             orec = '0' # Default to 0 if OREC is None
 
-        # New enrollee logic
+        # Determine prefix based on new_enrollee status
         if new_enrollee:
             prefix = 'NEF' if std_sex == '2' else 'NEM'
-            
+        else:
+            prefix = 'F' if std_sex == '2' else 'M'
+
+        # CMS-HCC new enrollee logic with detailed 65-69 categories
+        if new_enrollee and not esrd:
             if age <= 34:
                 category = f'{prefix}0_34'
             elif 34 < age <= 44:
@@ -167,9 +217,9 @@ def categorize_demographics(age: Union[int, float],
                 category = f'{prefix}90_94'
             else:
                 category = f'{prefix}95_GT'
-        
+
+        # Standard logic with grouped 65_69 (for non-new-enrollee OR ESRD)
         else:
-            prefix = 'F' if std_sex == '2' else 'M'
             age_ranges = [
                 (0, 34, '0_34'),
                 (34, 44, '35_44'),
@@ -184,7 +234,7 @@ def categorize_demographics(age: Union[int, float],
                 (89, 94, '90_94'),
                 (94, float('inf'), '95_GT')
             ]
-            
+
             for low, high, suffix in age_ranges:
                 if low < age <= high:
                     category = f'{prefix}{suffix}'

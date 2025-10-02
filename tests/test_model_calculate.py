@@ -140,4 +140,4 @@ def test_hf_hcc238_v28():  # Test for heart failure and specified heart arrhythm
         sex='M',
     )
     assert isinstance(result.risk_score, float)
-    assert result.interactions['HF_HCC238_V28'] == 0 # No interaction should be 
+    assert 'HF_HCC238_V28' not in result.interactions # No interaction should be 

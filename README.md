@@ -521,6 +521,89 @@ export_data = result.model_dump(
 )
 ```
 
+### Overriding Demographic Categorization
+
+**Problem**: Sometimes demographic data has quality issues (e.g., ESRD patients with incorrect `orec`/`crec` codes), leading to wrong risk score calculations.
+
+**Solution**: Use the `prefix_override` parameter to manually specify the coefficient prefix.
+
+#### Common Use Case: ESRD Patients with Incorrect OREC/CREC
+
+```python
+from hccinfhir import HCCInFHIR, Demographics
+
+# ESRD dialysis patient, but source data has wrong orec/crec codes
+processor = HCCInFHIR(model_name="CMS-HCC ESRD Model V24")
+
+demographics = Demographics(
+    age=65,
+    sex="F",
+    orec="0",  # Should be '2' or '3' for ESRD, but data is incorrect
+    crec="0"   # Should be '2' or '3' for ESRD, but data is incorrect
+)
+
+diagnosis_codes = ["N18.6", "E11.22", "I12.0"]  # ESRD + diabetes + hypertensive CKD
+
+# Force ESRD dialysis coefficients despite incorrect orec/crec
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    demographics,
+    prefix_override='DI_'  # DI_ = ESRD Dialysis
+)
+
+print(f"Risk Score with override: {result.risk_score}")
+```
+
+#### Other Common Scenarios
+
+```python
+# Long-term institutionalized patient not properly flagged
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+demographics = Demographics(age=78, sex="M")
+diagnosis_codes = ["F03.90", "I48.91", "N18.4"]
+
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    demographics,
+    prefix_override='INS_'  # INS_ = Institutionalized
+)
+
+# New enrollee with missing flag
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    demographics,
+    prefix_override='NE_'  # NE_ = New Enrollee
+)
+```
+
+#### Common Prefix Values
+
+**CMS-HCC Models (V22, V24, V28):**
+- `CNA_` - Community, Non-Dual, Aged (65+)
+- `CND_` - Community, Non-Dual, Disabled (<65)
+- `CFA_` - Community, Full Benefit Dual, Aged
+- `CFD_` - Community, Full Benefit Dual, Disabled
+- `CPA_` - Community, Partial Benefit Dual, Aged
+- `CPD_` - Community, Partial Benefit Dual, Disabled
+- `INS_` - Long-Term Institutionalized
+- `NE_` - New Enrollee
+- `SNPNE_` - Special Needs Plan New Enrollee
+
+**ESRD Models (V21, V24):**
+- `DI_` - Dialysis (standard)
+- `DNE_` - Dialysis New Enrollee
+- `GI_` - Graft, Institutionalized
+- `GNE_` - Graft, New Enrollee
+- `GFPA_`, `GFPN_`, `GNPA_`, `GNPN_` - Graft with various dual/age combinations
+
+**RxHCC Model (V08):**
+- `Rx_CE_LowAged_` - Community, Low Income, Aged
+- `Rx_CE_NoLowAged_` - Community, Not Low Income, Aged
+- `Rx_NE_Lo_` - New Enrollee, Low Income
+- `Rx_CE_LTI_` - Community, Long-Term Institutionalized
+
+See [CLAUDE.md](./CLAUDE.md#coefficient-prefix-reference) for complete prefix reference.
+
 ### Custom Filtering Rules
 
 ```python
@@ -530,7 +613,7 @@ from hccinfhir.filter import apply_filter
 filtered_data = apply_filter(
     service_data,
     include_inpatient=True,
-    include_outpatient=True, 
+    include_outpatient=True,
     eligible_cpt_hcpcs_file="custom_procedures.csv"
 )
 ```
@@ -651,6 +734,12 @@ FROM mimi_ws_1.cmspayment.ra_eligible_cpt_hcpcs
 WHERE is_included = 'yes' AND YEAR(mimi_src_file_date) = 2025;
 ```
 
+`hcc_is_chronic.csv`
+```sql
+SELECT hcc, is_chronic, model_version, model_domain
+FROM cmspayment.ra_report_to_congress
+WHERE mimi_src_file_name = '2024riskadjustmentinma-rtc.pdf'
+```
 
 ## 🧪 Testing
 

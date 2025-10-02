@@ -92,6 +92,32 @@ demographics = Demographics(age=67, sex="F")
 result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
 ```
 
+#### Advanced: Demographic Prefix Override
+
+All three methods support `prefix_override` parameter for cases where demographic auto-detection is incorrect:
+
+```python
+# ESRD patient with incorrect orec/crec codes (common data quality issue)
+demographics = Demographics(age=65, sex="F", orec="0", crec="0")
+diagnosis_codes = ["N18.6", "E11.22"]
+
+# Force ESRD dialysis coefficients despite orec/crec being wrong
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    demographics,
+    prefix_override='DI_'  # ESRD Dialysis prefix
+)
+```
+
+**When to use prefix_override:**
+- ESRD patients with orec='0'/crec='0' when they should be '2' or '3'
+- Long-term institutionalized patients not properly flagged
+- Dual-eligible status not correctly coded
+- Any case where demographic categorization differs from administrative data
+
+**Common prefix values:**
+See "Coefficient Prefix Reference" section below for complete list.
+
 ### Core Processing Pipeline
 
 #### Step 1: Data Extraction (`extractor.py`, `extractor_fhir.py`, `extractor_837.py`)
@@ -348,3 +374,107 @@ Located in `src/hccinfhir/data/`:
 - CSV files use standard format with headers
 - Loading handled by utility functions in respective modules
 - Files are included in package build via `pyproject.toml` configuration
+
+## Coefficient Prefix Reference
+
+The library uses demographic prefixes to select appropriate risk adjustment coefficients. Prefixes are automatically derived from patient demographics (age, sex, orec, crec, dual status, etc.), but can be manually overridden using the `prefix_override` parameter.
+
+### CMS-HCC Models (V22, V24, V28)
+
+#### Community Beneficiaries
+- **`CNA_`** - Community, Non-Dual, Aged (65+)
+- **`CND_`** - Community, Non-Dual, Disabled (<65)
+- **`CFA_`** - Community, Full Benefit Dual, Aged (65+)
+- **`CFD_`** - Community, Full Benefit Dual, Disabled (<65)
+- **`CPA_`** - Community, Partial Benefit Dual, Aged (65+)
+- **`CPD_`** - Community, Partial Benefit Dual, Disabled (<65)
+
+#### Institutionalized Beneficiaries
+- **`INS_`** - Long-Term Institutionalized (nursing home >90 days)
+
+#### New Enrollees
+- **`NE_`** - New Enrollee (standard)
+- **`SNPNE_`** - Special Needs Plan New Enrollee
+
+### CMS-HCC ESRD Models (V21, V24)
+
+#### Dialysis Beneficiaries
+- **`DI_`** - Dialysis (standard)
+- **`DNE_`** - Dialysis New Enrollee
+
+#### Functioning Graft Beneficiaries
+- **`GI_`** - Graft, Institutionalized
+- **`GNE_`** - Graft, New Enrollee
+- **`GFPA_`** - Graft, Full Benefit Dual, Aged (65+)
+- **`GFPN_`** - Graft, Full Benefit Dual, Non-Aged (<65)
+- **`GNPA_`** - Graft, Non-Dual, Aged (65+)
+- **`GNPN_`** - Graft, Non-Dual, Non-Aged (<65)
+
+#### Transplant Beneficiaries
+- **`TRANSPLANT_KIDNEY_ONLY_1M`** - 1 month post-transplant
+- **`TRANSPLANT_KIDNEY_ONLY_2M`** - 2 months post-transplant
+- **`TRANSPLANT_KIDNEY_ONLY_3M`** - 3 months post-transplant
+
+### RxHCC Model (V08)
+
+#### Community Enrollees
+- **`Rx_CE_LowAged_`** - Community, Low Income, Aged (65+)
+- **`Rx_CE_LowNoAged_`** - Community, Low Income, Non-Aged (<65)
+- **`Rx_CE_NoLowAged_`** - Community, Not Low Income, Aged (65+)
+- **`Rx_CE_NoLowNoAged_`** - Community, Not Low Income, Non-Aged (<65)
+
+#### Long-Term Institutionalized
+- **`Rx_CE_LTI_`** - Community Enrollee, Long-Term Institutionalized
+
+#### New Enrollees
+- **`Rx_NE_Lo_`** - New Enrollee, Low Income
+- **`Rx_NE_NoLo_`** - New Enrollee, Not Low Income
+- **`Rx_NE_LTI_`** - New Enrollee, Long-Term Institutionalized
+
+### Using prefix_override
+
+```python
+from hccinfhir import HCCInFHIR, Demographics
+
+# Example 1: ESRD patient with bad orec/crec data
+processor = HCCInFHIR(model_name="CMS-HCC ESRD Model V24")
+demographics = Demographics(age=65, sex="F", orec="0", crec="0")  # Wrong codes
+diagnosis_codes = ["N18.6", "E11.22", "I12.0"]
+
+# Override to force ESRD dialysis coefficients
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    demographics,
+    prefix_override='DI_'
+)
+
+# Example 2: Institutionalized patient not properly flagged
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+demographics = Demographics(age=78, sex="M")  # Should be LTI
+diagnosis_codes = ["F03.90", "I48.91", "N18.4"]
+
+# Override to use institutionalized coefficients
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    demographics,
+    prefix_override='INS_'
+)
+```
+
+### How Demographics Auto-Detection Works
+
+The library automatically derives the prefix from:
+1. **ESRD status**: Determined from `orec` ∈ {'2', '3', '6'} or `crec` ∈ {'2', '3'}
+2. **Age category**: Aged (65+) vs Non-Aged/Disabled (<65)
+3. **Dual eligibility**: Full Benefit Dual (`dual_elgbl_cd` ∈ {'02', '04', '08'}), Partial Benefit Dual ({'01', '03', '05', '06'}), or Non-Dual
+4. **Institutional status**: Long-term institutionalized flag
+5. **New enrollee status**: First year in Medicare Advantage
+6. **Special Needs Plan**: SNP enrollment flag
+
+**Common Data Quality Issues:**
+- **ESRD patients with orec='0'/crec='0'**: Should be '2' or '3', but source data may be incorrect
+- **Missing LTI flags**: Nursing home residents not properly flagged in claims data
+- **Incorrect dual codes**: Dual eligibility status may not be updated timely
+- **Transplant status**: `graft_months` may be missing or incorrect
+
+When these issues occur, use `prefix_override` to ensure correct coefficient selection.

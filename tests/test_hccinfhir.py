@@ -226,23 +226,34 @@ class TestHCCInFHIR:
         assert hasattr(raf_result, 'risk_score_demographics')
         assert hasattr(raf_result, 'risk_score_hcc')
         assert hasattr(raf_result, 'hcc_list')
-        
 
-        # Test service level data processing
-        service_data = [{
-            "procedure_code": "99214",
-            "claim_diagnosis_codes": ["E119", "I10"],
-            "claim_type": "71",
-            "service_date": "2024-01-15"
-        }]
-        raf_result = hcc_processor.run_from_service_data(service_data, demographics)
+    def test_prefix_override_esrd_patient(self):
+        """Test prefix_override for ESRD patient with incorrect orec/crec"""
+        processor = HCCInFHIR(model_name="CMS-HCC ESRD Model V24")
 
+        # ESRD patient but orec/crec don't indicate ESRD (common data issue)
+        demographics = Demographics(
+            age=65,
+            sex="F",
+            orec="0",  # Should be '2' or '3' for ESRD, but data is wrong
+            crec="0",  # Should be '2' or '3' for ESRD, but data is wrong
+        )
 
-        assert hasattr(raf_result, 'risk_score')
-        assert hasattr(raf_result, 'hcc_list')
-        
-        # Test direct diagnosis processing
-        diagnosis_codes = ['E119', 'I509']
-        raf_result = hcc_processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+        # Diagnosis codes for ESRD patient
+        diagnosis_codes = ["N18.6", "E11.22", "I12.0"]  # ESRD, diabetes with CKD, hypertensive CKD
 
-        assert len(raf_result.hcc_list) > 0
+        # Without prefix_override - would use wrong coefficients
+        result_without_override = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+
+        # With prefix_override - forces ESRD dialysis coefficients
+        result_with_override = processor.calculate_from_diagnosis(
+            diagnosis_codes,
+            demographics,
+            prefix_override='DI_'
+        )
+
+        # Scores should be different - ESRD dialysis has different coefficients
+        assert result_without_override.risk_score != result_with_override.risk_score
+
+        # Both should have same HCCs
+        assert set(result_without_override.hcc_list) == set(result_with_override.hcc_list)

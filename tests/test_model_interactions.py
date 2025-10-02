@@ -37,10 +37,10 @@ def test_has_any_hcc():
 def test_create_demographic_interactions(sample_demographics):
     interactions = create_demographic_interactions(sample_demographics)
     
-    assert interactions['OriginallyDisabled_Female'] == 0
-    assert interactions['OriginallyDisabled_Male'] == 0
-    assert interactions['LTI_Aged'] == 0
-    assert interactions['LTI_NonAged'] == 0
+    assert 'OriginallyDisabled_Female' not in interactions
+    assert 'OriginallyDisabled_Male' not in interactions
+    assert 'LTI_Aged' not in interactions
+    assert 'LTI_NonAged' not in interactions
 
 def test_create_dual_interactions(sample_demographics):
     interactions = create_dual_interactions(sample_demographics)
@@ -58,8 +58,8 @@ def test_create_hcc_counts():
     counts = create_hcc_counts(hcc_set)
     
     assert counts['D3'] == 1
-    assert counts['D2'] == 0
-    assert counts['D10P'] == 0
+    assert 'D2' not in counts
+    assert 'D10P' not in counts
 
 def test_get_diagnostic_categories():
     hcc_set = {'17', '18', '19', '85'}

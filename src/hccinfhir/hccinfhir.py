@@ -1,8 +1,8 @@
-from typing import List, Dict, Any, Union
+from typing import List, Dict, Any, Union, Optional
 from hccinfhir.extractor import extract_sld_list
 from hccinfhir.filter import apply_filter
 from hccinfhir.model_calculate import calculate_raf
-from hccinfhir.datamodels import Demographics, ServiceLevelData, RAFResult, ModelName, ProcFilteringFilename, DxCCMappingFilename
+from hccinfhir.datamodels import Demographics, ServiceLevelData, RAFResult, ModelName, ProcFilteringFilename, DxCCMappingFilename, PrefixOverride
 from hccinfhir.utils import load_proc_filtering, load_dx_to_cc_mapping
 
 class HCCInFHIR:
@@ -41,8 +41,12 @@ class HCCInFHIR:
             return Demographics(**demographics)
         return demographics
     
-    def _calculate_raf_from_demographics(self, diagnosis_codes: List[str], 
-                                       demographics: Demographics) -> RAFResult:
+    def _calculate_raf_from_demographics_and_dx_codes(self, diagnosis_codes: List[str],
+                                                      demographics: Demographics,
+                                                      prefix_override: Optional[PrefixOverride] = None,
+                                                      maci: float = 0.0,
+                                                      norm_factor: float = 1.0,
+                                                      frailty_score: float = 0.0) -> RAFResult:
         """Calculate RAF score using demographics data."""
         return calculate_raf(
             diagnosis_codes=diagnosis_codes,
@@ -55,22 +59,36 @@ class HCCInFHIR:
             new_enrollee=demographics.new_enrollee,
             snp=demographics.snp,
             low_income=demographics.low_income,
+            lti=demographics.lti,
             graft_months=demographics.graft_months,
-            dx_to_cc_mapping=self.dx_to_cc_mapping
+            dx_to_cc_mapping=self.dx_to_cc_mapping,
+            prefix_override=prefix_override,
+            maci=maci,
+            norm_factor=norm_factor,
+            frailty_score=frailty_score
         )
 
     def _get_unique_diagnosis_codes(self, service_data: List[ServiceLevelData]) -> List[str]:
         """Extract unique diagnosis codes from service level data."""
         return list({code for sld in service_data for code in sld.claim_diagnosis_codes})
 
-    def run(self, eob_list: List[Dict[str, Any]], 
-            demographics: Union[Demographics, Dict[str, Any]]) -> RAFResult:
+    def run(self, eob_list: List[Dict[str, Any]],
+            demographics: Union[Demographics, Dict[str, Any]],
+            prefix_override: Optional[PrefixOverride] = None,
+            maci: float = 0.0,
+            norm_factor: float = 1.0,
+            frailty_score: float = 0.0) -> RAFResult:
         """Process EOB resources and calculate RAF scores.
-        
+
         Args:
             eob_list: List of EOB resources
             demographics: Demographics information
-            
+            prefix_override: Optional prefix to override auto-detected demographic prefix.
+                Use when demographic categorization is incorrect (e.g., ESRD patients with orec=0).
+            maci: Major Adjustment to Coding Intensity (0.0-1.0, default 0.0)
+            norm_factor: Normalization factor (default 1.0)
+            frailty_score: Frailty adjustment score (default 0.0)
+
         Returns:
             RAFResult object containing calculated scores and processed data
         """
@@ -84,16 +102,36 @@ class HCCInFHIR:
 
         if self.filter_claims:
             sld_list = apply_filter(sld_list, professional_cpt=self.professional_cpt)
-            
+
         # Calculate RAF score
         unique_dx_codes = self._get_unique_diagnosis_codes(sld_list)
-        raf_result = self._calculate_raf_from_demographics(unique_dx_codes, demographics)
-        
+        raf_result = self._calculate_raf_from_demographics_and_dx_codes(
+            unique_dx_codes, demographics, prefix_override, maci, norm_factor, frailty_score
+        )
+
         # Create new result with service data included
         return raf_result.model_copy(update={'service_level_data': sld_list})
     
-    def run_from_service_data(self, service_data: List[Union[ServiceLevelData, Dict[str, Any]]], 
-                             demographics: Union[Demographics, Dict[str, Any]]) -> RAFResult:
+    def run_from_service_data(self, service_data: List[Union[ServiceLevelData, Dict[str, Any]]],
+                             demographics: Union[Demographics, Dict[str, Any]],
+                             prefix_override: Optional[PrefixOverride] = None,
+                             maci: float = 0.0,
+                             norm_factor: float = 1.0,
+                             frailty_score: float = 0.0) -> RAFResult:
+        """Process service-level data and calculate RAF scores.
+
+        Args:
+            service_data: List of ServiceLevelData objects or dictionaries
+            demographics: Demographics information
+            prefix_override: Optional prefix to override auto-detected demographic prefix.
+                Use when demographic categorization is incorrect (e.g., ESRD patients with orec=0).
+            maci: Major Adjustment to Coding Intensity (0.0-1.0, default 0.0)
+            norm_factor: Normalization factor (default 1.0)
+            frailty_score: Frailty adjustment score (default 0.0)
+
+        Returns:
+            RAFResult object containing calculated scores and processed data
+        """
         demographics = self._ensure_demographics(demographics)
         
         if not isinstance(service_data, list):
@@ -116,25 +154,36 @@ class HCCInFHIR:
                 )
         
         if self.filter_claims:
-            standardized_data = apply_filter(standardized_data, 
+            standardized_data = apply_filter(standardized_data,
                                              professional_cpt=self.professional_cpt)
 
-        
+
         # Calculate RAF score
         unique_dx_codes = self._get_unique_diagnosis_codes(standardized_data)
-        raf_result = self._calculate_raf_from_demographics(unique_dx_codes, demographics)
-        
+        raf_result = self._calculate_raf_from_demographics_and_dx_codes(
+            unique_dx_codes, demographics, prefix_override, maci, norm_factor, frailty_score
+        )
+
         # Create new result with service data included
         return raf_result.model_copy(update={'service_level_data': standardized_data})
         
     def calculate_from_diagnosis(self, diagnosis_codes: List[str],
-                               demographics: Union[Demographics, Dict[str, Any]]) -> RAFResult:
+                               demographics: Union[Demographics, Dict[str, Any]],
+                               prefix_override: Optional[PrefixOverride] = None,
+                               maci: float = 0.0,
+                               norm_factor: float = 1.0,
+                               frailty_score: float = 0.0) -> RAFResult:
         """Calculate RAF scores from a list of diagnosis codes.
-        
+
         Args:
             diagnosis_codes: List of diagnosis codes
             demographics: Demographics information
-            
+            prefix_override: Optional prefix to override auto-detected demographic prefix.
+                Use when demographic categorization is incorrect (e.g., ESRD patients with orec=0).
+            maci: Major Adjustment to Coding Intensity (0.0-1.0, default 0.0)
+            norm_factor: Normalization factor (default 1.0)
+            frailty_score: Frailty adjustment score (default 0.0)
+
         Raises:
             ValueError: If diagnosis_codes is empty or not a list
         """
@@ -142,7 +191,9 @@ class HCCInFHIR:
             raise ValueError("diagnosis_codes must be a list")
         if not diagnosis_codes:
             raise ValueError("diagnosis_codes list cannot be empty")
-        
+
         demographics = self._ensure_demographics(demographics)
-        raf_result = self._calculate_raf_from_demographics(diagnosis_codes, demographics)
+        raf_result = self._calculate_raf_from_demographics_and_dx_codes(
+            diagnosis_codes, demographics, prefix_override, maci, norm_factor, frailty_score
+        )
         return raf_result

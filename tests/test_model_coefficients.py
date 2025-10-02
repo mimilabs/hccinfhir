@@ -89,11 +89,61 @@ def test_apply_coefficients_empty():
         snp=False,
         low_income=False
     )
-    
+
     result = apply_coefficients(
         demographics=demographics,
         hcc_set=set(),
         interactions={},
     )
-    
+
     assert result == {'F70_74': 0.395}
+
+def test_prefix_override():
+    """Test that prefix_override parameter correctly overrides auto-detected prefix"""
+    # Create ESRD patient with incorrect orec/crec (should NOT auto-detect as ESRD)
+    demographics = categorize_demographics(
+        age=65,
+        sex='F',
+        dual_elgbl_cd='00',
+        orec='0',  # Not ESRD according to orec
+        crec='0',  # Not ESRD according to crec
+        version='V2',
+        new_enrollee=False,
+        snp=False,
+        low_income=False
+    )
+
+    # Verify patient is NOT auto-detected as ESRD
+    assert demographics.esrd == False
+
+    # Without override, should use community prefix
+    prefix_auto = get_coefficent_prefix(demographics, model_name="CMS-HCC ESRD Model V24")
+    # Since esrd=False, it won't enter the ESRD logic and falls through to default
+
+    # Test override with ESRD dialysis prefix
+    hcc_set = {"134", "135"}  # ESRD-related HCCs
+    interactions = {}
+
+    # Create test coefficients for both prefixes
+    test_coefficients = {
+        ("cna_hcc134", "CMS-HCC ESRD Model V24"): 0.5,  # Community prefix
+        ("cna_hcc135", "CMS-HCC ESRD Model V24"): 0.6,
+        ("di_hcc134", "CMS-HCC ESRD Model V24"): 1.2,   # Dialysis prefix
+        ("di_hcc135", "CMS-HCC ESRD Model V24"): 1.3,
+        ("cna_f65_69", "CMS-HCC ESRD Model V24"): 0.4,
+        ("di_f65_69", "CMS-HCC ESRD Model V24"): 0.8,
+    }
+
+    # Test WITH override - should use DI_ prefix
+    result_with_override = apply_coefficients(
+        demographics=demographics,
+        hcc_set=hcc_set,
+        interactions=interactions,
+        model_name="CMS-HCC ESRD Model V24",
+        coefficients=test_coefficients,
+        prefix_override='DI_'
+    )
+
+    # Should use dialysis coefficients
+    assert result_with_override.get("134") == 1.2
+    assert result_with_override.get("135") == 1.3

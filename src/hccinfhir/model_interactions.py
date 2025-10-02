@@ -8,8 +8,10 @@ def has_any_hcc(hcc_list: list[str], hcc_set: set[str]) -> int:
 def create_demographic_interactions(demographics: Demographics) -> dict:
     """Creates common demographic-based interactions"""
     interactions = {}
-    is_female = demographics.category.startswith('F')
-    is_male = demographics.category.startswith('M')
+    # Determine sex from demographics.sex instead of category
+    # Category can start with 'NEM'/'NEF' for new enrollees, not just 'M'/'F'
+    is_female = demographics.sex in ('F', '2')
+    is_male = demographics.sex in ('M', '1')
     is_aged = not demographics.non_aged
     
     # Original Disability interactions
@@ -33,21 +35,32 @@ def create_demographic_interactions(demographics: Demographics) -> dict:
         nemcaid = True
     ne_origds = int(demographics.age >= 65 and (demographics.orec is not None and demographics.orec == "1"))
     
+    fbd = demographics.fbd
+
     # Four mutually exclusive groups
     interactions.update({
         f'NMCAID_NORIGDIS_{demographics.category}': int(not nemcaid and not ne_origds),
         f'MCAID_NORIGDIS_{demographics.category}': int(nemcaid and not ne_origds),
         f'NMCAID_ORIGDIS_{demographics.category}': int(not nemcaid and ne_origds),
-        f'MCAID_ORIGDIS_{demographics.category}': int(nemcaid and ne_origds)
+        f'MCAID_ORIGDIS_{demographics.category}': int(nemcaid and ne_origds),
+        f'FBD_NORIGDIS_{demographics.category}': int(fbd and not ne_origds),
+        f'FBD_ORIGDIS_{demographics.category}': int(fbd and ne_origds),
+        f'ND_PBD_NORIGDIS_{demographics.category}': int(not fbd and not ne_origds),
+        f'ND_PBD_ORIGDIS_{demographics.category}': int(not fbd and ne_origds)
     })
+
+    # output only non-zero interactions
+    interactions = {k: v for k, v in interactions.items() if v > 0}
 
     return interactions
 
 def create_dual_interactions(demographics: Demographics) -> dict:
     """Creates dual status interactions"""
     interactions = {}
-    is_female = demographics.category.startswith('F')
-    is_male = demographics.category.startswith('M')
+    # Determine sex from demographics.sex instead of category
+    # Category can start with 'NEM'/'NEF' for new enrollees, not just 'M'/'F'
+    is_female = demographics.sex in ('F', '2')
+    is_male = demographics.sex in ('M', '1')
     is_aged = not demographics.non_aged
     
     if demographics.fbd:
@@ -77,12 +90,17 @@ def create_hcc_counts(hcc_set: set[str]) -> dict:
         counts[f'D{i}'] = int(hcc_count == i)
     counts['D10P'] = int(hcc_count >= 10)
     
+    # output only non-zero counts
+    counts = {k: v for k, v in counts.items() if v > 0}
+
     return counts
 
 def get_diagnostic_categories(model_name: ModelName, hcc_set: set[str]) -> dict:
     """Creates disease categories based on model version"""
+    categories = {}
+    
     if model_name == "CMS-HCC Model V28":
-        return {
+        categories = {
             'CANCER_V28': has_any_hcc(['17', '18', '19', '20', '21', '22', '23'], hcc_set),
             'DIABETES_V28': has_any_hcc(['35', '36', '37', '38'], hcc_set),
             'CARD_RESP_FAIL_V28': has_any_hcc(['211', '212', '213'], hcc_set),
@@ -96,7 +114,7 @@ def get_diagnostic_categories(model_name: ModelName, hcc_set: set[str]) -> dict:
             'ULCER_V28': has_any_hcc(['379', '380', '381', '382'], hcc_set)
         }
     elif model_name == "CMS-HCC Model V24":
-        return {
+        categories = {
             'CANCER': has_any_hcc(['8', '9', '10', '11', '12'], hcc_set),
             'DIABETES': has_any_hcc(['17', '18', '19'], hcc_set),
             'CARD_RESP_FAIL': has_any_hcc(['82', '83', '84'], hcc_set),
@@ -109,7 +127,7 @@ def get_diagnostic_categories(model_name: ModelName, hcc_set: set[str]) -> dict:
             'PRESSURE_ULCER': has_any_hcc(['157', '158', '159'],  hcc_set) # added in 2018-11-20
         }
     elif model_name == "CMS-HCC Model V22":
-        return {
+        categories = {
             'CANCER': has_any_hcc(['8', '9', '10', '11', '12'], hcc_set),
             'DIABETES': has_any_hcc(['17', '18', '19'], hcc_set),
             'CARD_RESP_FAIL': has_any_hcc(['82', '83', '84'], hcc_set),
@@ -122,7 +140,7 @@ def get_diagnostic_categories(model_name: ModelName, hcc_set: set[str]) -> dict:
             'PRESSURE_ULCER': has_any_hcc(['157', '158'],  hcc_set) # added in 2012-10-19
         }
     elif model_name == "CMS-HCC ESRD Model V24":
-        return {
+        categories = {
             'CANCER': has_any_hcc(['8', '9', '10', '11', '12'], hcc_set),
             'DIABETES': has_any_hcc(['17', '18', '19'], hcc_set),
             'CARD_RESP_FAIL': has_any_hcc(['82', '83', '84'], hcc_set),
@@ -135,7 +153,7 @@ def get_diagnostic_categories(model_name: ModelName, hcc_set: set[str]) -> dict:
             'gPsychiatric_V24': has_any_hcc(['57', '58', '59', '60'], hcc_set)
         }
     elif model_name == "CMS-HCC ESRD Model V21":
-        return {
+        categories = {
             'CANCER': has_any_hcc(['8', '9', '10', '11', '12'], hcc_set),
             'DIABETES': has_any_hcc(['17', '18', '19'], hcc_set),
             'IMMUNE': int('47' in hcc_set),
@@ -150,7 +168,9 @@ def get_diagnostic_categories(model_name: ModelName, hcc_set: set[str]) -> dict:
     elif model_name == "RxHCC Model V08":
         # RxModel doesn't seem to have any diagnostic category interactions
         return {}
-    return {}
+    
+    # keep the zero-valued categories. Will be filtered out later
+    return categories
 
 def create_disease_interactions(model_name: ModelName, 
                               diagnostic_cats: dict, 
@@ -317,6 +337,9 @@ def create_disease_interactions(model_name: ModelName,
             'NonAged_RXHCC159': demographics.non_aged * int('159' in hcc_set),
             'NonAged_RXHCC163': demographics.non_aged * int('163' in hcc_set)
         })
+
+    # output only non-zero interactions
+    interactions = {k: v for k, v in interactions.items() if v > 0}
     
     return interactions
 

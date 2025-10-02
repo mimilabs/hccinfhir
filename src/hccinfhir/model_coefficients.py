@@ -1,6 +1,6 @@
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Optional
 import importlib.resources
-from hccinfhir.datamodels import ModelName, Demographics
+from hccinfhir.datamodels import ModelName, Demographics, PrefixOverride
 
 # Load default mappings from csv file
 coefficients_file_default = 'ra_coefficients_2026.csv'
@@ -90,15 +90,16 @@ def get_coefficent_prefix(demographics: Demographics,
     return prefix + '_'
 
 
-def apply_coefficients(demographics: Demographics, 
-                      hcc_set: set[str], 
+def apply_coefficients(demographics: Demographics,
+                      hcc_set: set[str],
                       interactions: dict,
                       model_name: ModelName = "CMS-HCC Model V28",
-                      coefficients: Dict[Tuple[str, ModelName], float] = coefficients_default) -> dict:
+                      coefficients: Dict[Tuple[str, ModelName], float] = coefficients_default,
+                      prefix_override: Optional[PrefixOverride] = None) -> dict:
     """Apply risk adjustment coefficients to HCCs and interactions.
 
     This function takes demographic information, HCC codes, and interaction variables and returns
-    a dictionary mapping each variable to its corresponding coefficient value based on the 
+    a dictionary mapping each variable to its corresponding coefficient value based on the
     specified model.
 
     Args:
@@ -108,13 +109,16 @@ def apply_coefficients(demographics: Demographics,
         model_name: Name of the risk adjustment model to use (default: "CMS-HCC Model V28")
         coefficients: Dictionary mapping (variable, model) tuples to coefficient values
             (default: coefficients_default)
+        prefix_override: Optional prefix to override auto-detected demographic prefix.
+            Common values: 'DI_' (ESRD Dialysis), 'DNE_' (ESRD Dialysis New Enrollee),
+            'INS_' (Institutionalized), 'CFA_' (Community Full Dual Aged), etc.
 
     Returns:
         Dictionary mapping HCC codes and interaction variables to their coefficient values
         for variables that are present (HCC in hcc_set or interaction value = 1)
     """
     # Get the coefficient prefix
-    prefix = get_coefficent_prefix(demographics, model_name)
+    prefix = prefix_override if prefix_override is not None else get_coefficent_prefix(demographics, model_name)
     
     output = {}
 

@@ -149,7 +149,6 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
     """
     slds = []
     current_data = ClaimData(claim_type=claim_type)
-    in_claim_loop = False
     in_rendering_provider_loop = False
     claim_control_number = None
 
@@ -166,7 +165,6 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
         elif seg_id == 'NM1' and len(segment) > 1:
             if segment[1] == 'IL':  # Subscriber/Patient
                 current_data.patient_id = get_segment_value(segment, 9)
-                in_claim_loop = False
                 in_rendering_provider_loop = False
             elif segment[1] == '82' and len(segment) > 8 and segment[8] == 'XX':  # Rendering Provider
                 current_data.performing_provider_npi = get_segment_value(segment, 9)
@@ -180,7 +178,6 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
             
         # Process Claim Information
         elif seg_id == 'CLM':
-            in_claim_loop = True
             in_rendering_provider_loop = False
             current_data.claim_id = segment[1] if len(segment) > 1 else None
             
@@ -190,7 +187,7 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
                 current_data.service_type = segment[5][1] if len(segment[5]) > 1 else None
 
         # Process Diagnosis Codes
-        elif seg_id == 'HI' and in_claim_loop:
+        elif seg_id == 'HI': 
             # In 837I, there can be multiple HI segments in the claim
             # Also, in 837I, diagnosis position does not matter
             # We will use continuous numbering for diagnosis codes
@@ -220,7 +217,7 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
         #   SV205 (Required) - Unit Count: Format 9999999.999 (whole numbers only - fractional quantities not recognized)
         #   NOTE: Diagnosis Code Pointer is not supported for SV2
         #
-        elif seg_id in ['SV1', 'SV2'] and in_claim_loop:
+        elif seg_id in ['SV1', 'SV2']:
             
             linked_diagnoses = []
             

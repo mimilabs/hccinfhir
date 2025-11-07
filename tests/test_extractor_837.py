@@ -1,7 +1,7 @@
 import pytest
 import importlib.resources
 from hccinfhir.extractor import extract_sld, extract_sld_list
-from hccinfhir.extractor_837 import ClaimData, parse_date, parse_amount
+from hccinfhir.extractor_837 import parse_date, parse_amount
 
 def load_sample_837(casenum=0):
     with importlib.resources.open_text('hccinfhir.sample_files', 
@@ -20,17 +20,6 @@ def test_parse_amount():
     assert parse_amount("0") == 0.0
     assert parse_amount("invalid") is None
     assert parse_amount("") is None
-
-
-def test_claim_data_initialization():
-    """Test ClaimData class initialization"""
-    claim = ClaimData(claim_id="12345", claim_type="professional")
-    assert claim.claim_type == "professional"
-    assert claim.patient_id is None
-    assert claim.performing_provider_npi is None
-    assert claim.provider_specialty is None
-    assert claim.facility_type is None
-    assert claim.dx_lookup == {}
 
 # Integration Tests
 def test_extract_sld_basic():

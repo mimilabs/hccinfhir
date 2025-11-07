@@ -7,17 +7,23 @@ CLAIM_TYPES = {
     "005010X223A2": "837I"      # Institutional
 }
 
-class ClaimData(BaseModel):
-    """Container for claim-level data"""
-    claim_id: Optional[str] = None
-    patient_id: Optional[str] = None
-    performing_provider_npi: Optional[str] = None
+class HierarchyContext(BaseModel):
+    """Tracks the current position in the 837 hierarchy"""
     billing_provider_npi: Optional[str] = None
-    provider_specialty: Optional[str] = None
+    subscriber_patient_id: Optional[str] = None
+    patient_patient_id: Optional[str] = None
+    current_hl_level: Optional[str] = None
+    current_hl_id: Optional[str] = None
+
+class ClaimContext(BaseModel):
+    """Claim-level data that resets for each CLM segment"""
+    claim_id: Optional[str] = None
+    dx_lookup: Dict[str, str] = {}
     facility_type: Optional[str] = None
     service_type: Optional[str] = None
-    claim_type: str
-    dx_lookup: Dict[str, str] = {}
+    performing_provider_npi: Optional[str] = None
+    provider_specialty: Optional[str] = None
+    last_nm1_qualifier: Optional[str] = None
 
 def parse_date(date_str: str) -> Optional[str]:
     """Convert 8-digit date string to ISO format YYYY-MM-DD"""
@@ -146,11 +152,16 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
                 ├── Service Line 2 (2400)
                 └── Service Line N (2400)
     
+    Properly handles multiple loops at each hierarchy level:
+    - Multiple Billing Providers (2000A)
+    - Multiple Subscribers per Billing Provider (2000B)
+    - Multiple Patients per Subscriber (2000C)
+    - Multiple Claims per Patient/Subscriber (2300)
+    - Multiple Service Lines per Claim (2400)
     """
     slds = []
-    current_data = ClaimData(claim_type=claim_type)
-    in_rendering_provider_loop = False
-    claim_control_number = None
+    hierarchy = HierarchyContext()
+    claim = ClaimContext()
 
     for i, segment in enumerate(segments):
         if len(segment) < 2:
@@ -158,46 +169,89 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
             
         seg_id = segment[0]
         
-        # Process NM1 segments (Provider and Patient info)
-        if seg_id == 'ST':
-            claim_control_number = segment[2] if len(segment) > 2 else None
-
-        elif seg_id == 'NM1' and len(segment) > 1:
-            if segment[1] == 'IL':  # Subscriber/Patient
-                current_data.patient_id = get_segment_value(segment, 9)
-                in_rendering_provider_loop = False
-            elif segment[1] == '82' and len(segment) > 8 and segment[8] == 'XX':  # Rendering Provider
-                current_data.performing_provider_npi = get_segment_value(segment, 9)
-                in_rendering_provider_loop = True
-            elif segment[1] == '85' and len(segment) > 8 and segment[8] == 'XX':  # Billing Provider
-                current_data.billing_provider_npi = get_segment_value(segment, 9)
-                
-        # Process Provider Specialty
-        elif seg_id == 'PRV' and len(segment) > 1 and segment[1] == 'PE' and in_rendering_provider_loop:
-            current_data.provider_specialty = get_segment_value(segment, 3)
+        # ===== HIERARCHY LEVEL TRACKING (HL segments) =====
+        if seg_id == 'HL' and len(segment) >= 4:
+            hl_id = segment[1]
+            parent_id = segment[2] if segment[2] else None
+            level_code = segment[3]
             
-        # Process Claim Information
+            hierarchy.current_hl_id = hl_id
+            hierarchy.current_hl_level = level_code
+            
+            if level_code == '20':  # New Billing Provider
+                hierarchy.billing_provider_npi = None
+                hierarchy.subscriber_patient_id = None
+                hierarchy.patient_patient_id = None
+                claim = ClaimContext()
+                
+            elif level_code == '22':  # New Subscriber
+                hierarchy.subscriber_patient_id = None
+                hierarchy.patient_patient_id = None
+                claim = ClaimContext()
+                
+            elif level_code == '23':  # New Patient
+                hierarchy.patient_patient_id = None
+                claim = ClaimContext()
+
+       # ===== NAME/IDENTIFICATION (NM1 segments) =====
+        elif seg_id == 'NM1' and len(segment) > 1:
+            qualifier = segment[1]
+            claim.last_nm1_qualifier = qualifier
+            
+            # Billing Provider (2010AA in 2000A)
+            if qualifier == '85' and len(segment) > 8 and segment[8] == 'XX':
+                hierarchy.billing_provider_npi = get_segment_value(segment, 9)
+                
+            # Subscriber or Patient (2010BA in 2000B)
+            elif qualifier == 'IL':
+                patient_id = get_segment_value(segment, 9)
+                if hierarchy.current_hl_level == '22':  # Subscriber level
+                    hierarchy.subscriber_patient_id = patient_id
+                    hierarchy.patient_patient_id = None
+                elif hierarchy.current_hl_level == '23':  # Patient level
+                    hierarchy.patient_patient_id = patient_id
+                else:
+                    # Fallback: assume subscriber
+                    hierarchy.subscriber_patient_id = patient_id
+                    
+            # Patient (2010CA in 2000C)
+            elif qualifier == 'QC':
+                hierarchy.patient_patient_id = get_segment_value(segment, 9)
+                
+            # Performing/Rendering Provider (2310D in 2300)
+            elif qualifier == '82' and len(segment) > 8 and segment[8] == 'XX':
+                claim.performing_provider_npi = get_segment_value(segment, 9)
+        
+                
+        # ===== PROVIDER SPECIALTY (PRV segment) =====
+        elif seg_id == 'PRV' and len(segment) > 3 and segment[1] == 'PE':
+            # Only apply if last NM1 was performing provider (82)
+            if claim.last_nm1_qualifier == '82':
+                claim.provider_specialty = get_segment_value(segment, 3)
+           
+        # ===== CLAIM LEVEL (CLM segment - starts 2300 loop) =====
         elif seg_id == 'CLM':
-            in_rendering_provider_loop = False
-            current_data.claim_id = segment[1] if len(segment) > 1 else None
+            claim = ClaimContext()
+            claim.claim_id = segment[1] if len(segment) > 1 else None
             
             # Parse facility and service type for institutional claims
             if claim_type == "837I" and len(segment) > 5 and segment[5] and ':' in segment[5]:
-                current_data.facility_type = segment[5][0] if segment[5] else None
-                current_data.service_type = segment[5][1] if len(segment[5]) > 1 else None
-
-        # Process Diagnosis Codes
-        elif seg_id == 'HI': 
+                claim.facility_type = segment[5][0] if segment[5] else None
+                claim.service_type = segment[5][1] if len(segment[5]) > 1 else None
+        
+        # ===== DIAGNOSIS CODES (HI segment) =====
+        elif seg_id == 'HI':
             # In 837I, there can be multiple HI segments in the claim
             # Also, in 837I, diagnosis position does not matter
             # We will use continuous numbering for diagnosis codes
             # use the last dx_lookup position as the starting position, and update
             hi_segment = parse_diagnosis_codes(segment)
+            # Re-index for multiple HI segments in same claim
             hi_segment_realigned = {
-                str(int(pos) + len(current_data.dx_lookup)): code
+                str(int(pos) + len(claim.dx_lookup)): code
                 for pos, code in hi_segment.items()
             }
-            current_data.dx_lookup.update(hi_segment_realigned)
+            claim.dx_lookup.update(hi_segment_realigned)
             
         # Process Service Lines
         # 
@@ -217,54 +271,56 @@ def parse_837_claim_to_sld(segments: List[List[str]], claim_type: str) -> List[S
         #   SV205 (Required) - Unit Count: Format 9999999.999 (whole numbers only - fractional quantities not recognized)
         #   NOTE: Diagnosis Code Pointer is not supported for SV2
         #
+        # ===== SERVICE LINE (SV1/SV2 segments - 2400 loop) =====
         elif seg_id in ['SV1', 'SV2']:
-            
             linked_diagnoses = []
             
             if seg_id == 'SV1':
-                # SV1 Professional Service: SV101=procedure, SV104=quantity, SV106=place_of_service
+                # SV1 Professional Service
                 proc_info = get_segment_value(segment, 1, '').split(':')
                 procedure_code = proc_info[1] if len(proc_info) > 1 else None
                 modifiers = proc_info[2:] if len(proc_info) > 2 else []
                 quantity = parse_amount(get_segment_value(segment, 4))
                 place_of_service = get_segment_value(segment, 5)
-                # Get diagnosis pointers and linked diagnoses
+                
+                # Get diagnosis pointers and resolve to actual codes
                 dx_pointers = get_segment_value(segment, 7, '')
                 linked_diagnoses = [
-                    current_data.dx_lookup[pointer]
+                    claim.dx_lookup[pointer]
                     for pointer in (dx_pointers.split(':') if dx_pointers else [])
-                    if pointer in current_data.dx_lookup
+                    if pointer in claim.dx_lookup
                 ]
             else:
-                # SV2 Institutional Service: SV201=revenue, SV202=procedure, SV205=quantity
-                # Revenue code in SV201
+                # SV2 Institutional Service
                 revenue_code = get_segment_value(segment, 1)
-                # Procedure code in SV202
                 proc_info = get_segment_value(segment, 2, '').split(':')
                 procedure_code = proc_info[1] if len(proc_info) > 1 else None
                 modifiers = proc_info[2:] if len(proc_info) > 2 else []
-                # Quantity in SV205
                 quantity = parse_amount(get_segment_value(segment, 5))
-                place_of_service = None  # Not applicable for institutional
-                # linked diagnoses are not supported for SV2
-                
+                place_of_service = None
             
-            # Get service line details
+            # Get service line details (NDC, dates) - lookback from current segment index
             ndc, service_date = process_service_line(segments, i)
+            
+            # Determine effective patient ID (prefer patient level, fallback to subscriber)
+            effective_patient_id = (
+                hierarchy.patient_patient_id or 
+                hierarchy.subscriber_patient_id
+            )
             
             # Create service level data
             service_data = ServiceLevelData(
-                claim_id=current_data.claim_id,
+                claim_id=claim.claim_id,
                 procedure_code=procedure_code,
                 linked_diagnosis_codes=linked_diagnoses,
-                claim_diagnosis_codes=list(current_data.dx_lookup.values()), # this is used for risk adjustment
-                claim_type=current_data.claim_type,
-                provider_specialty=current_data.provider_specialty,
-                performing_provider_npi=current_data.performing_provider_npi,
-                billing_provider_npi=current_data.billing_provider_npi,
-                patient_id=current_data.patient_id,
-                facility_type=current_data.facility_type,
-                service_type=current_data.service_type,
+                claim_diagnosis_codes=list(claim.dx_lookup.values()),
+                claim_type=claim_type,
+                provider_specialty=claim.provider_specialty,
+                performing_provider_npi=claim.performing_provider_npi,  # ✅ Correct field
+                billing_provider_npi=hierarchy.billing_provider_npi,
+                patient_id=effective_patient_id,
+                facility_type=claim.facility_type,
+                service_type=claim.service_type,
                 service_date=service_date,
                 place_of_service=place_of_service,
                 quantity=quantity,

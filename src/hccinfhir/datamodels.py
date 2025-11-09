@@ -146,3 +146,65 @@ class RAFResult(BaseModel):
     service_level_data: Optional[List[ServiceLevelData]] = Field(default=None, description="Processed service records")
     
     model_config = {"extra": "forbid", "validate_assignment": True}
+
+class EnrollmentData(BaseModel):
+    """
+    Enrollment and demographic data extracted from 834 transactions.
+
+    Focus: Extract data needed for risk adjustment and Medicaid coverage tracking.
+
+    Attributes:
+        member_id: Unique identifier for the member
+        mbi: Medicare Beneficiary Identifier
+        medicaid_id: Medicaid/Medi-Cal ID number
+        dob: Date of birth (YYYY-MM-DD)
+        age: Calculated age
+        sex: Member sex (M/F)
+        maintenance_type: 001=Change, 021=Add, 024=Cancel, 025=Reinstate
+        coverage_start_date: Coverage effective date
+        coverage_end_date: Coverage termination date (critical for Medicaid loss detection)
+        has_medicare: Member has Medicare coverage
+        has_medicaid: Member has Medicaid coverage
+        dual_elgbl_cd: Dual eligibility status code ('00','01'-'08')
+        is_full_benefit_dual: Full Benefit Dual (uses CFA_/CFD_ prefix)
+        is_partial_benefit_dual: Partial Benefit Dual (uses CPA_/CPD_ prefix)
+        medicare_status_code: QMB, SLMB, QI, QDWI, etc.
+        medi_cal_aid_code: California Medi-Cal aid code
+        orec: Original Reason for Entitlement Code
+        crec: Current Reason for Entitlement Code
+        snp: Special Needs Plan enrollment
+        low_income: Low Income Subsidy (Part D)
+        lti: Long-Term Institutionalized
+        new_enrollee: New enrollee status (<= 3 months)
+    """
+    # Identifiers
+    member_id: Optional[str] = None
+    mbi: Optional[str] = None
+    medicaid_id: Optional[str] = None
+
+    # Demographics
+    dob: Optional[str] = None
+    age: Optional[int] = None
+    sex: Optional[str] = None
+
+    # Coverage tracking
+    maintenance_type: Optional[str] = None
+    coverage_start_date: Optional[str] = None
+    coverage_end_date: Optional[str] = None
+
+    # Medicaid/Medicare Status
+    has_medicare: bool = False
+    has_medicaid: bool = False
+    dual_elgbl_cd: Optional[str] = None
+    is_full_benefit_dual: bool = False
+    is_partial_benefit_dual: bool = False
+    medicare_status_code: Optional[str] = None
+    medi_cal_aid_code: Optional[str] = None
+
+    # Risk Adjustment Fields
+    orec: Optional[str] = None
+    crec: Optional[str] = None
+    snp: bool = False
+    low_income: bool = False
+    lti: bool = False
+    new_enrollee: bool = False

@@ -16,8 +16,9 @@ HCCInFHIR processes healthcare data to calculate Medicare risk adjustment scores
 
 1. **FHIR ExplanationOfBenefit resources** - from CMS Blue Button 2.0 API
 2. **X12 837 claim files** - from clearinghouses and encounter data
-3. **Direct diagnosis codes** - for quick calculations
-4. **Service-level data** - standardized internal format
+3. **X12 834 enrollment files** - for extracting dual eligibility and demographic data
+4. **Direct diagnosis codes** - for quick calculations
+5. **Service-level data** - standardized internal format
 
 The library implements the official CMS-HCC risk adjustment methodology, including:
 - Diagnosis code to HCC mapping
@@ -142,6 +143,33 @@ from hccinfhir.extractor_837 import extract_sld_from_837
 # X12 837 claim text
 x12_text = "ISA*00*          *00*          *ZZ*..."
 service_data = extract_sld_from_837(x12_text)
+```
+
+**Extract from X12 834 (Enrollment/Demographics):**
+```python
+from hccinfhir.extractor_834 import (
+    extract_enrollment_834,
+    enrollment_to_demographics,
+    is_losing_medicaid,
+    medicaid_status_summary
+)
+
+# X12 834 enrollment file
+x12_text = "ISA*00*          *00*          *ZZ*..."
+enrollments = extract_enrollment_834(x12_text)
+
+# Get member demographics for risk calculation
+for enrollment in enrollments:
+    demographics = enrollment_to_demographics(enrollment)
+
+    # Check if member is losing Medicaid coverage
+    if is_losing_medicaid(enrollment, within_days=90):
+        print(f"Alert: {enrollment.member_id} losing Medicaid soon!")
+
+    # Get comprehensive Medicaid status
+    status = medicaid_status_summary(enrollment)
+    print(f"Dual Status: {status['dual_status']}")
+    print(f"Full Benefit Dual: {status['is_full_benefit_dual']}")
 ```
 
 #### Step 2: Filtering (`filter.py`)
@@ -288,6 +316,244 @@ for patient in patients:
         "risk_score": result.risk_score,
         "hccs": result.hcc_list
     })
+```
+
+## 834 Enrollment Parser - Medicaid Dual Eligibility Tracking
+
+### Overview
+
+The 834 parser (`extractor_834.py`) extracts enrollment and demographic data from X12 834 Benefit Enrollment transactions, with a specific focus on **California DHCS Medi-Cal** dual eligibility status. This is critical for risk adjustment because dual-eligible beneficiaries receive different coefficient prefixes, resulting in significant RAF score differences.
+
+### Why Medicaid Dual Status Matters for Risk Scores
+
+**Impact Example:**
+```python
+# 72-year-old female with diabetes (E11.9 → HCC19)
+
+# Non-Dual (Medi-Cal only or Medicare only)
+demographics = Demographics(age=72, sex='F', dual_elgbl_cd='00')
+# Uses prefix: CNA_ (Community, Non-Dual, Aged)
+# RAF Score: ~1.2
+
+# Full Benefit Dual (QMB Plus, SLMB Plus)
+demographics = Demographics(age=72, sex='F', dual_elgbl_cd='02')
+# Uses prefix: CFA_ (Community, Full Benefit Dual, Aged)
+# RAF Score: ~1.8  (50% higher!)
+
+# Partial Benefit Dual (QMB Only, SLMB Only, QI)
+demographics = Demographics(age=72, sex='F', dual_elgbl_cd='01')
+# Uses prefix: CPA_ (Community, Partial Benefit Dual, Aged)
+# RAF Score: ~1.4
+```
+
+### What the 834 Parser Extracts
+
+#### Critical Fields for Risk Adjustment:
+1. **dual_elgbl_cd** - Dual eligibility status ('00','01'-'08')
+   - '01' = QMB Only (Partial Benefit)
+   - '02' = QMB Plus (Full Benefit)
+   - '03' = SLMB Only (Partial Benefit)
+   - '04' = SLMB Plus (Full Benefit)
+   - '05' = QDWI
+   - '06' = QI (Qualifying Individual)
+   - '08' = Other Full Benefit Dual
+
+2. **Demographics** - age, sex, DOB
+3. **OREC/CREC** - For ESRD detection
+4. **SNP** - Special Needs Plan enrollment
+5. **New Enrollee** - Coverage start date < 3 months
+
+#### Critical Fields for Medicaid Loss Detection:
+6. **coverage_end_date** - When Medicaid coverage terminates
+7. **maintenance_type** - '024' = Cancellation/Termination
+8. **has_medicaid** / **has_medicare** - Coverage indicators
+
+### Basic Usage
+
+```python
+from hccinfhir.extractor_834 import extract_enrollment_834, enrollment_to_demographics
+
+# Load 834 file
+with open('dhcs_834_file.txt', 'r') as f:
+    content = f.read()
+
+# Parse enrollments
+enrollments = extract_enrollment_834(content)
+
+# Process each member
+for enrollment in enrollments:
+    print(f"Member: {enrollment.member_id}")
+    print(f"MBI: {enrollment.mbi}")
+    print(f"Medicaid ID: {enrollment.medicaid_id}")
+    print(f"Dual Status: {enrollment.dual_elgbl_cd}")
+    print(f"Full Benefit Dual: {enrollment.is_full_benefit_dual}")
+    print(f"Partial Benefit Dual: {enrollment.is_partial_benefit_dual}")
+
+    # Convert to Demographics for RAF calculation
+    demographics = enrollment_to_demographics(enrollment)
+```
+
+### Medicaid Loss Detection
+
+**Use Case:** Detect when members will lose Medicaid coverage, causing dual-eligible status to end and RAF scores to drop.
+
+```python
+from hccinfhir.extractor_834 import (
+    extract_enrollment_834,
+    is_losing_medicaid,
+    is_medicaid_terminated,
+    medicaid_status_summary
+)
+
+enrollments = extract_enrollment_834(content)
+
+for enrollment in enrollments:
+    # Check if losing Medicaid within 90 days
+    if is_losing_medicaid(enrollment, within_days=90):
+        print(f"⚠️  ALERT: {enrollment.member_id} losing Medicaid!")
+        print(f"   Coverage ends: {enrollment.coverage_end_date}")
+        print(f"   Current dual status: {enrollment.dual_elgbl_cd}")
+        print(f"   Expected RAF impact: -30% to -50%")
+
+    # Check if Medicaid is being terminated
+    if is_medicaid_terminated(enrollment):
+        print(f"⚠️  TERMINATION: {enrollment.member_id} Medicaid canceled")
+
+    # Get comprehensive status summary
+    status = medicaid_status_summary(enrollment)
+    print(f"Status Summary: {status}")
+    # Returns:
+    # {
+    #   'member_id': 'MBR001',
+    #   'has_medicaid': True,
+    #   'has_medicare': True,
+    #   'dual_status': '02',
+    #   'is_full_benefit_dual': True,
+    #   'is_partial_benefit_dual': False,
+    #   'coverage_end_date': '2025-12-31',
+    #   'is_termination': False,
+    #   'losing_medicaid_30d': False,
+    #   'losing_medicaid_60d': False,
+    #   'losing_medicaid_90d': False
+    # }
+```
+
+### California DHCS Medi-Cal Specific Features
+
+The parser is optimized for California DHCS 834 files with these state-specific mappings:
+
+#### Aid Code Mapping (REF*AB segment)
+```python
+# Full Benefit Dual codes
+'4N': '02'  # QMB Plus - Aged
+'4P': '02'  # QMB Plus - Disabled
+'5B': '04'  # SLMB Plus - Aged
+'5D': '04'  # SLMB Plus - Disabled
+
+# Partial Benefit Dual codes
+'4M': '01'  # QMB Only - Aged
+'4O': '01'  # QMB Only - Disabled
+'5A': '03'  # SLMB Only - Aged
+'5C': '03'  # SLMB Only - Disabled
+'5E': '06'  # QI - Aged
+'5F': '06'  # QI - Disabled
+```
+
+#### Medicare Status Code Mapping (REF*ABB segment)
+```python
+'QMB' / 'QMBONLY': '01'      # Partial Benefit
+'QMBPLUS' / 'QMB+': '02'     # Full Benefit
+'SLMB' / 'SLMBONLY': '03'    # Partial Benefit
+'SLMBPLUS' / 'SLMB+': '04'   # Full Benefit
+'QI' / 'QI1': '06'           # Partial Benefit
+'QDWI': '05'                 # Partial Benefit
+```
+
+### Key 834 Segments Parsed
+
+```
+Loop 2000 - Member Level
+    INS - Member Level Detail
+        INS03 - Maintenance Type (001=Change, 021=Add, 024=Cancel)
+
+    REF - Reference Identifiers
+        REF*0F - Subscriber Number
+        REF*6P - Medicare Beneficiary Identifier (MBI)
+        REF*1D - Medicaid ID
+        REF*AB - California Medi-Cal Aid Code
+        REF*ABB - Medicare Status Code (QMB, SLMB, etc.)
+
+    NM1*IL - Member Name & ID
+
+    DMG - Demographics (DOB, Sex) ***CRITICAL***
+
+    DTP - Date Time Periods
+        DTP*348 - Coverage Begin Date
+        DTP*349 - Coverage End Date ***CRITICAL for loss detection***
+        DTP*338 - Medicare Part A/B Effective Date
+
+    HD - Health Coverage ***CRITICAL for dual status***
+        Detects Medicare, Medicaid, D-SNP keywords
+```
+
+### Dual Status Determination Priority
+
+The parser uses intelligent logic to determine dual eligibility:
+
+1. **Priority 1**: Explicit dual_elgbl_cd from REF*F5 (custom)
+2. **Priority 2**: California aid code (REF*AB) mapping
+3. **Priority 3**: Medicare status code (REF*ABB) mapping
+4. **Priority 4**: Both Medicare AND Medicaid coverage present → defaults to '08' (Other Full Dual)
+5. **Default**: '00' (Non-dual)
+
+### Integration with Risk Calculation
+
+```python
+from hccinfhir import HCCInFHIR
+from hccinfhir.extractor_834 import extract_enrollment_834, enrollment_to_demographics
+from hccinfhir.extractor_837 import extract_sld_837
+
+# Parse enrollment data
+enrollments_834 = extract_enrollment_834(content_834)
+
+# Parse claims data
+service_data_837 = extract_sld_837(content_837)
+
+# Match member and calculate RAF
+processor = HCCInFHIR()
+
+for enrollment in enrollments_834:
+    # Get demographics from 834
+    demographics = enrollment_to_demographics(enrollment)
+
+    # Filter claims for this member
+    member_claims = [sld for sld in service_data_837 if sld.patient_id == enrollment.member_id]
+
+    # Calculate RAF score
+    result = processor.run_from_service_data(member_claims, demographics)
+
+    print(f"Member: {enrollment.member_id}")
+    print(f"Dual Status: {enrollment.dual_elgbl_cd}")
+    print(f"RAF Score: {result.risk_score}")
+```
+
+### Sample Data
+
+Sample 834 file available at: `src/hccinfhir/sample_files/sample_834_01.txt`
+
+Includes 5 test scenarios:
+1. QMB Plus (Full Benefit Dual) with D-SNP
+2. QMB Only (Partial Benefit Dual) via aid code
+3. SLMB Plus with coverage ending (Medicaid loss scenario)
+4. Medi-Cal only (no Medicare)
+5. Medicare only (new enrollee)
+
+```python
+from hccinfhir import get_834_sample  # If added to samples.py
+
+# Get sample 834
+content_834 = get_834_sample("sample_01")
+enrollments = extract_enrollment_834(content_834)
 ```
 
 ## Architecture Overview

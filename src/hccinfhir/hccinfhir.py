@@ -189,9 +189,7 @@ class HCCInFHIR:
         """
         if not isinstance(diagnosis_codes, list):
             raise ValueError("diagnosis_codes must be a list")
-        if not diagnosis_codes:
-            raise ValueError("diagnosis_codes list cannot be empty")
-
+        
         demographics = self._ensure_demographics(demographics)
         raf_result = self._calculate_raf_from_demographics_and_dx_codes(
             diagnosis_codes, demographics, prefix_override, maci, norm_factor, frailty_score

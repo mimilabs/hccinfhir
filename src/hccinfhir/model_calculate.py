@@ -124,9 +124,9 @@ def calculate_raf(diagnosis_codes: List[str],
                                                    prefix_override=prefix_override)
     
     # Calculate risk scores
-    print(f"Coefficients: {coefficients}")
+    #print(f"Coefficients: {coefficients}")
     risk_score = sum(coefficients.values())
-    print(f"Risk Score: {risk_score}")
+    #print(f"Risk Score: {risk_score}")
     risk_score_demographics = sum(coefficients_demographics.values())
     risk_score_chronic_only = sum(coefficients_chronic_only.values()) - risk_score_demographics
     risk_score_hcc = risk_score - risk_score_demographics

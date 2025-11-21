@@ -29,6 +29,7 @@ def calculate_raf(diagnosis_codes: List[str],
                   graft_months: int =  None,
                   dx_to_cc_mapping: Dict[Tuple[str, ModelName], Set[str]] = dx_to_cc_default,
                   is_chronic_mapping: Dict[Tuple[str, ModelName], bool] = is_chronic_default,
+                  hierarchies_mapping: Dict[Tuple[str, ModelName], Set[str]] = None,
                   prefix_override: Optional[PrefixOverride] = None,
                   maci: float = 0.0,
                   norm_factor: float = 1.0,
@@ -37,24 +38,31 @@ def calculate_raf(diagnosis_codes: List[str],
     Calculate Risk Adjustment Factor (RAF) based on diagnosis codes and demographic information.
 
     Args:
-        diagnosis_codes: List of ICD-10 diagnosis codes
-        model_name: Name of the HCC model to use
-        age: Patient's age
-        sex: Patient's sex ('M' or 'F')
-        dual_elgbl_cd: Dual eligibility code
-        orec: Original reason for entitlement code
-        crec: Current reason for entitlement code
-        new_enrollee: Whether the patient is a new enrollee
-        snp: Special Needs Plan indicator
-        low_income: Low income subsidy indicator
-        graft_months: Number of months since transplant
+        diagnosis_codes: List of ICD-10 diagnosis codes.
+        model_name: Name of the HCC model to use.
+        age: Patient's age.
+        sex: Patient's sex ('M' or 'F').
+        dual_elgbl_cd: Dual eligibility code.
+        orec: Original reason for entitlement code.
+        crec: Current reason for entitlement code.
+        new_enrollee: Whether the patient is a new enrollee.
+        snp: Special Needs Plan indicator.
+        low_income: Low income subsidy indicator.
+        lti: Long-term institutional status indicator.
+        graft_months: Number of months since transplant.
+        dx_to_cc_mapping: Mapping of diagnosis codes to condition categories; defaults to packaged CMS mappings.
+        is_chronic_mapping: Mapping of HCCs to a chronic flag for the selected model.
+        hierarchies_mapping: Optional pre-loaded hierarchy mapping; defaults to loading from package data.
         prefix_override: Optional prefix to override auto-detected demographic prefix.
             Use when demographic categorization from orec/crec is incorrect.
             Common values: 'DI_' (ESRD Dialysis), 'DNE_' (ESRD Dialysis New Enrollee),
             'INS_' (Institutionalized), 'CFA_' (Community Full Dual Aged), etc.
+        maci: Medicare Advantage coding intensity adjustment applied to payment score.
+        norm_factor: Normalization factor applied to payment score.
+        frailty_score: Frailty adjustment added to payment score.
 
     Returns:
-        Dictionary containing RAF score and coefficients used in calculation
+        RAFResult with the calculated risk scores, intermediate inputs, and metadata for the model run.
 
     Raises:
         ValueError: If input parameters are invalid
@@ -89,7 +97,10 @@ def calculate_raf(diagnosis_codes: List[str],
                              model_name,
                              dx_to_cc_mapping=dx_to_cc_mapping)
     hcc_set = set(cc_to_dx.keys())
-    hcc_set = apply_hierarchies(hcc_set, model_name)
+    if hierarchies_mapping is None:
+        hcc_set = apply_hierarchies(hcc_set, model_name)
+    else:
+        hcc_set = apply_hierarchies(hcc_set, model_name, hierarchies_mapping)
     interactions = apply_interactions(demographics, hcc_set, model_name)
     coefficients = apply_coefficients(demographics, hcc_set, interactions, model_name,
                                      prefix_override=prefix_override)

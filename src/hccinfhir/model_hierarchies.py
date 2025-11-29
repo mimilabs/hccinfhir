@@ -1,29 +1,43 @@
-from typing import Dict, Set, Tuple
+from typing import Dict, Set, Tuple, Optional
 import importlib.resources
 from hccinfhir.datamodels import ModelName  
 
 def load_hierarchies(hierarchies_file: str) -> Dict[Tuple[str, ModelName], Set[str]]:
     """Load hierarchies from a CSV file."""
-    hierarchies = {}
+    hierarchies: Dict[Tuple[str, ModelName], Set[str]] = {}
+    content: Optional[str] = None
+
     try:
-        with importlib.resources.open_text('hccinfhir.data', hierarchies_file) as f:
-            for line in f.readlines()[1:]:  # Skip header
-                try:
-                    cc_parent, cc_child, model_domain, model_version, _ = line.strip().split(',')
-                    if model_domain == 'ESRD':
-                        model_name = f"CMS-HCC {model_domain} Model {model_version}"
-                    else:
-                        model_name = f"{model_domain} Model {model_version}"
-                    key = (cc_parent, model_name)
-                    if key not in hierarchies:
-                        hierarchies[key] = {cc_child}
-                    else:
-                        hierarchies[key].add(cc_child)
-                except ValueError:
-                    continue  # Skip malformed lines
+        with open(hierarchies_file, "r", encoding="utf-8") as file:
+            content = file.readlines()
+    except FileNotFoundError:
+        try:
+            with importlib.resources.open_text('hccinfhir.data', hierarchies_file, encoding="utf-8") as file:
+                content = file.readlines()
+        except Exception as e:
+            print(f"Error loading mapping file: {e}")
+            return {}
     except Exception as e:
         print(f"Error loading mapping file: {e}")
-        hierarchies = {}
+        return {}
+
+    if content is None:
+        return {}
+
+    for line in content[1:]:  # Skip header
+        try:
+            cc_parent, cc_child, model_domain, model_version, _ = line.strip().split(',')
+            if model_domain == 'ESRD':
+                model_name = f"CMS-HCC {model_domain} Model {model_version}"
+            else:
+                model_name = f"{model_domain} Model {model_version}"
+            key = (cc_parent, model_name)
+            if key not in hierarchies:
+                hierarchies[key] = {cc_child}
+            else:
+                hierarchies[key].add(cc_child)
+        except ValueError:
+            continue  # Skip malformed lines
     return hierarchies
 
 # Load default mappings from csv file

@@ -1,31 +1,5 @@
 from typing import Dict, Tuple, Optional
-import importlib.resources
 from hccinfhir.datamodels import ModelName, Demographics, PrefixOverride
-
-# Load default mappings from csv file
-coefficients_file_default = 'ra_coefficients_2026.csv'
-coefficients_default: Dict[Tuple[str, ModelName], float] = {}  # (diagnosis_code, model_name) -> value
-
-try:
-    with importlib.resources.open_text('hccinfhir.data', coefficients_file_default) as f:
-        for line in f.readlines()[1:]:  # Skip header
-            try:
-                coefficient, value, model_domain, model_version = line.strip().split(',')
-                if model_domain == 'ESRD':  
-                    model_name = f"CMS-HCC {model_domain} Model V{model_version[-2:]}"
-                else:
-                    model_name = f"{model_domain} Model V{model_version[-2:]}"
-                
-                key = (coefficient.lower(), model_name)
-                if key not in coefficients_default:
-                    coefficients_default[key] = float(value)
-                else:
-                    coefficients_default[key] = float(value)
-            except ValueError:
-                continue  # Skip malformed lines
-except Exception as e:
-    print(f"Error loading mapping file: {e}")
-    coefficients_default = {}
 
 def get_coefficent_prefix(demographics: Demographics, 
                           model_name: ModelName = "CMS-HCC Model V28") -> str:
@@ -93,8 +67,8 @@ def get_coefficent_prefix(demographics: Demographics,
 def apply_coefficients(demographics: Demographics,
                       hcc_set: set[str],
                       interactions: dict,
-                      model_name: ModelName = "CMS-HCC Model V28",
-                      coefficients: Dict[Tuple[str, ModelName], float] = coefficients_default,
+                      model_name: ModelName,
+                      coefficients: Dict[Tuple[str, ModelName], float],
                       prefix_override: Optional[PrefixOverride] = None) -> dict:
     """Apply risk adjustment coefficients to HCCs and interactions.
 
@@ -108,7 +82,6 @@ def apply_coefficients(demographics: Demographics,
         interactions: Dictionary of interaction variables and their values (0 or 1)
         model_name: Name of the risk adjustment model to use (default: "CMS-HCC Model V28")
         coefficients: Dictionary mapping (variable, model) tuples to coefficient values
-            (default: coefficients_default)
         prefix_override: Optional prefix to override auto-detected demographic prefix.
             Common values: 'DI_' (ESRD Dialysis), 'DNE_' (ESRD Dialysis New Enrollee),
             'INS_' (Institutionalized), 'CFA_' (Community Full Dual Aged), etc.

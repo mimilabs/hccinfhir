@@ -65,6 +65,7 @@ def test_apply_coefficients():
         demographics=demographics,
         hcc_set=hcc_set,
         interactions=interactions,
+        model_name="CMS-HCC Model V28",
         coefficients=test_coefficients
     )
 
@@ -94,6 +95,8 @@ def test_apply_coefficients_empty():
         demographics=demographics,
         hcc_set=set(),
         interactions={},
+        model_name="CMS-HCC Model V28",
+        coefficients={("cna_f70_74", "CMS-HCC Model V28"): 0.395}  # Mock coefficient
     )
 
     assert result == {'F70_74': 0.395}

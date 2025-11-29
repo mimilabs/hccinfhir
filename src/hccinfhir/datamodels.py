@@ -11,16 +11,47 @@ ModelName = Literal[
     "RxHCC Model V08"
 ]
 
-ProcFilteringFilename = Literal[
-    "ra_eligible_cpt_hcpcs_2023.csv",
-    "ra_eligible_cpt_hcpcs_2024.csv",
-    "ra_eligible_cpt_hcpcs_2025.csv",
-    "ra_eligible_cpt_hcpcs_2026.csv"
+# Filename types: allow bundled filenames (with autocomplete) OR any custom string path
+ProcFilteringFilename = Union[
+    Literal[
+        "ra_eligible_cpt_hcpcs_2023.csv",
+        "ra_eligible_cpt_hcpcs_2024.csv",
+        "ra_eligible_cpt_hcpcs_2025.csv",
+        "ra_eligible_cpt_hcpcs_2026.csv"
+    ],
+    str  # Allow any custom file path
 ]
 
-DxCCMappingFilename = Literal[
-    "ra_dx_to_cc_2025.csv",
-    "ra_dx_to_cc_2026.csv"
+DxCCMappingFilename = Union[
+    Literal[
+        "ra_dx_to_cc_2025.csv",
+        "ra_dx_to_cc_2026.csv"
+    ],
+    str
+]
+
+HierarchiesFilename = Union[
+    Literal[
+        "ra_hierarchies_2025.csv",
+        "ra_hierarchies_2026.csv"
+    ],
+    str
+]
+
+IsChronicFilename = Union[
+    Literal[
+        "hcc_is_chronic.csv",
+        "hcc_is_chronic_without_esrd_model.csv"
+    ],
+    str
+]
+
+CoefficientsFilename = Union[
+    Literal[
+        "ra_coefficients_2025.csv",
+        "ra_coefficients_2026.csv"
+    ],
+    str
 ]
 
 PrefixOverride = Literal[

@@ -157,7 +157,36 @@ class SampleData:
                 raise FileNotFoundError(f"Sample 837 case {case_num} not found")
         
         return output
-    
+
+    @staticmethod
+    def get_834_sample(case_number: int = 1) -> str:
+        """
+        Retrieve a specific 834 enrollment sample by case number.
+
+        Args:
+            case_number: The case number (currently only 1 is available). Default is 1.
+
+        Returns:
+            A string containing the 834 X12 enrollment data
+
+        Raises:
+            ValueError: If case_number is not 1
+            FileNotFoundError: If the sample file cannot be found
+
+        Example:
+            >>> sample_834 = SampleData.get_834_sample(1)
+            >>> print("ISA" in sample_834)
+            True
+        """
+        if case_number != 1:
+            raise ValueError("case_number must be 1 (only one 834 sample currently available)")
+
+        try:
+            with importlib.resources.open_text('hccinfhir.sample_files', f'sample_834_0{case_number}.txt') as f:
+                return f.read()
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Sample 834 case {case_number} not found")
+
     @staticmethod
     def list_available_samples() -> Dict[str, Any]:
         """
@@ -174,7 +203,7 @@ class SampleData:
         return {
             "eob_samples": [
                 "sample_eob_1.json",
-                "sample_eob_2.json", 
+                "sample_eob_2.json",
                 "sample_eob_3.json",
                 "sample_eob_200.ndjson"
             ],
@@ -182,9 +211,12 @@ class SampleData:
             "eob_list_size": 200,
             "837_samples": [f"sample_837_{i}.txt" for i in range(13)],
             "837_case_numbers": list(range(13)),
+            "834_samples": ["sample_834_01.txt"],
+            "834_case_numbers": [1],
             "description": {
                 "eob": "Explanation of Benefits (FHIR resources) for testing HCC calculations",
-                "837": "X12 837 claim data for testing claim processing"
+                "837": "X12 837 claim data for testing claim processing",
+                "834": "X12 834 enrollment data for dual eligibility and demographics"
             }
         }
 
@@ -232,14 +264,27 @@ def get_837_sample(case_number: int = 0) -> str:
 def get_837_sample_list(case_numbers: Optional[List[int]] = None) -> List[str]:
     """
     Convenience function to get multiple 837 claim samples.
-    
+
     Args:
         case_numbers: List of case numbers to retrieve. If None, returns all 12 samples.
-        
+
     Returns:
         A list of 837 X12 claim data strings
     """
     return SampleData.get_837_sample_list(case_numbers)
+
+
+def get_834_sample(case_number: int = 1) -> str:
+    """
+    Convenience function to get an 834 enrollment sample.
+
+    Args:
+        case_number: The case number (currently only 1 is available). Default is 1.
+
+    Returns:
+        A string containing the 834 X12 enrollment data
+    """
+    return SampleData.get_834_sample(case_number)
 
 
 def list_available_samples() -> Dict[str, Any]:

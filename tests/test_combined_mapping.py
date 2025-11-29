@@ -1,8 +1,7 @@
 import pytest
 from hccinfhir.model_dx_to_cc import apply_mapping
 from hccinfhir.model_hierarchies import apply_hierarchies
-from hccinfhir.model_hierarchies import load_hierarchies
-from hccinfhir.utils import load_dx_to_cc_mapping
+from hccinfhir.utils import load_dx_to_cc_mapping, load_hierarchies
 
 
 def test_diabetes_hierarchy_chain_with_custom_files():

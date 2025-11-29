@@ -5,15 +5,7 @@ from hccinfhir.model_dx_to_cc import apply_mapping
 from hccinfhir.model_hierarchies import apply_hierarchies
 from hccinfhir.model_coefficients import apply_coefficients
 from hccinfhir.model_interactions import apply_interactions
-from hccinfhir.utils import load_dx_to_cc_mapping, load_is_chronic
-
-# Load default mappings from csv file
-mapping_file_default = 'ra_dx_to_cc_2026.csv'
-dx_to_cc_default = load_dx_to_cc_mapping(mapping_file_default)
-
-# Load default mappings from csv file
-mapping_file_default = 'hcc_is_chronic.csv'
-is_chronic_default = load_is_chronic(mapping_file_default)
+from hccinfhir.defaults import dx_to_cc_default, hierarchies_default, is_chronic_default, coefficients_default
 
 def calculate_raf(diagnosis_codes: List[str],
                   model_name: ModelName = "CMS-HCC Model V28",
@@ -29,7 +21,8 @@ def calculate_raf(diagnosis_codes: List[str],
                   graft_months: int =  None,
                   dx_to_cc_mapping: Dict[Tuple[str, ModelName], Set[str]] = dx_to_cc_default,
                   is_chronic_mapping: Dict[Tuple[str, ModelName], bool] = is_chronic_default,
-                  hierarchies_mapping: Dict[Tuple[str, ModelName], Set[str]] = None,
+                  hierarchies_mapping: Dict[Tuple[str, ModelName], Set[str]] = hierarchies_default,
+                  coefficients_mapping: Dict[Tuple[str, ModelName], float] = coefficients_default,
                   prefix_override: Optional[PrefixOverride] = None,
                   maci: float = 0.0,
                   norm_factor: float = 1.0,
@@ -50,9 +43,10 @@ def calculate_raf(diagnosis_codes: List[str],
         low_income: Low income subsidy indicator.
         lti: Long-term institutional status indicator.
         graft_months: Number of months since transplant.
-        dx_to_cc_mapping: Mapping of diagnosis codes to condition categories; defaults to packaged CMS mappings.
-        is_chronic_mapping: Mapping of HCCs to a chronic flag for the selected model.
-        hierarchies_mapping: Optional pre-loaded hierarchy mapping; defaults to loading from package data.
+        dx_to_cc_mapping: Mapping of diagnosis codes to condition categories; defaults to packaged 2026 mappings.
+        is_chronic_mapping: Mapping of HCCs to a chronic flag for the selected model; defaults to packaged mappings.
+        hierarchies_mapping: Mapping of parent HCCs to child HCCs for hierarchical rules; defaults to packaged 2026 mappings.
+        coefficients_mapping: Mapping of coefficient names to values; defaults to packaged 2026 mappings.
         prefix_override: Optional prefix to override auto-detected demographic prefix.
             Use when demographic categorization from orec/crec is incorrect.
             Common values: 'DI_' (ESRD Dialysis), 'DNE_' (ESRD Dialysis New Enrollee),
@@ -97,13 +91,10 @@ def calculate_raf(diagnosis_codes: List[str],
                              model_name,
                              dx_to_cc_mapping=dx_to_cc_mapping)
     hcc_set = set(cc_to_dx.keys())
-    if hierarchies_mapping is None:
-        hcc_set = apply_hierarchies(hcc_set, model_name)
-    else:
-        hcc_set = apply_hierarchies(hcc_set, model_name, hierarchies_mapping)
+    hcc_set = apply_hierarchies(hcc_set, model_name, hierarchies_mapping)
     interactions = apply_interactions(demographics, hcc_set, model_name)
     coefficients = apply_coefficients(demographics, hcc_set, interactions, model_name,
-                                     prefix_override=prefix_override)
+                                     coefficients_mapping, prefix_override=prefix_override)
 
     hcc_chronic = set()
     interactions_chronic = {}
@@ -127,11 +118,13 @@ def calculate_raf(diagnosis_codes: List[str],
                                                    set(),
                                                    demographic_interactions,
                                                    model_name,
+                                                   coefficients_mapping,
                                                    prefix_override=prefix_override)
     coefficients_chronic_only = apply_coefficients(demographics,
                                                    hcc_chronic,
                                                    interactions_chronic,
                                                    model_name,
+                                                   coefficients_mapping,
                                                    prefix_override=prefix_override)
     
     # Calculate risk scores

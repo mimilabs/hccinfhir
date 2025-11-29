@@ -1,15 +1,10 @@
 from typing import List, Dict, Set, Tuple, Optional
 from hccinfhir.datamodels import ModelName
-from hccinfhir.utils import load_dx_to_cc_mapping
-
-# Load default mappings from csv file
-mapping_file_default = 'ra_dx_to_cc_2026.csv'
-dx_to_cc_default = load_dx_to_cc_mapping(mapping_file_default)
 
 def get_cc(
     diagnosis_code: str,
-    model_name: ModelName = "CMS-HCC Model V28",
-    dx_to_cc_mapping: Dict[Tuple[str, ModelName], Set[str]] = dx_to_cc_default
+    model_name: ModelName,
+    dx_to_cc_mapping: Dict[Tuple[str, ModelName], Set[str]]
 ) -> Optional[Set[str]]:
     """
     Get CC for a single diagnosis code.
@@ -17,7 +12,7 @@ def get_cc(
     Args:
         diagnosis_code: ICD-10 diagnosis code
         model_name: HCC model name to use for mapping
-        dx_to_cc_mapping: Optional custom mapping dictionary
+        dx_to_cc_mapping: Mapping dictionary of (diagnosis_code, model_name) to CC codes
 
     Returns:
         CC code if found, None otherwise
@@ -26,8 +21,8 @@ def get_cc(
 
 def apply_mapping(
     diagnoses: List[str],
-    model_name: ModelName = "CMS-HCC Model V28", 
-    dx_to_cc_mapping: Dict[Tuple[str, ModelName], Set[str]] = dx_to_cc_default
+    model_name: ModelName,
+    dx_to_cc_mapping: Dict[Tuple[str, ModelName], Set[str]]
 ) -> Dict[str, Set[str]]:
     """
     Apply ICD-10 to CC mapping for a list of diagnosis codes.
@@ -35,7 +30,7 @@ def apply_mapping(
     Args:
         diagnoses: List of ICD-10 diagnosis codes
         model_name: HCC model name to use for mapping
-        dx_to_cc_mapping: Optional custom mapping dictionary
+        dx_to_cc_mapping: Mapping dictionary of (diagnosis_code, model_name) to CC codes
         
     Returns:
         Dictionary mapping CCs to lists of diagnosis codes that map to them

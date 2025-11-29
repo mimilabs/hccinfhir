@@ -237,20 +237,22 @@ final_hccs = apply_hierarchies(
 
 #### Working with Sample Data (`samples.py`)
 ```python
-from hccinfhir import get_eob_sample, get_837_sample
+from hccinfhir import get_eob_sample, get_eob_sample_list, get_837_sample, get_834_sample
 
-# Get FHIR EOB sample
-eob = get_eob_sample("sample_01")  # Individual sample
-eob_list = get_eob_sample("sample_200")  # 200-record dataset
+# Get FHIR EOB samples
+eob = get_eob_sample(1)  # Individual sample (cases 1, 2, or 3)
+eob_list = get_eob_sample_list(limit=200)  # Up to 200 samples
 
-# Get X12 837 sample
-x12_text = get_837_sample("sample_01")  # Professional claim
-x12_text = get_837_sample("sample_inst_01")  # Institutional claim
+# Get X12 837 samples
+x12_text = get_837_sample(0)  # Professional claim (cases 0-12)
+
+# Get X12 834 sample
+x12_834 = get_834_sample(1)  # Enrollment data (case 1)
 
 # Process sample data
 processor = HCCInFHIR()
 demographics = Demographics(age=67, sex="F")
-result = processor.run([eob], demographics)
+result = processor.run([eob], demographics)  # Note: wrap single EOB in list
 ```
 
 ### Utility Functions
@@ -272,8 +274,8 @@ dx_mapping = load_dx_to_cc_mapping("ra_dx_to_cc_2026.csv")
 ```python
 # Complete workflow from FHIR to RAF score
 processor = HCCInFHIR(model_name="CMS-HCC Model V28")
-eob_list = get_eob_sample("sample_200")
-demographics = Demographics(age=67, sex="F", dual_elgbl_cd="N")
+eob_list = get_eob_sample_list(limit=200)
+demographics = Demographics(age=67, sex="F", dual_elgbl_cd="00")
 
 result = processor.run(eob_list, demographics)
 print(f"RAF Score: {result.risk_score}")
@@ -549,10 +551,10 @@ Includes 5 test scenarios:
 5. Medicare only (new enrollee)
 
 ```python
-from hccinfhir import get_834_sample  # If added to samples.py
+from hccinfhir import get_834_sample
 
 # Get sample 834
-content_834 = get_834_sample("sample_01")
+content_834 = get_834_sample(1)
 enrollments = extract_enrollment_834(content_834)
 ```
 

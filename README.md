@@ -4,7 +4,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-A Python library for calculating HCC (Hierarchical Condition Category) risk adjustment scores from healthcare claims data. Supports multiple data sources including FHIR resources, X12 837 claims, and CMS encounter data.
+A comprehensive Python library for calculating HCC (Hierarchical Condition Category) risk adjustment scores from healthcare claims data. Supports multiple data sources including FHIR resources, X12 837 claims, X12 834 enrollment files, and direct diagnosis processing.
 
 ## 🚀 Quick Start
 
@@ -29,41 +29,68 @@ print(f"HCCs: {result.hcc_list}")
 
 ## 📋 Table of Contents
 
+- [Key Features](#key-features)
 - [Data Sources & Use Cases](#data-sources--use-cases)
 - [Installation](#installation)
 - [How-To Guides](#how-to-guides)
-  - [Working with CMS Encounter Data (EDRs)](#working-with-cms-encounter-data-edrs)
-  - [Processing 837 Claims from Clearinghouses](#processing-837-claims-from-clearinghouses)
+  - [Working with CMS Encounter Data (837 Claims)](#working-with-cms-encounter-data-837-claims)
+  - [Processing X12 834 Enrollment for Dual Eligibility](#processing-x12-834-enrollment-for-dual-eligibility)
+  - [Processing Clearinghouse 837 Claims](#processing-clearinghouse-837-claims)
   - [Using CMS BCDA API Data](#using-cms-bcda-api-data)
   - [Direct Diagnosis Code Processing](#direct-diagnosis-code-processing)
-- [Model Configuration](#model-configuration)
+- [Configuration](#configuration)
+  - [Supported HCC Models](#supported-hcc-models)
+  - [Custom Data Files](#custom-data-files)
+  - [Demographics Configuration](#demographics-configuration)
 - [API Reference](#api-reference)
+- [Advanced Features](#advanced-features)
+  - [Payment RAF Adjustments](#payment-raf-adjustments)
+  - [Demographic Prefix Override](#demographic-prefix-override)
+  - [Custom File Path Resolution](#custom-file-path-resolution)
+  - [Batch Processing](#batch-processing)
+  - [Converting to Dictionaries](#converting-to-dictionaries)
 - [Sample Data](#sample-data)
-- [Advanced Usage](#advanced-usage)
+- [Testing](#testing)
+- [License](#license)
+
+## ✨ Key Features
+
+- **Multiple Input Formats**: FHIR EOB, X12 837, X12 834, direct diagnosis codes
+- **Comprehensive HCC Models**: Support for CMS-HCC V22/V24/V28, ESRD models, RxHCC
+- **Dual Eligibility Detection**: X12 834 parser with California DHCS Medi-Cal support
+- **CMS Compliance**: Built-in filtering rules for eligible services
+- **Payment RAF Adjustments**: MACI, normalization factors, frailty scores
+- **Data Quality Workarounds**: Demographic prefix override for incorrect source data
+- **Custom Data Files**: Full support for custom coefficients, mappings, and hierarchies
+- **Flexible File Resolution**: Absolute paths, relative paths, or bundled data files
+- **Type-Safe**: Built on Pydantic with full type hints
+- **Well-Tested**: 155 comprehensive tests covering all features
 
 ## 📊 Data Sources & Use Cases
 
-HCCInFHIR supports three primary data sources for HCC risk adjustment calculations:
-
-### 1. **CMS Encounter Data Records (EDRs)**
-- **Input**: X12 837 5010 transaction files (text format) + demographic data from payers
-- **Use Case**: Medicare Advantage plans processing encounter data for CMS submissions
+### 1. **X12 837 Claims (Professional & Institutional)**
+- **Input**: X12 837 5010 transaction files + demographics
+- **Use Case**: Medicare Advantage encounter data, health plan claims processing
+- **Features**: Service-level extraction, CMS filtering, diagnosis pointer resolution
 - **Output**: Risk scores with detailed HCC mappings and interactions
 
-### 2. **Clearinghouse 837 Claims**
-- **Input**: X12 837 5010 institutional/professional claim files + patient demographics
-- **Use Case**: Health plans and providers calculating risk scores from claims data
-- **Output**: Service-level analysis with filtering and risk score calculations
+### 2. **X12 834 Enrollment Files**
+- **Input**: X12 834 benefit enrollment transactions
+- **Use Case**: Extract dual eligibility status, detect Medicaid coverage loss
+- **Features**: California DHCS aid code mapping, Medicare status codes, coverage tracking
+- **Output**: Demographics with accurate dual eligibility for risk calculations
 
-### 3. **CMS BCDA API Data**
-- **Input**: FHIR ExplanationOfBenefit resources from Blue Button 2.0 API
-- **Use Case**: Applications processing Medicare beneficiary data via BCDA
-- **Output**: Standardized risk adjustment calculations from FHIR resources
+### 3. **FHIR ExplanationOfBenefit Resources**
+- **Input**: FHIR EOB from CMS Blue Button 2.0 / BCDA API
+- **Use Case**: Applications processing Medicare beneficiary data
+- **Features**: FHIR-native extraction, standardized data model
+- **Output**: Service-level analysis with risk adjustment calculations
 
-### 4. **Direct Diagnosis Processing**
-- **Input**: Diagnosis codes + demographics
-- **Use Case**: Quick risk score validation or research applications
-- **Output**: HCC mappings and risk scores without claims context
+### 4. **Direct Diagnosis Codes**
+- **Input**: ICD-10 diagnosis codes + demographics
+- **Use Case**: Quick validation, research, prospective risk scoring
+- **Features**: No claims data needed, fast calculation
+- **Output**: HCC mappings and risk scores
 
 ## 🛠️ Installation
 
@@ -85,28 +112,29 @@ pip install -e .
 
 ## 📖 How-To Guides
 
-### Working with CMS Encounter Data (EDRs)
+### Working with CMS Encounter Data (837 Claims)
 
-**Scenario**: You're a Medicare Advantage plan processing encounter data for CMS risk adjustment.
-
-**What you need**:
-- X12 837 envelope files from your claims system
-- Demographic data (age, sex, eligibility status) for each beneficiary
-- Knowledge of your plan's model year and HCC model version
+**Scenario**: You're a Medicare Advantage plan processing encounter data for CMS risk adjustment submissions.
 
 ```python
-from hccinfhir import HCCInFHIR, Demographics, get_837_sample
+from hccinfhir import HCCInFHIR, Demographics
 from hccinfhir.extractor import extract_sld
 
-# Step 1: Configure processor for your model year and version
+# Step 1: Configure processor
+# All data file parameters are optional and default to the latest 2026 valuesets
 processor = HCCInFHIR(
-    model_name="CMS-HCC Model V28",           # CMS model version
-    filter_claims=True,                       # Apply CMS filtering rules
-    dx_cc_mapping_filename="ra_dx_to_cc_2026.csv",
-    proc_filtering_filename="ra_eligible_cpt_hcpcs_2026.csv"
+    model_name="CMS-HCC Model V28",
+    filter_claims=True,  # Apply CMS filtering rules
+
+    # Optional: Override with custom data files (omit to use bundled 2026 defaults)
+    # proc_filtering_filename="ra_eligible_cpt_hcpcs_2026.csv",  # CPT/HCPCS codes
+    # dx_cc_mapping_filename="ra_dx_to_cc_2026.csv",            # ICD-10 to HCC
+    # hierarchies_filename="ra_hierarchies_2026.csv",            # HCC hierarchies
+    # is_chronic_filename="hcc_is_chronic.csv",                  # Chronic flags
+    # coefficients_filename="ra_coefficients_2026.csv"           # RAF coefficients
 )
 
-# Step 2: Load your 837 data
+# Step 2: Load 837 data
 with open("encounter_data.txt", "r") as f:
     raw_837_data = f.read()
 
@@ -117,43 +145,128 @@ service_data = extract_sld(raw_837_data, format="837")
 demographics = Demographics(
     age=72,
     sex="M",
-    dual_elgbl_cd="00",     # Dual eligibility status
-    orig_disabled=False,     # Original disability status
-    new_enrollee=False,      # New enrollee flag
-    esrd=False              # ESRD status
+    dual_elgbl_cd="00",      # Non-dual eligible
+    orec="0",                # Original reason for entitlement
+    crec="0",                # Current reason for entitlement
+    orig_disabled=False,
+    new_enrollee=False,
+    esrd=False
 )
 
 # Step 5: Calculate risk score
 result = processor.run_from_service_data(service_data, demographics)
 
 # Step 6: Review results
-print(f"Beneficiary Risk Score: {result.risk_score}")
+print(f"Risk Score: {result.risk_score:.3f}")
 print(f"Active HCCs: {result.hcc_list}")
 print(f"Disease Interactions: {result.interactions}")
+print(f"Diagnosis Mappings:")
+for cc, dx_codes in result.cc_to_dx.items():
+    print(f"  HCC {cc}: {', '.join(dx_codes)}")
 
-# Export results for CMS submission
+# Export for CMS submission
 encounter_summary = {
-    "beneficiary_id": "example_id",
+    "beneficiary_id": "12345",
     "risk_score": result.risk_score,
     "hcc_list": result.hcc_list,
-    "model_version": "V28",
+    "model": "V28",
     "payment_year": 2026
 }
 ```
 
-### Processing 837 Claims from Clearinghouses
+### Processing X12 834 Enrollment for Dual Eligibility
 
-**Scenario**: You're a health plan receiving 837 files from clearinghouses and need to calculate member risk scores.
+**Scenario**: You need to extract dual eligibility status from enrollment files to ensure accurate risk scores. This is critical because dual-eligible beneficiaries can receive **30-50% higher RAF scores** due to different coefficient prefixes.
+
+**Why This Matters**:
+- Full Benefit Dual (QMB Plus, SLMB Plus): Uses `CFA_` prefix → ~50% higher RAF
+- Partial Benefit Dual (QMB Only, SLMB Only, QI): Uses `CPA_` prefix → ~30% higher RAF
+- Non-Dual: Uses `CNA_` prefix → baseline RAF
+
+```python
+from hccinfhir import HCCInFHIR, Demographics
+from hccinfhir.extractor_834 import (
+    extract_enrollment_834,
+    enrollment_to_demographics,
+    is_losing_medicaid,
+    medicaid_status_summary
+)
+
+# Step 1: Parse X12 834 enrollment file
+with open("enrollment_834.txt", "r") as f:
+    x12_834_data = f.read()
+
+enrollments = extract_enrollment_834(x12_834_data)
+
+# Step 2: Process each member
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+
+for enrollment in enrollments:
+    # Convert enrollment to Demographics for RAF calculation
+    demographics = enrollment_to_demographics(enrollment)
+
+    print(f"\\n=== Member: {enrollment.member_id} ===")
+    print(f"MBI: {enrollment.mbi}")
+    print(f"Medicaid ID: {enrollment.medicaid_id}")
+    print(f"Dual Status: {enrollment.dual_elgbl_cd}")
+    print(f"Full Benefit Dual: {enrollment.is_full_benefit_dual}")
+    print(f"Partial Benefit Dual: {enrollment.is_partial_benefit_dual}")
+
+    # Step 3: Check for Medicaid coverage loss (critical for RAF projections)
+    if is_losing_medicaid(enrollment, within_days=90):
+        print(f"⚠️  ALERT: Member losing Medicaid coverage!")
+        print(f"   Coverage ends: {enrollment.coverage_end_date}")
+        print(f"   Expected RAF impact: -30% to -50%")
+
+    # Step 4: Get comprehensive Medicaid status
+    status = medicaid_status_summary(enrollment)
+    print(f"\\nMedicaid Status Summary:")
+    print(f"  Has Medicare: {status['has_medicare']}")
+    print(f"  Has Medicaid: {status['has_medicaid']}")
+    print(f"  Dual Status Code: {status['dual_status']}")
+    print(f"  Full Benefit Dual: {status['is_full_benefit_dual']}")
+    print(f"  Partial Benefit Dual: {status['is_partial_benefit_dual']}")
+    print(f"  Coverage End: {status['coverage_end_date']}")
+
+    # Step 5: Calculate RAF with accurate dual status
+    diagnosis_codes = ["E11.9", "I10", "N18.3"]  # From claims
+    result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+    print(f"\\nRAF Score: {result.risk_score:.3f}")
+```
+
+**California DHCS Medi-Cal Aid Codes** (automatically mapped):
+```python
+# Full Benefit Dual Aid Codes → dual_elgbl_cd='02' or '04'
+'4N', '4P'  # QMB Plus
+'5B', '5D'  # SLMB Plus
+
+# Partial Benefit Dual Aid Codes → dual_elgbl_cd='01', '03', or '06'
+'4M', '4O'  # QMB Only
+'5A', '5C'  # SLMB Only
+'5E', '5F'  # QI (Qualifying Individual)
+```
+
+**Medicare Status Codes** (REF*ABB segment):
+```python
+'QMBPLUS', 'QMB+'    → '02' (Full Benefit)
+'SLMBPLUS', 'SLMB+'  → '04' (Full Benefit)
+'QMBONLY', 'QMB'     → '01' (Partial Benefit)
+'SLMBONLY', 'SLMB'   → '03' (Partial Benefit)
+'QI', 'QI1'          → '06' (Partial Benefit)
+```
+
+### Processing Clearinghouse 837 Claims
+
+**Scenario**: Health plan receiving 837 files from clearinghouses for member risk scoring.
 
 ```python
 from hccinfhir import HCCInFHIR, Demographics
 from hccinfhir.extractor import extract_sld_list
 
-# Configure for institutional and professional claims
+# Configure processor
 processor = HCCInFHIR(
     model_name="CMS-HCC Model V28",
-    filter_claims=True,    # Enable CMS filtering
-    dx_cc_mapping_filename="ra_dx_to_cc_2026.csv"
+    filter_claims=True
 )
 
 # Process multiple 837 files
@@ -163,60 +276,51 @@ all_service_data = []
 for file_path in claim_files:
     with open(file_path, "r") as f:
         claims_data = f.read()
-    
-    # Extract service data from each file
     service_data = extract_sld_list([claims_data], format="837")
     all_service_data.extend(service_data)
 
-# Member demographics (typically from your enrollment system)
-member_demographics = Demographics(
+# Member demographics (from enrollment system or 834 file)
+demographics = Demographics(
     age=45,
     sex="F",
-    dual_elgbl_cd="02",    # Partial dual eligible
-    orig_disabled=True,     # Originally disabled
+    dual_elgbl_cd="02",    # Full benefit dual from 834
+    orig_disabled=True,
     new_enrollee=False
 )
 
-# Calculate comprehensive risk score
-result = processor.run_from_service_data(all_service_data, member_demographics)
+# Calculate risk score
+result = processor.run_from_service_data(all_service_data, demographics)
 
-# Analyze by service type
-professional_services = [svc for svc in result.service_level_data if svc.claim_type == "71"]
-institutional_services = [svc for svc in result.service_level_data if svc.claim_type == "72"]
-
-print(f"Member Risk Score: {result.risk_score}")
-print(f"Professional Claims: {len(professional_services)}")
-print(f"Institutional Claims: {len(institutional_services)}")
+print(f"Member Risk Score: {result.risk_score:.3f}")
+print(f"Active HCCs: {result.hcc_list}")
+print(f"Total Services: {len(result.service_level_data)}")
 ```
 
 ### Using CMS BCDA API Data
 
-**Scenario**: You're building an application that processes Medicare beneficiary data from the BCDA API.
+**Scenario**: Building an application that processes Medicare beneficiary data from the BCDA API.
 
 ```python
-from hccinfhir import HCCInFHIR, Demographics, get_eob_sample_list
-from hccinfhir.extractor import extract_sld_list
+from hccinfhir import HCCInFHIR, Demographics
 import requests
 
-# Configure processor for BCDA data
+# Configure for BCDA data
 processor = HCCInFHIR(
-    model_name="CMS-HCC Model V24",    # BCDA typically uses V24
+    model_name="CMS-HCC Model V24",  # BCDA typically uses V24
     filter_claims=True,
     dx_cc_mapping_filename="ra_dx_to_cc_2025.csv"
 )
 
-# Fetch EOB data from BCDA (example using sample data)
-eob_resources = get_eob_sample_list(limit=50)  # Replace with actual BCDA API call
+# Fetch EOB data from BCDA
+# headers = {"Authorization": f"Bearer {access_token}"}
+# response = requests.get("https://sandbox.bcda.cms.gov/api/v2/Patient/$export", headers=headers)
+# eob_resources = response.json()
 
-# Extract service-level data from FHIR resources
-service_data = extract_sld_list(eob_resources, format="fhir")
+# For demo, use sample data
+from hccinfhir import get_eob_sample_list
+eob_resources = get_eob_sample_list(limit=50)
 
-# BCDA provides beneficiary demographics in the EOB
-# Extract demographics from the first EOB resource
-first_eob = eob_resources[0]
-beneficiary_ref = first_eob.get("patient", {}).get("reference", "")
-
-# You would typically look up demographics from your system
+# Demographics (extract from EOB or enrollment system)
 demographics = Demographics(
     age=68,
     sex="M",
@@ -228,100 +332,136 @@ demographics = Demographics(
 # Process FHIR data
 result = processor.run(eob_resources, demographics)
 
-# BCDA-specific analysis
-print(f"Beneficiary: {beneficiary_ref}")
-print(f"Risk Score: {result.risk_score}")
-print(f"Data Source: BCDA API")
-print(f"HCC Categories: {', '.join(map(str, result.hcc_list))}")
-
-# Examine service utilization patterns
-service_dates = [svc.service_date for svc in result.service_level_data if svc.service_date]
-if service_dates:
-    print(f"Service Period: {min(service_dates)} to {max(service_dates)}")
+print(f"Beneficiary Risk Score: {result.risk_score:.3f}")
+print(f"HCC Categories: {', '.join(result.hcc_list)}")
+print(f"Service Period: {min(svc.service_date for svc in result.service_level_data if svc.service_date)} to {max(svc.service_date for svc in result.service_level_data if svc.service_date)}")
 ```
 
 ### Direct Diagnosis Code Processing
 
-**Scenario**: You need to quickly validate HCC mappings or calculate risk scores for research purposes.
+**Scenario**: Quick HCC mapping validation or research without claims data.
 
 ```python
 from hccinfhir import HCCInFHIR, Demographics
 
-# Simple setup for diagnosis-only processing
 processor = HCCInFHIR(model_name="CMS-HCC Model V28")
 
-# Define patient population
 demographics = Demographics(
     age=75,
     sex="F",
-    dual_elgbl_cd="02",  # Dual eligible
+    dual_elgbl_cd="02",  # Full benefit dual
     orig_disabled=False,
-    new_enrollee=False,
-    esrd=False
+    new_enrollee=False
 )
 
-# Diagnosis codes from clinical encounter
 diagnosis_codes = [
-    "E11.9",   # Type 2 diabetes without complications
-    "I10",     # Essential hypertension  
-    "N18.3",   # Chronic kidney disease, stage 3
-    "F32.9",   # Major depressive disorder
+    "E11.9",   # Type 2 diabetes
+    "I10",     # Hypertension
+    "N18.3",   # CKD stage 3
+    "F32.9",   # Depression
     "M79.3"    # Panniculitis
 ]
 
-# Calculate risk score
 result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
 
-# Detailed analysis
 print("=== HCC Risk Analysis ===")
 print(f"Risk Score: {result.risk_score:.3f}")
 print(f"HCC Categories: {result.hcc_list}")
-
-# Show diagnosis to HCC mappings
-print("\nDiagnosis Mappings:")
+print(f"\\nDiagnosis Mappings:")
 for cc, dx_list in result.cc_to_dx.items():
-    print(f"  CC {cc}: {', '.join(dx_list)}")
-
-# Show applied coefficients
-print(f"\nApplied Coefficients: {len(result.coefficients)}")
+    print(f"  HCC {cc}: {', '.join(dx_list)}")
+print(f"\\nApplied Coefficients:")
 for coeff_name, value in result.coefficients.items():
-    print(f"  {coeff_name}: {value}")
-
-# Check for interactions
+    print(f"  {coeff_name}: {value:.3f}")
 if result.interactions:
-    print(f"\nDisease Interactions: {len(result.interactions)}")
+    print(f"\\nDisease Interactions:")
     for interaction, value in result.interactions.items():
-        print(f"  {interaction}: {value}")
+        print(f"  {interaction}: {value:.3f}")
 ```
 
-## ⚙️ Model Configuration
+## ⚙️ Configuration
 
 ### Supported HCC Models
 
-| Model Name | Model Years | Use Case |
-|------------|-------------|----------|
-| `"CMS-HCC Model V22"` | 2024-2025 | Community populations |
-| `"CMS-HCC Model V24"` | 2024-2026 | Community populations (current) |
-| `"CMS-HCC Model V28"` | 2025-2026 | Community populations (latest) |
-| `"CMS-HCC ESRD Model V21"` | 2024-2025 | ESRD populations |
-| `"CMS-HCC ESRD Model V24"` | 2025-2026 | ESRD populations |
-| `"RxHCC Model V08"` | 2024-2026 | Part D prescription drug coverage |
+| Model Name | Model Years | Use Case | Supported |
+|------------|-------------|----------|-----------|
+| `"CMS-HCC Model V22"` | 2024-2025 | Community populations | ✅ |
+| `"CMS-HCC Model V24"` | 2024-2026 | Community populations (current) | ✅ |
+| `"CMS-HCC Model V28"` | 2025-2026 | Community populations (latest) | ✅ |
+| `"CMS-HCC ESRD Model V21"` | 2024-2025 | ESRD populations | ✅ |
+| `"CMS-HCC ESRD Model V24"` | 2025-2026 | ESRD populations | ✅ |
+| `"RxHCC Model V08"` | 2024-2026 | Part D prescription drug | ✅ |
 
-### Configuration Parameters
+### Custom Data Files
+
+The library includes bundled CMS reference data for 2025 and 2026. You can override **all 5 data files** with custom versions:
 
 ```python
 processor = HCCInFHIR(
-    # Core model settings
-    model_name="CMS-HCC Model V28",              # Required: HCC model version
-    
-    # Filtering options
-    filter_claims=True,                          # Apply CMS filtering rules
-    
-    # Custom data files (optional)
-    dx_cc_mapping_filename="ra_dx_to_cc_2026.csv",           # Diagnosis to CC mapping
-    proc_filtering_filename="ra_eligible_cpt_hcpcs_2026.csv", # Procedure code filtering
+    model_name="CMS-HCC Model V28",
+    filter_claims=True,
+
+    # All files support absolute paths, relative paths, or bundled filenames
+    # See "Custom File Path Resolution" in Advanced Features for details
+
+    # 1. CPT/HCPCS Procedure Codes (for CMS filtering)
+    proc_filtering_filename="ra_eligible_cpt_hcpcs_2026.csv",
+
+    # 2. Diagnosis to HCC Mapping (ICD-10 → HCC)
+    dx_cc_mapping_filename="ra_dx_to_cc_2026.csv",
+
+    # 3. HCC Hierarchies (parent HCCs suppress child HCCs)
+    hierarchies_filename="ra_hierarchies_2026.csv",
+
+    # 4. Chronic Condition Flags
+    is_chronic_filename="hcc_is_chronic.csv",
+
+    # 5. RAF Coefficients (demographic + HCC + interaction coefficients)
+    coefficients_filename="ra_coefficients_2026.csv"
 )
 ```
+
+> **💡 Tip**: For custom file paths (absolute, relative, or current directory), see [Custom File Path Resolution](#custom-file-path-resolution) in Advanced Features.
+
+**File Format Requirements**:
+
+1. **proc_filtering** (`ra_eligible_cpt_hcpcs_2026.csv`):
+```csv
+cpt_hcpcs_code
+99213
+99214
+99215
+```
+
+2. **dx_cc_mapping** (`ra_dx_to_cc_2026.csv`):
+```csv
+diagnosis_code,cc,model_name
+E119,38,CMS-HCC Model V28
+I10,226,CMS-HCC Model V28
+```
+
+3. **hierarchies** (`ra_hierarchies_2026.csv`):
+```csv
+cc_parent,cc_child,model_domain,model_version,model_fullname
+17,18,CMS-HCC,V28,CMS-HCC Model V28
+17,19,CMS-HCC,V28,CMS-HCC Model V28
+```
+
+4. **is_chronic** (`hcc_is_chronic.csv`):
+```csv
+hcc,is_chronic,model_version,model_domain
+1,True,V28,CMS-HCC
+2,False,V28,CMS-HCC
+```
+
+5. **coefficients** (`ra_coefficients_2026.csv`):
+```csv
+coefficient,value,model_domain,model_version
+cna_f70_74,0.395,CMS-HCC,V28
+cna_hcc19,0.302,CMS-HCC,V28
+```
+
+> **📁 Reference**: See complete file formats and structure in the bundled data folder: [src/hccinfhir/data](https://github.com/mimilabs/hccinfhir/tree/main/src/hccinfhir/data)
 
 ### Demographics Configuration
 
@@ -331,32 +471,33 @@ from hccinfhir import Demographics
 demographics = Demographics(
     # Required fields
     age=67,                    # Age in years
-    sex="F",                   # "M" or "F"
-    
-    # CMS-specific fields
-    dual_elgbl_cd="00",        # Dual eligibility: "00"=Non-dual, "01"=Partial, "02"=Full
-    orig_disabled=False,        # Original reason for Medicare entitlement was disability
-    new_enrollee=False,        # New Medicare enrollee (< 12 months)
-    esrd=False,                # End-Stage Renal Disease status
-    
+    sex="F",                   # "M" or "F" (also accepts "1" or "2")
+
+    # Dual eligibility (critical for payment accuracy)
+    dual_elgbl_cd="00",        # "00"=Non-dual, "01"=Partial, "02"=Full
+                               # "03"=Partial, "04"=Full, "05"=QDWI
+                               # "06"=QI, "08"=Other full benefit dual
+
+    # Medicare entitlement
+    orec="0",                  # Original reason for entitlement
+                               # "0"=Old age, "1"=Disability, "2"=ESRD, "3"=Both
+    crec="0",                  # Current reason for entitlement
+
+    # Status flags
+    orig_disabled=False,       # Original disability (affects category)
+    new_enrollee=False,        # New to Medicare (<12 months)
+    esrd=False,                # End-Stage Renal Disease (auto-detected from orec/crec)
+
     # Optional fields
-    snp=False,                 # Special Needs Plan member
-    low_income=False,          # Low-income subsidy
-    graft_months=None,         # Months since kidney transplant (for ESRD models)
-    category="CNA"             # Beneficiary category (auto-calculated if not provided)
-)
-```
+    snp=False,                 # Special Needs Plan
+    low_income=False,          # Low-income subsidy (Part D)
+    lti=False,                 # Long-term institutionalized
+    graft_months=None,         # Months since kidney transplant (ESRD models)
+    fbd=False,                 # Full benefit dual (auto-set from dual_elgbl_cd)
+    pbd=False,                 # Partial benefit dual (auto-set)
 
-### Data File Specifications
-
-The library includes CMS reference data files for 2025 and 2026. You can override with custom files:
-
-```python
-# Use custom mapping files
-processor = HCCInFHIR(
-    model_name="CMS-HCC Model V28",
-    dx_cc_mapping_filename="custom_dx_mapping.csv",      # Format: diagnosis_code,cc,model_name
-    proc_filtering_filename="custom_procedures.csv"      # Format: cpt_hcpcs_code
+    # Auto-calculated (can override)
+    category="CNA"             # Beneficiary category (auto-calculated if omitted)
 )
 ```
 
@@ -365,403 +506,426 @@ processor = HCCInFHIR(
 ### Main Classes
 
 #### `HCCInFHIR`
-Main processor class for HCC calculations.
+Main processor class for HCC risk adjustment calculations.
+
+**Initialization**:
+```python
+HCCInFHIR(
+    filter_claims: bool = True,
+    model_name: ModelName = "CMS-HCC Model V28",
+    proc_filtering_filename: str = "ra_eligible_cpt_hcpcs_2026.csv",
+    dx_cc_mapping_filename: str = "ra_dx_to_cc_2026.csv",
+    hierarchies_filename: str = "ra_hierarchies_2026.csv",
+    is_chronic_filename: str = "hcc_is_chronic.csv",
+    coefficients_filename: str = "ra_coefficients_2026.csv"
+)
+```
 
 **Methods**:
-- `run(eob_list, demographics)` - Process FHIR ExplanationOfBenefit resources
-- `run_from_service_data(service_data, demographics)` - Process service-level data
-- `calculate_from_diagnosis(diagnosis_codes, demographics)` - Calculate from diagnosis codes only
+- `run(eob_list, demographics, prefix_override=None, maci=0.0, norm_factor=1.0, frailty_score=0.0)`
+  - Process FHIR ExplanationOfBenefit resources
+
+- `run_from_service_data(service_data, demographics, prefix_override=None, maci=0.0, norm_factor=1.0, frailty_score=0.0)`
+  - Process service-level data
+
+- `calculate_from_diagnosis(diagnosis_codes, demographics, prefix_override=None, maci=0.0, norm_factor=1.0, frailty_score=0.0)`
+  - Calculate from diagnosis codes only
 
 #### `Demographics`
 Patient demographic information for risk adjustment.
 
-**Fields**:
+**Key Fields**:
 - `age: int` - Patient age in years
-- `sex: str` - Patient sex ("M" or "F")  
-- `dual_elgbl_cd: str` - Dual eligibility code
+- `sex: str` - Patient sex ("M"/"F" or "1"/"2")
+- `dual_elgbl_cd: str` - Dual eligibility status (see configuration)
+- `orec: str` - Original reason for Medicare entitlement
+- `crec: str` - Current reason for Medicare entitlement
 - `orig_disabled: bool` - Original disability status
 - `new_enrollee: bool` - New enrollee flag
-- `esrd: bool` - ESRD status
+- `esrd: bool` - ESRD status (auto-calculated from orec/crec)
+- `snp: bool` - Special Needs Plan
+- `low_income: bool` - Low-income subsidy
+- `lti: bool` - Long-term institutionalized
+- `graft_months: Optional[int]` - Months since kidney transplant
 
 #### `RAFResult`
-Risk adjustment calculation results.
+Comprehensive risk adjustment calculation results.
 
 **Fields**:
 - `risk_score: float` - Final RAF score
-- `risk_score_demographics: float` - Demographics-only risk score
-- `risk_score_chronic_only: float` - Chronic conditions risk score
-- `risk_score_hcc: float` - HCC conditions risk score
-- `hcc_list: List[str]` - List of active HCC categories
-- `cc_to_dx: Dict[str, Set[str]]` - Condition categories mapped to diagnosis codes
-- `coefficients: Dict[str, float]` - Applied model coefficients
-- `interactions: Dict[str, float]` - Disease interaction coefficients
-- `demographics: Demographics` - Patient demographics used in calculation
-- `model_name: ModelName` - HCC model used for calculation
+- `risk_score_demographics: float` - Demographics-only component
+- `risk_score_chronic_only: float` - Chronic conditions component (V24/V28)
+- `risk_score_hcc: float` - HCC conditions component
+- `risk_score_payment: float` - Final payment RAF with adjustments
+- `hcc_list: List[str]` - Active HCC categories
+- `cc_to_dx: Dict[str, Set[str]]` - HCCs mapped to diagnosis codes
+- `coefficients: Dict[str, float]` - Applied coefficients
+- `interactions: Dict[str, float]` - Disease interactions
+- `demographics: Demographics` - Demographics used
+- `model_name: str` - HCC model used
 - `version: str` - Library version
 - `diagnosis_codes: List[str]` - Input diagnosis codes
-- `service_level_data: Optional[List[ServiceLevelData]]` - Processed service records (when applicable)
+- `service_level_data: Optional[List[ServiceLevelData]]` - Service records
 
 ### Utility Functions
 
 ```python
 from hccinfhir import (
-    get_eob_sample,           # Get sample FHIR EOB data
-    get_837_sample,           # Get sample 837 claim data
-    list_available_samples,   # List all available sample data
-    extract_sld,              # Extract service-level data from single resource
-    extract_sld_list,         # Extract service-level data from multiple resources
-    apply_filter              # Apply CMS filtering rules to service data
+    get_eob_sample,           # Get sample FHIR EOB
+    get_837_sample,           # Get sample 837 claim
+    get_834_sample,           # Get sample 834 enrollment
+    get_eob_sample_list,      # Get multiple EOBs
+    get_837_sample_list,      # Get multiple 837s
+    list_available_samples,   # List all samples
 )
+
+from hccinfhir.extractor import (
+    extract_sld,              # Extract from single resource
+    extract_sld_list,         # Extract from multiple resources
+)
+
+from hccinfhir.extractor_834 import (
+    extract_enrollment_834,       # Parse 834 enrollment file
+    enrollment_to_demographics,   # Convert to Demographics
+    is_losing_medicaid,           # Check Medicaid loss
+    medicaid_status_summary,      # Get comprehensive status
+)
+
+from hccinfhir.filter import apply_filter  # Apply CMS filtering
+from hccinfhir.model_calculate import calculate_raf  # Direct calculation
 ```
 
-## 📝 Sample Data
+## 🔧 Advanced Features
 
-The library includes comprehensive sample data for testing and development:
+### Payment RAF Adjustments
 
-```python
-from hccinfhir import get_eob_sample, get_837_sample, list_available_samples
-
-# FHIR ExplanationOfBenefit samples
-eob_data = get_eob_sample(1)                    # Individual EOB (cases 1, 2, 3)
-eob_list = get_eob_sample_list(limit=10)        # Up to 200 EOB resources
-
-# X12 837 claim samples  
-claim_data = get_837_sample(0)                  # Individual 837 claim (cases 0-12)
-claim_list = get_837_sample_list([0, 1, 2])    # Multiple 837 claims
-
-# Sample information
-sample_info = list_available_samples()
-print(f"Available EOB samples: {len(sample_info['eob_case_numbers'])}")
-print(f"Available 837 samples: {len(sample_info['837_case_numbers'])}")
-```
-
-## 🔧 Advanced Usage
-
-### Converting to Dictionary Format
-
-If you need to work with regular Python dictionaries (e.g., for JSON serialization, database storage, or legacy code compatibility), you can easily convert Pydantic models using built-in methods:
+Apply CMS payment adjustments to RAF scores:
 
 ```python
 from hccinfhir import HCCInFHIR, Demographics
 
 processor = HCCInFHIR(model_name="CMS-HCC Model V28")
-demographics = Demographics(age=67, sex="F")
-diagnosis_codes = ["E11.9", "I10"]
+demographics = Demographics(age=70, sex="F")
+diagnosis_codes = ["E11.9", "I50.22", "N18.3"]
 
-# Get Pydantic model result
-result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
-print(f"Risk Score: {result.risk_score}")  # Pydantic attribute access
-
-# Convert to dictionary
-result_dict = result.model_dump()
-print(f"Risk Score: {result_dict['risk_score']}")  # Dictionary access
-
-# Convert with different modes
-result_json_compatible = result.model_dump(mode='json')  # JSON-serializable types
-result_python_types = result.model_dump(mode='python')   # Python native types (default)
-
-# Convert only specific fields
-partial_dict = result.model_dump(include={'risk_score', 'hcc_list', 'demographics'})
-
-# Convert excluding certain fields  
-summary_dict = result.model_dump(exclude={'service_level_data', 'interactions'})
-
-# Convert to JSON string directly
-json_string = result.model_dump_json()  # Returns JSON string
-```
-
-#### Working with Nested Models
-
-```python
-# Demographics also support dictionary conversion
-demographics_dict = result.demographics.model_dump()
-print(demographics_dict)
-# Output: {'age': 67, 'sex': 'F', 'dual_elgbl_cd': '00', ...}
-
-# Service data conversion (list of Pydantic models)
-if result.service_level_data:
-    service_dicts = [svc.model_dump() for svc in result.service_level_data]
-```
-
-#### Common Use Cases
-
-**1. API Responses:**
-```python
-# FastAPI automatically handles Pydantic models, but for other frameworks:
-@app.route('/calculate')
-def calculate_risk():
-    result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
-    return jsonify(result.model_dump(mode='json'))  # JSON-safe types
-```
-
-**2. Database Storage:**
-```python
-# Store in database
-result_data = result.model_dump(exclude={'service_level_data'})  # Exclude large nested data
-db.risks.insert_one(result_data)
-```
-
-**3. Legacy Code Integration:**
-```python
-# Working with existing code that expects dictionaries
-def legacy_function(risk_data):
-    return risk_data['risk_score'] * risk_data['demographics']['age']
-
-# Easy conversion
-result_dict = result.model_dump()
-legacy_result = legacy_function(result_dict)
-```
-
-**4. Custom Serialization:**
-```python
-# Custom formatting for specific needs
-export_data = result.model_dump(
-    include={'risk_score', 'hcc_list', 'model_name'},
-    mode='json'
+# Apply payment adjustments
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    demographics,
+    maci=0.059,         # MA Coding Intensity Adjustment (5.9% reduction for 2026)
+    norm_factor=1.015,  # Normalization factor (1.5% for 2026)
+    frailty_score=0.0   # Frailty adjustment (if applicable)
 )
+
+print(f"Base RAF Score: {result.risk_score:.3f}")
+print(f"Payment RAF Score: {result.risk_score_payment:.3f}")
+print(f"Payment Adjustment: {((result.risk_score_payment / result.risk_score) - 1) * 100:.1f}%")
 ```
 
-### Overriding Demographic Categorization
+**Common Adjustment Values**:
+- **MACI** (MA Coding Intensity): 5.94% (2025), 5.90% (2026)
+- **Normalization**: 1.022 (2025), 1.015 (2026)
+- **Frailty**: 0.0 to 0.6 (when applicable)
 
-**Problem**: Sometimes demographic data has quality issues (e.g., ESRD patients with incorrect `orec`/`crec` codes), leading to wrong risk score calculations.
+### Demographic Prefix Override
 
-**Solution**: Use the `prefix_override` parameter to manually specify the coefficient prefix.
+**Problem**: Demographic data quality issues leading to incorrect RAF calculations.
 
-#### Common Use Case: ESRD Patients with Incorrect OREC/CREC
+**Solution**: Manually specify the coefficient prefix.
 
 ```python
 from hccinfhir import HCCInFHIR, Demographics
 
-# ESRD dialysis patient, but source data has wrong orec/crec codes
+# ESRD patient with incorrect orec/crec codes
 processor = HCCInFHIR(model_name="CMS-HCC ESRD Model V24")
-
 demographics = Demographics(
     age=65,
     sex="F",
-    orec="0",  # Should be '2' or '3' for ESRD, but data is incorrect
-    crec="0"   # Should be '2' or '3' for ESRD, but data is incorrect
+    orec="0",  # Should be '2' or '3', but data is wrong
+    crec="0"
 )
+diagnosis_codes = ["N18.6", "E11.22", "I12.0"]
 
-diagnosis_codes = ["N18.6", "E11.22", "I12.0"]  # ESRD + diabetes + hypertensive CKD
-
-# Force ESRD dialysis coefficients despite incorrect orec/crec
+# Force ESRD dialysis coefficients
 result = processor.calculate_from_diagnosis(
     diagnosis_codes,
     demographics,
-    prefix_override='DI_'  # DI_ = ESRD Dialysis
+    prefix_override='DI_'  # ESRD Dialysis prefix
 )
 
-print(f"Risk Score with override: {result.risk_score}")
+print(f"RAF Score with override: {result.risk_score:.3f}")
 ```
 
-#### Other Common Scenarios
+**Common Prefix Values**:
 
-```python
-# Long-term institutionalized patient not properly flagged
-processor = HCCInFHIR(model_name="CMS-HCC Model V28")
-demographics = Demographics(age=78, sex="M")
-diagnosis_codes = ["F03.90", "I48.91", "N18.4"]
-
-result = processor.calculate_from_diagnosis(
-    diagnosis_codes,
-    demographics,
-    prefix_override='INS_'  # INS_ = Institutionalized
-)
-
-# New enrollee with missing flag
-result = processor.calculate_from_diagnosis(
-    diagnosis_codes,
-    demographics,
-    prefix_override='NE_'  # NE_ = New Enrollee
-)
-```
-
-#### Common Prefix Values
-
-**CMS-HCC Models (V22, V24, V28):**
-- `CNA_` - Community, Non-Dual, Aged (65+)
-- `CND_` - Community, Non-Dual, Disabled (<65)
+CMS-HCC Models:
+- `CNA_` - Community, Non-Dual, Aged
+- `CND_` - Community, Non-Dual, Disabled
 - `CFA_` - Community, Full Benefit Dual, Aged
 - `CFD_` - Community, Full Benefit Dual, Disabled
 - `CPA_` - Community, Partial Benefit Dual, Aged
 - `CPD_` - Community, Partial Benefit Dual, Disabled
 - `INS_` - Long-Term Institutionalized
 - `NE_` - New Enrollee
-- `SNPNE_` - Special Needs Plan New Enrollee
+- `SNPNE_` - SNP New Enrollee
 
-**ESRD Models (V21, V24):**
-- `DI_` - Dialysis (standard)
+ESRD Models:
+- `DI_` - Dialysis
 - `DNE_` - Dialysis New Enrollee
-- `GI_` - Graft, Institutionalized
-- `GNE_` - Graft, New Enrollee
-- `GFPA_`, `GFPN_`, `GNPA_`, `GNPN_` - Graft with various dual/age combinations
+- `GI_`, `GNE_` - Graft variations
 
-**RxHCC Model (V08):**
+RxHCC Models:
 - `Rx_CE_LowAged_` - Community, Low Income, Aged
 - `Rx_CE_NoLowAged_` - Community, Not Low Income, Aged
 - `Rx_NE_Lo_` - New Enrollee, Low Income
-- `Rx_CE_LTI_` - Community, Long-Term Institutionalized
 
-See [CLAUDE.md](./CLAUDE.md#coefficient-prefix-reference) for complete prefix reference.
+See [CLAUDE.md](./CLAUDE.md#coefficient-prefix-reference) for complete reference.
 
-### Custom Filtering Rules
+### Custom File Path Resolution
+
+The library uses intelligent path resolution to locate data files with the following priority:
+
+1. **Absolute path** - If you provide an absolute path, it uses that exact location
+2. **Relative to current working directory** - Checks `./your_file.csv` or `./custom_data/your_file.csv`
+3. **Bundled package data** - Falls back to built-in CMS reference files
+
+This allows flexible deployment scenarios without changing code.
+
+> **📁 Data File Reference**: See the bundled CMS reference files for format examples: [src/hccinfhir/data](https://github.com/mimilabs/hccinfhir/tree/main/src/hccinfhir/data)
+
+#### Basic Examples
 
 ```python
-from hccinfhir.filter import apply_filter
+from hccinfhir import HCCInFHIR
 
-# Apply custom filtering to service data
-filtered_data = apply_filter(
-    service_data,
-    include_inpatient=True,
-    include_outpatient=True,
-    eligible_cpt_hcpcs_file="custom_procedures.csv"
+# Option 1: Use bundled data (default - no setup needed)
+processor = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    dx_cc_mapping_filename="ra_dx_to_cc_2026.csv"  # ✅ Loads from package
 )
+
+# Option 2: Relative path from current directory
+# Assumes: ./custom_data/my_dx_mapping.csv exists
+processor = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    dx_cc_mapping_filename="custom_data/my_dx_mapping.csv"  # ✅ ./custom_data/
+)
+
+# Option 3: Absolute path (production deployments)
+processor = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    dx_cc_mapping_filename="/var/data/cms/dx_mapping_2026.csv"  # ✅ Absolute
+)
+
+# Option 4: Mix bundled and custom files
+processor = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    dx_cc_mapping_filename="ra_dx_to_cc_2026.csv",  # Bundled default
+    coefficients_filename="custom_coefficients.csv"  # Custom from current dir
+)
+```
+
+#### Real-World Scenarios
+
+**Scenario 1: Development Environment**
+```python
+# Use bundled files for testing
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+```
+
+**Scenario 2: Custom Coefficients for Research**
+```python
+# Keep standard mappings, customize coefficients
+# File: ./research/adjusted_coefficients.csv
+processor = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    coefficients_filename="research/adjusted_coefficients.csv"
+)
+```
+
+**Scenario 3: Production with Centralized Data**
+```python
+# All custom files in shared network location
+data_path = "/mnt/shared/cms_data/2026"
+processor = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    proc_filtering_filename=f"{data_path}/cpt_hcpcs.csv",
+    dx_cc_mapping_filename=f"{data_path}/dx_to_cc.csv",
+    hierarchies_filename=f"{data_path}/hierarchies.csv",
+    is_chronic_filename=f"{data_path}/chronic_flags.csv",
+    coefficients_filename=f"{data_path}/coefficients.csv"
+)
+```
+
+**Scenario 4: Docker Container with Mounted Volume**
+```python
+# Files mounted at /app/data
+processor = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    dx_cc_mapping_filename="/app/data/dx_to_cc_custom.csv",
+    coefficients_filename="/app/data/coefficients_custom.csv"
+    # Other files use bundled defaults
+)
+```
+
+#### Error Handling
+
+```python
+from hccinfhir import HCCInFHIR
+
+try:
+    processor = HCCInFHIR(
+        model_name="CMS-HCC Model V28",
+        dx_cc_mapping_filename="nonexistent.csv"
+    )
+except FileNotFoundError as e:
+    print(f"File not found: {e}")
+    # Error shows all locations checked:
+    # - Current directory: /path/to/cwd
+    # - Package data: hccinfhir.data
 ```
 
 ### Batch Processing
 
 ```python
-# Process multiple beneficiaries efficiently
+from hccinfhir import HCCInFHIR, Demographics
+
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+
+# Process multiple beneficiaries
+beneficiaries = [
+    {"id": "001", "age": 67, "sex": "F", "dual": "00", "dx": ["E11.9", "I10"]},
+    {"id": "002", "age": 45, "sex": "M", "dual": "02", "dx": ["N18.4", "F32.9"]},
+    {"id": "003", "age": 78, "sex": "F", "dual": "01", "dx": ["F03.90", "I48.91"]},
+]
+
 results = []
-for beneficiary_data in beneficiary_list:
-    demographics = Demographics(**beneficiary_data['demographics'])
-    service_data = beneficiary_data['service_data']
-    
-    result = processor.run_from_service_data(service_data, demographics)
+for ben in beneficiaries:
+    demographics = Demographics(
+        age=ben["age"],
+        sex=ben["sex"],
+        dual_elgbl_cd=ben["dual"]
+    )
+    result = processor.calculate_from_diagnosis(ben["dx"], demographics)
     results.append({
-        'beneficiary_id': beneficiary_data['id'],
-        'risk_score': result.risk_score,
-        'hcc_list': result.hcc_list
+        "beneficiary_id": ben["id"],
+        "risk_score": result.risk_score,
+        "risk_score_payment": result.risk_score_payment,
+        "hcc_list": result.hcc_list
     })
+
+# Export results
+import json
+with open("risk_scores.json", "w") as f:
+    json.dump(results, f, indent=2)
 ```
 
-### Error Handling
+### Converting to Dictionaries
+
+All Pydantic models support dictionary conversion for JSON serialization, database storage, or legacy code:
 
 ```python
-from hccinfhir.exceptions import ValidationError, ModelNotFoundError
+from hccinfhir import HCCInFHIR, Demographics
 
-try:
-    result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
-except ValidationError as e:
-    print(f"Data validation error: {e}")
-except ModelNotFoundError as e:
-    print(f"Model configuration error: {e}")
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+demographics = Demographics(age=67, sex="F")
+result = processor.calculate_from_diagnosis(["E11.9"], demographics)
+
+# Convert to dictionary
+result_dict = result.model_dump()
+print(result_dict["risk_score"])  # Dictionary access
+
+# JSON-safe conversion
+result_json = result.model_dump(mode='json')
+
+# Partial conversion
+summary = result.model_dump(include={"risk_score", "hcc_list", "model_name"})
+
+# Exclude large nested data
+compact = result.model_dump(exclude={"service_level_data"})
+
+# Convert to JSON string
+json_string = result.model_dump_json()
+
+# API response (FastAPI)
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.post("/calculate")
+def calculate_risk(diagnosis_codes: list, demographics: dict):
+    demo = Demographics(**demographics)
+    result = processor.calculate_from_diagnosis(diagnosis_codes, demo)
+    return result.model_dump(mode='json')  # Automatic JSON serialization
 ```
 
-### Custom Valuesets
+## 📝 Sample Data
 
-Users can generate custom and more specific valuesets using the mimilabs data lakehouse.
+Comprehensive sample data for testing and development:
 
-For example, the valuesets in the package are created as follows:
-
-`ra_dx_to_cc_mapping_2026.csv`
-```sql
-WITH latest_years AS (
-  SELECT 
-    model_name,
-    MAX(year) as latest_year
-  FROM mimi_ws_1.cmspayment.ra_dx_to_cc_mapping 
-  WHERE model_type = 'Initial'
-    AND year <= 2026  -- Don't go beyond 2026
-  GROUP BY model_name
+```python
+from hccinfhir import (
+    get_eob_sample,
+    get_837_sample,
+    get_834_sample,
+    list_available_samples
 )
-SELECT 
-  r.diagnosis_code, 
-  r.cc, 
-  r.model_name
-FROM mimi_ws_1.cmspayment.ra_dx_to_cc_mapping r
-INNER JOIN latest_years l 
-  ON r.model_name = l.model_name 
-  AND r.year = l.latest_year
-WHERE r.model_type = 'Initial'
-ORDER BY r.model_name, r.diagnosis_code;
-```
 
-`ra_hierarchies_2026.csv`
-```sql
-WITH latest_dates AS (
-  SELECT 
-    model_domain,
-    model_version,
-    model_fullname,
-    MAX(eff_last_date) as latest_eff_last_date
-  FROM mimi_ws_1.cmspayment.ra_hierarchies 
-  GROUP BY model_domain, model_version, model_fullname
-)
-SELECT 
-  r.cc_parent, 
-  r.cc_child, 
-  r.model_domain, 
-  r.model_version, 
-  r.model_fullname
-FROM mimi_ws_1.cmspayment.ra_hierarchies r
-INNER JOIN latest_dates l 
-  ON r.model_domain = l.model_domain 
-  AND r.model_version = l.model_version
-  AND r.model_fullname = l.model_fullname
-  AND r.eff_last_date = l.latest_eff_last_date
-ORDER BY r.model_domain, r.model_version, r.model_fullname, r.cc_parent, r.cc_child;
-```
+# FHIR EOB samples (3 individual + 200 batch)
+eob = get_eob_sample(1)  # Cases 1, 2, 3 (returns single dict)
+eob_list = get_eob_sample_list(limit=50)  # Returns list
 
+# Usage: processor.run() expects a list, so wrap single EOB
+result = processor.run([eob], demographics)  # Note: [eob] not eob
 
-`ra_coefficients_2026.csv`
-```sql
-WITH preferred_records AS (
-  SELECT 
-    model_domain,
-    model_version,
-    MAX(eff_last_date) as latest_eff_last_date
-  FROM mimi_ws_1.cmspayment.ra_coefficients
-  GROUP BY model_domain, model_version
-)
-SELECT 
-  r.coefficient,
-  r.value, 
-  r.model_domain, 
-  r.model_version
-FROM mimi_ws_1.cmspayment.ra_coefficients r
-INNER JOIN preferred_records p
-  ON r.model_domain = p.model_domain 
-  AND r.model_version = p.model_version
-  AND r.eff_last_date = p.latest_eff_last_date
-ORDER BY r.model_domain, r.model_version, r.coefficient;
-```   
+# X12 837 samples (13 different scenarios)
+claim = get_837_sample(0)  # Cases 0-12 (returns string)
+claims = get_837_sample_list([0, 1, 2])  # Returns list
 
-`ra_eligible_cpt_hcpcs_2026.csv`
-```sql
-SELECT DISTINCT cpt_hcpcs_code
-FROM mimi_ws_1.cmspayment.ra_eligible_cpt_hcpcs
-WHERE is_included = 'yes' AND YEAR(mimi_src_file_date) = 2025;
-```
+# X12 834 enrollment samples
+enrollment_834 = get_834_sample(1)  # Currently only case 1 available (returns string)
 
-`hcc_is_chronic.csv`
-```sql
-SELECT hcc, is_chronic, model_version, model_domain
-FROM cmspayment.ra_report_to_congress
-WHERE mimi_src_file_name = '2024riskadjustmentinma-rtc.pdf'
+# List all available samples
+info = list_available_samples()
+print(f"EOB samples: {info['eob_case_numbers']}")
+print(f"837 samples: {info['837_case_numbers']}")
+print(f"834 samples: {info['834_case_numbers']}")
 ```
 
 ## 🧪 Testing
 
 ```bash
-$ hatch shell
-$ pip install -e .
-$ pytest tests/*
+# Activate virtual environment
+hatch shell
+
+# Install in development mode
+pip install -e .
+
+# Run all tests (155 tests)
+pytest tests/
+
+# Run specific test file
+pytest tests/test_model_calculate.py -v
+
+# Run with coverage
+pytest tests/ --cov=hccinfhir --cov-report=html
 ```
 
 ## 📄 License
 
 Apache License 2.0. See [LICENSE](LICENSE) for details.
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
 ## 📞 Support
 
-- **Documentation**: [https://hccinfhir.readthedocs.io](https://hccinfhir.readthedocs.io)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/hccinfhir/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/hccinfhir/discussions)
+- **Claude Code Documentation**: [CLAUDE.md](./CLAUDE.md) - Comprehensive developer guide
+- **Issues**: [GitHub Issues](https://github.com/mimilabs/hccinfhir/issues)
+
+## 👥 Contributors
+
+We're grateful to all contributors who have helped improve this project:
+
+- [@choyiny](https://github.com/choyiny) - Custom CSV input feature, file path improvements
+
+**Want to contribute?** We're always looking for great minds to contribute to this project! Simply make a PR or open a ticket and we'll get connected.
 
 ---
 

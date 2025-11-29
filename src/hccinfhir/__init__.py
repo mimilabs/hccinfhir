@@ -18,6 +18,7 @@ from .samples import (
     get_eob_sample_list,
     get_837_sample,
     get_837_sample_list,
+    get_834_sample,
     list_available_samples
 )
 
@@ -43,5 +44,6 @@ __all__ = [
     "get_eob_sample_list",
     "get_837_sample",
     "get_837_sample_list",
+    "get_834_sample",
     "list_available_samples"
 ]

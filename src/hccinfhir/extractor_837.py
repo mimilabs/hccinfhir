@@ -1,4 +1,4 @@
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Tuple
 from pydantic import BaseModel
 from hccinfhir.datamodels import ServiceLevelData
 
@@ -65,7 +65,7 @@ def parse_diagnosis_codes(segment: List[str]) -> Dict[str, str]:
             dx_lookup[str(pos)] = code
     return dx_lookup
 
-def process_service_line(segments: List[List[str]], start_index: int) -> tuple[Optional[str], Optional[str]]:
+def process_service_line(segments: List[List[str]], start_index: int) -> Tuple[Optional[str], Optional[str]]:
     """Extract NDC and service date from service line segments"""
     ndc = None
     service_date = None

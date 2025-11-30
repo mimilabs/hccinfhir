@@ -1,4 +1,4 @@
-from typing import Dict, Tuple, Optional
+from typing import Dict, Tuple, Optional, Set
 from hccinfhir.datamodels import ModelName, Demographics, PrefixOverride
 
 def get_coefficent_prefix(demographics: Demographics, 
@@ -65,7 +65,7 @@ def get_coefficent_prefix(demographics: Demographics,
 
 
 def apply_coefficients(demographics: Demographics,
-                      hcc_set: set[str],
+                      hcc_set: Set[str],
                       interactions: dict,
                       model_name: ModelName,
                       coefficients: Dict[Tuple[str, ModelName], float],

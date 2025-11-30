@@ -1,7 +1,7 @@
 from hccinfhir.datamodels import Demographics, ModelName
-from typing import Optional
+from typing import Optional, List, Set, Dict
 
-def has_any_hcc(hcc_list: list[str], hcc_set: set[str]) -> int:
+def has_any_hcc(hcc_list: List[str], hcc_set: Set[str]) -> int:
     """Returns 1 if any HCC in the list is present, 0 otherwise"""
     return int(bool(set(hcc_list) & hcc_set))
 
@@ -81,7 +81,7 @@ def create_dual_interactions(demographics: Demographics) -> dict:
         
     return interactions
 
-def create_hcc_counts(hcc_set: set[str]) -> dict:
+def create_hcc_counts(hcc_set: Set[str]) -> Dict:
     """Creates HCC count variables"""
     counts = {}
     hcc_count = len(hcc_set)
@@ -95,7 +95,7 @@ def create_hcc_counts(hcc_set: set[str]) -> dict:
 
     return counts
 
-def get_diagnostic_categories(model_name: ModelName, hcc_set: set[str]) -> dict:
+def get_diagnostic_categories(model_name: ModelName, hcc_set: Set[str]) -> Dict:
     """Creates disease categories based on model version"""
     categories = {}
     
@@ -343,9 +343,9 @@ def create_disease_interactions(model_name: ModelName,
     
     return interactions
 
-def apply_interactions(demographics: Demographics, 
-                      hcc_set: set[str], 
-                      model_name: ModelName = "CMS-HCC Model V28") -> dict:
+def apply_interactions(demographics: Demographics,
+                      hcc_set: Set[str],
+                      model_name: ModelName = "CMS-HCC Model V28") -> Dict:
     """
     Calculate HCC interactions across CMS models. Handles CMS-HCC, ESRD, and RxHCC models.
     """

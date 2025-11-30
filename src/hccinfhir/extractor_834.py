@@ -1,27 +1,21 @@
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any, Tuple
 from pydantic import BaseModel
 from datetime import datetime, date
 from hccinfhir.datamodels import Demographics, EnrollmentData
+from hccinfhir.constants import (
+    VALID_DUAL_CODES,
+    FULL_BENEFIT_DUAL_CODES,
+    PARTIAL_BENEFIT_DUAL_CODES,
+    VALID_OREC_VALUES,
+    VALID_CREC_VALUES,
+    X12_SEX_CODE_MAPPING,
+    NON_DUAL_CODE,
+    map_medicare_status_to_dual_code,
+    map_aid_code_to_dual_status,
+)
 
 TRANSACTION_TYPES = {
     "005010X220A1": "834",  # Benefit Enrollment and Maintenance
-}
-
-# California Medi-Cal Aid Codes mapping to dual eligibility status
-MEDI_CAL_AID_CODES = {
-    # Full Benefit Dual (QMB Plus, SLMB Plus)
-    '4N': '02',  # QMB Plus - Aged
-    '4P': '02',  # QMB Plus - Disabled
-    '5B': '04',  # SLMB Plus - Aged
-    '5D': '04',  # SLMB Plus - Disabled
-
-    # Partial Benefit Dual (QMB Only, SLMB Only, QI)
-    '4M': '01',  # QMB Only - Aged
-    '4O': '01',  # QMB Only - Disabled
-    '5A': '03',  # SLMB Only - Aged
-    '5C': '03',  # SLMB Only - Disabled
-    '5E': '06',  # QI - Aged
-    '5F': '06',  # QI - Disabled
 }
 
 class MemberContext(BaseModel):
@@ -95,7 +89,7 @@ def is_medicaid_terminated(enrollment: EnrollmentData) -> bool:
     """Check if Medicaid coverage is being terminated (maintenance type 024)"""
     return enrollment.maintenance_type == '024'
 
-def medicaid_status_summary(enrollment: EnrollmentData) -> Dict[str, any]:
+def medicaid_status_summary(enrollment: EnrollmentData) -> Dict[str, Any]:
     """Get summary of Medicaid coverage status for monitoring
 
     Args:
@@ -157,45 +151,28 @@ def get_segment_value(segment: List[str], index: int, default: Optional[str] = N
         pass
     return default
 
-def map_medicare_status_to_dual_code(status: Optional[str]) -> Optional[str]:
-    """Map Medicare status codes to dual eligibility codes
+def parse_composite_ref_value(value: str) -> str:
+    """Parse X12 composite element format: 'qualifier;id;...'
 
-    California Medi-Cal uses these status codes:
-    - QMB = Qualified Medicare Beneficiary
-    - QMBPLUS = QMB Plus (Full Benefit)
-    - SLMB = Specified Low-Income Medicare Beneficiary
-    - SLMBPLUS = SLMB Plus (Full Benefit)
-    - QI = Qualifying Individual
-    - QDWI = Qualified Disabled Working Individual
+    X12 uses semicolons to separate sub-elements within a composite data element.
+    Example: REF*23*9;20061234; where 9 is the ID type qualifier
+
+    Args:
+        value: Raw REF segment value (e.g., '9;20061234;' or '20061234')
+
+    Returns:
+        The last non-empty sub-element (the actual ID)
     """
-    if not status:
-        return None
+    if not value:
+        return value
 
-    status_upper = status.upper().replace(' ', '').replace('-', '')
+    if ';' in value:
+        # Split by semicolon and filter out empty parts
+        parts = [p for p in value.split(';') if p]
+        return parts[-1] if parts else value
 
-    mapping = {
-        'QMB': '01',         # QMB Only (Partial)
-        'QMBONLY': '01',
-        'QMBPLUS': '02',     # QMB Plus (Full Benefit)
-        'QMB+': '02',
-        'SLMB': '03',        # SLMB Only (Partial)
-        'SLMBONLY': '03',
-        'SLMBPLUS': '04',    # SLMB Plus (Full Benefit)
-        'SLMB+': '04',
-        'QDWI': '05',
-        'QI': '06',
-        'QI1': '06',
-        'FBDE': '08',        # Full Benefit Dual Eligible (Other)
-        'OTHERFULL': '08',
-    }
+    return value
 
-    return mapping.get(status_upper)
-
-def map_aid_code_to_dual_status(aid_code: Optional[str]) -> Optional[str]:
-    """Map California Medi-Cal aid code to dual eligibility status"""
-    if not aid_code:
-        return None
-    return MEDI_CAL_AID_CODES.get(aid_code)
 
 def determine_dual_status(member: MemberContext) -> str:
     """Intelligently derive dual eligibility code from available data
@@ -208,19 +185,19 @@ def determine_dual_status(member: MemberContext) -> str:
     5. Default to non-dual ('00')
     """
     # Priority 1: Explicit dual_elgbl_cd
-    if member.dual_elgbl_cd and member.dual_elgbl_cd in ['01','02','03','04','05','06','08']:
+    if member.dual_elgbl_cd and member.dual_elgbl_cd in VALID_DUAL_CODES:
         return member.dual_elgbl_cd
 
     # Priority 2: California aid code mapping
     if member.medi_cal_aid_code:
         dual_code = map_aid_code_to_dual_status(member.medi_cal_aid_code)
-        if dual_code:
+        if dual_code != NON_DUAL_CODE:
             return dual_code
 
     # Priority 3: Medicare status code
     if member.medicare_status_code:
         dual_code = map_medicare_status_to_dual_code(member.medicare_status_code)
-        if dual_code:
+        if dual_code != NON_DUAL_CODE:
             return dual_code
 
     # Priority 4: Both Medicare and Medicaid coverage present
@@ -229,9 +206,9 @@ def determine_dual_status(member: MemberContext) -> str:
         return '08'
 
     # Default: Non-dual
-    return '00'
+    return NON_DUAL_CODE
 
-def classify_dual_benefit_level(dual_code: str) -> tuple[bool, bool]:
+def classify_dual_benefit_level(dual_code: str) -> Tuple[bool, bool]:
     """Classify as Full Benefit Dual (FBD) or Partial Benefit Dual (PBD)
 
     Full Benefit Dual codes: 02, 04, 08
@@ -242,11 +219,8 @@ def classify_dual_benefit_level(dual_code: str) -> tuple[bool, bool]:
     - Uses CPA_ (Community, Partial Benefit Dual, Aged) prefix
     - Uses CPD_ (Community, Partial Benefit Dual, Disabled) prefix
     """
-    full_benefit_codes = {'02', '04', '08'}
-    partial_benefit_codes = {'01', '03', '05', '06'}
-
-    is_fbd = dual_code in full_benefit_codes
-    is_pbd = dual_code in partial_benefit_codes
+    is_fbd = dual_code in FULL_BENEFIT_DUAL_CODES
+    is_pbd = dual_code in PARTIAL_BENEFIT_DUAL_CODES
 
     return is_fbd, is_pbd
 
@@ -284,7 +258,7 @@ def parse_834_enrollment(segments: List[List[str]]) -> List[EnrollmentData]:
     enrollments = []
     member = MemberContext()
 
-    for i, segment in enumerate(segments):
+    for segment in segments:
         if len(segment) < 2:
             continue
 
@@ -330,11 +304,11 @@ def parse_834_enrollment(segments: List[List[str]]) -> List[EnrollmentData]:
 
             # Medicaid Identifiers
             elif qualifier == '1D':  # Medicaid/Recipient ID
-                member.medicaid_id = value
+                member.medicaid_id = parse_composite_ref_value(value)
                 member.has_medicaid = True
             elif qualifier == '23':  # Medicaid Recipient ID (alternative)
                 if not member.medicaid_id:
-                    member.medicaid_id = value
+                    member.medicaid_id = parse_composite_ref_value(value)
                 member.has_medicaid = True
 
             # California Medi-Cal Specific
@@ -345,13 +319,13 @@ def parse_834_enrollment(segments: List[List[str]]) -> List[EnrollmentData]:
 
             # Custom dual eligibility indicators
             elif qualifier == 'F5':  # Dual Eligibility Code (custom)
-                if value in ['01','02','03','04','05','06','08']:
+                if value in VALID_DUAL_CODES:
                     member.dual_elgbl_cd = value
             elif qualifier == 'DX':  # OREC (custom)
-                if value in ['0','1','2','3']:
+                if value in VALID_OREC_VALUES:
                     member.orec = value
             elif qualifier == 'DY':  # CREC (custom)
-                if value in ['0','1','2','3']:
+                if value in VALID_CREC_VALUES:
                     member.crec = value
             elif qualifier == 'EJ':  # Low Income Subsidy indicator
                 member.low_income = (value.upper() in ['Y', 'YES', '1', 'TRUE'])
@@ -376,8 +350,8 @@ def parse_834_enrollment(segments: List[List[str]]) -> List[EnrollmentData]:
 
             # DMG03 = Gender Code
             sex = get_segment_value(segment, 3)
-            if sex in ['M', 'F', '1', '2']:
-                member.sex = 'M' if sex in ['M', '1'] else 'F'
+            if sex in X12_SEX_CODE_MAPPING:
+                member.sex = X12_SEX_CODE_MAPPING[sex]
 
         # ===== DTP - Date Time Periods =====
         elif seg_id == 'DTP' and len(segment) >= 4:
@@ -439,6 +413,13 @@ def parse_834_enrollment(segments: List[List[str]]) -> List[EnrollmentData]:
                 if 'D-SNP' in combined or 'DSNP' in combined or 'DUAL' in combined:
                     member.has_medicare = True
                     member.has_medicaid = True
+
+            # Detect LTI (Long Term Institutionalized)
+            if any(keyword in combined for keyword in [
+                'LTC', 'LONG TERM CARE', 'LONG-TERM CARE', 'NURSING HOME',
+                'SKILLED NURSING', 'SNF', 'INSTITUTIONALIZED'
+            ]):
+                member.lti = True
 
     # Don't forget last member
     if member.member_id or member.has_medicare or member.has_medicaid:

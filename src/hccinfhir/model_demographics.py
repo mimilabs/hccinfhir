@@ -1,5 +1,18 @@
 from typing import Union, Optional
 from hccinfhir.datamodels import Demographics, PrefixOverride
+from hccinfhir.constants import (
+    FULL_BENEFIT_DUAL_CODES,
+    PARTIAL_BENEFIT_DUAL_CODES,
+    OREC_ESRD_CODES,
+    CREC_ESRD_CODES,
+    ESRD_PREFIXES,
+    NEW_ENROLLEE_PREFIXES,
+    COMMUNITY_PREFIXES,
+    INSTITUTIONAL_PREFIXES,
+    FULL_BENEFIT_DUAL_PREFIXES,
+    PARTIAL_BENEFIT_DUAL_PREFIXES,
+    NON_DUAL_PREFIXES,
+)
     
 def categorize_demographics(age: Union[int, float],
                        sex: str,
@@ -75,56 +88,40 @@ def categorize_demographics(age: Union[int, float],
     disabled = age < 65 and (orec is not None and orec != "0")
     orig_disabled = (orec is not None and orec == '1') and not disabled
 
-    # Reference: https://resdac.org/cms-data/variables/medicare-medicaid-dual-eligibility-code-january 
-    # Full benefit dual codes
-    fbd_codes = {'02', '04', '08'}
-    
-    # Partial benefit dual codes
-    pbd_codes = {'01', '03', '05', '06'}
-    
-    is_fbd = dual_elgbl_cd in fbd_codes
-    is_pbd = dual_elgbl_cd in pbd_codes
+    # Reference: https://resdac.org/cms-data/variables/medicare-medicaid-dual-eligibility-code-january
+    is_fbd = dual_elgbl_cd in FULL_BENEFIT_DUAL_CODES
+    is_pbd = dual_elgbl_cd in PARTIAL_BENEFIT_DUAL_CODES
 
-    esrd_orec = orec in {'2', '3', '6'}
-    esrd_crec = crec in {'2', '3'} if crec else False
+    # ESRD detection from OREC/CREC (CMS official codes: 2=ESRD, 3=DIB+ESRD)
+    esrd_orec = orec in OREC_ESRD_CODES
+    esrd_crec = crec in CREC_ESRD_CODES if crec else False
     esrd = esrd_orec or esrd_crec
 
     # Override demographics based on prefix_override
     if prefix_override:
-        # ESRD model prefixes
-        esrd_prefixes = {'DI_', 'DNE_', 'GI_', 'GNE_', 'GFPA_', 'GFPN_', 'GNPA_', 'GNPN_'}
-        # CMS-HCC new enrollee prefixes
-        new_enrollee_prefixes = {'NE_', 'SNPNE_', 'DNE_', 'GNE_'}
-        # CMS-HCC community prefixes
-        community_prefixes = {'CNA_', 'CND_', 'CFA_', 'CFD_', 'CPA_', 'CPD_'}
-        # Institutionalized prefix
-        institutional_prefixes = {'INS_', 'GI_'}
-        
-        # TODO: RxHCC prefixes
-
         # Set esrd flag
-        if prefix_override in esrd_prefixes:
+        if prefix_override in ESRD_PREFIXES:
             esrd = True
 
         # Set new_enrollee flag
-        if prefix_override in new_enrollee_prefixes:
+        if prefix_override in NEW_ENROLLEE_PREFIXES:
             new_enrollee = True
-        elif prefix_override in community_prefixes or prefix_override in institutional_prefixes:
+        elif prefix_override in COMMUNITY_PREFIXES or prefix_override in INSTITUTIONAL_PREFIXES:
             new_enrollee = False
 
         # Set dual eligibility flags based on prefix
-        if prefix_override in {'CFA_', 'CFD_', 'GFPA_', 'GFPN_'}:
+        if prefix_override in FULL_BENEFIT_DUAL_PREFIXES:
             is_fbd = True
             is_pbd = False
-        elif prefix_override in {'CPA_', 'CPD_'}:
+        elif prefix_override in PARTIAL_BENEFIT_DUAL_PREFIXES:
             is_fbd = False
             is_pbd = True
-        elif prefix_override in {'CNA_', 'CND_', 'GNPA_', 'GNPN_'}:
+        elif prefix_override in NON_DUAL_PREFIXES:
             is_fbd = False
             is_pbd = False
 
         # Set lti flag based on prefix
-        if prefix_override in institutional_prefixes:
+        if prefix_override in INSTITUTIONAL_PREFIXES:
             lti = True
 
     result_dict = {

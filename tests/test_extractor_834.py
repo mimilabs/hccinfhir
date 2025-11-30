@@ -7,12 +7,15 @@ from hccinfhir.extractor_834 import (
     medicaid_status_summary,
     parse_date,
     calculate_age,
-    map_medicare_status_to_dual_code,
-    map_aid_code_to_dual_status,
     determine_dual_status,
     classify_dual_benefit_level,
     is_new_enrollee,
     MemberContext
+)
+from hccinfhir.constants import (
+    map_medicare_status_to_dual_code,
+    map_aid_code_to_dual_status,
+    NON_DUAL_CODE
 )
 from hccinfhir.datamodels import EnrollmentData
 from pathlib import Path
@@ -52,8 +55,8 @@ def test_map_medicare_status_to_dual_code():
     assert map_medicare_status_to_dual_code("QI") == "06"
     assert map_medicare_status_to_dual_code("QDWI") == "05"
     assert map_medicare_status_to_dual_code("FBDE") == "08"
-    assert map_medicare_status_to_dual_code("INVALID") is None
-    assert map_medicare_status_to_dual_code(None) is None
+    assert map_medicare_status_to_dual_code("INVALID") == NON_DUAL_CODE  # Returns '00' for invalid
+    assert map_medicare_status_to_dual_code(None) == NON_DUAL_CODE  # Returns '00' for None
 
 def test_map_aid_code_to_dual_status():
     """Test California Medi-Cal aid code mapping"""
@@ -71,8 +74,8 @@ def test_map_aid_code_to_dual_status():
     assert map_aid_code_to_dual_status("5E") == "06"  # QI - Aged
     assert map_aid_code_to_dual_status("5F") == "06"  # QI - Disabled
 
-    assert map_aid_code_to_dual_status("XX") is None
-    assert map_aid_code_to_dual_status(None) is None
+    assert map_aid_code_to_dual_status("XX") == NON_DUAL_CODE  # Returns '00' for invalid
+    assert map_aid_code_to_dual_status(None) == NON_DUAL_CODE  # Returns '00' for None
 
 def test_classify_dual_benefit_level():
     """Test Full vs Partial Benefit Dual classification"""

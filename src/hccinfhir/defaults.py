@@ -15,7 +15,8 @@ from hccinfhir.utils import (
     load_hierarchies,
     load_is_chronic,
     load_coefficients,
-    load_proc_filtering
+    load_proc_filtering,
+    load_labels
 )
 
 # Load all default data files once at module import time
@@ -29,3 +30,4 @@ hierarchies_default: Dict[Tuple[str, ModelName], Set[str]] = load_hierarchies('r
 is_chronic_default: Dict[Tuple[str, ModelName], bool] = load_is_chronic('hcc_is_chronic.csv')
 coefficients_default: Dict[Tuple[str, ModelName], float] = load_coefficients('ra_coefficients_2026.csv')
 proc_filtering_default: Set[str] = load_proc_filtering('ra_eligible_cpt_hcpcs_2026.csv')
+labels_default: Dict[Tuple[str, ModelName], str] = load_labels('ra_labels_2026.csv')

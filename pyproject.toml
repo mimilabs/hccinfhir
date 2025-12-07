@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hccinfhir"
-version = "0.2.1"
+version = "0.2.2"
 authors = [
   { name="Yubin Park", email="yubin.park@mimilabs.ai" },
 ]
@@ -16,7 +16,10 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
-dependencies = ["pydantic>=2.10.3"]
+dependencies = [
+    "pydantic>=2.10.3",
+    "typing-extensions>=4.6.0"
+]
 
 [project.urls]
 Homepage = "https://github.com/mimilabs/hccinfhir"

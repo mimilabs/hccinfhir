@@ -1,0 +1,784 @@
+cc,label,model_domain,model_version,model_fullname
+HCC1,HIV/AIDS,CMS-HCC,V20,V20H87L1
+HCC2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",CMS-HCC,V20,V20H87L1
+HCC6,Opportunistic Infections,CMS-HCC,V20,V20H87L1
+HCC8,Metastatic Cancer and Acute Leukemia,CMS-HCC,V20,V20H87L1
+HCC9,Lung and Other Severe Cancers,CMS-HCC,V20,V20H87L1
+HCC10,Lymphoma and Other Cancers,CMS-HCC,V20,V20H87L1
+HCC11,"Colorectal, Bladder, and Other Cancers",CMS-HCC,V20,V20H87L1
+HCC12,"Breast, Prostate, and Other Cancers and Tumors",CMS-HCC,V20,V20H87L1
+HCC17,Diabetes with Acute Complications,CMS-HCC,V20,V20H87L1
+HCC18,Diabetes with Chronic Complications,CMS-HCC,V20,V20H87L1
+HCC19,Diabetes without Complication,CMS-HCC,V20,V20H87L1
+HCC21,Protein-Calorie Malnutrition,CMS-HCC,V20,V20H87L1
+HCC22,Morbid Obesity,CMS-HCC,V20,V20H87L1
+HCC23,Other Significant Endocrine and Metabolic Disorders,CMS-HCC,V20,V20H87L1
+HCC27,End-Stage Liver Disease,CMS-HCC,V20,V20H87L1
+HCC28,Cirrhosis of Liver,CMS-HCC,V20,V20H87L1
+HCC29,Chronic Hepatitis,CMS-HCC,V20,V20H87L1
+HCC33,Intestinal Obstruction/Perforation,CMS-HCC,V20,V20H87L1
+HCC34,Chronic Pancreatitis,CMS-HCC,V20,V20H87L1
+HCC35,Inflammatory Bowel Disease,CMS-HCC,V20,V20H87L1
+HCC39,Bone/Joint/Muscle Infections/Necrosis,CMS-HCC,V20,V20H87L1
+HCC40,Rheumatoid Arthritis and Inflammatory Connective Tissue Disease,CMS-HCC,V20,V20H87L1
+HCC46,Severe Hematological Disorders,CMS-HCC,V20,V20H87L1
+HCC47,Disorders of Immunity,CMS-HCC,V20,V20H87L1
+HCC48,Coagulation Defects and Other Specified Hematological Disorders,CMS-HCC,V20,V20H87L1
+HCC51,Dementia With Complications,CMS-HCC,V20,V20H87L1
+HCC52,Dementia Without Complication,CMS-HCC,V20,V20H87L1
+HCC54,Drug/Alcohol Psychosis,CMS-HCC,V20,V20H87L1
+HCC55,Drug/Alcohol Dependence,CMS-HCC,V20,V20H87L1
+HCC57,Schizophrenia,CMS-HCC,V20,V20H87L1
+HCC58,"Major Depressive, Bipolar, and Paranoid Disorders",CMS-HCC,V20,V20H87L1
+HCC70,Quadriplegia,CMS-HCC,V20,V20H87L1
+HCC71,Paraplegia,CMS-HCC,V20,V20H87L1
+HCC72,Spinal Cord Disorders/Injuries,CMS-HCC,V20,V20H87L1
+HCC73,Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease,CMS-HCC,V20,V20H87L1
+HCC74,Cerebral Palsy,CMS-HCC,V20,V20H87L1
+HCC75,Polyneuropathy,CMS-HCC,V20,V20H87L1
+HCC76,Muscular Dystrophy,CMS-HCC,V20,V20H87L1
+HCC77,Multiple Sclerosis,CMS-HCC,V20,V20H87L1
+HCC78,Parkinsons and Huntingtons Diseases,CMS-HCC,V20,V20H87L1
+HCC79,Seizure Disorders and Convulsions,CMS-HCC,V20,V20H87L1
+HCC80,"Coma, Brain Compression/Anoxic Damage",CMS-HCC,V20,V20H87L1
+HCC82,Respirator Dependence/Tracheostomy Status,CMS-HCC,V20,V20H87L1
+HCC83,Respiratory Arrest,CMS-HCC,V20,V20H87L1
+HCC84,Cardio-Respiratory Failure and Shock,CMS-HCC,V20,V20H87L1
+HCC85,Congestive Heart Failure,CMS-HCC,V20,V20H87L1
+HCC86,Acute Myocardial Infarction,CMS-HCC,V20,V20H87L1
+HCC87,Unstable Angina and Other Acute Ischemic Heart Disease,CMS-HCC,V20,V20H87L1
+HCC88,Angina Pectoris,CMS-HCC,V20,V20H87L1
+HCC96,Specified Heart Arrhythmias,CMS-HCC,V20,V20H87L1
+HCC99,Cerebral Hemorrhage,CMS-HCC,V20,V20H87L1
+HCC100,Ischemic or Unspecified Stroke,CMS-HCC,V20,V20H87L1
+HCC103,Hemiplegia/Hemiparesis,CMS-HCC,V20,V20H87L1
+HCC104,"Monoplegia, Other Paralytic Syndromes",CMS-HCC,V20,V20H87L1
+HCC106,Atherosclerosis of the Extremities with Ulceration or Gangrene,CMS-HCC,V20,V20H87L1
+HCC107,Vascular Disease with Complications,CMS-HCC,V20,V20H87L1
+HCC108,Vascular Disease,CMS-HCC,V20,V20H87L1
+HCC110,Cystic Fibrosis,CMS-HCC,V20,V20H87L1
+HCC111,Chronic Obstructive Pulmonary Disease,CMS-HCC,V20,V20H87L1
+HCC112,Fibrosis of Lung and Other Chronic Lung Disorders,CMS-HCC,V20,V20H87L1
+HCC114,Aspiration and Specified Bacterial Pneumonias,CMS-HCC,V20,V20H87L1
+HCC115,"Pneumococcal Pneumonia, Empyema, Lung Abscess",CMS-HCC,V20,V20H87L1
+HCC122,Proliferative Diabetic Retinopathy and Vitreous Hemorrhage,CMS-HCC,V20,V20H87L1
+HCC124,Exudative Macular Degeneration,CMS-HCC,V20,V20H87L1
+HCC134,Dialysis Status,CMS-HCC,V20,V20H87L1
+HCC135,Acute Renal Failure,CMS-HCC,V20,V20H87L1
+HCC136,"Chronic Kidney Disease, Stage 5",CMS-HCC,V20,V20H87L1
+HCC137,"Chronic Kidney Disease, Severe (Stage 4)",CMS-HCC,V20,V20H87L1
+HCC138,"Chronic Kidney Disease, Moderate (Stage 3)",CMS-HCC,V20,V20H87L1
+HCC139,"Chronic Kidney Disease, Mild or Unspecified (Stages 1-2 or Unspecified)",CMS-HCC,V20,V20H87L1
+HCC140,Unspecified Renal Failure,CMS-HCC,V20,V20H87L1
+HCC141,Nephritis,CMS-HCC,V20,V20H87L1
+HCC157,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",CMS-HCC,V20,V20H87L1
+HCC158,Pressure Ulcer of Skin with Full Thickness Skin Loss,CMS-HCC,V20,V20H87L1
+HCC159,Pressure Ulcer of Skin with Partial Thickness Skin Loss,CMS-HCC,V20,V20H87L1
+HCC160,Pressure Pre-Ulcer Skin Changes or Unspecified Stage,CMS-HCC,V20,V20H87L1
+HCC161,"Chronic Ulcer of Skin, Except Pressure",CMS-HCC,V20,V20H87L1
+HCC162,Severe Skin Burn or Condition,CMS-HCC,V20,V20H87L1
+HCC166,Severe Head Injury,CMS-HCC,V20,V20H87L1
+HCC167,Major Head Injury,CMS-HCC,V20,V20H87L1
+HCC169,Vertebral Fractures without Spinal Cord Injury,CMS-HCC,V20,V20H87L1
+HCC170,Hip Fracture/Dislocation,CMS-HCC,V20,V20H87L1
+HCC173,Traumatic Amputations and Complications,CMS-HCC,V20,V20H87L1
+HCC176,Complications of Specified Implanted Device or Graft,CMS-HCC,V20,V20H87L1
+HCC186,Major Organ Transplant or Replacement Status,CMS-HCC,V20,V20H87L1
+HCC188,Artificial Openings for Feeding or Elimination,CMS-HCC,V20,V20H87L1
+HCC189,"Amputation Status, Lower Limb/Amputation Complications",CMS-HCC,V20,V20H87L1
+HCC1,HIV/AIDS,CMS-HCC,V22,V22H79L1
+HCC2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",CMS-HCC,V22,V22H79L1
+HCC6,Opportunistic Infections,CMS-HCC,V22,V22H79L1
+HCC8,Metastatic Cancer and Acute Leukemia,CMS-HCC,V22,V22H79L1
+HCC9,Lung and Other Severe Cancers,CMS-HCC,V22,V22H79L1
+HCC10,Lymphoma and Other Cancers,CMS-HCC,V22,V22H79L1
+HCC11,"Colorectal, Bladder, and Other Cancers",CMS-HCC,V22,V22H79L1
+HCC12,"Breast, Prostate, and Other Cancers and Tumors",CMS-HCC,V22,V22H79L1
+HCC17,Diabetes with Acute Complications,CMS-HCC,V22,V22H79L1
+HCC18,Diabetes with Chronic Complications,CMS-HCC,V22,V22H79L1
+HCC19,Diabetes without Complication,CMS-HCC,V22,V22H79L1
+HCC21,Protein-Calorie Malnutrition,CMS-HCC,V22,V22H79L1
+HCC22,Morbid Obesity,CMS-HCC,V22,V22H79L1
+HCC23,Other Significant Endocrine and Metabolic Disorders,CMS-HCC,V22,V22H79L1
+HCC27,End-Stage Liver Disease,CMS-HCC,V22,V22H79L1
+HCC28,Cirrhosis of Liver,CMS-HCC,V22,V22H79L1
+HCC29,Chronic Hepatitis,CMS-HCC,V22,V22H79L1
+HCC33,Intestinal Obstruction/Perforation,CMS-HCC,V22,V22H79L1
+HCC34,Chronic Pancreatitis,CMS-HCC,V22,V22H79L1
+HCC35,Inflammatory Bowel Disease,CMS-HCC,V22,V22H79L1
+HCC39,Bone/Joint/Muscle Infections/Necrosis,CMS-HCC,V22,V22H79L1
+HCC40,Rheumatoid Arthritis and Inflammatory Connective Tissue Disease,CMS-HCC,V22,V22H79L1
+HCC46,Severe Hematological Disorders,CMS-HCC,V22,V22H79L1
+HCC47,Disorders of Immunity,CMS-HCC,V22,V22H79L1
+HCC48,Coagulation Defects and Other Specified Hematological Disorders,CMS-HCC,V22,V22H79L1
+HCC54,Drug/Alcohol Psychosis,CMS-HCC,V22,V22H79L1
+HCC55,Drug/Alcohol Dependence,CMS-HCC,V22,V22H79L1
+HCC57,Schizophrenia,CMS-HCC,V22,V22H79L1
+HCC58,"Major Depressive, Bipolar, and Paranoid Disorders",CMS-HCC,V22,V22H79L1
+HCC70,Quadriplegia,CMS-HCC,V22,V22H79L1
+HCC71,Paraplegia,CMS-HCC,V22,V22H79L1
+HCC72,Spinal Cord Disorders/Injuries,CMS-HCC,V22,V22H79L1
+HCC73,Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease,CMS-HCC,V22,V22H79L1
+HCC74,Cerebral Palsy,CMS-HCC,V22,V22H79L1
+HCC75,"Myasthenia Gravis/Myoneural Disorders,  Inflammatory and Toxic Neuropathy",CMS-HCC,V22,V22H79L1
+HCC76,Muscular Dystrophy,CMS-HCC,V22,V22H79L1
+HCC77,Multiple Sclerosis,CMS-HCC,V22,V22H79L1
+HCC78,Parkinsons and Huntingtons Diseases,CMS-HCC,V22,V22H79L1
+HCC79,Seizure Disorders and Convulsions,CMS-HCC,V22,V22H79L1
+HCC80,"Coma, Brain Compression/Anoxic Damage",CMS-HCC,V22,V22H79L1
+HCC82,Respirator Dependence/Tracheostomy Status,CMS-HCC,V22,V22H79L1
+HCC83,Respiratory Arrest,CMS-HCC,V22,V22H79L1
+HCC84,Cardio-Respiratory Failure and Shock,CMS-HCC,V22,V22H79L1
+HCC85,Congestive Heart Failure,CMS-HCC,V22,V22H79L1
+HCC86,Acute Myocardial Infarction,CMS-HCC,V22,V22H79L1
+HCC87,Unstable Angina and Other Acute Ischemic Heart Disease,CMS-HCC,V22,V22H79L1
+HCC88,Angina Pectoris,CMS-HCC,V22,V22H79L1
+HCC96,Specified Heart Arrhythmias,CMS-HCC,V22,V22H79L1
+HCC99,Cerebral Hemorrhage,CMS-HCC,V22,V22H79L1
+HCC100,Ischemic or Unspecified Stroke,CMS-HCC,V22,V22H79L1
+HCC103,Hemiplegia/Hemiparesis,CMS-HCC,V22,V22H79L1
+HCC104,"Monoplegia, Other Paralytic Syndromes",CMS-HCC,V22,V22H79L1
+HCC106,Atherosclerosis of the Extremities with Ulceration or Gangrene,CMS-HCC,V22,V22H79L1
+HCC107,Vascular Disease with Complications,CMS-HCC,V22,V22H79L1
+HCC108,Vascular Disease,CMS-HCC,V22,V22H79L1
+HCC110,Cystic Fibrosis,CMS-HCC,V22,V22H79L1
+HCC111,Chronic Obstructive Pulmonary Disease,CMS-HCC,V22,V22H79L1
+HCC112,Fibrosis of Lung and Other Chronic Lung Disorders,CMS-HCC,V22,V22H79L1
+HCC114,Aspiration and Specified Bacterial Pneumonias,CMS-HCC,V22,V22H79L1
+HCC115,"Pneumococcal Pneumonia, Empyema, Lung Abscess",CMS-HCC,V22,V22H79L1
+HCC122,Proliferative Diabetic Retinopathy and Vitreous Hemorrhage,CMS-HCC,V22,V22H79L1
+HCC124,Exudative Macular Degeneration,CMS-HCC,V22,V22H79L1
+HCC134,Dialysis Status,CMS-HCC,V22,V22H79L1
+HCC135,Acute Renal Failure,CMS-HCC,V22,V22H79L1
+HCC136,"Chronic Kidney Disease, Stage 5",CMS-HCC,V22,V22H79L1
+HCC137,"Chronic Kidney Disease, Severe (Stage 4)",CMS-HCC,V22,V22H79L1
+HCC157,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",CMS-HCC,V22,V22H79L1
+HCC158,Pressure Ulcer of Skin with Full Thickness Skin Loss,CMS-HCC,V22,V22H79L1
+HCC161,"Chronic Ulcer of Skin, Except Pressure",CMS-HCC,V22,V22H79L1
+HCC162,Severe Skin Burn or Condition,CMS-HCC,V22,V22H79L1
+HCC166,Severe Head Injury,CMS-HCC,V22,V22H79L1
+HCC167,Major Head Injury,CMS-HCC,V22,V22H79L1
+HCC169,Vertebral Fractures without Spinal Cord Injury,CMS-HCC,V22,V22H79L1
+HCC170,Hip Fracture/Dislocation,CMS-HCC,V22,V22H79L1
+HCC173,Traumatic Amputations and Complications,CMS-HCC,V22,V22H79L1
+HCC176,Complications of Specified Implanted Device or Graft,CMS-HCC,V22,V22H79L1
+HCC186,Major Organ Transplant or Replacement Status,CMS-HCC,V22,V22H79L1
+HCC188,Artificial Openings for Feeding or Elimination,CMS-HCC,V22,V22H79L1
+HCC189,"Amputation Status, Lower Limb/Amputation Complications",CMS-HCC,V22,V22H79L1
+HCC1,HIV/AIDS,ESRD,V20,V20H87L1
+HCC2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",ESRD,V20,V20H87L1
+HCC6,Opportunistic Infections,ESRD,V20,V20H87L1
+HCC8,Metastatic Cancer and Acute Leukemia,ESRD,V20,V20H87L1
+HCC9,Lung and Other Severe Cancers,ESRD,V20,V20H87L1
+HCC10,Lymphoma and Other Cancers,ESRD,V20,V20H87L1
+HCC11,"Colorectal, Bladder, and Other Cancers",ESRD,V20,V20H87L1
+HCC12,"Breast, Prostate, and Other Cancers and Tumors",ESRD,V20,V20H87L1
+HCC17,Diabetes with Acute Complications,ESRD,V20,V20H87L1
+HCC18,Diabetes with Chronic Complications,ESRD,V20,V20H87L1
+HCC19,Diabetes without Complication,ESRD,V20,V20H87L1
+HCC21,Protein-Calorie Malnutrition,ESRD,V20,V20H87L1
+HCC22,Morbid Obesity,ESRD,V20,V20H87L1
+HCC23,Other Significant Endocrine and Metabolic Disorders,ESRD,V20,V20H87L1
+HCC27,End-Stage Liver Disease,ESRD,V20,V20H87L1
+HCC28,Cirrhosis of Liver,ESRD,V20,V20H87L1
+HCC29,Chronic Hepatitis,ESRD,V20,V20H87L1
+HCC33,Intestinal Obstruction/Perforation,ESRD,V20,V20H87L1
+HCC34,Chronic Pancreatitis,ESRD,V20,V20H87L1
+HCC35,Inflammatory Bowel Disease,ESRD,V20,V20H87L1
+HCC39,Bone/Joint/Muscle Infections/Necrosis,ESRD,V20,V20H87L1
+HCC40,Rheumatoid Arthritis and Inflammatory Connective Tissue Disease,ESRD,V20,V20H87L1
+HCC46,Severe Hematological Disorders,ESRD,V20,V20H87L1
+HCC47,Disorders of Immunity,ESRD,V20,V20H87L1
+HCC48,Coagulation Defects and Other Specified Hematological Disorders,ESRD,V20,V20H87L1
+HCC51,Dementia With Complications,ESRD,V20,V20H87L1
+HCC52,Dementia Without Complication,ESRD,V20,V20H87L1
+HCC54,Drug/Alcohol Psychosis,ESRD,V20,V20H87L1
+HCC55,Drug/Alcohol Dependence,ESRD,V20,V20H87L1
+HCC57,Schizophrenia,ESRD,V20,V20H87L1
+HCC58,"Major Depressive, Bipolar, and Paranoid Disorders",ESRD,V20,V20H87L1
+HCC70,Quadriplegia,ESRD,V20,V20H87L1
+HCC71,Paraplegia,ESRD,V20,V20H87L1
+HCC72,Spinal Cord Disorders/Injuries,ESRD,V20,V20H87L1
+HCC73,Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease,ESRD,V20,V20H87L1
+HCC74,Cerebral Palsy,ESRD,V20,V20H87L1
+HCC75,Polyneuropathy,ESRD,V20,V20H87L1
+HCC76,Muscular Dystrophy,ESRD,V20,V20H87L1
+HCC77,Multiple Sclerosis,ESRD,V20,V20H87L1
+HCC78,Parkinsons and Huntingtons Diseases,ESRD,V20,V20H87L1
+HCC79,Seizure Disorders and Convulsions,ESRD,V20,V20H87L1
+HCC80,"Coma, Brain Compression/Anoxic Damage",ESRD,V20,V20H87L1
+HCC82,Respirator Dependence/Tracheostomy Status,ESRD,V20,V20H87L1
+HCC83,Respiratory Arrest,ESRD,V20,V20H87L1
+HCC84,Cardio-Respiratory Failure and Shock,ESRD,V20,V20H87L1
+HCC85,Congestive Heart Failure,ESRD,V20,V20H87L1
+HCC86,Acute Myocardial Infarction,ESRD,V20,V20H87L1
+HCC87,Unstable Angina and Other Acute Ischemic Heart Disease,ESRD,V20,V20H87L1
+HCC88,Angina Pectoris,ESRD,V20,V20H87L1
+HCC96,Specified Heart Arrhythmias,ESRD,V20,V20H87L1
+HCC99,Cerebral Hemorrhage,ESRD,V20,V20H87L1
+HCC100,Ischemic or Unspecified Stroke,ESRD,V20,V20H87L1
+HCC103,Hemiplegia/Hemiparesis,ESRD,V20,V20H87L1
+HCC104,"Monoplegia, Other Paralytic Syndromes",ESRD,V20,V20H87L1
+HCC106,Atherosclerosis of the Extremities with Ulceration or Gangrene,ESRD,V20,V20H87L1
+HCC107,Vascular Disease with Complications,ESRD,V20,V20H87L1
+HCC108,Vascular Disease,ESRD,V20,V20H87L1
+HCC110,Cystic Fibrosis,ESRD,V20,V20H87L1
+HCC111,Chronic Obstructive Pulmonary Disease,ESRD,V20,V20H87L1
+HCC112,Fibrosis of Lung and Other Chronic Lung Disorders,ESRD,V20,V20H87L1
+HCC114,Aspiration and Specified Bacterial Pneumonias,ESRD,V20,V20H87L1
+HCC115,"Pneumococcal Pneumonia, Empyema, Lung Abscess",ESRD,V20,V20H87L1
+HCC122,Proliferative Diabetic Retinopathy and Vitreous Hemorrhage,ESRD,V20,V20H87L1
+HCC124,Exudative Macular Degeneration,ESRD,V20,V20H87L1
+HCC134,Dialysis Status,ESRD,V20,V20H87L1
+HCC135,Acute Renal Failure,ESRD,V20,V20H87L1
+HCC136,"Chronic Kidney Disease, Stage 5",ESRD,V20,V20H87L1
+HCC137,"Chronic Kidney Disease, Severe (Stage 4)",ESRD,V20,V20H87L1
+HCC138,"Chronic Kidney Disease, Moderate (Stage 3)",ESRD,V20,V20H87L1
+HCC139,"Chronic Kidney Disease, Mild or Unspecified (Stages 1-2 or Unspecified)",ESRD,V20,V20H87L1
+HCC140,Unspecified Renal Failure,ESRD,V20,V20H87L1
+HCC141,Nephritis,ESRD,V20,V20H87L1
+HCC157,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",ESRD,V20,V20H87L1
+HCC158,Pressure Ulcer of Skin with Full Thickness Skin Loss,ESRD,V20,V20H87L1
+HCC159,Pressure Ulcer of Skin with Partial Thickness Skin Loss,ESRD,V20,V20H87L1
+HCC160,Pressure Pre-Ulcer Skin Changes or Unspecified Stage,ESRD,V20,V20H87L1
+HCC161,"Chronic Ulcer of Skin, Except Pressure",ESRD,V20,V20H87L1
+HCC162,Severe Skin Burn or Condition,ESRD,V20,V20H87L1
+HCC166,Severe Head Injury,ESRD,V20,V20H87L1
+HCC167,Major Head Injury,ESRD,V20,V20H87L1
+HCC169,Vertebral Fractures without Spinal Cord Injury,ESRD,V20,V20H87L1
+HCC170,Hip Fracture/Dislocation,ESRD,V20,V20H87L1
+HCC173,Traumatic Amputations and Complications,ESRD,V20,V20H87L1
+HCC176,Complications of Specified Implanted Device or Graft,ESRD,V20,V20H87L1
+HCC186,Major Organ Transplant or Replacement Status,ESRD,V20,V20H87L1
+HCC188,Artificial Openings for Feeding or Elimination,ESRD,V20,V20H87L1
+HCC189,"Amputation Status, Lower Limb/Amputation Complications",ESRD,V20,V20H87L1
+RXHCC1,HIV/AIDS,RxHCC,R05,R05X76L1
+RXHCC5,Opportunistic Infections,RxHCC,R05,R05X76L1
+RXHCC15,Chronic Myeloid Leukemia,RxHCC,R05,R05X76L1
+RXHCC16,Multiple Myeloma and Other Neoplastic Disorders,RxHCC,R05,R05X76L1
+RXHCC17,"Secondary Cancers of Bone, Lung, Brain, and Other Specified Sites; Liver Cancer",RxHCC,R05,R05X76L1
+RXHCC18,"Lung, Kidney, and Other Cancers",RxHCC,R05,R05X76L1
+RXHCC19,Breast and Other Cancers and Tumors,RxHCC,R05,R05X76L1
+RXHCC30,Diabetes with Complications,RxHCC,R05,R05X76L1
+RXHCC31,Diabetes without Complication,RxHCC,R05,R05X76L1
+RXHCC40,Specified Hereditary Metabolic/Immune Disorders,RxHCC,R05,R05X76L1
+RXHCC41,"Pituitary, Adrenal Gland, and Other Endocrine and Metabolic Disorders",RxHCC,R05,R05X76L1
+RXHCC42,Thyroid Disorders,RxHCC,R05,R05X76L1
+RXHCC43,Morbid Obesity,RxHCC,R05,R05X76L1
+RXHCC45,Disorders of Lipoid Metabolism,RxHCC,R05,R05X76L1
+RXHCC54,Chronic Viral Hepatitis C,RxHCC,R05,R05X76L1
+RXHCC55,"Chronic Viral Hepatitis, Except Hepatitis C",RxHCC,R05,R05X76L1
+RXHCC65,Chronic Pancreatitis,RxHCC,R05,R05X76L1
+RXHCC66,"Pancreatic Disorders and Intestinal Malabsorption, Except Pancreatitis",RxHCC,R05,R05X76L1
+RXHCC67,Inflammatory Bowel Disease,RxHCC,R05,R05X76L1
+RXHCC68,Esophageal Reflux and Other Disorders of Esophagus,RxHCC,R05,R05X76L1
+RXHCC80,Aseptic Necrosis of Bone,RxHCC,R05,R05X76L1
+RXHCC82,Psoriatic Arthropathy and Systemic Sclerosis,RxHCC,R05,R05X76L1
+RXHCC83,Rheumatoid Arthritis and Other Inflammatory Polyarthropathy,RxHCC,R05,R05X76L1
+RXHCC84,"Systemic Lupus Erythematosus, Other Connective Tissue Disorders, and Inflammatory Spondylopathies",RxHCC,R05,R05X76L1
+RXHCC87,"Osteoporosis, Vertebral and Pathological Fractures",RxHCC,R05,R05X76L1
+RXHCC95,Sickle Cell Anemia,RxHCC,R05,R05X76L1
+RXHCC96,Myelodysplastic Syndromes and Myelofibrosis,RxHCC,R05,R05X76L1
+RXHCC97,Immune Disorders,RxHCC,R05,R05X76L1
+RXHCC98,Aplastic Anemia and Other Significant Blood Disorders,RxHCC,R05,R05X76L1
+RXHCC111,Alzheimers Disease,RxHCC,R05,R05X76L1
+RXHCC112,"Dementia, Except Alzheimers Disease",RxHCC,R05,R05X76L1
+RXHCC130,Schizophrenia,RxHCC,R05,R05X76L1
+RXHCC131,Bipolar Disorders,RxHCC,R05,R05X76L1
+RXHCC132,Major Depression,RxHCC,R05,R05X76L1
+RXHCC133,"Specified Anxiety, Personality, and Behavior Disorders",RxHCC,R05,R05X76L1
+RXHCC134,Depression,RxHCC,R05,R05X76L1
+RXHCC135,Anxiety Disorders,RxHCC,R05,R05X76L1
+RXHCC145,Autism,RxHCC,R05,R05X76L1
+RXHCC146,Profound or Severe Intellectual Disability/Developmental Disorder,RxHCC,R05,R05X76L1
+RXHCC147,Moderate Intellectual Disability/Developmental Disorder,RxHCC,R05,R05X76L1
+RXHCC148,Mild or Unspecified Intellectual Disability/Developmental Disorder,RxHCC,R05,R05X76L1
+RXHCC156,"Myasthenia Gravis, Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease",RxHCC,R05,R05X76L1
+RXHCC157,Spinal Cord Disorders,RxHCC,R05,R05X76L1
+RXHCC159,Inflammatory and Toxic Neuropathy,RxHCC,R05,R05X76L1
+RXHCC160,Multiple Sclerosis,RxHCC,R05,R05X76L1
+RXHCC161,Parkinsons and Huntingtons Diseases,RxHCC,R05,R05X76L1
+RXHCC163,Intractable Epilepsy,RxHCC,R05,R05X76L1
+RXHCC164,"Epilepsy and Other Seizure Disorders, Except Intractable Epilepsy",RxHCC,R05,R05X76L1
+RXHCC165,Convulsions,RxHCC,R05,R05X76L1
+RXHCC166,Migraine Headaches,RxHCC,R05,R05X76L1
+RXHCC168,Trigeminal and Postherpetic Neuralgia,RxHCC,R05,R05X76L1
+RXHCC185,Primary Pulmonary Hypertension,RxHCC,R05,R05X76L1
+RXHCC186,Congestive Heart Failure,RxHCC,R05,R05X76L1
+RXHCC187,Hypertension,RxHCC,R05,R05X76L1
+RXHCC188,Coronary Artery Disease,RxHCC,R05,R05X76L1
+RXHCC193,Atrial Arrhythmias,RxHCC,R05,R05X76L1
+RXHCC206,"Cerebrovascular Disease, Except Hemorrhage or Aneurysm",RxHCC,R05,R05X76L1
+RXHCC207,Spastic Hemiplegia,RxHCC,R05,R05X76L1
+RXHCC215,Venous Thromboembolism,RxHCC,R05,R05X76L1
+RXHCC216,Peripheral Vascular Disease,RxHCC,R05,R05X76L1
+RXHCC225,Cystic Fibrosis,RxHCC,R05,R05X76L1
+RXHCC226,Chronic Obstructive Pulmonary Disease and Asthma,RxHCC,R05,R05X76L1
+RXHCC227,Pulmonary Fibrosis and Other Chronic Lung Disorders,RxHCC,R05,R05X76L1
+RXHCC241,Diabetic Retinopathy,RxHCC,R05,R05X76L1
+RXHCC243,Open-Angle Glaucoma,RxHCC,R05,R05X76L1
+RXHCC260,Kidney Transplant Status,RxHCC,R05,R05X76L1
+RXHCC261,Dialysis Status,RxHCC,R05,R05X76L1
+RXHCC262,Chronic Kidney Disease Stage 5,RxHCC,R05,R05X76L1
+RXHCC263,Chronic Kidney Disease Stage 4,RxHCC,R05,R05X76L1
+RXHCC311,"Chronic Ulcer of Skin, Except Pressure",RxHCC,R05,R05X76L1
+RXHCC314,Pemphigus,RxHCC,R05,R05X76L1
+RXHCC316,"Psoriasis, Except with Arthropathy",RxHCC,R05,R05X76L1
+RXHCC355,Narcolepsy and Cataplexy,RxHCC,R05,R05X76L1
+RXHCC395,Lung Transplant Status,RxHCC,R05,R05X76L1
+RXHCC396,"Major Organ Transplant Status, Except Lung, Kidney, and Pancreas",RxHCC,R05,R05X76L1
+RXHCC397,Pancreas Transplant Status,RxHCC,R05,R05X76L1
+HCC1,HIV/AIDS,CMS-HCC,V23,V23H83L2
+HCC2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",CMS-HCC,V23,V23H83L2
+HCC6,Opportunistic Infections,CMS-HCC,V23,V23H83L2
+HCC8,Metastatic Cancer and Acute Leukemia,CMS-HCC,V23,V23H83L2
+HCC9,Lung and Other Severe Cancers,CMS-HCC,V23,V23H83L2
+HCC10,Lymphoma and Other Cancers,CMS-HCC,V23,V23H83L2
+HCC11,"Colorectal, Bladder, and Other Cancers",CMS-HCC,V23,V23H83L2
+HCC12,"Breast, Prostate, and Other Cancers and Tumors",CMS-HCC,V23,V23H83L2
+HCC17,Diabetes with Acute Complications,CMS-HCC,V23,V23H83L2
+HCC18,Diabetes with Chronic Complications,CMS-HCC,V23,V23H83L2
+HCC19,Diabetes without Complication,CMS-HCC,V23,V23H83L2
+HCC21,Protein-Calorie Malnutrition,CMS-HCC,V23,V23H83L2
+HCC22,Morbid Obesity,CMS-HCC,V23,V23H83L2
+HCC23,Other Significant Endocrine and Metabolic Disorders,CMS-HCC,V23,V23H83L2
+HCC27,End-Stage Liver Disease,CMS-HCC,V23,V23H83L2
+HCC28,Cirrhosis of Liver,CMS-HCC,V23,V23H83L2
+HCC29,Chronic Hepatitis,CMS-HCC,V23,V23H83L2
+HCC33,Intestinal Obstruction/Perforation,CMS-HCC,V23,V23H83L2
+HCC34,Chronic Pancreatitis,CMS-HCC,V23,V23H83L2
+HCC35,Inflammatory Bowel Disease,CMS-HCC,V23,V23H83L2
+HCC39,Bone/Joint/Muscle Infections/Necrosis,CMS-HCC,V23,V23H83L2
+HCC40,Rheumatoid Arthritis and Inflammatory Connective Tissue Disease,CMS-HCC,V23,V23H83L2
+HCC46,Severe Hematological Disorders,CMS-HCC,V23,V23H83L2
+HCC47,Disorders of Immunity,CMS-HCC,V23,V23H83L2
+HCC48,Coagulation Defects and Other Specified Hematological Disorders,CMS-HCC,V23,V23H83L2
+HCC54,Substance Use with Psychotic Complications,CMS-HCC,V23,V23H83L2
+HCC55,"Substance Use Disorder, Moderate/Severe, or Substance Use with Complications",CMS-HCC,V23,V23H83L2
+HCC56,"Substance Use Disorder, Mild, Except Alcohol and Cannabis",CMS-HCC,V23,V23H83L2
+HCC57,Schizophrenia,CMS-HCC,V23,V23H83L2
+HCC58,Reactive and Unspecified Psychosis,CMS-HCC,V23,V23H83L2
+HCC59,"Major Depressive, Bipolar, and Paranoid Disorders",CMS-HCC,V23,V23H83L2
+HCC60,Personality Disorders,CMS-HCC,V23,V23H83L2
+HCC70,Quadriplegia,CMS-HCC,V23,V23H83L2
+HCC71,Paraplegia,CMS-HCC,V23,V23H83L2
+HCC72,Spinal Cord Disorders/Injuries,CMS-HCC,V23,V23H83L2
+HCC73,Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease,CMS-HCC,V23,V23H83L2
+HCC74,Cerebral Palsy,CMS-HCC,V23,V23H83L2
+HCC75,Myasthenia Gravis/Myoneural Disorders and Guillain-Barre Syndrome/Inflammatory and Toxic Neuropathy,CMS-HCC,V23,V23H83L2
+HCC76,Muscular Dystrophy,CMS-HCC,V23,V23H83L2
+HCC77,Multiple Sclerosis,CMS-HCC,V23,V23H83L2
+HCC78,Parkinsons and Huntingtons Diseases,CMS-HCC,V23,V23H83L2
+HCC79,Seizure Disorders and Convulsions,CMS-HCC,V23,V23H83L2
+HCC80,"Coma, Brain Compression/Anoxic Damage",CMS-HCC,V23,V23H83L2
+HCC82,Respirator Dependence/Tracheostomy Status,CMS-HCC,V23,V23H83L2
+HCC83,Respiratory Arrest,CMS-HCC,V23,V23H83L2
+HCC84,Cardio-Respiratory Failure and Shock,CMS-HCC,V23,V23H83L2
+HCC85,Congestive Heart Failure,CMS-HCC,V23,V23H83L2
+HCC86,Acute Myocardial Infarction,CMS-HCC,V23,V23H83L2
+HCC87,Unstable Angina and Other Acute Ischemic Heart Disease,CMS-HCC,V23,V23H83L2
+HCC88,Angina Pectoris,CMS-HCC,V23,V23H83L2
+HCC96,Specified Heart Arrhythmias,CMS-HCC,V23,V23H83L2
+HCC99,Intracranial Hemorrhage,CMS-HCC,V23,V23H83L2
+HCC100,Ischemic or Unspecified Stroke,CMS-HCC,V23,V23H83L2
+HCC103,Hemiplegia/Hemiparesis,CMS-HCC,V23,V23H83L2
+HCC104,"Monoplegia, Other Paralytic Syndromes",CMS-HCC,V23,V23H83L2
+HCC106,Atherosclerosis of the Extremities with Ulceration or Gangrene,CMS-HCC,V23,V23H83L2
+HCC107,Vascular Disease with Complications,CMS-HCC,V23,V23H83L2
+HCC108,Vascular Disease,CMS-HCC,V23,V23H83L2
+HCC110,Cystic Fibrosis,CMS-HCC,V23,V23H83L2
+HCC111,Chronic Obstructive Pulmonary Disease,CMS-HCC,V23,V23H83L2
+HCC112,Fibrosis of Lung and Other Chronic Lung Disorders,CMS-HCC,V23,V23H83L2
+HCC114,Aspiration and Specified Bacterial Pneumonias,CMS-HCC,V23,V23H83L2
+HCC115,"Pneumococcal Pneumonia, Empyema, Lung Abscess",CMS-HCC,V23,V23H83L2
+HCC122,Proliferative Diabetic Retinopathy and Vitreous Hemorrhage,CMS-HCC,V23,V23H83L2
+HCC124,Exudative Macular Degeneration,CMS-HCC,V23,V23H83L2
+HCC134,Dialysis Status,CMS-HCC,V23,V23H83L2
+HCC135,Acute Renal Failure,CMS-HCC,V23,V23H83L2
+HCC136,"Chronic Kidney Disease, Stage 5",CMS-HCC,V23,V23H83L2
+HCC137,"Chronic Kidney Disease, Severe (Stage 4)",CMS-HCC,V23,V23H83L2
+HCC138,"Chronic Kidney Disease, Moderate (Stage 3)",CMS-HCC,V23,V23H83L2
+HCC157,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",CMS-HCC,V23,V23H83L2
+HCC158,Pressure Ulcer of Skin with Full Thickness Skin Loss,CMS-HCC,V23,V23H83L2
+HCC161,"Chronic Ulcer of Skin, Except Pressure",CMS-HCC,V23,V23H83L2
+HCC162,Severe Skin Burn or Condition,CMS-HCC,V23,V23H83L2
+HCC166,Severe Head Injury,CMS-HCC,V23,V23H83L2
+HCC167,Major Head Injury,CMS-HCC,V23,V23H83L2
+HCC169,Vertebral Fractures without Spinal Cord Injury,CMS-HCC,V23,V23H83L2
+HCC170,Hip Fracture/Dislocation,CMS-HCC,V23,V23H83L2
+HCC173,Traumatic Amputations and Complications,CMS-HCC,V23,V23H83L2
+HCC176,Complications of Specified Implanted Device or Graft,CMS-HCC,V23,V23H83L2
+HCC186,Major Organ Transplant or Replacement Status,CMS-HCC,V23,V23H83L2
+HCC188,Artificial Openings for Feeding or Elimination,CMS-HCC,V23,V23H83L2
+HCC189,"Amputation Status, Lower Limb/Amputation Complications",CMS-HCC,V23,V23H83L2
+HCC1,HIV/AIDS,CMS-HCC,V24,V24H86L1
+HCC2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",CMS-HCC,V24,V24H86L1
+HCC6,Opportunistic Infections,CMS-HCC,V24,V24H86L1
+HCC8,Metastatic Cancer and Acute Leukemia,CMS-HCC,V24,V24H86L1
+HCC9,Lung and Other Severe Cancers,CMS-HCC,V24,V24H86L1
+HCC10,Lymphoma and Other Cancers,CMS-HCC,V24,V24H86L1
+HCC11,"Colorectal, Bladder, and Other Cancers",CMS-HCC,V24,V24H86L1
+HCC12,"Breast, Prostate, and Other Cancers and Tumors",CMS-HCC,V24,V24H86L1
+HCC17,Diabetes with Acute Complications,CMS-HCC,V24,V24H86L1
+HCC18,Diabetes with Chronic Complications,CMS-HCC,V24,V24H86L1
+HCC19,Diabetes without Complication,CMS-HCC,V24,V24H86L1
+HCC21,Protein-Calorie Malnutrition,CMS-HCC,V24,V24H86L1
+HCC22,Morbid Obesity,CMS-HCC,V24,V24H86L1
+HCC23,Other Significant Endocrine and Metabolic Disorders,CMS-HCC,V24,V24H86L1
+HCC27,End-Stage Liver Disease,CMS-HCC,V24,V24H86L1
+HCC28,Cirrhosis of Liver,CMS-HCC,V24,V24H86L1
+HCC29,Chronic Hepatitis,CMS-HCC,V24,V24H86L1
+HCC33,Intestinal Obstruction/Perforation,CMS-HCC,V24,V24H86L1
+HCC34,Chronic Pancreatitis,CMS-HCC,V24,V24H86L1
+HCC35,Inflammatory Bowel Disease,CMS-HCC,V24,V24H86L1
+HCC39,Bone/Joint/Muscle Infections/Necrosis,CMS-HCC,V24,V24H86L1
+HCC40,Rheumatoid Arthritis and Inflammatory Connective Tissue Disease,CMS-HCC,V24,V24H86L1
+HCC46,Severe Hematological Disorders,CMS-HCC,V24,V24H86L1
+HCC47,Disorders of Immunity,CMS-HCC,V24,V24H86L1
+HCC48,Coagulation Defects and Other Specified Hematological Disorders,CMS-HCC,V24,V24H86L1
+HCC51,Dementia With Complications,CMS-HCC,V24,V24H86L1
+HCC52,Dementia Without Complication,CMS-HCC,V24,V24H86L1
+HCC54,Substance Use with Psychotic Complications,CMS-HCC,V24,V24H86L1
+HCC55,"Substance Use Disorder, Moderate/Severe, or Substance Use with Complications",CMS-HCC,V24,V24H86L1
+HCC56,"Substance Use Disorder, Mild, Except Alcohol and Cannabis",CMS-HCC,V24,V24H86L1
+HCC57,Schizophrenia,CMS-HCC,V24,V24H86L1
+HCC58,Reactive and Unspecified Psychosis,CMS-HCC,V24,V24H86L1
+HCC59,"Major Depressive, Bipolar, and Paranoid Disorders",CMS-HCC,V24,V24H86L1
+HCC60,Personality Disorders,CMS-HCC,V24,V24H86L1
+HCC70,Quadriplegia,CMS-HCC,V24,V24H86L1
+HCC71,Paraplegia,CMS-HCC,V24,V24H86L1
+HCC72,Spinal Cord Disorders/Injuries,CMS-HCC,V24,V24H86L1
+HCC73,Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease,CMS-HCC,V24,V24H86L1
+HCC74,Cerebral Palsy,CMS-HCC,V24,V24H86L1
+HCC75,Myasthenia Gravis/Myoneural Disorders and Guillain-Barre Syndrome/Inflammatory and Toxic Neuropathy,CMS-HCC,V24,V24H86L1
+HCC76,Muscular Dystrophy,CMS-HCC,V24,V24H86L1
+HCC77,Multiple Sclerosis,CMS-HCC,V24,V24H86L1
+HCC78,Parkinsons and Huntingtons Diseases,CMS-HCC,V24,V24H86L1
+HCC79,Seizure Disorders and Convulsions,CMS-HCC,V24,V24H86L1
+HCC80,"Coma, Brain Compression/Anoxic Damage",CMS-HCC,V24,V24H86L1
+HCC82,Respirator Dependence/Tracheostomy Status,CMS-HCC,V24,V24H86L1
+HCC83,Respiratory Arrest,CMS-HCC,V24,V24H86L1
+HCC84,Cardio-Respiratory Failure and Shock,CMS-HCC,V24,V24H86L1
+HCC85,Congestive Heart Failure,CMS-HCC,V24,V24H86L1
+HCC86,Acute Myocardial Infarction,CMS-HCC,V24,V24H86L1
+HCC87,Unstable Angina and Other Acute Ischemic Heart Disease,CMS-HCC,V24,V24H86L1
+HCC88,Angina Pectoris,CMS-HCC,V24,V24H86L1
+HCC96,Specified Heart Arrhythmias,CMS-HCC,V24,V24H86L1
+HCC99,Intracranial Hemorrhage,CMS-HCC,V24,V24H86L1
+HCC100,Ischemic or Unspecified Stroke,CMS-HCC,V24,V24H86L1
+HCC103,Hemiplegia/Hemiparesis,CMS-HCC,V24,V24H86L1
+HCC104,"Monoplegia, Other Paralytic Syndromes",CMS-HCC,V24,V24H86L1
+HCC106,Atherosclerosis of the Extremities with Ulceration or Gangrene,CMS-HCC,V24,V24H86L1
+HCC107,Vascular Disease with Complications,CMS-HCC,V24,V24H86L1
+HCC108,Vascular Disease,CMS-HCC,V24,V24H86L1
+HCC110,Cystic Fibrosis,CMS-HCC,V24,V24H86L1
+HCC111,Chronic Obstructive Pulmonary Disease,CMS-HCC,V24,V24H86L1
+HCC112,Fibrosis of Lung and Other Chronic Lung Disorders,CMS-HCC,V24,V24H86L1
+HCC114,Aspiration and Specified Bacterial Pneumonias,CMS-HCC,V24,V24H86L1
+HCC115,"Pneumococcal Pneumonia, Empyema, Lung Abscess",CMS-HCC,V24,V24H86L1
+HCC122,Proliferative Diabetic Retinopathy and Vitreous Hemorrhage,CMS-HCC,V24,V24H86L1
+HCC124,Exudative Macular Degeneration,CMS-HCC,V24,V24H86L1
+HCC134,Dialysis Status,CMS-HCC,V24,V24H86L1
+HCC135,Acute Renal Failure,CMS-HCC,V24,V24H86L1
+HCC136,"Chronic Kidney Disease, Stage 5",CMS-HCC,V24,V24H86L1
+HCC137,"Chronic Kidney Disease, Severe (Stage 4)",CMS-HCC,V24,V24H86L1
+HCC138,"Chronic Kidney Disease, Moderate (Stage 3)",CMS-HCC,V24,V24H86L1
+HCC157,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",CMS-HCC,V24,V24H86L1
+HCC158,Pressure Ulcer of Skin with Full Thickness Skin Loss,CMS-HCC,V24,V24H86L1
+HCC159,Pressure Ulcer of Skin with Partial Thickness Skin Loss,CMS-HCC,V24,V24H86L1
+HCC161,"Chronic Ulcer of Skin, Except Pressure",CMS-HCC,V24,V24H86L1
+HCC162,Severe Skin Burn or Condition,CMS-HCC,V24,V24H86L1
+HCC166,Severe Head Injury,CMS-HCC,V24,V24H86L1
+HCC167,Major Head Injury,CMS-HCC,V24,V24H86L1
+HCC169,Vertebral Fractures without Spinal Cord Injury,CMS-HCC,V24,V24H86L1
+HCC170,Hip Fracture/Dislocation,CMS-HCC,V24,V24H86L1
+HCC173,Traumatic Amputations and Complications,CMS-HCC,V24,V24H86L1
+HCC176,Complications of Specified Implanted Device or Graft,CMS-HCC,V24,V24H86L1
+HCC186,Major Organ Transplant or Replacement Status,CMS-HCC,V24,V24H86L1
+HCC188,Artificial Openings for Feeding or Elimination,CMS-HCC,V24,V24H86L1
+HCC189,"Amputation Status, Lower Limb/Amputation Complications",CMS-HCC,V24,V24H86L1
+HCC1,HIV/AIDS,ESRD,V24,V24H86L1
+HCC2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",ESRD,V24,V24H86L1
+HCC6,Opportunistic Infections,ESRD,V24,V24H86L1
+HCC8,Metastatic Cancer and Acute Leukemia,ESRD,V24,V24H86L1
+HCC9,Lung and Other Severe Cancers,ESRD,V24,V24H86L1
+HCC10,Lymphoma and Other Cancers,ESRD,V24,V24H86L1
+HCC11,"Colorectal, Bladder, and Other Cancers",ESRD,V24,V24H86L1
+HCC12,"Breast, Prostate, and Other Cancers and Tumors",ESRD,V24,V24H86L1
+HCC17,Diabetes with Acute Complications,ESRD,V24,V24H86L1
+HCC18,Diabetes with Chronic Complications,ESRD,V24,V24H86L1
+HCC19,Diabetes without Complication,ESRD,V24,V24H86L1
+HCC21,Protein-Calorie Malnutrition,ESRD,V24,V24H86L1
+HCC22,Morbid Obesity,ESRD,V24,V24H86L1
+HCC23,Other Significant Endocrine and Metabolic Disorders,ESRD,V24,V24H86L1
+HCC27,End-Stage Liver Disease,ESRD,V24,V24H86L1
+HCC28,Cirrhosis of Liver,ESRD,V24,V24H86L1
+HCC29,Chronic Hepatitis,ESRD,V24,V24H86L1
+HCC33,Intestinal Obstruction/Perforation,ESRD,V24,V24H86L1
+HCC34,Chronic Pancreatitis,ESRD,V24,V24H86L1
+HCC35,Inflammatory Bowel Disease,ESRD,V24,V24H86L1
+HCC39,Bone/Joint/Muscle Infections/Necrosis,ESRD,V24,V24H86L1
+HCC40,Rheumatoid Arthritis and Inflammatory Connective Tissue Disease,ESRD,V24,V24H86L1
+HCC46,Severe Hematological Disorders,ESRD,V24,V24H86L1
+HCC47,Disorders of Immunity,ESRD,V24,V24H86L1
+HCC48,Coagulation Defects and Other Specified Hematological Disorders,ESRD,V24,V24H86L1
+HCC51,Dementia With Complications,ESRD,V24,V24H86L1
+HCC52,Dementia Without Complication,ESRD,V24,V24H86L1
+HCC54,Substance Use with Psychotic Complications,ESRD,V24,V24H86L1
+HCC55,"Substance Use Disorder, Moderate/Severe, or Substance Use with Complications",ESRD,V24,V24H86L1
+HCC56,"Substance Use Disorder, Mild, Except Alcohol and Cannabis",ESRD,V24,V24H86L1
+HCC57,Schizophrenia,ESRD,V24,V24H86L1
+HCC58,Reactive and Unspecified Psychosis,ESRD,V24,V24H86L1
+HCC59,"Major Depressive, Bipolar, and Paranoid Disorders",ESRD,V24,V24H86L1
+HCC60,Personality Disorders,ESRD,V24,V24H86L1
+HCC70,Quadriplegia,ESRD,V24,V24H86L1
+HCC71,Paraplegia,ESRD,V24,V24H86L1
+HCC72,Spinal Cord Disorders/Injuries,ESRD,V24,V24H86L1
+HCC73,Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease,ESRD,V24,V24H86L1
+HCC74,Cerebral Palsy,ESRD,V24,V24H86L1
+HCC75,Myasthenia Gravis/Myoneural Disorders and Guillain-Barre Syndrome/Inflammatory and Toxic Neuropathy,ESRD,V24,V24H86L1
+HCC76,Muscular Dystrophy,ESRD,V24,V24H86L1
+HCC77,Multiple Sclerosis,ESRD,V24,V24H86L1
+HCC78,Parkinsons and Huntingtons Diseases,ESRD,V24,V24H86L1
+HCC79,Seizure Disorders and Convulsions,ESRD,V24,V24H86L1
+HCC80,"Coma, Brain Compression/Anoxic Damage",ESRD,V24,V24H86L1
+HCC82,Respirator Dependence/Tracheostomy Status,ESRD,V24,V24H86L1
+HCC83,Respiratory Arrest,ESRD,V24,V24H86L1
+HCC84,Cardio-Respiratory Failure and Shock,ESRD,V24,V24H86L1
+HCC85,Congestive Heart Failure,ESRD,V24,V24H86L1
+HCC86,Acute Myocardial Infarction,ESRD,V24,V24H86L1
+HCC87,Unstable Angina and Other Acute Ischemic Heart Disease,ESRD,V24,V24H86L1
+HCC88,Angina Pectoris,ESRD,V24,V24H86L1
+HCC96,Specified Heart Arrhythmias,ESRD,V24,V24H86L1
+HCC99,Intracranial Hemorrhage,ESRD,V24,V24H86L1
+HCC100,Ischemic or Unspecified Stroke,ESRD,V24,V24H86L1
+HCC103,Hemiplegia/Hemiparesis,ESRD,V24,V24H86L1
+HCC104,"Monoplegia, Other Paralytic Syndromes",ESRD,V24,V24H86L1
+HCC106,Atherosclerosis of the Extremities with Ulceration or Gangrene,ESRD,V24,V24H86L1
+HCC107,Vascular Disease with Complications,ESRD,V24,V24H86L1
+HCC108,Vascular Disease,ESRD,V24,V24H86L1
+HCC110,Cystic Fibrosis,ESRD,V24,V24H86L1
+HCC111,Chronic Obstructive Pulmonary Disease,ESRD,V24,V24H86L1
+HCC112,Fibrosis of Lung and Other Chronic Lung Disorders,ESRD,V24,V24H86L1
+HCC114,Aspiration and Specified Bacterial Pneumonias,ESRD,V24,V24H86L1
+HCC115,"Pneumococcal Pneumonia, Empyema, Lung Abscess",ESRD,V24,V24H86L1
+HCC122,Proliferative Diabetic Retinopathy and Vitreous Hemorrhage,ESRD,V24,V24H86L1
+HCC124,Exudative Macular Degeneration,ESRD,V24,V24H86L1
+HCC134,Dialysis Status,ESRD,V24,V24H86L1
+HCC135,Acute Renal Failure,ESRD,V24,V24H86L1
+HCC136,"Chronic Kidney Disease, Stage 5",ESRD,V24,V24H86L1
+HCC137,"Chronic Kidney Disease, Severe (Stage 4)",ESRD,V24,V24H86L1
+HCC138,"Chronic Kidney Disease, Moderate (Stage 3)",ESRD,V24,V24H86L1
+HCC157,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",ESRD,V24,V24H86L1
+HCC158,Pressure Ulcer of Skin with Full Thickness Skin Loss,ESRD,V24,V24H86L1
+HCC159,Pressure Ulcer of Skin with Partial Thickness Skin Loss,ESRD,V24,V24H86L1
+HCC161,"Chronic Ulcer of Skin, Except Pressure",ESRD,V24,V24H86L1
+HCC162,Severe Skin Burn or Condition,ESRD,V24,V24H86L1
+HCC166,Severe Head Injury,ESRD,V24,V24H86L1
+HCC167,Major Head Injury,ESRD,V24,V24H86L1
+HCC169,Vertebral Fractures without Spinal Cord Injury,ESRD,V24,V24H86L1
+HCC170,Hip Fracture/Dislocation,ESRD,V24,V24H86L1
+HCC173,Traumatic Amputations and Complications,ESRD,V24,V24H86L1
+HCC176,Complications of Specified Implanted Device or Graft,ESRD,V24,V24H86L1
+HCC186,Major Organ Transplant or Replacement Status,ESRD,V24,V24H86L1
+HCC188,Artificial Openings for Feeding or Elimination,ESRD,V24,V24H86L1
+HCC189,"Amputation Status, Lower Limb/Amputation Complications",ESRD,V24,V24H86L1
+RXHCC1,HIV/AIDS,RxHCC,R08,R08X84L1
+RXHCC5,Opportunistic Infections,RxHCC,R08,R08X84L1
+RXHCC15,Chronic Myeloid Leukemia,RxHCC,R08,R08X84L1
+RXHCC16,Multiple Myeloma and Other Hematologic Cancers,RxHCC,R08,R08X84L1
+RXHCC17,Secondary Cancer of Bone and Kidney,RxHCC,R08,R08X84L1
+RXHCC18,"Secondary Cancer of Lung, Liver, Brain, and Other Sites",RxHCC,R08,R08X84L1
+RXHCC19,Leukemias and Other Hematologic Cancers,RxHCC,R08,R08X84L1
+RXHCC20,"Lung, Kidney, and Other Cancers; Secondary Cancer of Lymph Nodes and Other Sites",RxHCC,R08,R08X84L1
+RXHCC21,Lymphomas and Other Hematologic Cancers,RxHCC,R08,R08X84L1
+RXHCC22,"Prostate, Breast, Bladder, and Other Cancers and Tumors",RxHCC,R08,R08X84L1
+RXHCC30,Diabetes with Complications,RxHCC,R08,R08X84L1
+RXHCC31,Diabetes without Complication,RxHCC,R08,R08X84L1
+RXHCC40,Alpha-1-Antitrypsin Deficiency,RxHCC,R08,R08X84L1
+RXHCC41,Lysosomal Storage Disorders,RxHCC,R08,R08X84L1
+RXHCC42,Acromegaly and Other Endocrine and Metabolic Disorders,RxHCC,R08,R08X84L1
+RXHCC43,"Pituitary, Adrenal Gland, and Other Endocrine and Metabolic Disorders",RxHCC,R08,R08X84L1
+RXHCC44,Thyroid Disorders,RxHCC,R08,R08X84L1
+RXHCC47,Disorders of Lipoid Metabolism,RxHCC,R08,R08X84L1
+RXHCC54,Chronic Viral Hepatitis C,RxHCC,R08,R08X84L1
+RXHCC55,Acute or Unspecified Viral Hepatitis C,RxHCC,R08,R08X84L1
+RXHCC56,Chronic Viral Hepatitis B and Other Specified Chronic Viral Hepatitis,RxHCC,R08,R08X84L1
+RXHCC59,Primary Biliary Cirrhosis,RxHCC,R08,R08X84L1
+RXHCC65,Chronic Pancreatitis,RxHCC,R08,R08X84L1
+RXHCC66,"Pancreatic Disorders and Intestinal Malabsorption, Except Pancreatitis",RxHCC,R08,R08X84L1
+RXHCC67,Inflammatory Bowel Disease,RxHCC,R08,R08X84L1
+RXHCC80,Aseptic Necrosis of Bone,RxHCC,R08,R08X84L1
+RXHCC81,Psoriatic Arthropathy,RxHCC,R08,R08X84L1
+RXHCC82,Systemic Sclerosis,RxHCC,R08,R08X84L1
+RXHCC83,Rheumatoid Arthritis and Other Inflammatory Polyarthropathy,RxHCC,R08,R08X84L1
+RXHCC84,Systemic Lupus Erythematosus and Other Systemic Connective Tissue Disorders,RxHCC,R08,R08X84L1
+RXHCC87,"Osteoporosis, Vertebral and Pathological Fractures",RxHCC,R08,R08X84L1
+RXHCC95,Sickle Cell Anemia,RxHCC,R08,R08X84L1
+RXHCC96,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias",RxHCC,R08,R08X84L1
+RXHCC98,Hereditary Angioedema and Other Defects in the Complement System,RxHCC,R08,R08X84L1
+RXHCC99,Immune Disorders,RxHCC,R08,R08X84L1
+RXHCC100,Immune Thrombocytopenic Purpura,RxHCC,R08,R08X84L1
+RXHCC111,Alzheimers Disease,RxHCC,R08,R08X84L1
+RXHCC112,"Dementia, Except Alzheimers Disease",RxHCC,R08,R08X84L1
+RXHCC130,Schizophrenia and Other Psychosis,RxHCC,R08,R08X84L1
+RXHCC131,Bipolar Disorders,RxHCC,R08,R08X84L1
+RXHCC132,Depression,RxHCC,R08,R08X84L1
+RXHCC133,Anxiety and Other Psychiatric Disorders,RxHCC,R08,R08X84L1
+RXHCC146,Profound or Severe Intellectual Disability/Developmental Disorder,RxHCC,R08,R08X84L1
+RXHCC147,Moderate Intellectual Disability/Developmental Disorder,RxHCC,R08,R08X84L1
+RXHCC148,Mild or Unspecified Intellectual Disability/Developmental Disorder,RxHCC,R08,R08X84L1
+RXHCC153,Myasthenia Gravis and Other Myoneural Disorders,RxHCC,R08,R08X84L1
+RXHCC154,Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease,RxHCC,R08,R08X84L1
+RXHCC155,Spinal Cord Disorders,RxHCC,R08,R08X84L1
+RXHCC157,Chronic Inflammatory Demyelinating Polyneuritis,RxHCC,R08,R08X84L1
+RXHCC158,Inflammatory and Toxic Neuropathy,RxHCC,R08,R08X84L1
+RXHCC159,Multiple Sclerosis,RxHCC,R08,R08X84L1
+RXHCC160,Huntington Disease,RxHCC,R08,R08X84L1
+RXHCC161,Parkinson Disease,RxHCC,R08,R08X84L1
+RXHCC163,Intractable Epilepsy,RxHCC,R08,R08X84L1
+RXHCC164,"Epilepsy and Other Seizure Disorders, Except Intractable Epilepsy",RxHCC,R08,R08X84L1
+RXHCC166,Migraine Headaches,RxHCC,R08,R08X84L1
+RXHCC168,Trigeminal and Postherpetic Neuralgia,RxHCC,R08,R08X84L1
+RXHCC183,Pulmonary Arterial Hypertension,RxHCC,R08,R08X84L1
+RXHCC184,"Pulmonary Hypertension, Except Arterial, and Other Pulmonary Heart Disease",RxHCC,R08,R08X84L1
+RXHCC186,Heart Failure,RxHCC,R08,R08X84L1
+RXHCC187,Hypertension,RxHCC,R08,R08X84L1
+RXHCC188,Coronary Artery Disease,RxHCC,R08,R08X84L1
+RXHCC191,Ventricular Septal Defect and Major Congenital Heart Disorders,RxHCC,R08,R08X84L1
+RXHCC193,Atrial Arrhythmias,RxHCC,R08,R08X84L1
+RXHCC207,Spastic Hemiplegia,RxHCC,R08,R08X84L1
+RXHCC215,Venous Thromboembolism,RxHCC,R08,R08X84L1
+RXHCC225,Cystic Fibrosis,RxHCC,R08,R08X84L1
+RXHCC226,Idiopathic Pulmonary Fibrosis and Systemic Sclerosis with Lung Involvement,RxHCC,R08,R08X84L1
+RXHCC227,"Pulmonary Fibrosis, Except Idiopathic",RxHCC,R08,R08X84L1
+RXHCC228,Severe Persistent Asthma,RxHCC,R08,R08X84L1
+RXHCC229,"Chronic Obstructive Pulmonary Disease, Bronchiectasis, and Other Asthma",RxHCC,R08,R08X84L1
+RXHCC243,"Glaucoma, Open-Angle or Moderate/Severe Stage",RxHCC,R08,R08X84L1
+RXHCC244,Other Non-Acute Glaucoma,RxHCC,R08,R08X84L1
+RXHCC260,Kidney Transplant Status,RxHCC,R08,R08X84L1
+RXHCC261,"Dialysis Status, Including End Stage Renal Disease",RxHCC,R08,R08X84L1
+RXHCC262,Chronic Kidney Disease Stage 5,RxHCC,R08,R08X84L1
+RXHCC263,Chronic Kidney Disease Stage 4,RxHCC,R08,R08X84L1
+RXHCC311,"Chronic Ulcer of Skin, Except Pressure",RxHCC,R08,R08X84L1
+RXHCC314,"Pemphigus, Pemphigoid, and Other Bullous Skin Disorders",RxHCC,R08,R08X84L1
+RXHCC316,"Psoriasis, Except with Arthropathy",RxHCC,R08,R08X84L1
+RXHCC317,Discoid Lupus Erythematosus,RxHCC,R08,R08X84L1
+RXHCC355,Narcolepsy and Cataplexy,RxHCC,R08,R08X84L1
+RXHCC395,"Stem Cell, Including Bone Marrow, Transplant Status/Complications",RxHCC,R08,R08X84L1
+RXHCC396,"Heart, Lung, Liver, Intestine, or Pancreas Transplant Status",RxHCC,R08,R08X84L1
+HCC1,HIV/AIDS,CMS-HCC,V28,V28115L3
+HCC2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",CMS-HCC,V28,V28115L3
+HCC6,Opportunistic Infections,CMS-HCC,V28,V28115L3
+HCC17,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic",CMS-HCC,V28,V28115L3
+HCC18,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid",CMS-HCC,V28,V28115L3
+HCC19,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers",CMS-HCC,V28,V28115L3
+HCC20,Lung and Other Severe Cancers,CMS-HCC,V28,V28115L3
+HCC21,Lymphoma and Other Cancers,CMS-HCC,V28,V28115L3
+HCC22,"Bladder, Colorectal, and Other Cancers",CMS-HCC,V28,V28115L3
+HCC23,"Prostate, Breast, and Other Cancers and Tumors",CMS-HCC,V28,V28115L3
+HCC35,Pancreas Transplant Status,CMS-HCC,V28,V28115L3
+HCC36,Diabetes with Severe Acute Complications,CMS-HCC,V28,V28115L3
+HCC37,Diabetes with Chronic Complications,CMS-HCC,V28,V28115L3
+HCC38,"Diabetes with Glycemic, Unspecified, or No Complications",CMS-HCC,V28,V28115L3
+HCC48,Morbid Obesity,CMS-HCC,V28,V28115L3
+HCC49,Specified Lysosomal Storage Disorders,CMS-HCC,V28,V28115L3
+HCC50,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders",CMS-HCC,V28,V28115L3
+HCC51,"Addisons and Cushings Diseases, Acromegaly, and Other Specified Endocrine Disorders",CMS-HCC,V28,V28115L3
+HCC62,Liver Transplant Status/Complications,CMS-HCC,V28,V28115L3
+HCC63,Chronic Liver Failure/End-Stage Liver Disorders,CMS-HCC,V28,V28115L3
+HCC64,Cirrhosis of Liver,CMS-HCC,V28,V28115L3
+HCC65,Chronic Hepatitis,CMS-HCC,V28,V28115L3
+HCC68,Cholangitis and Obstruction of Bile Duct Without Gallstones,CMS-HCC,V28,V28115L3
+HCC77,Intestine Transplant Status/Complications,CMS-HCC,V28,V28115L3
+HCC78,Intestinal Obstruction/Perforation,CMS-HCC,V28,V28115L3
+HCC79,Chronic Pancreatitis,CMS-HCC,V28,V28115L3
+HCC80,Crohns Disease (Regional Enteritis),CMS-HCC,V28,V28115L3
+HCC81,Ulcerative Colitis,CMS-HCC,V28,V28115L3
+HCC92,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis,CMS-HCC,V28,V28115L3
+HCC93,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders,CMS-HCC,V28,V28115L3
+HCC94,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders,CMS-HCC,V28,V28115L3
+HCC107,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero,CMS-HCC,V28,V28115L3
+HCC108,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major",CMS-HCC,V28,V28115L3
+HCC109,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias",CMS-HCC,V28,V28115L3
+HCC111,"Hemophilia, Male",CMS-HCC,V28,V28115L3
+HCC112,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions,CMS-HCC,V28,V28115L3
+HCC114,Common Variable and Combined Immunodeficiencies,CMS-HCC,V28,V28115L3
+HCC115,Specified Immunodeficiencies and White Blood Cell Disorders,CMS-HCC,V28,V28115L3
+HCC125,"Dementia, Severe",CMS-HCC,V28,V28115L3
+HCC126,"Dementia, Moderate",CMS-HCC,V28,V28115L3
+HCC127,"Dementia, Mild or Unspecified",CMS-HCC,V28,V28115L3
+HCC135,Drug Use with Psychotic Complications,CMS-HCC,V28,V28115L3
+HCC136,Alcohol Use with Psychotic Complications,CMS-HCC,V28,V28115L3
+HCC137,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications",CMS-HCC,V28,V28115L3
+HCC138,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis",CMS-HCC,V28,V28115L3
+HCC139,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications",CMS-HCC,V28,V28115L3
+HCC151,Schizophrenia,CMS-HCC,V28,V28115L3
+HCC152,"Psychosis, Except Schizophrenia",CMS-HCC,V28,V28115L3
+HCC153,Personality Disorders; Anorexia/Bulimia Nervosa,CMS-HCC,V28,V28115L3
+HCC154,Bipolar Disorders without Psychosis,CMS-HCC,V28,V28115L3
+HCC155,"Major Depression, Moderate or Severe, without Psychosis",CMS-HCC,V28,V28115L3
+HCC180,Quadriplegia,CMS-HCC,V28,V28115L3
+HCC181,Paraplegia,CMS-HCC,V28,V28115L3
+HCC182,Spinal Cord Disorders/Injuries,CMS-HCC,V28,V28115L3
+HCC190,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy",CMS-HCC,V28,V28115L3
+HCC191,Quadriplegic Cerebral Palsy,CMS-HCC,V28,V28115L3
+HCC192,"Cerebral Palsy, Except Quadriplegic",CMS-HCC,V28,V28115L3
+HCC193,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy,CMS-HCC,V28,V28115L3
+HCC195,Myasthenia Gravis with (Acute) Exacerbation,CMS-HCC,V28,V28115L3
+HCC196,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders,CMS-HCC,V28,V28115L3
+HCC197,Muscular Dystrophy,CMS-HCC,V28,V28115L3
+HCC198,Multiple Sclerosis,CMS-HCC,V28,V28115L3
+HCC199,Parkinson and Other Degenerative Disease of Basal Ganglia,CMS-HCC,V28,V28115L3
+HCC200,Friedreich and Other Hereditary Ataxias; Huntington Disease,CMS-HCC,V28,V28115L3
+HCC201,Seizure Disorders and Convulsions,CMS-HCC,V28,V28115L3
+HCC202,"Coma, Brain Compression/Anoxic Damage",CMS-HCC,V28,V28115L3
+HCC211,Respirator Dependence/Tracheostomy Status/Complications,CMS-HCC,V28,V28115L3
+HCC212,Respiratory Arrest,CMS-HCC,V28,V28115L3
+HCC213,Cardio-Respiratory Failure and Shock,CMS-HCC,V28,V28115L3
+HCC221,Heart Transplant Status/Complications,CMS-HCC,V28,V28115L3
+HCC222,End-Stage Heart Failure,CMS-HCC,V28,V28115L3
+HCC223,Heart Failure with Heart Assist Device/Artificial Heart,CMS-HCC,V28,V28115L3
+HCC224,Acute on Chronic Heart Failure,CMS-HCC,V28,V28115L3
+HCC225,Acute Heart Failure (Excludes Acute on Chronic),CMS-HCC,V28,V28115L3
+HCC226,"Heart Failure, Except End-Stage and Acute",CMS-HCC,V28,V28115L3
+HCC227,Cardiomyopathy/Myocarditis,CMS-HCC,V28,V28115L3
+HCC228,Acute Myocardial Infarction,CMS-HCC,V28,V28115L3
+HCC229,Unstable Angina and Other Acute Ischemic Heart Disease,CMS-HCC,V28,V28115L3
+HCC238,Specified Heart Arrhythmias,CMS-HCC,V28,V28115L3
+HCC248,Intracranial Hemorrhage,CMS-HCC,V28,V28115L3
+HCC249,Ischemic or Unspecified Stroke,CMS-HCC,V28,V28115L3
+HCC253,Hemiplegia/Hemiparesis,CMS-HCC,V28,V28115L3
+HCC254,"Monoplegia, Other Paralytic Syndromes",CMS-HCC,V28,V28115L3
+HCC263,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene,CMS-HCC,V28,V28115L3
+HCC264,Vascular Disease with Complications,CMS-HCC,V28,V28115L3
+HCC267,Deep Vein Thrombosis and Pulmonary Embolism,CMS-HCC,V28,V28115L3
+HCC276,Lung Transplant Status/Complications,CMS-HCC,V28,V28115L3
+HCC277,Cystic Fibrosis,CMS-HCC,V28,V28115L3
+HCC278,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis,CMS-HCC,V28,V28115L3
+HCC279,Severe Persistent Asthma,CMS-HCC,V28,V28115L3
+HCC280,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders",CMS-HCC,V28,V28115L3
+HCC282,Aspiration and Specified Bacterial Pneumonias,CMS-HCC,V28,V28115L3
+HCC283,"Empyema, Lung Abscess",CMS-HCC,V28,V28115L3
+HCC298,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage",CMS-HCC,V28,V28115L3
+HCC300,Exudative Macular Degeneration,CMS-HCC,V28,V28115L3
+HCC326,"Chronic Kidney Disease, Stage 5",CMS-HCC,V28,V28115L3
+HCC327,"Chronic Kidney Disease, Severe (Stage 4)",CMS-HCC,V28,V28115L3
+HCC328,"Chronic Kidney Disease, Moderate (Stage 3B)",CMS-HCC,V28,V28115L3
+HCC329,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)",CMS-HCC,V28,V28115L3
+HCC379,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",CMS-HCC,V28,V28115L3
+HCC380,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle",CMS-HCC,V28,V28115L3
+HCC381,Pressure Ulcer of Skin with Full Thickness Skin Loss,CMS-HCC,V28,V28115L3
+HCC382,Pressure Ulcer of Skin with Partial Thickness Skin Loss,CMS-HCC,V28,V28115L3
+HCC383,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle",CMS-HCC,V28,V28115L3
+HCC385,Severe Skin Burn,CMS-HCC,V28,V28115L3
+HCC387,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders",CMS-HCC,V28,V28115L3
+HCC397,Major Head Injury with Loss of Consciousness > 1 Hour,CMS-HCC,V28,V28115L3
+HCC398,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified,CMS-HCC,V28,V28115L3
+HCC399,Major Head Injury without Loss of Consciousness,CMS-HCC,V28,V28115L3
+HCC401,Vertebral Fractures without Spinal Cord Injury,CMS-HCC,V28,V28115L3
+HCC402,Hip Fracture/Dislocation,CMS-HCC,V28,V28115L3
+HCC405,Traumatic Amputations and Complications,CMS-HCC,V28,V28115L3
+HCC409,"Amputation Status, Lower Limb/Amputation Complications",CMS-HCC,V28,V28115L3
+HCC454,"Stem Cell, Including Bone Marrow, Transplant Status/Complications",CMS-HCC,V28,V28115L3
+HCC463,Artificial Openings for Feeding or Elimination,CMS-HCC,V28,V28115L3

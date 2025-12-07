@@ -1,4 +1,4 @@
-from typing import List, Dict, Any, Union, Optional, Tuple, Set
+from typing import List, Dict, Any, Union, Optional, Tuple, Set, Iterable
 from hccinfhir.extractor import extract_sld_list
 from hccinfhir.filter import apply_filter
 from hccinfhir.model_calculate import calculate_raf
@@ -184,16 +184,16 @@ class HCCInFHIR:
         # Create new result with service data included
         return raf_result.model_copy(update={'service_level_data': standardized_data})
         
-    def calculate_from_diagnosis(self, diagnosis_codes: List[str],
+    def calculate_from_diagnosis(self, diagnosis_codes: Iterable[str],
                                demographics: Union[Demographics, Dict[str, Any]],
                                prefix_override: Optional[PrefixOverride] = None,
                                maci: float = 0.0,
                                norm_factor: float = 1.0,
                                frailty_score: float = 0.0) -> RAFResult:
-        """Calculate RAF scores from a list of diagnosis codes.
+        """Calculate RAF scores from diagnosis codes.
 
         Args:
-            diagnosis_codes: List of diagnosis codes
+            diagnosis_codes: Iterable of diagnosis codes (list, tuple, numpy array, etc.)
             demographics: Demographics information
             prefix_override: Optional prefix to override auto-detected demographic prefix.
                 Use when demographic categorization is incorrect (e.g., ESRD patients with orec=0).
@@ -201,14 +201,14 @@ class HCCInFHIR:
             norm_factor: Normalization factor (default 1.0)
             frailty_score: Frailty adjustment score (default 0.0)
 
-        Raises:
-            ValueError: If diagnosis_codes is empty or not a list
+        Returns:
+            RAFResult object containing calculated scores
         """
-        if not isinstance(diagnosis_codes, list):
-            raise ValueError("diagnosis_codes must be a list")
-        
+        # Convert to list to ensure consistent handling downstream
+        diagnosis_list = list(diagnosis_codes) if diagnosis_codes is not None else []
+
         demographics = self._ensure_demographics(demographics)
         raf_result = self._calculate_raf_from_demographics_and_dx_codes(
-            diagnosis_codes, demographics, prefix_override, maci, norm_factor, frailty_score
+            diagnosis_list, demographics, prefix_override, maci, norm_factor, frailty_score
         )
         return raf_result

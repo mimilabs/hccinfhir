@@ -48,6 +48,7 @@ print(f"HCCs: {result.hcc_list}")
   - [Demographic Prefix Override](#demographic-prefix-override)
   - [Custom File Path Resolution](#custom-file-path-resolution)
   - [Batch Processing](#batch-processing)
+  - [Large-Scale Processing with Databricks](#large-scale-processing-with-databricks)
   - [Converting to Dictionaries](#converting-to-dictionaries)
 - [Sample Data](#sample-data)
 - [Testing](#testing)
@@ -64,7 +65,7 @@ print(f"HCCs: {result.hcc_list}")
 - **Custom Data Files**: Full support for custom coefficients, mappings, and hierarchies
 - **Flexible File Resolution**: Absolute paths, relative paths, or bundled data files
 - **Type-Safe**: Built on Pydantic with full type hints
-- **Well-Tested**: 155 comprehensive tests covering all features
+- **Well-Tested**: 181 comprehensive tests covering all features
 
 ## 📊 Data Sources & Use Cases
 
@@ -820,6 +821,146 @@ with open("risk_scores.json", "w") as f:
     json.dump(results, f, indent=2)
 ```
 
+### Large-Scale Processing with Databricks
+
+For processing millions of beneficiaries, use PySpark's `pandas_udf` for distributed computation. The hccinfhir logic is well-suited for batch operations with clear, simple transformations.
+
+**Performance Benchmark**:
+
+![Databricks Performance Chart](hccinfhir_pandas_udf_performance_chart.png)
+
+*Tested with ACO data on Databricks Runtime 17.3 LTS, Worker: i3.4xlarge (122GB, 16 cores)*
+
+The chart shows execution time varies based on condition complexity - members with more diagnoses require additional internal processing loops. While the relationship isn't perfectly linear, **1 million members can be processed in under 2 minutes** with this configuration.
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType, StructField, FloatType, ArrayType, StringType
+from pyspark.sql import functions as F
+from pyspark.sql.functions import pandas_udf
+import pandas as pd
+
+from hccinfhir import HCCInFHIR, Demographics
+
+# Define the return schema
+hcc_schema = StructType([
+    StructField("risk_score", FloatType(), True),
+    StructField("risk_score_demographics", FloatType(), True),
+    StructField("risk_score_chronic_only", FloatType(), True),
+    StructField("risk_score_hcc", FloatType(), True),
+    StructField("hcc_list", ArrayType(StringType()), True)
+])
+
+# Initialize processor (will be serialized to each executor)
+hcc_processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+
+# Create the pandas UDF
+@pandas_udf(hcc_schema)
+def calculate_hcc(
+    age_series: pd.Series,
+    sex_series: pd.Series,
+    diagnosis_series: pd.Series
+) -> pd.DataFrame:
+    results = []
+
+    for age, sex, diagnosis_codes in zip(age_series, sex_series, diagnosis_series):
+        try:
+            demographics = Demographics(age=int(age), sex=sex)
+
+            # diagnosis_codes can be passed directly - accepts any iterable including numpy arrays
+            result = hcc_processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+
+            results.append({
+                'risk_score': float(result.risk_score),
+                'risk_score_demographics': float(result.risk_score_demographics),
+                'risk_score_chronic_only': float(result.risk_score_chronic_only),
+                'risk_score_hcc': float(result.risk_score_hcc),
+                'hcc_list': result.hcc_list
+            })
+        except Exception as e:
+            # Log error and return nulls for failed rows
+            print(f"ERROR processing row: {e}")
+            results.append({
+                'risk_score': None,
+                'risk_score_demographics': None,
+                'risk_score_chronic_only': None,
+                'risk_score_hcc': None,
+                'hcc_list': None
+            })
+
+    return pd.DataFrame(results)
+
+# Apply the UDF to your DataFrame
+# Assumes df has columns: age, patient_gender, diagnosis_codes (array of strings)
+df = df.withColumn(
+    "hcc_results",
+    calculate_hcc(
+        F.col("age"),
+        F.col("patient_gender"),
+        F.col("diagnosis_codes")
+    )
+)
+
+# Expand the struct into separate columns
+df = df.select(
+    "*",
+    F.col("hcc_results.risk_score").alias("risk_score"),
+    F.col("hcc_results.risk_score_demographics").alias("risk_score_demographics"),
+    F.col("hcc_results.risk_score_chronic_only").alias("risk_score_chronic_only"),
+    F.col("hcc_results.risk_score_hcc").alias("risk_score_hcc"),
+    F.col("hcc_results.hcc_list").alias("hcc_list")
+).drop("hcc_results")
+```
+
+**Performance Tips**:
+- **Repartition** your DataFrame before applying the UDF to balance workload across executors
+- **Cache** the processor initialization by defining it at module level
+- **Batch size**: pandas_udf processes data in batches; Spark handles optimal batch sizing automatically
+- **Install hccinfhir** on all cluster nodes: `%pip install hccinfhir` in a notebook cell or add to cluster init script
+
+**Extended Schema with Demographics**:
+
+```python
+# Include additional demographic parameters
+@pandas_udf(hcc_schema)
+def calculate_hcc_full(
+    age_series: pd.Series,
+    sex_series: pd.Series,
+    dual_status_series: pd.Series,
+    diagnosis_series: pd.Series
+) -> pd.DataFrame:
+    results = []
+
+    for age, sex, dual_status, diagnosis_codes in zip(
+        age_series, sex_series, dual_status_series, diagnosis_series
+    ):
+        try:
+            demographics = Demographics(
+                age=int(age),
+                sex=sex,
+                dual_elgbl_cd=dual_status if dual_status else "00"
+            )
+            result = hcc_processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+
+            results.append({
+                'risk_score': float(result.risk_score),
+                'risk_score_demographics': float(result.risk_score_demographics),
+                'risk_score_chronic_only': float(result.risk_score_chronic_only),
+                'risk_score_hcc': float(result.risk_score_hcc),
+                'hcc_list': result.hcc_list
+            })
+        except Exception as e:
+            results.append({
+                'risk_score': None,
+                'risk_score_demographics': None,
+                'risk_score_chronic_only': None,
+                'risk_score_hcc': None,
+                'hcc_list': None
+            })
+
+    return pd.DataFrame(results)
+```
+
 ### Converting to Dictionaries
 
 All Pydantic models support dictionary conversion for JSON serialization, database storage, or legacy code:
@@ -900,7 +1041,7 @@ hatch shell
 # Install in development mode
 pip install -e .
 
-# Run all tests (155 tests)
+# Run all tests (181 tests)
 pytest tests/
 
 # Run specific test file

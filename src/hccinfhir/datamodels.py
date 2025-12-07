@@ -93,6 +93,22 @@ PrefixOverride = Literal[
     "Rx_NE_LTI_",  # New Enrollee, Long-Term Institutionalized
 ]
 
+class HCCDetail(BaseModel):
+    """
+    Detailed information about an HCC category.
+
+    Attributes:
+        hcc: HCC code (e.g., "18", "85")
+        label: Human-readable description (e.g., "Diabetes with Chronic Complications")
+        is_chronic: Whether this HCC is considered a chronic condition
+        coefficient: The coefficient value applied for this HCC in the RAF calculation
+    """
+    hcc: str = Field(..., description="HCC code (e.g., '18', '85')")
+    label: Optional[str] = Field(None, description="Human-readable HCC description")
+    is_chronic: bool = Field(False, description="Whether this HCC is a chronic condition")
+    coefficient: Optional[float] = Field(None, description="Coefficient value for this HCC")
+
+
 class ServiceLevelData(BaseModel):
     """
     Represents standardized service-level data extracted from healthcare claims.
@@ -167,6 +183,7 @@ class RAFResult(BaseModel):
     risk_score_hcc: float = Field(..., description="HCC conditions risk score")
     risk_score_payment: float = Field(..., description="Payment RAF score (adjusted for MACI, normalization, and frailty)")
     hcc_list: List[str] = Field(default_factory=list, description="List of active HCC categories")
+    hcc_details: List[HCCDetail] = Field(default_factory=list, description="Detailed HCC information with labels and chronic status")
     cc_to_dx: Dict[str, Set[str]] = Field(default_factory=dict, description="Condition categories mapped to diagnosis codes")
     coefficients: Dict[str, float] = Field(default_factory=dict, description="Applied model coefficients")
     interactions: Dict[str, float] = Field(default_factory=dict, description="Disease interaction coefficients")

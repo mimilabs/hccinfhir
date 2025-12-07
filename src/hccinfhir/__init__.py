@@ -9,7 +9,7 @@ from .hccinfhir import HCCInFHIR
 from .extractor import extract_sld, extract_sld_list
 from .filter import apply_filter
 from .model_calculate import calculate_raf
-from .datamodels import Demographics, ServiceLevelData, RAFResult, ModelName
+from .datamodels import Demographics, ServiceLevelData, RAFResult, ModelName, HCCDetail
 
 # Sample data functions
 from .samples import (
@@ -37,6 +37,7 @@ __all__ = [
     "ServiceLevelData",
     "RAFResult",
     "ModelName",
+    "HCCDetail",
     
     # Sample data
     "SampleData",

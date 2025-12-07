@@ -245,3 +245,70 @@ def load_coefficients(file_path: str) -> Dict[Tuple[str, ModelName], float]:
             continue  # Skip malformed lines
 
     return coefficients
+
+
+def load_labels(file_path: str) -> Dict[Tuple[str, ModelName], str]:
+    """
+    Load HCC labels from a CSV file.
+    Expected format: cc,label,model_domain,model_version,...
+
+    Args:
+        file_path: Filename or path to the CSV file
+
+    Returns:
+        Dictionary mapping (cc, model_name) to label string
+
+    Raises:
+        FileNotFoundError: If file cannot be found
+        RuntimeError: If file cannot be loaded or parsed
+    """
+    labels: Dict[Tuple[str, ModelName], str] = {}
+
+    try:
+        resolved_path = resolve_data_file(file_path)
+        with open(resolved_path, "r", encoding="utf-8") as file:
+            content = file.read()
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Could not load labels: {e}")
+    except Exception as e:
+        raise RuntimeError(f"Error loading labels file '{file_path}': {e}")
+
+    for line in content.splitlines()[1:]:  # Skip header
+        try:
+            parts = line.strip().split(',')
+            if len(parts) < 4:
+                continue
+            cc_raw, label, model_domain, model_version = parts[0], parts[1], parts[2], parts[3]
+
+            # Strip HCC prefix if present to get just the number
+            cc = cc_raw.replace('HCC', '').replace('RxHCC', '')
+
+            # Handle quoted labels with commas
+            if label.startswith('"'):
+                # Find closing quote
+                label_parts = [label]
+                for i, p in enumerate(parts[2:], start=2):
+                    if p.endswith('"'):
+                        label_parts.append(p)
+                        # Recalculate domain and version after the quoted label
+                        model_domain = parts[i + 1] if len(parts) > i + 1 else ''
+                        model_version = parts[i + 2] if len(parts) > i + 2 else ''
+                        break
+                    label_parts.append(p)
+                label = ','.join(label_parts).strip('"')
+
+            # Construct model name based on domain
+            if model_domain == 'ESRD':
+                model_name = f"CMS-HCC {model_domain} Model {model_version}"
+            elif model_domain == 'RxHCC':
+                model_name = f"{model_domain} Model {model_version}"
+            else:
+                model_name = f"{model_domain} Model {model_version}"
+
+            key = (cc, model_name)
+            if key not in labels:
+                labels[key] = label
+        except (ValueError, IndexError):
+            continue  # Skip malformed lines
+
+    return labels

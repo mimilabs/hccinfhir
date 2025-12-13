@@ -195,22 +195,64 @@ class RAFResult(BaseModel):
     
     model_config = {"extra": "forbid", "validate_assignment": True}
 
+class HCPCoveragePeriod(BaseModel):
+    """A single HCP (Health Care Plan) coverage period from HD loop"""
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    hcp_code: Optional[str] = None
+    hcp_status: Optional[str] = None
+    aid_codes: Optional[str] = None  # REF*CE composite
+
+
 class EnrollmentData(BaseModel):
     """
     Enrollment and demographic data extracted from 834 transactions.
 
     Focus: Extract data needed for risk adjustment and Medicaid coverage tracking.
+    Supports California DHCS Medi-Cal 834 format with FAME fields.
 
     Attributes:
-        member_id: Unique identifier for the member
-        mbi: Medicare Beneficiary Identifier
-        medicaid_id: Medicaid/Medi-Cal ID number
+        # Header Info
+        source: Interchange sender ID (ISA06)
+        report_date: Transaction date (GS04)
+
+        # Identifiers
+        member_id: Unique identifier for the member (REF*0F)
+        mbi: Medicare Beneficiary Identifier (REF*6P)
+        medicaid_id: Medicaid/Medi-Cal ID number (REF*23)
+        hic: Medicare HICN (REF*F6)
+        cin: Client Index Number from REF*3H
+        cin_check_digit: CIN check digit from REF*3H
+
+        # Name
+        first_name: Member first name (NM104)
+        last_name: Member last name (NM103)
+        middle_name: Member middle name (NM105)
+
+        # Demographics
         dob: Date of birth (YYYY-MM-DD)
         age: Calculated age
         sex: Member sex (M/F)
-        maintenance_type: 001=Change, 021=Add, 024=Cancel, 025=Reinstate
+        race: Race/ethnicity code (DMG05)
+        language: Preferred language (LUI02)
+        death_date: Date of death if applicable
+
+        # Address
+        address_1: Street address line 1 (N301)
+        address_2: Street address line 2 (N302)
+        city: City (N401)
+        state: State code (N402)
+        zip: Postal code (N403)
+        phone: Phone number (PER04)
+
+        # Coverage tracking
+        maintenance_type: 001=Change, 021=Add, 024=Cancel, 025=Reinstate (INS03)
+        maintenance_reason_code: Maintenance reason (INS04)
+        benefit_status_code: A=Active, C=COBRA, etc. (INS05)
         coverage_start_date: Coverage effective date
-        coverage_end_date: Coverage termination date (critical for Medicaid loss detection)
+        coverage_end_date: Coverage termination date
+
+        # Medicaid/Medicare Status
         has_medicare: Member has Medicare coverage
         has_medicaid: Member has Medicaid coverage
         dual_elgbl_cd: Dual eligibility status code ('00','01'-'08')
@@ -218,25 +260,75 @@ class EnrollmentData(BaseModel):
         is_partial_benefit_dual: Partial Benefit Dual (uses CPA_/CPD_ prefix)
         medicare_status_code: QMB, SLMB, QI, QDWI, etc.
         medi_cal_aid_code: California Medi-Cal aid code
+        medi_cal_eligibility_status: Medi-Cal eligibility status from REF*6O
+
+        # CA DHCS / FAME Specific
+        fame_county_id: FAME county ID (REF*ZX or N4*CY)
+        case_number: Case number (REF*1L)
+        fame_card_issue_date: FAME card issue date
+        fame_redetermination_date: FAME redetermination date (REF*17)
+        fame_death_date: FAME death date
+        primary_aid_code: Primary AID code (REF*RB)
+        carrier_code: Carrier code
+        fed_contract_number: Federal contract number
+        client_reporting_cat: Client reporting category
+        res_addr_flag: Residential address flag from REF*6O
+        reas_add_ind: Reason address indicator from REF*6O
+        res_zip_deliv_code: Residential zip delivery code
+
+        # Risk Adjustment Fields
         orec: Original Reason for Entitlement Code
         crec: Current Reason for Entitlement Code
         snp: Special Needs Plan enrollment
         low_income: Low Income Subsidy (Part D)
         lti: Long-Term Institutionalized
         new_enrollee: New enrollee status (<= 3 months)
+
+        # HCP (Health Care Plan) Info
+        hcp_code: Current HCP code (HD04 first part)
+        hcp_status: Current HCP status (HD04 second part)
+        amount: Premium or cost share amount
+
+        # HCP History (multiple coverage periods)
+        hcp_history: List of historical HCP coverage periods
     """
+    # Header Info
+    source: Optional[str] = None
+    report_date: Optional[str] = None
+
     # Identifiers
     member_id: Optional[str] = None
     mbi: Optional[str] = None
     medicaid_id: Optional[str] = None
+    hic: Optional[str] = None
+    cin: Optional[str] = None
+    cin_check_digit: Optional[str] = None
+
+    # Name
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    middle_name: Optional[str] = None
 
     # Demographics
     dob: Optional[str] = None
     age: Optional[int] = None
     sex: Optional[str] = None
+    race: Optional[str] = None
+    language: Optional[str] = None
+    death_date: Optional[str] = None
+
+    # Address
+    address_1: Optional[str] = None
+    address_2: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip: Optional[str] = None
+    phone: Optional[str] = None
 
     # Coverage tracking
     maintenance_type: Optional[str] = None
+    maintenance_reason_code: Optional[str] = None
+    benefit_status_code: Optional[str] = None
     coverage_start_date: Optional[str] = None
     coverage_end_date: Optional[str] = None
 
@@ -248,6 +340,21 @@ class EnrollmentData(BaseModel):
     is_partial_benefit_dual: bool = False
     medicare_status_code: Optional[str] = None
     medi_cal_aid_code: Optional[str] = None
+    medi_cal_eligibility_status: Optional[str] = None
+
+    # CA DHCS / FAME Specific
+    fame_county_id: Optional[str] = None
+    case_number: Optional[str] = None
+    fame_card_issue_date: Optional[str] = None
+    fame_redetermination_date: Optional[str] = None
+    fame_death_date: Optional[str] = None
+    primary_aid_code: Optional[str] = None
+    carrier_code: Optional[str] = None
+    fed_contract_number: Optional[str] = None
+    client_reporting_cat: Optional[str] = None
+    res_addr_flag: Optional[str] = None
+    reas_add_ind: Optional[str] = None
+    res_zip_deliv_code: Optional[str] = None
 
     # Risk Adjustment Fields
     orec: Optional[str] = None
@@ -256,3 +363,11 @@ class EnrollmentData(BaseModel):
     low_income: bool = False
     lti: bool = False
     new_enrollee: bool = False
+
+    # HCP Info
+    hcp_code: Optional[str] = None
+    hcp_status: Optional[str] = None
+    amount: Optional[str] = None
+
+    # HCP History
+    hcp_history: List[HCPCoveragePeriod] = []

@@ -65,7 +65,7 @@ print(f"HCCs: {result.hcc_list}")
 - **Custom Data Files**: Full support for custom coefficients, mappings, and hierarchies
 - **Flexible File Resolution**: Absolute paths, relative paths, or bundled data files
 - **Type-Safe**: Built on Pydantic with full type hints
-- **Well-Tested**: 181 comprehensive tests covering all features
+- **Well-Tested**: 189 comprehensive tests covering all features
 
 ## 📊 Data Sources & Use Cases
 
@@ -1022,8 +1022,8 @@ result = processor.run([eob], demographics)  # Note: [eob] not eob
 claim = get_837_sample(0)  # Cases 0-12 (returns string)
 claims = get_837_sample_list([0, 1, 2])  # Returns list
 
-# X12 834 enrollment samples
-enrollment_834 = get_834_sample(1)  # Currently only case 1 available (returns string)
+# X12 834 enrollment samples (6 CA DHCS scenarios)
+enrollment_834 = get_834_sample(1)  # Cases 1-6 available (returns string)
 
 # List all available samples
 info = list_available_samples()
@@ -1041,7 +1041,7 @@ hatch shell
 # Install in development mode
 pip install -e .
 
-# Run all tests (181 tests)
+# Run all tests (189 tests)
 pytest tests/
 
 # Run specific test file

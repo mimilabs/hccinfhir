@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional, Literal, Dict, Set, TypedDict, Union
+from typing import List, Optional, Literal, Dict, Set, TypedDict, Union, Any
+from datetime import date
 
 # Define Model Name literal type
 ModelName = Literal[
@@ -203,6 +204,21 @@ class HCPCoveragePeriod(BaseModel):
     hcp_status: Optional[str] = None
     aid_codes: Optional[str] = None  # REF*CE composite
 
+    def model_dump_with_dates(self, **kwargs) -> Dict[str, Any]:
+        """Return dict with date fields as date objects instead of strings.
+
+        Args:
+            **kwargs: Additional arguments passed to model_dump()
+
+        Returns:
+            Dict with start_date and end_date as date objects (if present)
+        """
+        data = self.model_dump(**kwargs)
+        for field in ('start_date', 'end_date'):
+            if data.get(field):
+                data[field] = date.fromisoformat(data[field])
+        return data
+
 
 class EnrollmentData(BaseModel):
     """
@@ -373,3 +389,46 @@ class EnrollmentData(BaseModel):
 
     # HCP History
     hcp_history: List[HCPCoveragePeriod] = []
+
+    def model_dump_with_dates(self, **kwargs) -> Dict[str, Any]:
+        """Return dict with date fields as date objects instead of strings.
+
+        Converts all YYYY-MM-DD string date fields to date objects.
+        Also converts dates in nested hcp_history items.
+
+        Args:
+            **kwargs: Additional arguments passed to model_dump()
+
+        Returns:
+            Dict with date fields as date objects (if present)
+
+        Example:
+            >>> enrollment = extract_enrollment_834(content)[0]
+            >>> data = enrollment.model_dump_with_dates()
+            >>> isinstance(data['dob'], date)  # True
+        """
+        data = self.model_dump(**kwargs)
+
+        # EnrollmentData date fields
+        date_fields = (
+            'report_date',
+            'dob',
+            'death_date',
+            'coverage_start_date',
+            'coverage_end_date',
+            'fame_card_issue_date',
+            'fame_redetermination_date',
+            'fame_death_date',
+        )
+        for field in date_fields:
+            if data.get(field):
+                data[field] = date.fromisoformat(data[field])
+
+        # Convert dates in hcp_history items
+        if data.get('hcp_history'):
+            for hcp in data['hcp_history']:
+                for field in ('start_date', 'end_date'):
+                    if hcp.get(field):
+                        hcp[field] = date.fromisoformat(hcp[field])
+
+        return data

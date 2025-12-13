@@ -385,8 +385,8 @@ def test_sample_834_02_ca_dhcs_pace():
     assert member.sex == "F"
 
     # Address
-    assert member.city == "los angeles"
-    assert member.state == "ca"
+    assert member.city == "LOS ANGELES"
+    assert member.state == "CA"
     assert member.zip == "90019"
 
     # CA DHCS FAME specific fields

@@ -619,8 +619,8 @@ def parse_834_enrollment(segments: List[List[str]], source: str = None, report_d
             # Strip state suffix from city if embedded
             if city and state and city.upper().endswith(' ' + state.upper()):
                 city = city[:-len(state)-1].strip()
-            member.city = city.lower() if city else None
-            member.state = state.lower() if state else None
+            member.city = city
+            member.state = state
             member.zip = get_segment_value(segment, 3)
             # County code
             if len(segment) > 6 and segment[5] == 'CY' and not member.fame_county_id:

@@ -21,6 +21,21 @@ from hccinfhir.constants import (
     map_medicare_status_to_dual_code,
     map_aid_code_to_dual_status,
 )
+from hccinfhir.utils import load_race_ethnicity
+
+# Load race/ethnicity mapping at module level
+_RACE_ETHNICITY_MAPPING: Optional[Dict[str, str]] = None
+
+
+def _get_race_ethnicity_mapping() -> Dict[str, str]:
+    """Lazy load race/ethnicity mapping"""
+    global _RACE_ETHNICITY_MAPPING
+    if _RACE_ETHNICITY_MAPPING is None:
+        try:
+            _RACE_ETHNICITY_MAPPING = load_race_ethnicity()
+        except (FileNotFoundError, RuntimeError):
+            _RACE_ETHNICITY_MAPPING = {}
+    return _RACE_ETHNICITY_MAPPING
 
 # Constants
 TRANSACTION_TYPES = {"005010X220A1": "834"}
@@ -114,7 +129,8 @@ class MemberContext(BaseModel):
     # HCP Info
     hcp_code: Optional[str] = None
     hcp_status: Optional[str] = None
-    amount: Optional[str] = None
+    amount_qualifier: Optional[str] = None
+    amount: Optional[float] = None
 
     # HCP History
     hcp_history: List[HCPContext] = []
@@ -206,6 +222,35 @@ def contains_any_keyword(text: str, keywords: set) -> bool:
     return any(kw in text_upper for kw in keywords)
 
 
+def parse_race_code(raw_value: Optional[str]) -> Optional[str]:
+    """Parse race code from DMG05 and translate to human-readable name.
+
+    Handles formats like:
+    - ":RET:2135-2" -> "Hispanic or Latino"
+    - "2135-2" -> "Hispanic or Latino"
+    - "2106-3" -> "White"
+
+    Args:
+        raw_value: Raw race value from DMG segment
+
+    Returns:
+        Human-readable race/ethnicity name, or original value if not found
+    """
+    if not raw_value:
+        return None
+
+    # Extract code from formats like ":RET:2135-2" or "2135-2"
+    code = raw_value
+    if ':' in raw_value:
+        parts = raw_value.split(':')
+        # Take the last non-empty part which should be the code
+        code = next((p for p in reversed(parts) if p), raw_value)
+
+    # Look up in mapping
+    mapping = _get_race_ethnicity_mapping()
+    return mapping.get(code, raw_value)
+
+
 # ============================================================================
 # Dual Eligibility Logic
 # ============================================================================
@@ -248,7 +293,7 @@ def parse_ref_23(value: str, member: MemberContext) -> None:
     member.cin_check_digit = get_composite_part(value, 0)
     card_date = get_composite_part(value, 1)
     if card_date and len(card_date) >= 8:
-        member.fame_card_issue_date = card_date[:8]
+        member.fame_card_issue_date = parse_date(card_date[:8])
 
 
 def parse_ref_3h(value: str, member: MemberContext) -> None:
@@ -277,7 +322,7 @@ def parse_ref_dx(value: str, member: MemberContext) -> None:
         member.carrier_code = strip_leading_zeros(carrier)
     policy_start = get_composite_part(value, 2)
     if policy_start and len(policy_start) >= 8:
-        member.coverage_start_date = policy_start[:8]
+        member.coverage_start_date = parse_date(policy_start[:8])
 
 
 def parse_ref_17(value: str, member: MemberContext) -> None:
@@ -495,7 +540,8 @@ def _finalize_member(member: MemberContext, source: str, report_date: str) -> En
         res_zip_deliv_code=member.res_zip_deliv_code,
         orec=member.orec, crec=member.crec, snp=member.snp,
         low_income=member.low_income, lti=member.lti, new_enrollee=new_enrollee,
-        hcp_code=member.hcp_code, hcp_status=member.hcp_status, amount=member.amount,
+        hcp_code=member.hcp_code, hcp_status=member.hcp_status,
+        amount_qualifier=member.amount_qualifier, amount=member.amount,
         hcp_history=hcp_history
     )
 
@@ -594,7 +640,7 @@ def parse_834_enrollment(segments: List[List[str]], source: str = None, report_d
             sex = get_segment_value(segment, 3)
             if sex in X12_SEX_CODE_MAPPING:
                 member.sex = X12_SEX_CODE_MAPPING[sex]
-            member.race = get_segment_value(segment, 5)
+            member.race = parse_race_code(get_segment_value(segment, 5))
             death_str = get_segment_value(segment, 6)
             if death_str and len(death_str) >= 8:
                 member.death_date = parse_date(death_str[:8])
@@ -638,7 +684,13 @@ def parse_834_enrollment(segments: List[List[str]], source: str = None, report_d
 
         # AMT - Amount
         elif seg_id == 'AMT' and len(segment) >= 3:
-            member.amount = get_segment_value(segment, 2)
+            member.amount_qualifier = get_segment_value(segment, 1)
+            amt_val = get_segment_value(segment, 2)
+            if amt_val:
+                try:
+                    member.amount = float(amt_val)
+                except ValueError:
+                    pass
 
     # Finalize last member
     if member.member_id or member.has_medicare or member.has_medicaid:
@@ -696,7 +748,7 @@ def extract_enrollment_834(content: str) -> List[EnrollmentData]:
                 source = get_segment_value(segment, 2)
             gs_date = get_segment_value(segment, 4)
             if gs_date and len(gs_date) >= 8:
-                report_date = f"{gs_date[:4]}-{gs_date[4:6]}-{gs_date[6:8]}"
+                report_date = parse_date(gs_date[:8])
             if len(segment) > 8 and segment[8] not in TRANSACTION_TYPES:
                 raise ValueError("Invalid or unsupported 834 format")
             break

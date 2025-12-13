@@ -80,6 +80,7 @@ print(f"HCCs: {result.hcc_list}")
 - **Use Case**: Extract dual eligibility status, detect Medicaid coverage loss
 - **Features**: California DHCS aid code mapping, Medicare status codes, coverage tracking
 - **Output**: Demographics with accurate dual eligibility for risk calculations
+- **Architecture**: See [834 Parsing Documentation](./README_PARSING834.md) for transaction structure and parsing logic
 
 ### 3. **FHIR ExplanationOfBenefit Resources**
 - **Input**: FHIR EOB from CMS Blue Button 2.0 / BCDA API
@@ -1058,6 +1059,7 @@ Apache License 2.0. See [LICENSE](LICENSE) for details.
 ## 📞 Support
 
 - **Claude Code Documentation**: [CLAUDE.md](./CLAUDE.md) - Comprehensive developer guide
+- **834 Parsing Architecture**: [README_PARSING834.md](./README_PARSING834.md) - X12 834 transaction structure and parsing logic
 - **Issues**: [GitHub Issues](https://github.com/mimilabs/hccinfhir/issues)
 
 ## 👥 Contributors

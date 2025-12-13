@@ -287,7 +287,8 @@ class EnrollmentData(BaseModel):
         # HCP (Health Care Plan) Info
         hcp_code: Current HCP code (HD04 first part)
         hcp_status: Current HCP status (HD04 second part)
-        amount: Premium or cost share amount
+        amount_qualifier: AMT qualifier code (e.g., 'D' = premium, 'C1' = copay)
+        amount: Premium or cost share amount (numeric)
 
         # HCP History (multiple coverage periods)
         hcp_history: List of historical HCP coverage periods
@@ -367,7 +368,8 @@ class EnrollmentData(BaseModel):
     # HCP Info
     hcp_code: Optional[str] = None
     hcp_status: Optional[str] = None
-    amount: Optional[str] = None
+    amount_qualifier: Optional[str] = None
+    amount: Optional[float] = None
 
     # HCP History
     hcp_history: List[HCPCoveragePeriod] = []

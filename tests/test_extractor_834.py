@@ -394,7 +394,7 @@ def test_sample_834_02_ca_dhcs_pace():
     assert member.medi_cal_aid_code == "10"
     assert member.case_number == "randomCaseNum1"
     assert member.cin_check_digit == "4"
-    assert member.fame_card_issue_date == "20200101"
+    assert member.fame_card_issue_date == "2020-01-01"
 
     # REF*6O fields
     assert member.res_addr_flag == "W"
@@ -446,7 +446,7 @@ def test_sample_834_03_south_la_pace():
     # REF*DX fields (contract info)
     assert member.fed_contract_number == "H9999"
     assert member.carrier_code == "6"
-    assert member.coverage_start_date == "20250201"
+    assert member.coverage_start_date == "2025-02-01"
 
     # HCP for PACE plan
     assert member.hcp_code == "957"
@@ -474,8 +474,8 @@ def test_sample_834_04_with_race_code():
     # Source with SLA prefix
     assert member.source == "SLA-DHCS834-DA"
 
-    # Race code (raw format)
-    assert member.race == ":RET:2054-5"  # Black/African American code
+    # Race code (translated from CDC code)
+    assert member.race == "Black or African American"
 
     # FAME redetermination date
     assert member.fame_redetermination_date == "2026-05-01"
@@ -504,10 +504,11 @@ def test_sample_834_05_with_amount():
     assert member.source == "SLA-DHCS834-DA"
 
     # Amount field from AMT segment
-    assert member.amount == "1237"
+    assert member.amount_qualifier == "R"
+    assert member.amount == 1237.0
 
-    # Race code (raw format)
-    assert member.race == ":RET:2135-2"  # Hispanic code
+    # Race code (translated from CDC code)
+    assert member.race == "Hispanic or Latino"
 
     # HCP status with letter
     assert member.hcp_status == "P4"
@@ -538,7 +539,7 @@ def test_sample_834_06_multi_member():
     assert member1.sex == "F"
     assert member1.medi_cal_aid_code == "60"
     assert member1.case_number == "randomCaseNum1"
-    assert member1.race == ":RET:2054-5"
+    assert member1.race == "Black or African American"
 
     # Member 2
     member2 = enrollments[1]
@@ -549,7 +550,7 @@ def test_sample_834_06_multi_member():
     assert member2.sex == "M"
     assert member2.medi_cal_aid_code == "10"
     assert member2.case_number == "randomCaseNum2"
-    assert member2.race == ":RET:2135-2"
+    assert member2.race == "Hispanic or Latino"
 
     # Both should have same source and report date
     assert member1.source == member2.source

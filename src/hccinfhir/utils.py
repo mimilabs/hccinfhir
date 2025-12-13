@@ -247,6 +247,46 @@ def load_coefficients(file_path: str) -> Dict[Tuple[str, ModelName], float]:
     return coefficients
 
 
+def load_race_ethnicity(file_path: str = "ph_race_and_ethnicity_cdc_v1.3.csv") -> Dict[str, str]:
+    """
+    Load CDC race and ethnicity codes from CSV file.
+    Expected format: Concept Code,Hierarchical Property,Concept Name,...
+
+    Args:
+        file_path: Filename or path to the CSV file
+
+    Returns:
+        Dictionary mapping concept code to concept name
+
+    Raises:
+        FileNotFoundError: If file cannot be found
+        RuntimeError: If file cannot be loaded or parsed
+    """
+    mapping: Dict[str, str] = {}
+
+    try:
+        resolved_path = resolve_data_file(file_path)
+        with open(resolved_path, "r", encoding="utf-8", errors="replace") as file:
+            content = file.read()
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Could not load race/ethnicity mapping: {e}")
+    except Exception as e:
+        raise RuntimeError(f"Error loading race/ethnicity file '{file_path}': {e}")
+
+    for line in content.splitlines()[1:]:  # Skip header
+        try:
+            parts = line.split(',')
+            if len(parts) >= 3:
+                concept_code = parts[0].strip()
+                concept_name = parts[2].strip()
+                if concept_code and concept_name:
+                    mapping[concept_code] = concept_name
+        except (ValueError, IndexError):
+            continue  # Skip malformed lines
+
+    return mapping
+
+
 def load_labels(file_path: str) -> Dict[Tuple[str, ModelName], str]:
     """
     Load HCC labels from a CSV file.

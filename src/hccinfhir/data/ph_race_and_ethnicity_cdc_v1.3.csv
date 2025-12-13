@@ -1,0 +1,1325 @@
+Concept Code,Hierarchical Property     ,Concept Name,Preferred Concept Name,Date Added to Version,BIA Federal Recognition Status,BIA Directory File Date,SDOConceptStatus,CodeSystemOID
+2133-7,E,Ethnicity,Ethnicity,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2135-2,E1,Hispanic or Latino,Hispanic or Latino,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2137-8,E1.01,Spaniard,Spaniard,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2138-6,E1.01.001,Andalusian,Andalusian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2139-4,E1.01.002,Asturian,Asturian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2140-2,E1.01.003,Castillian,Castillian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2141-0,E1.01.004,Catalonian,Catalonian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2142-8,E1.01.005,Belearic Islander,Belearic Islander,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2143-6,E1.01.006,Gallego,Gallego,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2144-4,E1.01.007,Valencian,Valencian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2145-1,E1.01.008,Canarian,Canarian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2146-9,E1.01.009,Spanish Basque,Spanish Basque,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2148-5,E1.02,Mexican,Mexican,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2149-3,E1.02.001,Mexican American,Mexican American,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2150-1,E1.02.002,Mexicano,Mexicano,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2151-9,E1.02.003,Chicano,Chicano,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2152-7,E1.02.004,La Raza,La Raza,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2153-5,E1.02.005,Mexican American Indian,Mexican American Indian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2155-0,E1.03,Central American,Central American,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2156-8,E1.03.001,Costa Rican,Costa Rican,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2157-6,E1.03.002,Guatemalan,Guatemalan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2158-4,E1.03.003,Honduran,Honduran,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2159-2,E1.03.004,Nicaraguan,Nicaraguan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2160-0,E1.03.005,Panamanian,Panamanian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2161-8,E1.03.006,Salvadoran,Salvadoran,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2162-6,E1.03.007,Central American Indian,Central American Indian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2163-4,E1.03.008,Canal Zone,Canal Zone,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2165-9,E1.04,South American,South American,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2166-7,E1.04.001,Argentinean,Argentinean,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2167-5,E1.04.002,Bolivian,Bolivian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2168-3,E1.04.003,Chilean,Chilean,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2169-1,E1.04.004,Colombian,Colombian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2170-9,E1.04.005,Ecuadorian,Ecuadorian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2171-7,E1.04.006,Paraguayan,Paraguayan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2172-5,E1.04.007,Peruvian,Peruvian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2173-3,E1.04.008,Uruguayan,Uruguayan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2174-1,E1.04.009,Venezuelan,Venezuelan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2175-8,E1.04.010,South American Indian,South American Indian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2176-6,E1.04.011,Criollo,Criollo,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2178-2,E1.05,Latin American,Latin American,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2180-8,E1.06,Puerto Rican,Puerto Rican,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2182-4,E1.07,Cuban,Cuban,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2184-0,E1.08,Dominican,Dominican,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2186-5,E2,Not Hispanic or Latino,Not Hispanic or Latino,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+1000-9,R,Race,Race,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+1002-5,R1,American Indian or Alaska Native,American Indian or Alaska Native,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+1004-1,R1.01,AMERICAN INDIAN,AMERICAN INDIAN,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+1006-6,R1.01.001,Abenaki Nation of Missisquoi,Abenaki Nation of Missisquoi,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1579-2,R1.01.002,Absentee-Shawnee Tribe of Indians of Oklahoma,Absentee-Shawnee,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1212-0,R1.01.003,Agua Caliente,Agua Caliente,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1045-4,R1.01.004,"Agua Caliente Band of Cahuilla Indians of the Agua Caliente Indian Reservation, California",Agua Caliente,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1654-3,R1.01.005,Ak-Chin Indian Community,Ak Chin,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1194-0,R1.01.006,Alabama Creek,Alabama Creek,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1195-7,R1.01.007,Alabama-Quassarte Tribal Town,Alabama-Quassarte Tribal Town,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1187-4,R1.01.008,Alabama-Coushatta Tribe of Texas,Alabama-Coushatta,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1008-2,R1.01.009,Algonquian,Algonquian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3012-2,R1.01.010,Allegheny Lenape,Allegheny Lenape,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1688-1,R1.01.011,Alpine,Alpine,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1392-0,R1.01.012,Alsea,Alsea,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3015-5,R1.01.013,"Alturas Indian Rancheria, California",Alturas,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3016-3,R1.01.014,Ani-stohini/Unami,Ani-stohini/Unami,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1010-8,R1.01.015,Apache,Apache,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1016-5,R1.01.016,Apache Tribe of Oklahoma,Apache Tribe of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1021-5,R1.01.017,Arapaho,Arapaho,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1024-9,R1.01.018,"Northern Arapaho Tribe of the Wind River Reservation, Wyoming",Northern Arapaho,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1026-4,R1.01.019,Arikara (Sahnish),Arikara (Sahnish),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1366-4,R1.01.020,Mi'kmaq Nation,Mi'kmaq,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1028-0,R1.01.021,Assiniboine,Assiniboine,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3024-7,R1.01.022,"Assiniboine & Sioux Tribes of the Fort Peck Indian Reservation, Montana",Assiniboine and Sioux,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3025-4,R1.01.023,Assonet Band of the Wampanoag Nation,Assonet Band of the Wampanoag Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1234-4,R1.01.024,Atakapa,Atakapa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1265-8,R1.01.025,Atsina,Atsina,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1046-2,R1.01.026,"Augustine Band of Cahuilla Indians, California",Augustine,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1124-7,R1.01.027,"Bad River Band of the Lake Superior Tribe of Chippewa Indians of the Bad River Reservation, Wisconsin",Bad River Band,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1033-0,R1.01.028,Bannock,Bannock,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3031-2,R1.01.029,Barona Group of Capitan Grande Band,Barona Group of Capitan Grande Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1125-4,R1.01.030,"Bay Mills Indian Community, Michigan",Bay Mills,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1060-3,R1.01.031,"Bear River Band of the Rohnerville Rancheria, California",Bear River,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3034-6,R1.01.032,Beaver Creek Indians,Beaver Creek Indians,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3035-3,R1.01.033,Berry Creek Rancheria of Maidu Indians of California,Berry Creek,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3036-1,R1.01.034,"Big Lagoon Rancheria, California",Big Lagoon,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1430-8,R1.01.035,Big Pine Paiute Tribe of the Owens Valley,Big Pine Reservation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3038-7,R1.01.036,Big Sandy Rancheria of Western Mono Indians of California,Big Sandy,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3039-5,R1.01.037,"Big Valley Band of Pomo Indians of the Big Valley Rancheria, California",Big Valley Rancheria,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1235-1,R1.01.038,Biloxi,Biloxi,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3041-1,R1.01.039,Biloxi-Chitimacha Confederation,Biloxi-Chitimacha Confederation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1417-5,R1.01.040,Bishop Paiute Tribe,Bishop Paiute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1035-5,R1.01.041,Blackfeet Tribe of the Blackfeet Indian Reservation of Montana,Blackfeet,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3044-5,R1.01.042,"Blue Lake Rancheria, California",Blue Lake,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1126-2,R1.01.043,"Minnesota Chippewa Tribe, Minnesota",Minnesota Chippewa,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1418-3,R1.01.044,Bridgeport Indian Colony,Bridgeport,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1037-1,R1.01.045,Brotherton,Brotherton,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1611-3,R1.01.046,Brule Sioux,Brule Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3049-4,R1.01.047,Buena Vista Rancheria of Me-Wuk Indians of California,Buena Vista Rancheria,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1419-1,R1.01.048,Burns Paiute Tribe,Burns Paiute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3051-0,R1.01.049,Burt Lake Band of Ottawa and Chippewa Indians,Burt Lake Band of Ottawa and Chippewa Indians,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1047-0,R1.01.050,Cabazon Band of Cahuilla Indians,Cabazon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3053-6,R1.01.051,"Cachil DeHe Band of Wintun Indians of the Colusa Indian Community of the Colusa Rancheria, California",Cachil DeHe,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1041-3,R1.01.052,Caddo,Caddo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3055-1,R1.01.053,Caddo Adais Indians,Caddo Adais Indians,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1042-1,R1.01.054,Caddo Nation of Oklahoma,Caddo,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1054-6,R1.01.055,Cahto Tribe of the Laytonville Rancheria,Cahto,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1044-7,R1.01.056,Cahuilla,Cahuilla,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3059-3,R1.01.057,Cahuilla Band of Indians,Cahuilla,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3060-1,R1.01.058,"California Valley Miwok Tribe, California",California Valley,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1223-7,R1.01.059,"Campo Band of Diegueno Mission Indians of the Campo Indian Reservation, California",Campo,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1224-5,R1.01.060,Capitan Grande Band of Diegueno Mission Indians of California,Capitan Grande Band,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1076-9,R1.01.061,Catawba Indian Nation (aka Catawba Indian Tribe of South Carolina),Catawba,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1286-4,R1.01.062,Cayuga Nation,Cayuga Nation of New York,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1078-5,R1.01.063,Cayuse,Cayuse,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1420-9,R1.01.064,"Cedarville Rancheria, California",Cedarville,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1393-8,R1.01.065,Celilo,Celilo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1465-4,R1.01.066,Central Pomo,Central Pomo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3069-2,R1.01.067,Chaloklowa Chickasaw,Chaloklowa Chickasaw,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3070-0,R1.01.068,Chappaquiddick Tribe of the Wampanoag Indian Nation,Chappaquiddick Tribe of the Wampanoag Indian Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3071-8,R1.01.069,Chaubunagungamaug Nipmuck,Chaubunagungamaug Nipmuck,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1082-7,R1.01.070,Chemakuan,Chemakuan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1086-8,R1.01.071,"Chemehuevi Indian Tribe of the Chemehuevi Reservation, California",Chemehuevi,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3074-2,R1.01.072,"Cher-Ae Heights Indian Community of the Trinidad Rancheria, California",Cher-Ae Heights,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3075-9,R1.01.073,Cher-O-Creek Intratribal Indians,Cher-O-Creek Intratribal Indians,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3076-7,R1.01.074,Cheroenhaka,Cheroenhaka,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1088-4,R1.01.075,Cherokee,Cherokee,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1089-2,R1.01.076,Cherokee Alabama,Cherokee Alabama,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3079-1,R1.01.077,Cherokee Bear Clan of South Carolina,Cherokee Bear Clan of South Carolina,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3080-9,R1.01.078,Cherokee Nation,Cherokee Nation,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3081-7,R1.01.079,Cherokee of Georgia,Cherokee of Georgia,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1090-0,R1.01.080,Cherokee Tribe of Northeast Alabama,Cherokee Tribe of Northeast Alabama,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1102-3,R1.01.081,Cheyenne,Cheyenne,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1106-4,R1.01.082,"Cheyenne and Arapaho Tribes, Oklahoma",Cheyenne and Arapaho Tribes,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3085-8,R1.01.083,"Cheyenne River Sioux Tribe of the Cheyenne River Reservation, South Dakota",Cheyenne River Sioux Tribe,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3086-6,R1.01.084,Chickahominy Indian Tribe,"Chickahominy Indian Tribe, Inc.",30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1109-8,R1.01.085,Chickahominy Indian Tribe - Eastern Division,Chickahominy Indians-Eastern Division,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3088-2,R1.01.086,Chicken Ranch Rancheria of Me-Wuk Indians of California,Chicken Ranch,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1055-3,R1.01.087,Chimariko,Chimariko,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1114-8,R1.01.088,Chinook,Chinook,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1123-9,R1.01.089,Chippewa,Chippewa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3092-4,R1.01.090,"Chippewa Cree Indians of the Rocky Boy's Reservation, Montana",Chippewa-Cree,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1153-6,R1.01.091,Chitimacha Tribe of Louisiana,Chitimacha,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1155-1,R1.01.092,Choctaw,Choctaw,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3095-7,R1.01.093,Choctaw-Apache Community of Ebarb,Choctaw-Apache Community of Ebarb,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1162-7,R1.01.094,Chumash,Chumash,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1479-5,R1.01.095,"Citizen Potawatomi Nation, Oklahoma",Citizen Potawatomi Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1115-5,R1.01.096,Clatsop,Clatsop,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1165-0,R1.01.097,Clear Lake,Clear Lake,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1156-9,R1.01.098,Clifton Choctaw Tribe of Louisiana,Clifton Choctaw Tribe of Louisiana,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3101-3,R1.01.099,Cloverdale Rancheria of Pomo Indians of California,Cloverdale,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1725-1,R1.01.100,Cocopah Tribe of Arizona,Cocopah,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1167-6,R1.01.101,Coeur D'Alene Tribe,Coeur D'Alene,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1169-2,R1.01.102,Coharie Indian Tribe,Coharie Indian Tribe,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3105-4,R1.01.103,Cold Springs Rancheria of Mono Indians of California,Cold Springs,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1171-8,R1.01.104,"Colorado River Indian Tribes of the Colorado River Indian Reservation, Arizona and California",Colorado River,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1394-6,R1.01.105,Columbia,Columbia,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1116-3,R1.01.106,Columbia River Chinook,Columbia River Chinook,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3109-6,R1.01.107,"Comanche Nation, Oklahoma",Comanche Nation,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1560-2,R1.01.108,Confederated Salish and Kootenai Tribes of the Flathead Reservation,Confederated Salish,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1707-9,R1.01.109,Confederated Tribes and Bands of the Yakama Nation,Confederated Yakama,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1607-1,R1.01.110,Confederated Tribes of Siletz Indians of Oregon,Siletz Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1080-1,R1.01.111,Confederated Tribes of the Chehalis Reservation,Chehalis,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1173-4,R1.01.112,Confederated Tribes of the Colville Reservation,Confederated Colville,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1178-3,R1.01.113,"Confederated Tribes of the Coos, Lower Umpqua and Siuslaw Indians",Confederated Coos,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1591-7,R1.01.114,"Confederated Tribes of the Goshute Reservation, Nevada and Utah",Confederated Goshute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1262-5,R1.01.115,Confederated Tribes of the Grand Ronde Community of Oregon,Grand Ronde Tribes,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1665-9,R1.01.116,Confederated Tribes of the Umatilla Indian Reservation,Umatilla Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1683-2,R1.01.117,Confederated Tribes of the Warm Springs Reservation of Oregon,Warms Springs Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1180-9,R1.01.118,Coos,Coos,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1182-5,R1.01.119,Coquille Indian Tribe,Coquille,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1184-1,R1.01.120,Costanoan,Costanoan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1186-6,R1.01.121,Coushatta,Coushatta,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3124-5,R1.01.122,Coushatta Tribe of Louisiana,Coushatta,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1668-3,R1.01.123,Cow Creek Band of Umpqua Tribe of Indians,Cow Creek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1189-0,R1.01.124,Cowlitz Indian Tribe,Cowlitz,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3127-8,R1.01.125,Coyote Valley Band of Pomo Indians of California,Coyote Valley,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1191-6,R1.01.126,Cree,Cree,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1207-0,R1.01.127,Croatan,Croatan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1613-9,R1.01.128,"Crow Creek Sioux Tribe of the Crow Creek Reservation, South Dakota",Crow Creek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1209-6,R1.01.129,Crow Tribe of Montana,Crow,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3132-8,R1.01.130,Cumberland County Association for Indian People,Cumberland County Association for Indian People,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1211-2,R1.01.131,Cupeno,Cupeno,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3134-4,R1.01.132,Delaware (Lenni-Lenape),Delaware (Lenni-Lenape),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3135-1,R1.01.133,"Delaware Nation, Oklahoma",Delaware Nation,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3136-9,R1.01.134,Delaware Tribe of Indians,Delaware Tribe of Indians,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1057-9,R1.01.135,Digger,Digger,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1466-2,R1.01.136,"Dry Creek Rancheria Band of Pomo Indians, California",Dry Creek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1588-3,R1.01.137,"Duckwater Shoshone Tribe of the Duckwater Reservation, Nevada",Duckwater,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1519-8,R1.01.138,Duwamish,Duwamish,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3141-9,R1.01.139,East of the River Shawnee,East of the River Shawnee,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1092-6,R1.01.140,Eastern Band of Cherokee Indians,Eastern Cherokee,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1196-5,R1.01.141,Eastern Creek,Eastern Creek,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1197-3,R1.01.142,Eastern Muscogee,Eastern Muscogee,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3145-0,R1.01.143,Eastern Pequot,Eastern Pequot,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1467-0,R1.01.144,Eastern Pomo,Eastern Pomo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1580-0,R1.01.145,Eastern Shawnee Tribe of Oklahoma,Eastern Shawnee Tribe of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1599-0,R1.01.146,"Eastern Shoshone Tribe of the Wind River Reservation, Wyoming",Eastern Shoshone,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1093-4,R1.01.147,Echota Cherokee Tribe of Alabama,Echota Cherokee Tribe of Alabama,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1239-3,R1.01.148,Edisto Natchez-Kusso Tribe of South Carolina (Natchez Indian Tribe),Edisto Natchez-Kusso Tribe of South Carolina (Natchez Indian Tribe),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1472-0,R1.01.149,"Elem Indian Colony of Pomo Indians of the Sulphur Bank Rancheria, California",Elem,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3152-6,R1.01.150,"Elk Valley Rancheria, California",Elk Valley,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3153-4,R1.01.151,Elnu Abenaki Tribe,Elnu Abenaki Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1590-9,R1.01.152,Ely Shoshone Tribe of Nevada,Ely Shoshone,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3155-9,R1.01.153,Enterprise Rancheria of Maidu Indians of California,Enterprise,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1250-0,R1.01.154,Esselen,Esselen,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1225-2,R1.01.155,"Ewiiaapaayp Band of Kumeyaay Indians, California",Ewiiaapaayp,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1056-1,R1.01.156,"Federated Indians of Graton Rancheria, California",Federated Indians of Graton,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3159-1,R1.01.157,Fernandeno Tataviam Band of Mission Indians,Fernandeno Tataviam Band of Mission Indians,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1615-4,R1.01.158,Flandreau Santee Sioux Tribe of South Dakota,Flandreau,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1128-8,R1.01.159,Minnesota Chippewa Tribe - Fond du Lac Band,Fond du Lac,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3162-5,R1.01.160,"Forest County Potawatomi Community, Wisconsin",Forest County,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1252-6,R1.01.161,Fort Belknap Indian Community of the Fort Belknap Reservation of Montana,Assiniboine and Gros Ventre Tribes,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1421-7,R1.01.162,Fort Bidwell Indian Community of the Fort Bidwell Reservation of California,Fort Bidwell,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1422-5,R1.01.163,"Fort Independence Indian Community of Paiute Indians of the Fort Independence Reservation, California",Fort Independence,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1605-5,R1.01.164,"Fort McDermitt Paiute and Shoshone Tribes of the Fort McDermitt Indian Reservation, Nevada and Oregon",Fort McDermitt,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1256-7,R1.01.165,"Fort McDowell Yavapai Nation, Arizona",Fort McDowell,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1729-3,R1.01.166,"Fort Mojave Indian Tribe of Arizona, California & Nevada",Fort Mojave,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3169-0,R1.01.167,Fort Sill Apache Tribe of Oklahoma,Fort Sill Apache Tribe of Oklahoma,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3170-8,R1.01.168,Four Winds Cherokee,Four Winds Cherokee,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1260-9,R1.01.169,Gabrieleno,Gabrieleno,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1236-9,R1.01.170,Georgetown,Georgetown,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3173-2,R1.01.171,Georgia Eastern Cherokee,Georgia Eastern Cherokee,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3174-0,R1.01.172,"Gila River Indian Community of the Gila River Indian Reservation, Arizona",Gila River,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1242-7,R1.01.173,Golden Hill Paugussett,Golden Hill Paugussett,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1129-6,R1.01.174,Minnesota Chippewa Tribe - Grand Portage Band,Grand Portage,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3177-3,R1.01.175,Grand River Band of Ottawa Indians,Grand River Band of Ottawa Indians,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1130-4,R1.01.176,"Grand Traverse Band of Ottawa and Chippewa Indians, Michigan",Grand Traverse,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3179-9,R1.01.177,Greenville Rancheria,Greenville,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3180-7,R1.01.178,Grindstone Indian Rancheria of Wintun-Wailaki Indians of California,Grindstone,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1264-1,R1.01.179,Gros Ventres,Gros Ventres,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3182-3,R1.01.180,Guidiville Rancheria of California,Guidiville,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3183-1,R1.01.181,Guilford Native American Association,Guilford Native American Association,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3184-9,R1.01.182,"Habematolel Pomo of Upper Lake, California",Habematolel,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1267-4,R1.01.183,Haliwa-Saponi Indian Tribe,Haliwa-Saponi Indian Tribe,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1481-1,R1.01.184,"Hannahville Indian Community, Michigan",Hannahville,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3187-2,R1.01.185,Hassanamisco Band of the Nipmuc Nation,Hassanamisco Band of the Nipmuc Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1726-9,R1.01.186,"Havasupai Tribe of the Havasupai Reservation, Arizona",Havasupai,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3189-8,R1.01.187,Herring Pond Wampanoag Tribe,Herring Pond Wampanoag Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1269-0,R1.01.188,Hidatsa,Hidatsa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1697-2,R1.01.189,Ho-Chunk Nation of Wisconsin,Ho-Chunk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1083-5,R1.01.190,Hoh Indian Tribe,Hoh,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1275-7,R1.01.191,Hoopa Extension,Hoopa Extension,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1271-6,R1.01.192,"Hoopa Valley Tribe, California",Hoopa,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3195-5,R1.01.193,Hopi Tribe of Arizona,Hopi,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3196-3,R1.01.194,"Hopland Band of Pomo Indians, California",Hopland,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3197-1,R1.01.195,Houlton Band of Maliseet Indians,Houlton,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1727-7,R1.01.196,"Hualapai Indian Tribe of the Hualapai Indian Reservation, Arizona",Hualapai,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1230-2,R1.01.197,"Iipay Nation of Santa Ysabel, California",Iipay Nation of Santa Ysabel,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1359-9,R1.01.198,Illinois Miami,Illinois Miami,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1279-9,R1.01.199,"Inaja Band of Diegueno Mission Indians of the Inaja and Cosmit Reservation, California",Inaja,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1442-3,R1.01.200,Indian Township,Indian Township,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1360-7,R1.01.201,Indiana Miami,Indiana Miami,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3204-5,R1.01.202,Ione Band of Miwok Indians of California,Ione,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1281-5,R1.01.203,Iowa (Tribe),Iowa (Tribe),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1282-3,R1.01.204,Iowa Tribe of Kansas and Nebraska,Iowa of Kansas,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1283-1,R1.01.205,Iowa Tribe of Oklahoma,Iowa of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1285-6,R1.01.206,Iroquois,Iroquois,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3209-4,R1.01.207,Jackson Band of Miwuk Indians,Jackson,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1313-6,R1.01.208,Jamestown S'Klallam Tribe,Jamestown,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3211-0,R1.01.209,Jamul Indian Village of California,Jamul,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1157-7,R1.01.210,Jena Band of Choctaw Indians,Jena,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1013-2,R1.01.211,"Jicarilla Apache Nation, New Mexico",Jicarilla Apache Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1297-1,R1.01.212,Juaneno (Acjachemem),Juaneno (Acjachemem),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1423-3,R1.01.213,"Kaibab Band of Paiute Indians of the Kaibab Indian Reservation, Arizona",Kaibab,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1395-3,R1.01.214,Kalapuya,Kalapuya,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1299-7,R1.01.215,Kalispel Indian Community of the Kalispel Reservation,Kalispel,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1301-1,R1.01.216,Karuk Tribe,Karuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1468-8,R1.01.217,"Kashia Band of Pomo Indians of the Stewarts Point Rancheria, California",Kashia,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1117-1,R1.01.218,Kathlamet,Kathlamet,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1303-7,R1.01.219,"Kaw Nation, Oklahoma",Kaw,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3222-7,R1.01.220,Kern Valley Indian Community,Kern Valley Indian Community,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1510-7,R1.01.221,"Kewa Pueblo, New Mexico","Kewa Pueblo, New Mexico",31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3224-3,R1.01.222,"Keweenaw Bay Indian Community, Michigan",Keweenaw,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1198-1,R1.01.223,Kialegee Tribal Town,Kialegee Tribal Town,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1305-2,R1.01.224,Kickapoo,Kickapoo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1307-8,R1.01.225,Kickapoo Traditional Tribe of Texas,Kickapoo of Texas,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3228-4,R1.01.226,Kickapoo Tribe of Indians of the Kickapoo Reservation in Kansas,Kickapoo Tribe in Kansas,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1306-0,R1.01.227,Kickapoo Tribe of Oklahoma,Kickapoo of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1520-6,R1.01.228,Kikiallus,Kikiallus,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1309-4,R1.01.229,Kiowa,Kiowa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1310-2,R1.01.230,Kiowa Indian Tribe of Oklahoma,Kiowa Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1312-8,R1.01.231,Klallam,Klallam,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3234-2,R1.01.232,Klamath Tribes,Klamath,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3235-9,R1.01.233,Kletsel Dehe Wintun Nation of the Cortina Rancheria,Kletsel Dehe Wintun,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3236-7,R1.01.234,Koasek (Cowasuck) Traditional Band of the Sovereign Abenaki Nation,Koasek (Cowasuck) Traditional Band of the Sovereign Abenaki Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3237-5,R1.01.235,Koi Nation of Northern California,Koi,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1319-3,R1.01.236,Konkow,Konkow,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1321-9,R1.01.237,Kootenai Tribe of Idaho,Kootenai,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1222-9,R1.01.238,Kumeyaay (Diegueno),Kumeyaay (Diegueno),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1332-6,R1.01.239,"La Jolla Band of Luiseno Indians, California",La Jolla,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1226-0,R1.01.240,"La Posta Band of Diegueno Mission Indians of the La Posta Indian Reservation, California",La Posta,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1132-0,R1.01.241,Lac Courte Oreilles Band of Lake Superior Chippewa Indians of Wisconsin,Lac Courte Oreilles,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1133-8,R1.01.242,Lac du Flambeau Band of Lake Superior Chippewa Indians of the Lac du Flambeau Reservation of Wisconsin,Lac du Flambeau,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1134-6,R1.01.243,Lac Vieux Desert Band of Lake Superior Chippewa Indians of Michigan,Lac Vieux,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1135-3,R1.01.244,Lake Superior Chippewa,Lake Superior Chippewa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1424-1,R1.01.245,"Las Vegas Tribe of Paiute Indians of the Las Vegas Indian Colony, Nevada",Las Vegas,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1323-5,R1.01.246,Lassik,Lassik,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1136-1,R1.01.247,Minnesota Chippewa Tribe - Leech Lake Band,Leech Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3250-8,R1.01.248,Lemhi-Shoshone,Lemhi-Shoshone,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1014-0,R1.01.249,Lipan Apache,Lipan Apache,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3252-4,R1.01.250,"Little River Band of Ottawa Indians, Michigan",Little River,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1137-9,R1.01.251,Little Shell Tribe of Chippewa Indians of Montana,Little Shell Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3254-0,R1.01.252,"Little Traverse Bay Bands of Odawa Indians, Michigan",Little Traverse,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1425-8,R1.01.253,Lone Pine Paiute-Shoshone Tribe,Lone Pine,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1048-8,R1.01.254,"Los Coyotes Band of Cahuilla and Cupeno Indians, California",Los Coyotes,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3257-3,R1.01.255,Louisiana Choctaw Tribe,Louisiana Choctaw Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1426-6,R1.01.256,"Lovelock Paiute Tribe of the Lovelock Indian Colony, Nevada",Lovelock,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1618-8,R1.01.257,"Lower Brule Sioux Tribe of the Lower Brule Reservation, South Dakota",Lower Brule,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1314-4,R1.01.258,Lower Elwha Tribal Community,Lower Elwha,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1199-9,R1.01.259,Lower Muskogee Creek Tribe,Lower Muskogee Creek Tribe,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1619-6,R1.01.260,Lower Sioux Indian Community in the State of Minnesota,Lower Sioux,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1521-4,R1.01.261,Lower Skagit,Lower Skagit,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1331-8,R1.01.262,Luiseno,Luiseno,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1340-9,R1.01.263,Lumbee Tribe of North Carolina,Lumbee Tribe of North Carolina,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1342-5,R1.01.264,Lummi Tribe of the Lummi Reservation,Lummi,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3267-2,R1.01.265,Lytton Rancheria of California,Lytton,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1200-5,R1.01.266,Ma-Chis Lower Creek Indian Tribe of Alabama,Ma-Chis Lower Creek Indian Tribe of Alabama,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1344-1,R1.01.267,Maidu,Maidu,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1348-2,R1.01.268,Makah Indian Tribe of the Makah Indian Reservation,Makah,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1427-4,R1.01.269,Malheur Paiute,Malheur Paiute,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1350-8,R1.01.270,Maliseet,Maliseet,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3273-0,R1.01.271,"Manchester Band of Pomo Indians of the Manchester Rancheria, California",Manchester,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1352-4,R1.01.272,Mandan,Mandan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1227-8,R1.01.273,"Manzanita Band of Diegueno Mission Indians of the Manzanita Reservation, California",Manzanita,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1728-5,R1.01.274,Maricopa,Maricopa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3277-1,R1.01.275,Marietta Band of Nooksack,Marietta Band of Nooksack,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1454-8,R1.01.276,Mashantucket Pequot Indian Tribe,Mashantucket Pequot,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1681-6,R1.01.277,Mashpee Wampanoag Tribe,Mashpee,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3280-5,R1.01.278,Match-e-be-nash-she-wish Band of Pottawatomi Indians of Michigan,Match-e-be-nash-she-wish Band,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1326-8,R1.01.279,Matinecock,Matinecock,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1354-0,R1.01.280,Mattaponi Indian Tribe,Mattaponi Indian Tribe,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1620-4,R1.01.281,Mdewakanton Sioux,Mdewakanton Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3284-7,R1.01.282,"Mechoopda Indian Tribe of Chico Rancheria, California",Mechoopda,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3285-4,R1.01.283,Meherrin Indian Tribe,Meherrin Indian Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1356-5,R1.01.284,Menominee Indian Tribe of Wisconsin,Menominee,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1228-6,R1.01.285,"Mesa Grande Band of Diegueno Mission Indians of the Mesa Grande Reservation, California",Mesa Grande,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1015-7,R1.01.286,"Mescalero Apache Tribe of the Mescalero Reservation, New Mexico",Mescalero Apache,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3289-6,R1.01.287,Metrolina Native American Association,Metrolina Native American Association,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1358-1,R1.01.288,Miami (Tribe),Miami (Tribe),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1361-5,R1.01.289,Miami Tribe of Oklahoma,Miami Tribe of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1363-1,R1.01.290,Miccosukee Tribe of Indians,Miccosukee,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1365-6,R1.01.291,Micmac,Micmac,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3294-6,R1.01.292,Middletown Rancheria of Pomo Indians of California,Middletown,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1138-7,R1.01.293,Minnesota Chippewa Tribe - Mille Lacs Band,Mille Lacs,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1139-5,R1.01.294,Minnesota Chippewa,Minnesota Chippewa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1368-0,R1.01.295,Mission Indians,Mission Indians,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1158-5,R1.01.296,Mississippi Band of Choctaw Indians,Mississippi Choctaw,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1370-6,R1.01.297,Miwok/Me-Wuk,Miwok/Me-Wuk,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1428-2,R1.01.298,"Moapa Band of Paiute Indians of the Moapa River Indian Reservation, Nevada",Moapa,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1372-2,R1.01.299,Modoc Nation,Modoc Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1287-2,R1.01.300,Mohawk,Mohawk,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1374-8,R1.01.301,Mohegan Tribe of Indians of Connecticut,Mohegan,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1396-1,R1.01.302,Molalla,Molalla,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3305-0,R1.01.303,Monacan Indian Nation,Monacan Indian Nation,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1376-3,R1.01.304,Mono,Mono,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1327-6,R1.01.305,Montauk,Montauk,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1237-7,R1.01.306,Moor Indian,Moor Indian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3309-2,R1.01.307,Mooretown Rancheria of Maidu Indians of California,Mooretown,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1049-6,R1.01.308,"Morongo Band of Mission Indians, California",Morongo,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1345-8,R1.01.309,Mountain Maidu,Mountain Maidu,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1159-3,R1.01.310,Mowa Band of Choctaw Indians,Mowa Band of Choctaw Indians,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1522-2,R1.01.311,Muckleshoot Indian Tribe,Muckleshoot,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1217-9,R1.01.312,Munsee,Munsee,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1238-5,R1.01.313,Nansemond Indian Nation,Nansemond Indian Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1378-9,R1.01.314,Nanticoke,Nanticoke,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3317-5,R1.01.315,Nanticoke Lenni-Lenape,Nanticoke Lenni-Lenape,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1380-5,R1.01.316,Narragansett Indian Tribe,Narragansett,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3319-1,R1.01.317,Natchitoches Tribe of Louisiana,Natchitoches Tribe of Louisiana,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1240-1,R1.01.318,Nausu Waiwash,Nausu Waiwash,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3321-7,R1.01.319,"Navajo Nation, Arizona, New Mexico & Utah",Navajo,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1220-3,R1.01.320,"New Jersey Sand Hill Band of Indians, Inc","New Jersey Sand Hill Band of Indians, Inc",31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1387-0,R1.01.321,Nez Perce Tribe,Nez Perce,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1241-9,R1.01.322,Nipmuc,Nipmuc,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1346-6,R1.01.323,Nisenen,Nisenen,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1523-0,R1.01.324,Nisqually Indian Tribe,Nisqually,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1389-6,R1.01.325,Nomlaki,Nomlaki,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1524-8,R1.01.326,Nooksack Indian Tribe,Nooksack,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3329-0,R1.01.327,Northfork Rancheria of Mono Indians of California,North Fork,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1022-3,R1.01.328,Northern Arapaho Tribe,Northern Arapaho Tribe,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1095-9,R1.01.329,Northern Cherokee Nation of Missouri and Arkansas,Northern Cherokee Nation of Missouri and Arkansas,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1103-1,R1.01.330,"Northern Cheyenne Tribe of the Northern Cheyenne Indian Reservation, Montana",Northern Cheyenne,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1429-0,R1.01.331,Northern Paiute,Northern Paiute,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1469-6,R1.01.332,Northern Pomo,Northern Pomo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1598-2,R1.01.333,Northwestern Band of the Shoshone Nation,Northwestern Shoshone,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1482-9,R1.01.334,"Nottawaseppi Huron Band of the Potawatomi, Michigan",Nottawaseppi Potawatomi,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3337-3,R1.01.335,Nottoway Indian Tribe of Virginia,Nottoway Indian Tribe of Virginia,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3338-1,R1.01.336,Nulhegan Band of the Coosuk Abenaki Nation,Nulhegan Band of the Coosuk Abenaki Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3339-9,R1.01.337,Occaneechi Band of the Saponi Nation,Occaneechi Band of the Saponi Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3340-7,R1.01.338,Oglala Sioux Tribe,Oglala Sioux,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3341-5,R1.01.339,"Ohkay Owingeh, New Mexico",Ohkay Owingeh,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1403-5,R1.01.340,Omaha Tribe of Nebraska,Omaha,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1288-0,R1.01.341,Oneida,Oneida,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3344-9,R1.01.342,Oneida Indian Nation,Oneida,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3345-6,R1.01.343,Oneida Nation,Oneida Nation (Wisconsin),30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1289-8,R1.01.344,Onondaga Nation,Onondaga,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1405-0,R1.01.345,Oregon Athabascan,Oregon Athabascan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1409-2,R1.01.346,"Otoe-Missouria Tribe of Indians, Oklahoma",Otoe-Missouria,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1411-8,R1.01.347,Ottawa,Ottawa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1414-2,R1.01.348,Ottawa Tribe of Oklahoma,Ottawa Tribe of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1416-7,R1.01.349,Paiute,Paiute,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1433-2,R1.01.350,"Paiute Indian Tribe of Utah (Cedar Band of Paiutes, Kanosh Band of Paiutes, Koosharem Band of Paiutes, Indian Peaks Band of Paiutes, and Shivwits Band of Paiutes)",Paiute of Utah,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1604-8,R1.01.351,"Paiute-Shoshone Tribe of the Fallon Reservation and Colony, Nevada",Paiute-Shoshone,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1333-4,R1.01.352,Pala Band of Mission Indians,Pala,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1439-9,R1.01.353,Pamunkey Indian Tribe,Pamunkey,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3356-3,R1.01.354,Pascua Yaqui Tribe of Arizona,Pascua Yaqui,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3357-1,R1.01.355,Paskenta Band of Nomlaki Indians of California,Paskenta,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1441-5,R1.01.356,Passamaquoddy Tribe,Passamaquoddy,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3359-7,R1.01.357,Patawomeck Indian Tribe of Virginia,Patawomeck Indian Tribe of Virginia,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3360-5,R1.01.358,Paucatuck Eastern Pequot,Paucatuck Eastern Pequot,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1334-2,R1.01.359,"Pauma Band of Luiseno Mission Indians of the Pauma & Yuima Reservation, California",Pauma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1445-6,R1.01.360,Pawnee,Pawnee,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1446-4,R1.01.361,Pawnee Nation of Oklahoma,Pawnee Nation of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1335-9,R1.01.362,Pechanga Band of Indians,Pechanga,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3365-4,R1.01.363,Pee Dee Indian Nation of Upper South Carolina,Pee Dee Indian Nation of Upper South Carolina,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3366-2,R1.01.364,Pee Dee Indian Tribe of South Carolina,Pee Dee Indian Tribe of South Carolina,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1448-0,R1.01.365,Penobscot Nation,Penobscot,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3368-8,R1.01.366,Peoria Tribe of Indians of Oklahoma,Peoria Tribe of Indians of Oklahoma,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1453-0,R1.01.367,Pequot,Pequot,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1718-6,R1.01.368,Picayune Rancheria of Chukchansi Indians of California,Picayune,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3371-2,R1.01.369,Piedmont American Indian Association-Lower Eastern Cherokee Nation SC (PAIA),Piedmont American Indian Association-Lower Eastern Cherokee Nation SC (PAIA),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1456-3,R1.01.370,Pima,Pima,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3373-8,R1.01.371,"Pinoleville Pomo Nation, California",Pinoleville,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1624-6,R1.01.372,Pipestone Sioux,Pipestone Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3375-3,R1.01.373,Piqua Shawnee Tribe,Piqua Shawnee Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1500-8,R1.01.374,Piro Manso Tiwa Tribe,Piro Manso Tiwa Tribe,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1460-5,R1.01.375,Piscataway,Piscataway,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3378-7,R1.01.376,Piscataway Conoy Tribe,Piscataway Conoy Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3379-5,R1.01.377,Piscataway Indian Nation,Piscataway Indian Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1462-1,R1.01.378,"Pit River Tribe, California (includes XL Ranch, Big Bend, Likely, Lookout, Montgomery Creek, and Roaring Creek Rancherias)",Pit River,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1443-1,R1.01.379,Pleasant Point Passamaquoddy,Pleasant Point Passamaquoddy,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1201-3,R1.01.380,Poarch Band of Creek Indians,Poarch,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3383-7,R1.01.381,Pocasset Wampanoag,Pocasset Wampanoag,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1243-5,R1.01.382,Pocomoke Acohonock,Pocomoke Acohonock,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3385-2,R1.01.383,Pointe Au-Chien Indian Tribe,Pointe Au-Chien Indian Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1483-7,R1.01.384,"Pokagon Band of Potawatomi Indians, Michigan and Indiana",Pokagon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3387-8,R1.01.385,Pokanoket (Royal House of Pokanoket),Pokanoket (Royal House of Pokanoket),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1464-7,R1.01.386,Pomo,Pomo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1474-6,R1.01.387,Ponca,Ponca,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1476-1,R1.01.388,Ponca Tribe of Indians of Oklahoma,Ponca Tribe of Indians of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1475-3,R1.01.389,Ponca Tribe of Nebraska,Ponca of Nebraska,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3392-8,R1.01.390,Ponkapoag,Ponkapoag,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1328-4,R1.01.391,Poospatuck,Poospatuck,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1315-1,R1.01.392,Port Gamble S'Klallam Tribe,Port Gamble,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1478-7,R1.01.393,Potawatomi,Potawatomi,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3396-9,R1.01.394,"Potter Valley Tribe, California",Potter Valley,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1487-8,R1.01.395,Powhatan,Powhatan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1484-5,R1.01.396,Prairie Band Potawatomi Nation,Prairie Band,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1625-3,R1.01.397,Prairie Island Indian Community in the State of Minnesota,Prairie Island,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1202-1,R1.01.398,Principal Creek Indian Nation,Principal Creek Indian Nation,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1489-4,R1.01.399,Pueblo,Pueblo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1490-2,R1.01.400,"Pueblo of Acoma, New Mexico",Pueblo of Acoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1492-8,R1.01.401,"Pueblo of Cochiti, New Mexico",Pueblo of Cochiti,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1494-4,R1.01.402,"Pueblo of Isleta, New Mexico",Pueblo of Isleta,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1495-1,R1.01.403,"Pueblo of Jemez, New Mexico",Pueblo of Jemez,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1497-7,R1.01.404,"Pueblo of Laguna, New Mexico",Pueblo of Laguna,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1498-5,R1.01.405,"Pueblo of Nambe, New Mexico",Pueblo of Nambe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1499-3,R1.01.406,"Pueblo of Picuris, New Mexico",Pueblo of Picuris,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1501-6,R1.01.407,"Pueblo of Pojoaque, New Mexico",Pueblo of Pojoaque,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1502-4,R1.01.408,"Pueblo of San Felipe, New Mexico",Pueblo of San Felipe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1503-2,R1.01.409,"Pueblo of San Ildefonso, New Mexico",Pueblo of San Ildefonso,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1507-3,R1.01.410,"Pueblo of Sandia, New Mexico",Pueblo of Sandia,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1508-1,R1.01.411,"Pueblo of Santa Ana, New Mexico",Pueblo of Santa Ana,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1509-9,R1.01.412,"Pueblo of Santa Clara, New Mexico",Pueblo of Santa Clara,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1511-5,R1.01.413,"Pueblo of Taos, New Mexico",Pueblo of Taos,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1512-3,R1.01.414,"Pueblo of Tesuque, New Mexico",Pueblo of Tesuque,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1515-6,R1.01.415,"Pueblo of Zia, New Mexico",Pueblo of Zia,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1518-0,R1.01.416,Puget Sound Salish,Puget Sound Salish,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1526-3,R1.01.417,Puyallup Tribe of the Puyallup Reservation,Puyallup,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1431-6,R1.01.418,"Pyramid Lake Paiute Tribe of the Pyramid Lake Reservation, Nevada",Pyramid Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1541-2,R1.01.419,Quapaw Nation,Quapaw Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3422-3,R1.01.420,Quartz Valley Indian Community of the Quartz Valley Reservation of California,Quartz Valley,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3423-1,R1.01.421,"Quechan Tribe Of The Fort Yuma Indian Reservation, California & Arizona",Quechan,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1084-3,R1.01.422,Quileute Tribe of the Quileute Reservation,Quileute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1543-8,R1.01.423,Quinault Indian Nation,Quinault,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1219-5,R1.01.424,Ramapough Lenape Nation (Ramapough Mountain),Ramapough Lenape Nation (Ramapough Mountain),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3427-2,R1.01.425,"Ramona Band of Cahuilla, California",Ramona,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1545-3,R1.01.426,"Rappahannock Tribe, Inc.",Rappahannock,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1141-1,R1.01.427,Red Cliff Band of Lake Superior Chippewa Indians of Wisconsin,Red Cliff,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1142-9,R1.01.428,"Red Lake Band of Chippewa Indians, Minnesota",Red Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1061-1,R1.01.429,Red Wood,Red Wood,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3432-2,R1.01.430,"Redding Rancheria, California",Redding,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3433-0,R1.01.431,Redwood Valley or Little River Band of Pomo Indians of the Redwood Valley Rancheria California,Redwood Valley,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1547-9,R1.01.432,"Reno-Sparks Indian Colony, Nevada",Reno-Sparks,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1733-5,R1.01.433,"Resighini Rancheria, California",Resighini,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3436-3,R1.01.434,"Rincon Band of Luiseno Mission Indians of Rincon Reservation, California",Rincon,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3437-1,R1.01.435,Robinson Rancheria,Robinson,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1627-9,R1.01.436,"Rosebud Sioux Tribe of the Rosebud Indian Reservation, South Dakota",Rosebud,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1549-5,R1.01.437,"Round Valley Indian Tribes, Round Valley Reservation, California",Round Valley,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1551-1,R1.01.438,Sac and Fox,Sac and Fox,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1553-7,R1.01.439,Sac & Fox Nation of Missouri in Kansas and Nebraska,Sac & Fox of Missouri,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1554-5,R1.01.440,"Sac & Fox Nation, Oklahoma",Sac and Fox Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1552-9,R1.01.441,Sac & Fox Tribe of the Mississippi in Iowa,Sac & Fox of Mississippi,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3444-7,R1.01.442,Sac River Band of the Chickamauga-Cherokee,Sac River Band of the Chickamauga-Cherokee,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1143-7,R1.01.443,Saginaw Chippewa Indian Tribe of Michigan,Saginaw Chippewa,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3446-2,R1.01.444,Saint Regis Mohawk Tribe,Saint Regis,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1556-0,R1.01.445,Salinan,Salinan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1558-6,R1.01.446,Salish,Salish,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1458-9,R1.01.447,"Salt River Pima-Maricopa Indian Community of the Salt River Reservation, Arizona",Salt River,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1527-1,R1.01.448,Samish Indian Nation,Samish,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1018-1,R1.01.449,"San Carlos Apache Tribe of the San Carlos Reservation, Arizona",San Carlos,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1506-5,R1.01.450,San Juan,San Juan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1432-4,R1.01.451,San Juan Southern Paiute Tribe of Arizona,San Juan,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3454-6,R1.01.452,San Luis Rey Mission Indian,San Luis Rey Mission Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1574-3,R1.01.453,Yuhaaviatam of San Manuel Nation,Yuhaaviatam,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1229-4,R1.01.454,San Pasqual Band of Diegueno Mission Indians of California,San Pasqual,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1050-4,R1.01.455,"Santa Rosa Band of Cahuilla Indians, California",Santa Rosa of Cahuilla,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1062-9,R1.01.456,"Santa Rosa Indian Community of the Santa Rosa Rancheria, California",Santa Rosa,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1163-5,R1.01.457,"Santa Ynez Band of Chumash Mission Indians of the Santa Ynez Reservation, California",Santa Ynez,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3460-3,R1.01.458,Santee Indian Nation of South Carolina,Santee Indian Nation of South Carolina,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3461-1,R1.01.459,Santee Indian Organization,Santee Indian Organization,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1629-5,R1.01.460,"Santee Sioux Nation, Nebraska",Santee Sioux,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3463-7,R1.01.461,Saponi,Saponi,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3464-5,R1.01.462,Sappony,Sappony,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1528-9,R1.01.463,Sauk-Suiattle Indian Tribe,Sauk-Suiattle,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1145-2,R1.01.464,"Sault Ste. Marie Tribe of Chippewa Indians, Michigan",Sault Ste. Marie,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1562-8,R1.01.465,Schaghticoke,Schaghticoke,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1470-4,R1.01.466,Scotts Valley Band of Pomo Indians of California,Scotts Valley,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3469-4,R1.01.467,Seaconke Wampanoag,Seaconke Wampanoag,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1566-9,R1.01.468,Seminole,Seminole,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3471-0,R1.01.469,Seminole Tribe of Florida,Seminole,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3472-8,R1.01.470,Seneca Nation of Indians,Seneca,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1292-2,R1.01.471,Seneca-Cayuga Nation,Seneca-Cayuga Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1573-5,R1.01.472,Serrano,Serrano,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1329-2,R1.01.473,Setalcott Indians,Setalcott Indians,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1626-1,R1.01.474,Shakopee Mdewakanton Sioux Community of Minnesota,Shakopee,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1576-8,R1.01.475,Shasta,Shasta,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1578-4,R1.01.476,Shawnee,Shawnee,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3479-3,R1.01.477,Shawnee Nation United Remnant Band,Shawnee Nation United Remnant Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1100-7,R1.01.478,Shawnee Tribe,Shawnee Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3481-9,R1.01.479,Sherwood Valley Rancheria of Pomo Indians of California,Sherwood Valley,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3482-7,R1.01.480,"Shingle Springs Band of Miwok Indians, Shingle Springs Rancheria (Verona Tract), California",Shingle Springs,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1582-6,R1.01.481,Shinnecock Indian Nation,Shinnecock,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1584-2,R1.01.482,Shoalwater Bay Indian Tribe of the Shoalwater Bay Indian Reservation,Shoalwater,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1586-7,R1.01.483,Shoshone,Shoshone,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1602-2,R1.01.484,Shoshone Paiute,Shoshone Paiute,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1258-3,R1.01.485,Shoshone-Bannock Tribes of the Fort Hall Reservation,Shoshone-Bannock,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1603-0,R1.01.486,"Shoshone-Paiute Tribes of the Duck Valley Reservation, Nevada",Shoshone-Paiute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1609-7,R1.01.487,Sioux,Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3490-0,R1.01.488,"Sisseton-Wahpeton Oyate of the Lake Traverse Reservation, South Dakota",Sisseton-Wahpeton,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1643-6,R1.01.489,Siuslaw,Siuslaw,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1529-7,R1.01.490,Skokomish Indian Tribe,Skokomish,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1594-1,R1.01.491,Skull Valley Band of Goshute Indians of Utah,Skull Valley,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1530-5,R1.01.492,Skykomish,Skykomish,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1531-3,R1.01.493,Snohomish,Snohomish,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1532-1,R1.01.494,Snoqualmie Indian Tribe,Snoqualmie,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1336-7,R1.01.495,"Soboba Band of Luiseno Indians, California",Soboba,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1146-0,R1.01.496,"Sokaogon Chippewa Community, Wisconsin",Sokaogon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3499-1,R1.01.497,Southeastern Cherokee Council,Southeastern Cherokee Council,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1244-3,R1.01.498,Southeastern Indians,Southeastern Indians,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1023-1,R1.01.499,Southern Arapaho,Southern Arapaho,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1104-9,R1.01.500,Southern Cheyenne,Southern Cheyenne,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3503-0,R1.01.501,"Southern Ute Indian Tribe of the Southern Ute Reservation, Colorado",Southern Ute,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1632-9,R1.01.502,"Spirit Lake Tribe, North Dakota",Spirit Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1645-1,R1.01.503,Spokane Tribe of the Spokane Reservation,Spokane,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1533-9,R1.01.504,Squaxin Island Tribe of the Squaxin Island Reservation,Squaxin,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1144-5,R1.01.505,St. Croix Chippewa Indians of Wisconsin,St. Croix,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1633-7,R1.01.506,Standing Rock Sioux Tribe of North & South Dakota,Standing Rock,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1534-7,R1.01.507,Steilacoom,Steilacoom,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1535-4,R1.01.508,Stillaguamish Tribe of Indians of Washington,Stillaguamish,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1649-3,R1.01.509,"Stockbridge Munsee Community, Wisconsin",Stockbridge,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1471-2,R1.01.510,Stonyford,Stonyford,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1434-0,R1.01.511,Summit Lake Paiute Tribe of Nevada,Summit Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1651-9,R1.01.512,"Susanville Indian Rancheria, California",Susanville,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1245-0,R1.01.513,Susquehanock,Susquehanock,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3516-2,R1.01.514,Swan Creek Black River Confederate Tribe,Swan Creek Black River Confederate Tribe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1537-0,R1.01.515,Swinomish Indian Tribal Community,Swinomish,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1231-0,R1.01.516,Sycuan Band of the Kumeyaay Nation,Sycuan,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3519-6,R1.01.517,Table Mountain Rancheria,Table Mountain,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1719-4,R1.01.518,Tachi,Tachi,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1063-7,R1.01.519,Takelma,Takelma,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1397-9,R1.01.520,Talakamish,Talakamish,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3523-8,R1.01.521,Tejon Indian Tribe,Tejon,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1338-3,R1.01.522,Temecula,Temecula,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3525-3,R1.01.523,Te-Moak Tribe of Western Shoshone Indians of Nevada (Four constituent bands: Battle Mountain Band; Elko Band; South Fork Band and Wells Band),Te-Moak,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1398-7,R1.01.524,Tenino,Tenino,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1634-5,R1.01.525,Teton Sioux,Teton Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1112-2,R1.01.526,The Chickasaw Nation,The Chickasaw Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1160-1,R1.01.527,The Choctaw Nation of Oklahoma,The Choctaw Nation of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3530-3,R1.01.528,The Modoc Tribe of Oklahoma,The Modoc Tribe of Oklahoma,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1193-2,R1.01.529,The Muscogee (Creek) Nation,The Muscogee (Creek) Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1407-6,R1.01.530,The Osage Nation,The Osage Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1571-9,R1.01.531,The Seminole Nation of Oklahoma,The Seminole Nation  of Oklahoma,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1203-9,R1.01.532,"The Southeastern Mvskoke Nation, Inc.","The Southeastern Mvskoke Nation, Inc.",31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3535-2,R1.01.533,Suquamish Indian Tribe of the Port Madison Reservation,Suquamish,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3536-0,R1.01.534,The Waccamaw Indian People,The Waccamaw Indian People,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1204-7,R1.01.535,Thlopthlocco Tribal Town,Thlopthlocco Tribal Town,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1254-2,R1.01.536,"Three Affiliated Tribes of the Fort Berthold Reservation, North Dakota",Three Affiliated,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1399-5,R1.01.537,Tillamook,Tillamook,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3540-2,R1.01.538,Timbisha Shoshone Tribe,Timbi-sha Shoshone,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3541-0,R1.01.539,Tohono O'odham Nation of Arizona,Tohono O'odham,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1659-2,R1.01.540,Tolowa,Tolowa,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3543-6,R1.01.541,Tolowa Dee-ni' Nation,Tolowa Dee-ni',30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1293-0,R1.01.542,Tonawanda Band of Seneca,Tonawanda,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1661-8,R1.01.543,Tonkawa Tribe of Indians of Oklahoma,Tonkawa,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1017-3,R1.01.544,Tonto Apache Tribe of Arizona,Tonto Apache,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1051-2,R1.01.545,"Torres Martinez Desert Cahuilla Indians, California",Torres Martinez,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1272-4,R1.01.546,Trinity,Trinity,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1205-4,R1.01.547,Tuckabachee,Tuckabachee,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1538-8,R1.01.548,Tulalip Tribes of Washington,Tulalip,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1720-2,R1.01.549,"Tule River Indian Tribe of the Tule River Reservation, California",Tule River,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1246-8,R1.01.550,Tunica-Biloxi Indian Tribe,Tunica-Biloxi,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3553-5,R1.01.551,Tuolumne Band of Me-Wuk Indians of the Tuolumne Rancheria of California,Tuolumne,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1147-8,R1.01.552,Turtle Mountain Band of Chippewa Indians of North Dakota,Turtle Mountain,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1294-8,R1.01.553,Tuscarora Nation,Tuscarora,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1096-7,R1.01.554,Tuscola,Tuscola,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1337-5,R1.01.555,Twenty-Nine Palms Band of Mission Indians of California,Twenty-Nine Palms,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1663-4,R1.01.556,Tygh,Tygh,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1667-5,R1.01.557,Umpqua,Umpqua,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3560-0,R1.01.558,United Auburn Indian Community of the Auburn Rancheria of California,United Auburn,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3561-8,R1.01.559,United Cherokee Ani-Yun-Wiya Nation,United Cherokee Ani-Yun-Wiya Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1277-3,R1.01.560,United Houma Nation,United Houma Nation,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1097-5,R1.01.561,United Keetowah Band of Cherokee Indians in Oklahoma,United Keetowah Band of Cherokee Indians in Oklahoma,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1118-9,R1.01.562,Upper Chinook,Upper Chinook,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3565-9,R1.01.563,Upper Mattaponi Tribe,Upper Mattaponi,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1636-0,R1.01.564,"Upper Sioux Community, Minnesota",Upper Sioux,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1539-6,R1.01.565,Upper Skagit Indian Tribe,Upper Skagit,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1670-9,R1.01.566,Ute,Ute,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1672-5,R1.01.567,"Ute Indian Tribe of the Uintah & Ouray Reservation, Utah",Ute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3570-9,R1.01.568,Ute Mountain Ute Tribe,Ute Mountain,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1435-7,R1.01.569,"Utu Utu Gwaitu Paiute Tribe of the Benton Paiute Reservation, California",Benton,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3572-5,R1.01.570,Viejas (Baron Long) Group of Capitan Grande Band,Viejas (Baron Long) Group of Capitan Grande Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1247-6,R1.01.571,Waccamaw Siouan Indian Tribe,Waccamaw Siouan Indian Tribe,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1637-8,R1.01.572,Wahpekute Sioux,Wahpekute Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1675-8,R1.01.573,Wailaki,Wailaki,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1119-7,R1.01.574,Wakiakum Chinook,Wakiakum Chinook,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1436-5,R1.01.575,"Walker River Paiute Tribe of the Walker River Reservation, Nevada",Walker River,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1677-4,R1.01.576,Walla Walla,Walla Walla,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1679-0,R1.01.577,Wampanoag,Wampanoag,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1680-8,R1.01.578,Wampanoag Tribe of Gay Head (Aquinnah),Wampanoag,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1064-5,R1.01.579,Wappo,Wappo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1685-7,R1.01.580,Wasco,Wasco,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3583-2,R1.01.581,"Washoe Tribe of Nevada & California (Carson Colony, Dresslerville Colony, Woodfords Community, Stewart Community, & Washoe Ranches)",Washoe,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3584-0,R1.01.582,Wassamasaw Tribe of Varnertown Indians,Wassamasaw Tribe of Varnertown Indians,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1639-4,R1.01.583,Wazhaza Sioux,Wazhaza Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1400-1,R1.01.584,Wenatchee,Wenatchee,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1273-2,R1.01.585,Whilkut,Whilkut,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1148-6,R1.01.586,Minnesota Chippewa Tribe - White Earth Band,White Earth,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1019-9,R1.01.587,"White Mountain Apache Tribe of the Fort Apache Reservation, Arizona",White Mountain,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3590-7,R1.01.588,White River Band of the Chickamauga-Cherokee,White River Band of the Chickamauga-Cherokee,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1692-3,R1.01.589,"Wichita and Affiliated Tribes (Wichita, Keechi, Waco & Tawakonie), Oklahoma",Wichita,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1248-4,R1.01.590,Wicomico,Wicomico,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1120-5,R1.01.591,Willapa Chinook,Willapa Chinook,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3594-9,R1.01.592,"Wilton Rancheria, California",Wilton,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1694-9,R1.01.593,Wind River,Wind River,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1696-4,R1.01.594,Winnebago,Winnebago,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1698-0,R1.01.595,Winnebago Tribe of Nebraska,Winnebago,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1700-4,R1.01.596,Winnemucca Indian Colony of Nevada,Winnemucca,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1702-0,R1.01.597,Wintun,Wintun,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1121-3,R1.01.598,Wishram,Wishram,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3601-2,R1.01.599,"Wiyot Tribe, California",Wiyot,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1295-5,R1.01.600,Wyandotte Nation,Wyandotte Nation,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1709-5,R1.01.601,Yakama Cowlitz,Yakama Cowlitz,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1065-2,R1.01.602,Yana,Yana,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1640-2,R1.01.603,Yankton Sioux Tribe of South Dakota,Yankton,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1641-0,R1.01.604,Yanktonai Sioux,Yanktonai Sioux,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1711-1,R1.01.605,Yaqui,Yaqui,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1715-2,R1.01.606,"Yavapai-Apache Nation of the Camp Verde Indian Reservation, Arizona",Yavapai-Apache,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1731-9,R1.01.607,Yavapai-Prescott Indian Tribe,Yavapai-Prescott,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1437-3,R1.01.608,"Yerington Paiute Tribe of the Yerington Colony and Campbell Ranch, Nevada",Yerington,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3611-1,R1.01.609,"Yocha Dehe Wintun Nation, California",Yocha Dehe,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1717-8,R1.01.610,Yokuts,Yokuts,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1600-6,R1.01.611,"Yomba Shoshone Tribe of the Yomba Reservation, Nevada",Yomba Shoshone,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1514-9,R1.01.612,Ysleta del Sur Pueblo,Ysleta del Sur,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1722-8,R1.01.613,Yuchi,Yuchi,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1066-0,R1.01.614,Yuki,Yuki,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1732-7,R1.01.615,"Yurok Tribe of the Yurok Reservation, California",Yurok,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1516-4,R1.01.616,"Zuni Tribe of the Zuni Reservation, New Mexico",Zuni,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1735-0,R1.02,ALASKA NATIVE,ALASKA NATIVE,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1737-6,R1.02.001,Alaska Indian,Alaska Indian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1739-2,R1.02.002,Alaskan Athabascan,Alaskan Athabascan,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1740-0,R1.02.003,"Ahtna, Inc. Corporation","Ahtna, Inc. Corporation",31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1744-2,R1.02.004,Alanvik,Alanvik,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1741-8,R1.02.005,Alatna Village,Alatna,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1742-6,R1.02.006,Alexander,Alexander,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1743-4,R1.02.007,Allakaket Village,Allakaket,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1745-9,R1.02.008,Anvik Village,Anvik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3628-5,R1.02.009,Arctic Village,Arctic Village,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1747-5,R1.02.010,Beaver Village,Beaver,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1748-3,R1.02.011,Birch Creek Tribe,Birch Creek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1750-9,R1.02.012,Chalkyitsik Village,Chalkyitsik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1752-5,R1.02.013,Cheesh-Na Tribe,Cheesh-Na,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1751-7,R1.02.014,Chickaloon Native Village,Chickaloon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1754-1,R1.02.015,Circle Native Community,Circle,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1755-8,R1.02.016,Cook Inlet,Cook Inlet,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1757-4,R1.02.017,Copper River,Copper River,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1759-0,R1.02.018,Doyon,Doyon,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1761-6,R1.02.019,Eklutna Native Village,Eklutna,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1762-4,R1.02.020,Evansville Village (aka Bettles Field),Evansville,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1765-7,R1.02.021,Louden Tribe (previously listed as Galena Village (aka Louden Village)),Louden Tribe,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1767-3,R1.02.022,Gulkana Village Council,Gulkana,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1768-1,R1.02.023,Healy Lake Village,Healy Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1769-9,R1.02.024,Holy Cross Tribe,Holy Cross,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1770-7,R1.02.025,Hughes Village,Hughes,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1771-5,R1.02.026,Huslia Village,Huslia,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1775-6,R1.02.027,Knik Tribe,Knik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1776-4,R1.02.028,Koyukuk Native Village,Koyukuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1777-2,R1.02.029,Lake Minchumina,Lake Minchumina,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1778-0,R1.02.030,Lime Village,Lime,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1780-6,R1.02.031,Manley Hot Springs Village,Manley Hot Springs,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1779-8,R1.02.032,McGrath Native Village,Mcgrath,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1781-4,R1.02.033,Mentasta Traditional Council,Mentasta,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1749-1,R1.02.034,Native Village of Cantwell,Cantwell,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1753-3,R1.02.035,Native Village of Chitina,Chitina,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1760-8,R1.02.036,Native Village of Eagle,Eagle,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1763-2,R1.02.037,Native Village of Fort Yukon,Fort Yukon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1764-0,R1.02.038,Native Village of Gakona,Gakona,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1774-9,R1.02.039,Native Village of Kluti Kaah (aka Copper Center),Kluti Kaah,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1782-2,R1.02.040,Native Village of Minto,Minto,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1791-3,R1.02.041,Native Village of Ruby,Ruby,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1796-2,R1.02.042,Native Village of Stevens,Stevens Village,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1799-6,R1.02.043,Native Village of Tanacross,Tanacross,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1801-0,R1.02.044,Native Village of Tanana,Tanana,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1803-6,R1.02.045,Native Village of Tazlina,Tazlina,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1805-1,R1.02.046,Native Village of Tetlin,Tetlin,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1807-7,R1.02.047,Native Village of Tyonek,Tyonek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1783-0,R1.02.048,Nenana Native Association,Nenana,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1784-8,R1.02.049,Nikolai Village,Nikolai,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1785-5,R1.02.050,Ninilchik Village,Ninilchik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1786-3,R1.02.051,Nondalton Village,Nondalton,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1787-1,R1.02.052,Northway Village,Northway,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1788-9,R1.02.053,Nulato Village,Nulato,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1766-5,R1.02.054,Organized Village of Grayling (aka Holikachuk),Grayling,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1789-7,R1.02.055,Pedro Bay Village,Pedro Bay,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1790-5,R1.02.056,Rampart Village,Rampart,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1793-9,R1.02.057,Seldovia Village Tribe,Seldovia,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1795-4,R1.02.058,Shageluk Native Village,Shageluk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1794-7,R1.02.059,Slana,Slana,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1798-8,R1.02.060,Takotna Village,Takotna,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1802-8,R1.02.061,Tanana Chiefs,Tanana Chiefs,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1804-4,R1.02.062,Telida Village,Telida,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1806-9,R1.02.063,Tok,Tok,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1758-2,R1.02.064,Village of Dot Lake,Dot Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1772-3,R1.02.065,Village of Iliamna,Iliamna,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1773-1,R1.02.066,Village of Kaltag,Kaltag,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1792-1,R1.02.067,Salamatof Tribe,Salamatof,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1797-0,R1.02.068,Village of Stony River,Stony River,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1808-5,R1.02.069,Village of Venetie (See Native Village of Venetie Tribal Government),Venetie,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1809-3,R1.02.070,Wiseman,Wiseman,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1825-9,R1.02.071,Kenaitze Indian Tribe,Kenaitze,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1966-1,R1.02.072,Aleut,Aleut,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1994-3,R1.02.073,Agdaagux Tribe of King Cove,Agdaagux,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2008-1,R1.02.074,Aleut Corporation,Aleut Corporation,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+4187-1,R1.02.075,Alutiiq,Alutiiq,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1972-9,R1.02.076,Bristol Bay Aleut,Bristol Bay Aleut,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1973-7,R1.02.077,Chignik Bay Tribal Council,Chignik Bay,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1974-5,R1.02.078,Chignik Lake Village,Chignik Lake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1984-4,R1.02.079,Chugach Aleut,Chugach Aleut,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1986-9,R1.02.080,Chugach Corporation,Chugach Corporation,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1975-2,R1.02.081,Egegik Village,Egegik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1840-8,R1.02.082,Eskimo,Eskimo,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1976-0,R1.02.083,Igiugig Village,Igiugig,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1977-8,R1.02.084,Ivanof Bay Tribe,Ivanof Bay,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3704-4,R1.02.085,Kaguyak Village,Kaguyuk,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2014-9,R1.02.086,King Cove,King Cove,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1978-6,R1.02.087,King Salmon Tribe,King Salmon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1996-8,R1.02.088,Kodiak,Kodiak,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1979-4,R1.02.089,Kokhanok Village,Kokhanok,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1992-7,R1.02.090,Koniag Aleut,Koniag Aleut,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3710-1,R1.02.091,Tangirnaq Native Village,Tangirnaq,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3711-9,R1.02.092,Native Village of Afognak,Afognak,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1993-5,R1.02.093,Native Village of Akhiok,Akhiok,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2007-3,R1.02.094,Native Village of Akutan,Akutan,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2011-5,R1.02.095,Native Village of Atka,Atka,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2012-3,R1.02.096,Native Village of Belkofski,Belkofski,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1985-1,R1.02.097,Native Village of Chenega (aka Chanega),Chenega,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2013-1,R1.02.098,Native Village of Chignik Lagoon,Chignik Lagoon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1990-1,R1.02.099,Native Village of Eyak (Cordova),Eyak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2015-6,R1.02.100,Native Village of False Pass,False Pass,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3720-0,R1.02.101,Native Village of Kanatak,Kanatak,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1995-0,R1.02.102,Native Village of Karluk,Karluk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1997-6,R1.02.103,Native Village of Larsen Bay,Larsen Bay,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1987-7,R1.02.104,Native Village of Nanwalek (aka English Bay),Nanwalek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2016-4,R1.02.105,Native Village of Nelson Lagoon,Nelson Lagoon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2017-2,R1.02.106,Native Village of Nikolski,Nikolski,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1999-2,R1.02.107,Native Village of Ouzinkie,Ouzinkie,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1980-2,R1.02.108,Native Village of Perryville,Perryville,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1981-0,R1.02.109,Native Village of Pilot Point,Pilot Point,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1988-5,R1.02.110,Native Village of Port Graham,Port Graham,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1982-8,R1.02.111,Native Village of Port Heiden,Port Heiden,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2000-8,R1.02.112,Native Village of Port Lions,Port Lions,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1969-5,R1.02.113,Native Village of Tatitlek,Tatitlek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2026-3,R1.02.114,Native Village of Unga,Unga,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2018-0,R1.02.115,Pauloff Harbor Village,Pauloff Harbor,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3735-8,R1.02.116,Qagan Tayagungin Tribe of Sand Point,Qagan Tayagungin,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2020-6,R1.02.117,Qawalangin Tribe of Unalaska,Qawalangin,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2021-4,R1.02.118,Saint George Island (See Pribilof Islands Aleut Communities of St. Paul & St. George Islands),St. George,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2022-2,R1.02.119,Saint Paul Island (See Pribilof Islands Aleut Communities of St. Paul & St. George Islands),Saint Paul,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2024-8,R1.02.120,South Naknek Village,South Naknek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+2002-4,R1.02.121,Sugpiaq,Sugpiaq,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3741-6,R1.02.122,Sun'aq Tribe of Kodiak,Sun'aq,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1970-3,R1.02.123,Ugashik Village,Ugashik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3743-2,R1.02.124,Unangan (Unalaska),Unangan (Unalaska),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1998-4,R1.02.125,Alutiiq Tribe of Old Harbor,Alutiiq,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3745-7,R1.02.126,Inupiat (inupiaq),Inupiat (inupiaq),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3746-5,R1.02.127,American Eskimo,American Eskimo,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1849-9,R1.02.128,Arctic Slope Corporation,Arctic Slope Corporation,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1850-7,R1.02.129,Atqasuk Village (Atkasook),Atqasuk Village (Atkasook),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1852-3,R1.02.130,Bering Straits Inupiat,Bering Straits Inupiat,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1909-1,R1.02.131,Chevak Native Village,Chevak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3751-5,R1.02.132,Chinik Eskimo Community (Golovin),Chinik,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1842-4,R1.02.133,Greenland Inuit,Greenland Inuit,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3753-1,R1.02.134,Inuit,Inuit,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1848-1,R1.02.135,Inupiat Community of the Arctic Slope,Inupiat,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1862-2,R1.02.136,Kaktovik Village (aka Barter Island),Kaktovik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1863-0,R1.02.137,Kawerak,Kawerak,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3757-2,R1.02.138,King Island Native Community,King Island,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1871-3,R1.02.139,Nana Inupiat,Nana Inupiat,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1845-7,R1.02.140,Native Village of Ambler,Ambler,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1851-5,R1.02.141,Native Village of Barrow Inupiat Traditional Government,Barrow,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1853-1,R1.02.142,Native Village of Brevig Mission,Brevig Mission,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1854-9,R1.02.143,Native Village of Buckland,Buckland,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1856-4,R1.02.144,Native Village of Council,Council,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1857-2,R1.02.145,Native Village of Deering,Deering,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1860-6,R1.02.146,Native Village of Diomede (aka Inalik),Diomede,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1858-0,R1.02.147,Native Village of Elim,Elim IRA,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1864-8,R1.02.148,Native Village of Kiana,Kiana,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1865-5,R1.02.149,Native Village of Kivalina,Kivalina,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1866-3,R1.02.150,Native Village of Kobuk,Kobuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1867-1,R1.02.151,Native Village of Kotzebue,Kotzebue,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1868-9,R1.02.152,Native Village of Koyuk,Koyuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1889-5,R1.02.153,Native Village of Mary's Igloo,Mary's Igloo,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1933-1,R1.02.154,Native Village of Mekoryuk,Mekoryuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1872-1,R1.02.155,Native Village of Noatak,Noatak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1875-4,R1.02.156,Native Village of Nuiqsut (aka Nooiksut),Nuiqsut,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1876-2,R1.02.157,Native Village of Point Hope,Point Hope IRA,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1877-0,R1.02.158,Native Village of Point Lay,Point Lay IRA,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1878-8,R1.02.159,Native Village of Selawik,Selawik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1879-6,R1.02.160,Native Village of Shaktoolik,Shaktoolik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1880-4,R1.02.161,Native Village of Shishmaref,Shishmaref IRA,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1881-2,R1.02.162,Native Village of Shungnak,Shungnak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1883-8,R1.02.163,Native Village of Teller,Teller,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1884-6,R1.02.164,Native Village of Unalakleet,Unalakleet,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1886-1,R1.02.165,Native Village of Wales,Wales,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3785-3,R1.02.166,Native Village of White Mountain,White Mountain AK,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1873-9,R1.02.167,Nome Eskimo Community,Nome,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1874-7,R1.02.168,Noorvik Native Community,Noorvik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3788-7,R1.02.169,Village of Anaktuvuk Pass,Anaktuvuk Pass,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1882-0,R1.02.170,Village of Solomon,Solomon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1885-3,R1.02.171,Village of Wainwright,Wainwright,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1833-3,R1.02.172,Tlingit,Tlingit,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3861-2,R1.02.173,Central Council of the Tlingit & Haida Indian Tribes,Tlingit & Haida,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1816-8,R1.02.174,Chilkat Indian Village (Klukwan),Chilkat,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1817-6,R1.02.175,Chilkoot Indian Association (Haines),Chilkoot,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1818-4,R1.02.176,Craig Tribal Association,Craig,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1819-2,R1.02.177,Douglas Indian Association,Douglas,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1820-0,R1.02.178,Haida,Haida,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1821-8,R1.02.179,Hoonah Indian Association,Hoonah,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1822-6,R1.02.180,Hydaburg Cooperative Association,Hydaburg,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1826-7,R1.02.181,Ketchikan Indian Community,Ketchikan,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1827-5,R1.02.182,Klawock Cooperative Association,Klawock,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1823-4,R1.02.183,Organized Village of Kake,Kake,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1824-2,R1.02.184,Organized Village of Kasaan,Kasaan,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1830-9,R1.02.185,Organized Village of Saxman,Saxman,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1828-3,R1.02.186,Pelican,Pelican,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1829-1,R1.02.187,Petersburg Indian Association,Petersburg,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1811-9,R1.02.188,Sealaska Corporation,Sealaska Corporation,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1831-7,R1.02.189,Sitka Tribe of Alaska,Sitka,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3809-1,R1.02.190,Skagway Village,Skagway,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1832-5,R1.02.191,Tenakee Springs,Tenakee Springs,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1814-3,R1.02.192,Angoon Community Association,Angoon,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1834-1,R1.02.193,Wrangell Cooperative Association,Wrangell,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1835-8,R1.02.194,Yakutat Tlingit Tribe,Yakutat,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1837-4,R1.02.195,Tsimshian,Tsimshian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1838-2,R1.02.196,"Metlakatla Indian Community, Annette Island Reserve",Metlakatla,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1896-0,R1.02.197,Yup’ik (Yup’ik Eskimo),Yup’ik (Yup’ik Eskimo),31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1897-8,R1.02.198,Akiachak Native Community,Akiachak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1898-6,R1.02.199,Akiak Native Community,Akiak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1963-8,R1.02.200,Algaaciq Native Village (St. Mary's),Algaaciq,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1934-9,R1.02.201,Asa'carsarmiut Tribe,Asa'carsarmiut,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1906-7,R1.02.202,Bristol Bay,Bristol Bay,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1907-5,R1.02.203,Calista,Calista,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3823-2,R1.02.204,Chuloonawick Native Village,Chuloonawick,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1913-3,R1.02.205,Curyung Tribal Council,Curyung,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1916-6,R1.02.206,Native Village of Ekwok,Ekwok,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3826-5,R1.02.207,Emmonak Village,Emmonak,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1920-8,R1.02.208,Iqugmiut Traditional Council,Iqugmiut,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1929-9,R1.02.209,Levelock Village,Levelock,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1931-5,R1.02.210,Manokotak Village,Manokotak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1935-6,R1.02.211,Naknek Native Village,Naknek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1900-0,R1.02.212,Native Village of Aleknagik,Aleknagik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1910-9,R1.02.213,Native Village of Atqasuk,Atqasuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1914-1,R1.02.214,Native Village of Eek,Eek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1915-8,R1.02.215,Native Village of Ekuk,Ekuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1892-9,R1.02.216,Native Village of Gambell,Gambell,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1962-0,R1.02.217,Native Village of Georgetown,Georgetown,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1918-2,R1.02.218,Native Village of Goodnews Bay,Goodnews Bay,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3838-0,R1.02.219,Native Village of Hamilton,Hamilton,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1919-0,R1.02.220,Native Village of Hooper Bay,Hooper Bay,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1922-4,R1.02.221,Kasigluk Traditional Elders Council,Kasigluk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1923-2,R1.02.222,Native Village of Kipnuk,Kipnuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1925-7,R1.02.223,Native Village of Kongiganak,Kongiganak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1928-1,R1.02.224,Native Village of Kwigillingok,Kwigillingok,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1949-7,R1.02.225,Native Village of Kwinhagak (aka Quinhagak),Kwinhagak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1932-3,R1.02.226,Native Village of Marshall (aka Fortuna Ledge),Marshall,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1936-4,R1.02.227,Native Village of Napaimute,Napaimute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1937-2,R1.02.228,Native Village of Napakiak,Napakiak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1938-0,R1.02.229,Native Village of Napaskiak,Napaskiak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1942-2,R1.02.230,Native Village of Nightmute,Nightmute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1953-9,R1.02.231,Native Village of Nunam Iqua,Nunam Iqua,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1943-0,R1.02.232,Native Village of Nunapitchuk,Nunapitchuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1946-3,R1.02.233,Pitka's Point Traditional Council,Pitka's Point,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1951-3,R1.02.234,Native Village of Saint Michael,St. Michael IRA,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1893-7,R1.02.235,Native Village of Savoonga,Savoonga,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1952-1,R1.02.236,Native Village of Scammon Bay,Scammon Bay,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1959-6,R1.02.237,Native Village of Tuntutuliak,Tuntutuliak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1960-4,R1.02.238,Native Village of Tununak,Tununak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1924-0,R1.02.239,New Koliganek Village Council,New Koliganek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1940-6,R1.02.240,New Stuyahok Village,New Stuyahok,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1939-8,R1.02.241,Newhalen Village,Newhalen,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1941-4,R1.02.242,Newtok Village,Newtok,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1957-0,R1.02.243,Nunakauyarmiut Tribe,Nunakauyarmiut,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1927-3,R1.02.244,Organized Village of Kwethluk,Kwethluk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1904-2,R1.02.245,Orutsararmiut Traditional Native Council,Orutsararmiut,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1944-8,R1.02.246,Oscarville Traditional Village,Oscarville,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1945-5,R1.02.247,Pilot Station Traditional Village,Pilot Station,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1947-1,R1.02.248,Platinum Traditional Village,Platinum,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1948-9,R1.02.249,Portage Creek Village (aka Ohgsenakale),Portage Creek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1894-5,R1.02.250,Siberian Yupik,Siberian Yupik,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+1955-4,R1.02.251,Stebbins Community Association,Stebbins,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1956-2,R1.02.252,Traditional Village of Togiak,Togiak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1958-8,R1.02.253,Tuluksak Native Community,Tuluksak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1961-2,R1.02.254,Twin Hills Village,Twin Hills,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1964-6,R1.02.255,Umkumiut Native Village,Umkumiut,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1899-4,R1.02.256,Village of Alakanuk,Alakanuk,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1902-6,R1.02.257,Village of Aniak,Aniak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1903-4,R1.02.258,Village of Atmautluak,Atmautluak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1905-9,R1.02.259,Village of Bill Moore's Slough,Bill Moore's Slough,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1908-3,R1.02.260,Village of Chefornak,Chefornak,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1911-7,R1.02.261,Village of Clarks Point,Clark's Point,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1912-5,R1.02.262,Village of Crooked Creek,Crooked Creek,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1921-6,R1.02.263,Village of Kalskag,Kalskag,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1926-5,R1.02.264,Village of Kotlik,Kotlik,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1930-7,R1.02.265,Village of Lower Kalskag,Lower Kalskag,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3885-1,R1.02.266,Village of Ohogamiut,Ohogamiut,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1950-5,R1.02.267,Village of Red Devil,Red Devil,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1954-7,R1.02.268,Village of Sleetmute,Sleetmute,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1901-8,R1.02.269,Yupiit of Andreafski,Andreafski,31-Mar-2000,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+3889-3,R1.02.270,Native Village of Paimiut,Paimiut,30-Nov-2024,Yes,11-Sep-2024,Active,2.16.840.1.113883.6.238
+1069-4,R1.03,CANADIAN INDIAN,CANADIAN INDIAN,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3891-9,R1.03.001,Abenaki Canadian,Abenaki Canadian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3892-7,R1.03.002,Acadia Band,Acadia Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3893-5,R1.03.003,Ache Dene Koe,Ache Dene Koe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3894-3,R1.03.004,Ahousaht,Ahousaht,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3895-0,R1.03.005,Alderville First Nation,Alderville First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3896-8,R1.03.006,Alexandria Band,Alexandria Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3897-6,R1.03.007,Algonquins of Barriere Lake,Algonquins of Barriere Lake,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3898-4,R1.03.008,Batchewana First Nation,Batchewana First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3899-2,R1.03.009,Beardys and Okemasis Band,Beardys and Okemasis Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3900-8,R1.03.010,Beausoleil,Beausoleil,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3901-6,R1.03.011,Beecher Bay,Beecher Bay,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3902-4,R1.03.012,Bella Coola (Nuxalk Nation),Bella Coola (Nuxalk Nation),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3903-2,R1.03.013,Beothuk,Beothuk,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3904-0,R1.03.014,Big Cove,Big Cove,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3905-7,R1.03.015,Big Grassy,Big Grassy,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3906-5,R1.03.016,Bigstone Cree Nation,Bigstone Cree Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3907-3,R1.03.017,Bonaparte Band,Bonaparte Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3908-1,R1.03.018,Boston Bar First Nation,Boston Bar First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3909-9,R1.03.019,Bridge River,Bridge River,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3910-7,R1.03.020,Brokenhead Ojibway Nation,Brokenhead Ojibway Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3911-5,R1.03.021,Buffalo Point Band,Buffalo Point Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3912-3,R1.03.022,Caldwell,Caldwell,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3913-1,R1.03.023,Campbell River Band,Campbell River Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3914-9,R1.03.024,Cape Mudge Band,Cape Mudge Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3915-6,R1.03.025,Carcross/Tagish First Nation,Carcross/Tagish First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3916-4,R1.03.026,Caribou,Caribou,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3917-2,R1.03.027,Carrier Nation,Carrier Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3918-0,R1.03.028,Carry the Kettle Band,Carry the Kettle Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3919-8,R1.03.029,Cheam Band,Cheam Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3920-6,R1.03.030,Chemainus First Nation,Chemainus First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3921-4,R1.03.031,Chilcotin Nation,Chilcotin Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3922-2,R1.03.032,Chippewa of Sarnia,Chippewa of Sarnia,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3923-0,R1.03.033,Chippewa of the Thames,Chippewa of the Thames,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3924-8,R1.03.034,Chippewa/Ojibwe Canadian,Chippewa/Ojibwe Canadian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3925-5,R1.03.035,Clayoquot,Clayoquot,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3926-3,R1.03.036,Cold Lake First Nations,Cold Lake First Nations,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3927-1,R1.03.037,Coldwater Band,Coldwater Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3928-9,R1.03.038,Comox Band,Comox Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3929-7,R1.03.039,Coquitlam Band (Kwikwetlem First Nation),Coquitlam Band (Kwikwetlem First Nation),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3930-5,R1.03.040,Cote First Nation,Cote First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3931-3,R1.03.041,Couchiching First Nation,Couchiching First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3932-1,R1.03.042,Cowessess Band,Cowessess Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3933-9,R1.03.043,Cowichan,Cowichan,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3934-7,R1.03.044,Cree Canadian,Cree Canadian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3935-4,R1.03.045,Cross Lake First Nation,Cross Lake First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3936-2,R1.03.046,Curve Lake Band,Curve Lake Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3937-0,R1.03.047,Dene Band Nwt (NW Territory),Dene Band Nwt (NW Territory),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3938-8,R1.03.048,Dene Canadian,Dene Canadian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3939-6,R1.03.049,Ditidaht Band,Ditidaht Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3940-4,R1.03.050,Dogrib,Dogrib,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3941-2,R1.03.051,Eagle Lake Band,Eagle Lake Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3942-0,R1.03.052,Eastern Cree,Eastern Cree,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3943-8,R1.03.053,Ebb and Flow Band,Ebb and Flow Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3944-6,R1.03.054,English River First Nation,English River First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3945-3,R1.03.055,Eskasoni,Eskasoni,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3946-1,R1.03.056,Esquimalt,Esquimalt,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3947-9,R1.03.057,Fisher River,Fisher River,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3948-7,R1.03.058,Five Nations,Five Nations,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3949-5,R1.03.059,Fort Alexander Band,Fort Alexander Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1071-0,R1.03.060,French Canadian/French American Indian,French Canadian/French American Indian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+3951-1,R1.03.061,Garden River Nation,Garden River Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3952-9,R1.03.062,Gibson Band (Wahta Mohawk),Gibson Band (Wahta Mohawk),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3953-7,R1.03.063,Gitksan,Gitksan,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3954-5,R1.03.064,Grassy Narrows First Nation,Grassy Narrows First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3955-2,R1.03.065,Gull Bay Band,Gull Bay Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3956-0,R1.03.066,Gwichya Gwich'in,Gwichya Gwich'in,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3957-8,R1.03.067,Heiltsuk Band,Heiltsuk Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3958-6,R1.03.068,Hesquiaht Band,Hesquiaht Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3959-4,R1.03.069,Hiawatha First Nation,Hiawatha First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3960-2,R1.03.070,Hope Band (Chawathil Nation),Hope Band (Chawathil Nation),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3961-0,R1.03.071,Huron,Huron,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3962-8,R1.03.072,Huron of Lorretteville,Huron of Lorretteville,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3963-6,R1.03.073,Innu (Montagnais),Innu (Montagnais),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3964-4,R1.03.074,Interior Salish,Interior Salish,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3965-1,R1.03.075,James Bay Cree,James Bay Cree,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3966-9,R1.03.076,James Smith Cree Nation,James Smith Cree Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3967-7,R1.03.077,Kahkewistahaw First Nation,Kahkewistahaw First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3968-5,R1.03.078,Kamloops Band,Kamloops Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3969-3,R1.03.079,Kanaka Bar,Kanaka Bar,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3970-1,R1.03.080,Kaska Dena,Kaska Dena,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3971-9,R1.03.081,Keeseekoose Band,Keeseekoose Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3972-7,R1.03.082,Kingsclear Band,Kingsclear Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3973-5,R1.03.083,Kitamaat,Kitamaat,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3974-3,R1.03.084,Kitigan Zibi Anishinabeg,Kitigan Zibi Anishinabeg,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3975-0,R1.03.085,Klahoose First Nation,Klahoose First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3976-8,R1.03.086,Kwakiutl,Kwakiutl,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3977-6,R1.03.087,Kyuquot Band,Kyuquot Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3978-4,R1.03.088,Lakahahmen Band,Lakahahmen Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3979-2,R1.03.089,Lake Manitoba Band,Lake Manitoba Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3980-0,R1.03.090,Lake St. Martin Band,Lake St. Martin Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3981-8,R1.03.091,Lennox Island Band,Lennox Island Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3982-6,R1.03.092,Liard River First Nation,Liard River First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3983-4,R1.03.093,Lillooet,Lillooet,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3984-2,R1.03.094,Listuguj Mi'Gmaq First Nation,Listuguj Mi'Gmaq First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3985-9,R1.03.095,Little Shuswap Band,Little Shuswap Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3986-7,R1.03.096,Long Plain First Nation,Long Plain First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3987-5,R1.03.097,Lower Nicola Indian Band,Lower Nicola Indian Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3988-3,R1.03.098,Malahat First Nation,Malahat First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3989-1,R1.03.099,Matachewan Band,Matachewan Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3990-9,R1.03.100,Mcleod Lake,Mcleod Lake,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3991-7,R1.03.101,Metis,Metis,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3992-5,R1.03.102,Millbrook First Nation,Millbrook First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3993-3,R1.03.103,Mississaugas of the Credit,Mississaugas of the Credit,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3994-1,R1.03.104,Mohawk Canadian,Mohawk Canadian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3995-8,R1.03.105,Mohawk Kahnawake,Mohawk Kahnawake,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3996-6,R1.03.106,Mohawks of Kanesatake,Mohawks of Kanesatake,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3997-4,R1.03.107,Mohawks of the Bay of Quinte,Mohawks of the Bay of Quinte,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3998-2,R1.03.108,Mohican Canadian,Mohican Canadian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+3999-0,R1.03.109,Musqueam Band,Musqueam Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4000-6,R1.03.110,N’Quatqua (Anderson Lake),N’Quatqua (Anderson Lake),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4001-4,R1.03.111,Namgis First Nation (Nimpkish),Namgis First Nation (Nimpkish),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4002-2,R1.03.112,Nanaimo (Snuneymuxw),Nanaimo (Snuneymuxw),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4003-0,R1.03.113,Nanoose First Nation,Nanoose First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4004-8,R1.03.114,Naskapi,Naskapi,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4005-5,R1.03.115,Nation Huronne Wendat,Nation Huronne Wendat,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4006-3,R1.03.116,Nipissing First Nation,Nipissing First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4007-1,R1.03.117,Nisga'a Nation,Nisga'a Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4008-9,R1.03.118,North Thompson Band (Simpcw First Nation),North Thompson Band (Simpcw First Nation),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4009-7,R1.03.119,Nuu-chah-nulth (Nootka),Nuu-chah-nulth (Nootka),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4010-5,R1.03.120,Odanak,Odanak,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4011-3,R1.03.121,Ohiaht Band (Huu-ay-aht First Nation),Ohiaht Band (Huu-ay-aht First Nation),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4012-1,R1.03.122,Oneida Nation of the Thames,Oneida Nation of the Thames,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4013-9,R1.03.123,Opaskwayak Cree Nation,Opaskwayak Cree Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4014-7,R1.03.124,Osoyoos Band,Osoyoos Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4015-4,R1.03.125,Pacheedaht First Nation,Pacheedaht First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4016-2,R1.03.126,Pauquachin,Pauquachin,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4017-0,R1.03.127,Peepeekisis,Peepeekisis,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4018-8,R1.03.128,Peguis,Peguis,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4019-6,R1.03.129,Penelakut,Penelakut,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4020-4,R1.03.130,Penticton,Penticton,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4021-2,R1.03.131,Pine Creek,Pine Creek,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4022-0,R1.03.132,Plains Cree,Plains Cree,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4023-8,R1.03.133,Rainy River First Nations,Rainy River First Nations,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4024-6,R1.03.134,Red Earth Band,Red Earth Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4025-3,R1.03.135,Roseau River,Roseau River,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4026-1,R1.03.136,Saddle Lake,Saddle Lake,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4027-9,R1.03.137,Sakimay First Nations,Sakimay First Nations,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4028-7,R1.03.138,Sandy Bay Band,Sandy Bay Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4029-5,R1.03.139,Sarcee (Tsuut'Ina Nation),Sarcee (Tsuut'Ina Nation),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4030-3,R1.03.140,Saugeen,Saugeen,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4031-1,R1.03.141,Saulteau First Nations,Saulteau First Nations,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4032-9,R1.03.142,Saulteaux,Saulteaux,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4033-7,R1.03.143,Seabird Island,Seabird Island,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4034-5,R1.03.144,Sechelt,Sechelt,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4035-2,R1.03.145,Seine River First Nation,Seine River First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4036-0,R1.03.146,Serpent River,Serpent River,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4037-8,R1.03.147,Seton Lake,Seton Lake,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4038-6,R1.03.148,Shoal Lake Cree Nation,Shoal Lake Cree Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4039-4,R1.03.149,Shuswap,Shuswap,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4040-2,R1.03.150,Siksika Canadian,Siksika Canadian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4041-0,R1.03.151,Similkameen,Similkameen,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4042-8,R1.03.152,Six Nations Canada,Six Nations Canada,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4043-6,R1.03.153,Six Nations of the Grand River,Six Nations of the Grand River,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4044-4,R1.03.154,Skawahlook First Nation,Skawahlook First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4045-1,R1.03.155,Skeetchestn Indian Band,Skeetchestn Indian Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4046-9,R1.03.156,Skookum Chuck Band,Skookum Chuck Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4047-7,R1.03.157,Skowkale,Skowkale,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4048-5,R1.03.158,Skuppah,Skuppah,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4049-3,R1.03.159,Skwah First Nation,Skwah First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4050-1,R1.03.160,Skway First Nation,Skway First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4051-9,R1.03.161,Songhees First Nation,Songhees First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4052-7,R1.03.162,Soowahlie First Nation,Soowahlie First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4053-5,R1.03.163,Spuzzum First Nation,Spuzzum First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4054-3,R1.03.164,Squamish Nation,Squamish Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4055-0,R1.03.165,Stanjikoming First Nation,Stanjikoming First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4056-8,R1.03.166,Sto:lo Nation,Sto:lo Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4057-6,R1.03.167,Stone,Stone,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4058-4,R1.03.168,Sucker Creek First Nation,Sucker Creek First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4059-2,R1.03.169,Swampy Cree,Swampy Cree,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4060-0,R1.03.170,Tahltan,Tahltan,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4061-8,R1.03.171,Taku River Tlingit,Taku River Tlingit,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4062-6,R1.03.172,Tete De Boule (Attikamek),Tete De Boule (Attikamek),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4063-4,R1.03.173,Thompson,Thompson,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4064-2,R1.03.174,Tobacco Plains Band,Tobacco Plains Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4065-9,R1.03.175,Tobique First Nation,Tobique First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4066-7,R1.03.176,Toquaht,Toquaht,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4067-5,R1.03.177,Tsartlip,Tsartlip,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4068-3,R1.03.178,Tsawout First Nation,Tsawout First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4069-1,R1.03.179,Tseycum,Tseycum,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4070-9,R1.03.180,Uchucklesaht,Uchucklesaht,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4071-7,R1.03.181,Ucluelet First Nation,Ucluelet First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4072-5,R1.03.182,Vuntut Gwitchin First Nation,Vuntut Gwitchin First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4073-3,R1.03.183,Wabauskang First Nation,Wabauskang First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4074-1,R1.03.184,Walpole Island,Walpole Island,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4075-8,R1.03.185,Wasauksing First Nation,Wasauksing First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4076-6,R1.03.186,Waywayseecappo First Nation,Waywayseecappo First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4077-4,R1.03.187,West Bay Band,West Bay Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4078-2,R1.03.188,White Bear Band,White Bear Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4079-0,R1.03.189,Whitefish Lake Band,Whitefish Lake Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4080-8,R1.03.190,Wikwemikong,Wikwemikong,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4081-6,R1.03.191,Wolf Lake Band,Wolf Lake Band,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4082-4,R1.03.192,Woodland Cree First Nation,Woodland Cree First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4083-2,R1.03.193,Woodstock First Nation,Woodstock First Nation,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4084-0,R1.03.194,Xaxli'p First Nation (Fountain Band),Xaxli'p First Nation (Fountain Band),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4085-7,R1.04,LATIN AMERICAN INDIAN,LATIN AMERICAN INDIAN,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1070-2,R1.04.001,Central American Indian,Central American Indian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+4087-3,R1.04.001.001,Belizean Indian,Belizean Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4088-1,R1.04.001.002,Cakchiquel,Cakchiquel,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4089-9,R1.04.001.003,Choco,Choco,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4090-7,R1.04.001.004,Costa Rican Indian,Costa Rican Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4091-5,R1.04.001.005,Salvadoran Indian,Salvadoran Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4092-3,R1.04.001.006,Guatemalan Indian,Guatemalan Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4093-1,R1.04.001.007,Guatemalan Mayan,Guatemalan Mayan,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4094-9,R1.04.001.008,Guaymi,Guaymi,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4095-6,R1.04.001.009,Honduran Indian,Honduran Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4096-4,R1.04.001.010,Kanjobal,Kanjobal,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4097-2,R1.04.001.011,Kekchi,Kekchi,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4098-0,R1.04.001.012,Kuna Indian,Kuna Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4099-8,R1.04.001.013,Lenca,Lenca,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4100-4,R1.04.001.014,Maya Central American,Maya Central American,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4101-2,R1.04.001.015,Miskito,Miskito,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4102-0,R1.04.001.016,Nicaraguan Indian,Nicaraguan Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4103-8,R1.04.001.017,Panamanian Indian,Panamanian Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4104-6,R1.04.001.018,Pipil,Pipil,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4105-3,R1.04.001.019,Quiche,Quiche,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4106-1,R1.04.001.020,Rama,Rama,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4107-9,R1.04.001.021,Sumo,Sumo,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4108-7,R1.04.001.022,Nahua,Nahua,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4109-5,R1.04.002,Mexican Indian,Mexican Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4110-3,R1.04.002.001,Amuzgo,Amuzgo,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4111-1,R1.04.002.002,Aztec,Aztec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4112-9,R1.04.002.003,Chatino,Chatino,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4113-7,R1.04.002.004,Chinantec,Chinantec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4114-5,R1.04.002.005,Chocho,Chocho,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4115-2,R1.04.002.006,Concho,Concho,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4116-0,R1.04.002.007,Cora,Cora,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4117-8,R1.04.002.008,Cochimi,Cochimi,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4118-6,R1.04.002.009,Cuicatec,Cuicatec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4119-4,R1.04.002.010,Huastec,Huastec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4120-2,R1.04.002.011,Huave,Huave,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4121-0,R1.04.002.012,Huichol,Huichol,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4122-8,R1.04.002.013,Ixcatec,Ixcatec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4123-6,R1.04.002.014,Lacandon,Lacandon,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4124-4,R1.04.002.015,Lagunero,Lagunero,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4125-1,R1.04.002.016,Mazahua,Mazahua,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4126-9,R1.04.002.017,Mazatec,Mazatec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4127-7,R1.04.002.018,Mixe,Mixe,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4128-5,R1.04.002.019,Mixtec,Mixtec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4129-3,R1.04.002.020,Nahuatl,Nahuatl,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4130-1,R1.04.002.021,Olmec,Olmec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4131-9,R1.04.002.022,Opata,Opata,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4132-7,R1.04.002.023,Otomi,Otomi,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4133-5,R1.04.002.024,Popoluca,Popoluca,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4134-3,R1.04.002.025,Seri,Seri,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4135-0,R1.04.002.026,Tarahumara (Raramuri),Tarahumara (Raramuri),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4136-8,R1.04.002.027,Tarasco (Purepecha),Tarasco (Purepecha),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4137-6,R1.04.002.028,Tepehua,Tepehua,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4138-4,R1.04.002.029,Tequistlatec,Tequistlatec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4139-2,R1.04.002.030,Tlapanec,Tlapanec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4140-0,R1.04.002.031,Tojolabal,Tojolabal,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4141-8,R1.04.002.032,Toltec,Toltec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4142-6,R1.04.002.033,Triqui (Trique),Triqui (Trique),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4143-4,R1.04.002.034,Tzeltal,Tzeltal,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4144-2,R1.04.002.035,Tzotzil,Tzotzil,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4145-9,R1.04.002.036,Zapotec,Zapotec,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4146-7,R1.04.002.037,Zoque,Zoque,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1072-8,R1.04.002.038,Mexican American Indian,Mexican American Indian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+4148-3,R1.04.002.039,Chichimeca,Chichimeca,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1073-6,R1.04.003,South American Indian,South American Indian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+4150-9,R1.04.003.001,Ache Indian,Ache Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4151-7,R1.04.003.002,Amazon Indian,Amazon Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4152-5,R1.04.003.003,Andean Indian,Andean Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4153-3,R1.04.003.004,Arawak,Arawak,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4154-1,R1.04.003.005,Argentinean Indian,Argentinean Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4155-8,R1.04.003.006,Aymara,Aymara,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4156-6,R1.04.003.007,Bolivian Indian,Bolivian Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4157-4,R1.04.003.008,Brazilian Indian,Brazilian Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4158-2,R1.04.003.009,Canela,Canela,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4159-0,R1.04.003.010,Chilean Indian,Chilean Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4160-8,R1.04.003.011,Colombian Indian,Colombian Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4161-6,R1.04.003.012,Ecuadorian Indian,Ecuadorian Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4162-4,R1.04.003.013,Guarani,Guarani,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4163-2,R1.04.003.014,Guyanese South American Indian,Guyanese South American Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4164-0,R1.04.003.015,Inca,Inca,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4165-7,R1.04.003.016,Mapuche (Araucanian),Mapuche (Araucanian),30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4166-5,R1.04.003.017,Maya South American,Maya South American,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4167-3,R1.04.003.018,Paraguayan Indian,Paraguayan Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4168-1,R1.04.003.019,Peruvian Indian,Peruvian Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4169-9,R1.04.003.020,Quechua,Quechua,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4170-7,R1.04.003.021,Quichua,Quichua,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4171-5,R1.04.003.022,Tehuelche,Tehuelche,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4172-3,R1.04.003.023,Tupi,Tupi,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4173-1,R1.04.003.024,Uruguayan Indian,Uruguayan Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4174-9,R1.04.003.025,Venezuelan Indian,Venezuelan Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4175-6,R1.04.003.026,Zaparo,Zaparo,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4176-4,R1.04.004,Caribbean Indian,Caribbean Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4177-2,R1.04.004.001,Carib,Carib,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4178-0,R1.04.004.002,Taino,Taino,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4179-8,R1.04.004.003,Dominican Indian,Dominican Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4180-6,R1.04.004.004,Puerto Rican Indian,Puerto Rican Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4181-4,R1.04.004.005,Cuban Indian,Cuban Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+1074-4,R1.04.005,Spanish American Indian,Spanish American Indian,31-Mar-2000,No,NA,Active,2.16.840.1.113883.6.238
+4183-0,R1.04.006,Mesoamerian Indian,Mesoamerian Indian,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4184-8,R1.04.006.001,Mayo,Mayo,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+4185-5,R1.04.006.002,Maya,Maya,30-Nov-2024,No,NA,Active,2.16.840.1.113883.6.238
+2028-9,R2,Asian,Asian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2029-7,R2.01,Asian Indian,Asian Indian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2030-5,R2.02,Bangladeshi,Bangladeshi,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2031-3,R2.03,Bhutanese,Bhutanese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2032-1,R2.04,Burmese,Burmese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2033-9,R2.05,Cambodian,Cambodian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2034-7,R2.06,Chinese,Chinese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2035-4,R2.07,Taiwanese,Taiwanese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2036-2,R2.08,Filipino,Filipino,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2037-0,R2.09,Hmong,Hmong,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2038-8,R2.10,Indonesian,Indonesian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2039-6,R2.11,Japanese,Japanese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2040-4,R2.12,Korean,Korean,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2041-2,R2.13,Laotian,Laotian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2042-0,R2.14,Malaysian,Malaysian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2043-8,R2.15,Okinawan,Okinawan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2044-6,R2.16,Pakistani,Pakistani,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2045-3,R2.17,Sri Lankan,Sri Lankan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2046-1,R2.18,Thai,Thai,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2047-9,R2.19,Vietnamese,Vietnamese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2048-7,R2.20,Iwo Jiman,Iwo Jiman,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2049-5,R2.21,Maldivian,Maldivian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2050-3,R2.22,Nepalese,Nepalese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2051-1,R2.23,Singaporean,Singaporean,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2052-9,R2.24,Madagascar,Madagascar,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2054-5,R3,Black or African American,Black or African American,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2056-0,R3.01,Black,Black,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2058-6,R3.02,African American,African American,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2060-2,R3.03,African,African,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2061-0,R3.03.001,Botswanan,Botswanan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2062-8,R3.03.002,Ethiopian,Ethiopian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2063-6,R3.03.003,Liberian,Liberian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2064-4,R3.03.004,Namibian,Namibian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2065-1,R3.03.005,Nigerian,Nigerian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2066-9,R3.03.006,Zairean,Zairean,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+4186-3,R3.03.007,Somali,Somali,30-Nov-2024,NA,NA,Active,2.16.840.1.113883.6.238
+2067-7,R3.04,Bahamian,Bahamian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2068-5,R3.05,Barbadian,Barbadian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2069-3,R3.06,Dominican,Dominican,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2070-1,R3.07,Dominica Islander,Dominica Islander,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2071-9,R3.08,Haitian,Haitian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2072-7,R3.09,Jamaican,Jamaican,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2073-5,R3.10,Tobagoan,Tobagoan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2074-3,R3.11,Trinidadian,Trinidadian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2075-0,R3.12,West Indian,West Indian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2076-8,R4,Native Hawaiian or Other Pacific Islander,Native Hawaiian or Other Pacific Islander,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2078-4,R4.01,Polynesian,Polynesian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2079-2,R4.01.001,Native Hawaiian,Native Hawaiian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2080-0,R4.01.002,Samoan,Samoan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2081-8,R4.01.003,Tahitian,Tahitian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2082-6,R4.01.004,Tongan,Tongan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2083-4,R4.01.005,Tokelauan,Tokelauan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2085-9,R4.02,Micronesian,Micronesian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2086-7,R4.02.001,Guamanian or Chamorro,Guamanian or Chamorro,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2087-5,R4.02.002,Guamanian,Guamanian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2088-3,R4.02.003,Chamorro,Chamorro,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2089-1,R4.02.004,Mariana Islander,Mariana Islander,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2090-9,R4.02.005,Marshallese,Marshallese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2091-7,R4.02.006,Palauan,Palauan,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2092-5,R4.02.007,Carolinian,Carolinian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2093-3,R4.02.008,Kosraean,Kosraean,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2094-1,R4.02.009,Pohnpeian,Pohnpeian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2095-8,R4.02.010,Saipanese,Saipanese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2096-6,R4.02.011,Kiribati,Kiribati,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2097-4,R4.02.012,Chuukese,Chuukese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2098-2,R4.02.013,Yapese,Yapese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2100-6,R4.03,Melanesian,Melanesian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2101-4,R4.03.001,Fijian,Fijian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2102-2,R4.03.002,Papua New Guinean,Papua New Guinean,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2103-0,R4.03.003,Solomon Islander,Solomon Islander,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2104-8,R4.03.004,New Hebrides,New Hebrides,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2500-7,R4.04,Other Pacific Islander,Other Pacific Islander,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2106-3,R5,White,White,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2108-9,R5.01,European,European,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2109-7,R5.01.001,Armenian,Armenian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2110-5,R5.01.002,English,English,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2111-3,R5.01.003,French,French,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2112-1,R5.01.004,German,German,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2113-9,R5.01.005,Irish,Irish,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2114-7,R5.01.006,Italian,Italian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2115-4,R5.01.007,Polish,Polish,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2116-2,R5.01.008,Scottish,Scottish,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2118-8,R5.02,Middle Eastern or North African,Middle Eastern or North African,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2119-6,R5.02.001,Assyrian,Assyrian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2120-4,R5.02.002,Egyptian,Egyptian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2121-2,R5.02.003,Iranian,Iranian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2122-0,R5.02.004,Iraqi,Iraqi,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2123-8,R5.02.005,Lebanese,Lebanese,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2124-6,R5.02.006,Palestinian,Palestinian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2125-3,R5.02.007,Syrian,Syrian,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2126-1,R5.02.008,Afghanistani,Afghanistani,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2127-9,R5.02.009,Israeli,Israeli,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2129-5,R5.03,Arab,Arab,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238
+2131-1,R9,Other Race,Other Race,31-Mar-2000,NA,NA,Active,2.16.840.1.113883.6.238

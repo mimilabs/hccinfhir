@@ -30,6 +30,9 @@ def create_demographic_interactions(demographics: Demographics) -> dict:
         interactions['LTI_Aged'] = 0
         interactions['LTI_NonAged'] = 0
         
+    if demographics.lti and demographics.fbd:
+        interactions['LTIMCAID'] = 1
+
     nemcaid = False
     if demographics.new_enrollee and demographics.dual_elgbl_cd in {'01', '02', '03', '04', '05', '06', '08'}:
         nemcaid = True

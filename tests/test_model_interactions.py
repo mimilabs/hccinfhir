@@ -42,6 +42,25 @@ def test_create_demographic_interactions(sample_demographics):
     assert 'LTI_Aged' not in interactions
     assert 'LTI_NonAged' not in interactions
 
+def test_create_demographic_interactions_lti_with_medicaid():
+    demographics = Demographics(
+        age=75,
+        sex='F',
+        category="F75_79",
+        disabled=False,
+        orig_disabled=False,
+        non_aged=False,
+        fbd=True,
+        pbd=False,
+        lti=True
+    )
+    interactions = create_demographic_interactions(demographics)
+
+    assert 'LTI_Aged' in interactions
+    assert interactions['LTI_Aged'] == 1
+    assert 'LTIMCAID' in interactions
+    assert interactions['LTIMCAID'] == 1
+
 def test_create_dual_interactions(sample_demographics):
     interactions = create_dual_interactions(sample_demographics)
     

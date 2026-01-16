@@ -1,3 +1,69 @@
+# CHANGELOG v0.2.7 - Bug Fixes and Interaction Improvements
+
+## Summary
+
+This release fixes critical bugs in RxHCC coefficient lookups and interaction categorization, with contributions from the community.
+
+## Bug Fixes
+
+### 1. RxHCC Coefficient Lookup Fix
+
+**File:** `src/hccinfhir/model_coefficients.py`
+
+**Problem:** RxHCC Model V08 disease coefficients were not being loaded. The code constructed lookup keys with `HCC` prefix (e.g., `rx_ce_nolowaged_hcc31`) but coefficient files use `RXHCC` prefix (e.g., `Rx_CE_NoLowAged_RXHCC31`).
+
+**Impact:** All RxHCC disease scores were returning 0.
+
+**Fix:** Added model-specific key construction:
+```python
+# For RxHCC models, use RXHCC prefix instead of HCC
+if 'RxHCC' in model_name:
+    key = (f"{prefix}RXHCC{hcc}".lower(), model_name)
+else:
+    key = (f"{prefix}HCC{hcc}".lower(), model_name)
+```
+
+**Contributor:** @anchalkatoch05 (PR #8)
+
+### 2. LTIMCAID Demographic Categorization Fix
+
+**File:** `src/hccinfhir/model_calculate.py`
+
+**Problem:** The `LTIMCAID` interaction (LTI × Medicaid) was being included in `risk_score_hcc` instead of `risk_score_demographics`, causing incorrect RAF score breakdowns.
+
+**Fix:** Added routing for `LTIMCAID` to `demographic_interactions`:
+```python
+elif key == 'LTIMCAID':
+    demographic_interactions[key] = value
+```
+
+**Contributor:** @shackbarth (PR #9 - cherry-picked)
+
+### 3. Substance Use Interaction Key Typo
+
+**File:** `src/hccinfhir/model_interactions.py`
+
+**Problem:** Interaction key `gSubstanceAbuse_gPsych` did not match coefficient files which use `gSubstanceUseDisorder_gPsych` (V24) or `gSubstanceAbuse_gPsychiatric` (V22).
+
+**Fix:** Corrected key to `gSubstanceUseDisorder_gPsych`.
+
+**Contributor:** @shackbarth (PR #10 - merged)
+
+## Verification
+
+| Model | Before | After |
+|-------|--------|-------|
+| RxHCC V08 (E11.9) | HCC RAF: 0.0 | HCC RAF: 0.247 |
+| CMS-HCC V28 LTI+MCAID | Demographic RAF: 0.965 | Demographic RAF: 1.095 |
+
+## Contributors
+
+Thank you to our community contributors:
+- **@shackbarth** - LTIMCAID routing fix, substance use key typo fix
+- **@anchalkatoch05** - RxHCC coefficient lookup fix
+
+---
+
 # CHANGELOG v0.2.6 - ESRD Model Interactions Enhancement
 
 ## Summary

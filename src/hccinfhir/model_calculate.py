@@ -115,6 +115,8 @@ def calculate_raf(diagnosis_codes: List[str],
             demographic_interactions[key] = value
         elif key.startswith('OriginallyDisabled_'):
             demographic_interactions[key] = value
+        elif key == 'LTIMCAID':
+            demographic_interactions[key] = value
 
     coefficients_demographics = apply_coefficients(demographics,
                                                    set(),

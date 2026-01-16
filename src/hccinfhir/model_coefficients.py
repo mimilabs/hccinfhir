@@ -101,7 +101,11 @@ def apply_coefficients(demographics: Demographics,
 
     # Apply the coefficients
     for hcc in hcc_set:
-        key = (f"{prefix}HCC{hcc}".lower(), model_name)
+        # For RxHCC models, use RXHCC prefix instead of HCC
+        if 'RxHCC' in model_name:
+            key = (f"{prefix}RXHCC{hcc}".lower(), model_name)
+        else:
+            key = (f"{prefix}HCC{hcc}".lower(), model_name)
 
         if key in coefficients:
             value = coefficients[key]

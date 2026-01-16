@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hccinfhir"
-version = "0.2.6"
+version = "0.2.7"
 authors = [
   { name="Yubin Park", email="yubin.park@mimilabs.ai" },
 ]

@@ -6,50 +6,145 @@ def has_any_hcc(hcc_list: List[str], hcc_set: Set[str]) -> int:
     return int(bool(set(hcc_list) & hcc_set))
 
 def create_demographic_interactions(demographics: Demographics) -> dict:
-    """Creates common demographic-based interactions"""
+    """Creates common demographic-based interactions.
+
+    This function creates interaction variables that are model-agnostic.
+    The coefficient lookup will match only the relevant coefficients for
+    each model. Comments indicate which models primarily use each interaction.
+    """
     interactions = {}
-    # Determine sex from demographics.sex instead of category
-    # Category can start with 'NEM'/'NEF' for new enrollees, not just 'M'/'F'
+
+    # Common demographic flags
     is_female = demographics.sex in ('F', '2')
     is_male = demographics.sex in ('M', '1')
     is_aged = not demographics.non_aged
-    
-    # Original Disability interactions
+    lti = int(demographics.lti) if demographics.lti else 0
+    fbd = demographics.fbd
+    pbd = demographics.pbd
+    graft_months = demographics.graft_months
+
+    # Medicaid indicator (any dual status)
+    mcaid = 1 if demographics.dual_elgbl_cd in {
+        '01', '02', '03', '04', '05', '06', '07', '08', '09', '10'
+    } else 0
+
+    # Original Disability interactions (V22, V24, V28, ESRD V21, V24)
+    # Only for aged (65+); looked up with prefix (e.g., CNA_, DI_)
     if is_aged:
         interactions['OriginallyDisabled_Female'] = int(demographics.orig_disabled) * int(is_female)
         interactions['OriginallyDisabled_Male'] = int(demographics.orig_disabled) * int(is_male)
-    else:
-        interactions['OriginallyDisabled_Female'] = 0
-        interactions['OriginallyDisabled_Male'] = 0
 
-    # LTI interactions - used for ESRD models
-    if demographics.lti:
+    # Originally ESRD interactions (ESRD V21, V24 Dialysis); looked up as DI_Originally_ESRD_*
+    if is_aged and demographics.orec in ('2', '3'):
+        interactions['Originally_ESRD_Female'] = int(is_female)
+        interactions['Originally_ESRD_Male'] = int(is_male)
+
+    # MCAID × sex × age interactions (ESRD V21 Dialysis and Community Graft only)
+    # V21 used MCAID; V24 uses FBDual/PBDual (handled in create_dual_interactions)
+    if mcaid:
+        interactions['MCAID_Female_Aged'] = int(is_female) * int(is_aged)
+        interactions['MCAID_Female_NonAged'] = int(is_female) * int(not is_aged)
+        interactions['MCAID_Male_Aged'] = int(is_male) * int(is_aged)
+        interactions['MCAID_Male_NonAged'] = int(is_male) * int(not is_aged)
+
+    # LTI interactions for ESRD models
+    if lti:
+        # ESRD V24 Dialysis: looked up as DI_LTI_Aged, DI_LTI_NonAged
         interactions['LTI_Aged'] = int(is_aged)
         interactions['LTI_NonAged'] = int(not is_aged)
-    else:
-        interactions['LTI_Aged'] = 0
-        interactions['LTI_NonAged'] = 0
-        
-    nemcaid = False
-    if demographics.new_enrollee and demographics.dual_elgbl_cd in {'01', '02', '03', '04', '05', '06', '08'}:
-        nemcaid = True
-    ne_origds = int(demographics.age >= 65 and (demographics.orec is not None and demographics.orec == "1"))
-    
-    fbd = demographics.fbd
+        # ESRD V24 Graft Institutional: looked up WITHOUT prefix as LTI_GE65, LTI_LT65
+        interactions['LTI_GE65'] = int(is_aged)
+        interactions['LTI_LT65'] = int(not is_aged)
 
-    # Four mutually exclusive groups
+    # LTIMCAID for V24, V28 Institutional model; looked up as INS_LTIMCAID
+    if lti and mcaid:
+        interactions['LTIMCAID'] = lti * mcaid
+
+    # New Enrollee interactions for V24, V28, ESRD V21, ESRD V24
+    nemcaid = False
+    if demographics.new_enrollee and demographics.dual_elgbl_cd in {
+        '01', '02', '03', '04', '05', '06', '08'
+    }:
+        nemcaid = True
+    ne_origds = int(
+        demographics.age >= 65 and
+        demographics.orec is not None and
+        demographics.orec == "1"
+    )
+
+    # V24, V28, ESRD V21: MCAID/NMCAID style; looked up with NE_ or SNPNE_ prefix
     interactions.update({
         f'NMCAID_NORIGDIS_{demographics.category}': int(not nemcaid and not ne_origds),
         f'MCAID_NORIGDIS_{demographics.category}': int(nemcaid and not ne_origds),
         f'NMCAID_ORIGDIS_{demographics.category}': int(not nemcaid and ne_origds),
         f'MCAID_ORIGDIS_{demographics.category}': int(nemcaid and ne_origds),
+    })
+
+    # ESRD V24: FBD/ND_PBD style; looked up with DNE_ or GNE_ prefix
+    interactions.update({
         f'FBD_NORIGDIS_{demographics.category}': int(fbd and not ne_origds),
         f'FBD_ORIGDIS_{demographics.category}': int(fbd and ne_origds),
         f'ND_PBD_NORIGDIS_{demographics.category}': int(not fbd and not ne_origds),
         f'ND_PBD_ORIGDIS_{demographics.category}': int(not fbd and ne_origds)
     })
 
-    # output only non-zero interactions
+    # Functioning Graft Duration "transplant bumps" for ESRD models
+    # All looked up WITHOUT prefix - they match directly by name
+    if graft_months and graft_months >= 4:
+        is_dur4_9 = (4 <= graft_months <= 9)
+        is_dur10pl = (graft_months >= 10)
+
+        # ESRD V21: simple age-based bumps (GE65_DUR4_9, LT65_DUR4_9, etc.)
+        if is_dur4_9:
+            interactions['GE65_DUR4_9'] = int(is_aged)
+            interactions['LT65_DUR4_9'] = int(not is_aged)
+        if is_dur10pl:
+            interactions['GE65_DUR10PL'] = int(is_aged)
+            interactions['LT65_DUR10PL'] = int(not is_aged)
+
+        # ESRD V24: FGC (Community) / FGI (Institutional) stratified by dual status
+        if not fbd:
+            # Non-Dual and Partial Benefit Dual (ND_PBD)
+            if is_dur4_9:
+                interactions.update({
+                    'FGC_GE65_DUR4_9_ND_PBD': int(is_aged) * int(not lti),
+                    'FGC_LT65_DUR4_9_ND_PBD': int(not is_aged) * int(not lti),
+                    'FGI_GE65_DUR4_9_ND_PBD': int(is_aged) * lti,
+                    'FGI_LT65_DUR4_9_ND_PBD': int(not is_aged) * lti,
+                })
+            if is_dur10pl:
+                interactions.update({
+                    'FGC_GE65_DUR10PL_ND_PBD': int(is_aged) * int(not lti),
+                    'FGC_LT65_DUR10PL_ND_PBD': int(not is_aged) * int(not lti),
+                    'FGI_GE65_DUR10PL_ND_PBD': int(is_aged) * lti,
+                    'FGI_LT65_DUR10PL_ND_PBD': int(not is_aged) * lti,
+                })
+            # Extra PBD flag for Partial Benefit Dual members
+            if pbd:
+                interactions.update({
+                    'FGC_PBD_GE65_flag': int(is_aged) * int(not lti),
+                    'FGC_PBD_LT65_flag': int(not is_aged) * int(not lti),
+                    'FGI_PBD_GE65_flag': int(is_aged) * lti,
+                    'FGI_PBD_LT65_flag': int(not is_aged) * lti,
+                })
+        else:
+            # Full Benefit Dual (FBD)
+            if is_dur4_9:
+                interactions.update({
+                    'FGC_GE65_DUR4_9_FBD': int(is_aged) * int(not lti),
+                    'FGC_LT65_DUR4_9_FBD': int(not is_aged) * int(not lti),
+                    'FGI_GE65_DUR4_9_FBD': int(is_aged) * lti,
+                    'FGI_LT65_DUR4_9_FBD': int(not is_aged) * lti,
+                })
+            if is_dur10pl:
+                interactions.update({
+                    'FGC_GE65_DUR10PL_FBD': int(is_aged) * int(not lti),
+                    'FGC_LT65_DUR10PL_FBD': int(not is_aged) * int(not lti),
+                    'FGI_GE65_DUR10PL_FBD': int(is_aged) * lti,
+                    'FGI_LT65_DUR10PL_FBD': int(not is_aged) * lti,
+                })
+
+    # Output only non-zero interactions
     interactions = {k: v for k, v in interactions.items() if v > 0}
 
     return interactions

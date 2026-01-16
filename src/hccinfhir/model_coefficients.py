@@ -112,11 +112,23 @@ def apply_coefficients(demographics: Demographics,
         if interaction_value < 1:
             continue
 
+        # Standard prefix-based lookup
         key = (f"{prefix}{interaction_key}".lower(), model_name)
         if key in coefficients:
             value = coefficients[key]
             output[interaction_key] = value
 
+        # No-prefix lookup for ESRD duration coefficients stored without prefix
+        # ESRD V21: GE65_DUR*, LT65_DUR*; ESRD V24: FGC_*, FGI_*, LTI_GE65/LT65
+        if (interaction_key.startswith('FGC') or
+            interaction_key.startswith('FGI') or
+            interaction_key.startswith('GE65_DUR') or
+            interaction_key.startswith('LT65_DUR') or
+            interaction_key in ('LTI_GE65', 'LTI_LT65')):
+            key = (interaction_key.lower(), model_name)
+            if key in coefficients:
+                value = coefficients[key]
+                output[interaction_key] = value
 
     return output
 

@@ -206,7 +206,7 @@ def test_extract_enrollment_834_sample():
     assert member5.has_medicare is True
     assert member5.has_medicaid is False
     assert member5.dual_elgbl_cd == "00"  # Non-dual
-    assert member5.new_enrollee is True  # Coverage started 2025-09-01 (within 3 months)
+    assert member5.coverage_start_date == "2025-09-01"  # new_enrollee depends on current date
     assert member5.maintenance_type == "021"  # Addition
 
 def test_is_losing_medicaid():

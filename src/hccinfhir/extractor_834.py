@@ -216,6 +216,36 @@ def is_new_enrollee(coverage_start_date: Optional[str], reference_date: Optional
         return False
 
 
+def derive_medi_cal_eligibility_status(coverage_end_date: Optional[str], report_date: Optional[str]) -> Optional[str]:
+    """Derive Medi-Cal eligibility status from coverage end date and report date.
+
+    Args:
+        coverage_end_date: Coverage end date in YYYY-MM-DD format
+        report_date: Report date in YYYY-MM-DD format
+
+    Returns:
+        "Active" if coverage extends through or beyond report month
+        "Terminated" if coverage ended before report month
+        None if no coverage_end_date
+    """
+    if not coverage_end_date:
+        return None
+    try:
+        end_date = datetime.strptime(coverage_end_date, "%Y-%m-%d").date()
+        if report_date:
+            ref_date = datetime.strptime(report_date, "%Y-%m-%d").date()
+        else:
+            ref_date = date.today()
+        # Get first day of report month for comparison
+        first_of_report_month = ref_date.replace(day=1)
+        if end_date < first_of_report_month:
+            return "Terminated"
+        else:
+            return "Active"
+    except (ValueError, AttributeError):
+        return None
+
+
 def contains_any_keyword(text: str, keywords: set) -> bool:
     """Check if text contains any of the keywords"""
     text_upper = text.upper()
@@ -326,10 +356,15 @@ def parse_ref_dx(value: str, member: MemberContext) -> None:
 
 
 def parse_ref_17(value: str, member: MemberContext) -> None:
-    """REF*17: YYYYMM;;... (FAME redetermination date)"""
+    """REF*17: YYYYMM;YYYYMMDD;YYYYMM (redetermination date; death date; reporting month)"""
+    # Position 0: FAME redetermination date (YYYYMM)
     yyyymm = get_composite_part(value, 0)
     if yyyymm and len(yyyymm) >= 6:
         member.fame_redetermination_date = f"{yyyymm[:4]}-{yyyymm[4:6]}-01"
+    # Position 1: FAME death date (YYYYMMDD)
+    death_date_str = get_composite_part(value, 1)
+    if death_date_str and len(death_date_str) == 8:
+        member.fame_death_date = parse_date(death_date_str)
 
 
 # ============================================================================
@@ -503,6 +538,7 @@ def _finalize_member(member: MemberContext, source: str, report_date: str) -> En
     dual_code = determine_dual_status(member)
     is_fbd, is_pbd = classify_dual_benefit_level(dual_code)
     new_enrollee = is_new_enrollee(member.coverage_start_date)
+    medi_cal_elig_status = derive_medi_cal_eligibility_status(member.coverage_end_date, report_date)
 
     hcp_history = [
         HCPCoveragePeriod(
@@ -530,6 +566,7 @@ def _finalize_member(member: MemberContext, source: str, report_date: str) -> En
         dual_elgbl_cd=dual_code, is_full_benefit_dual=is_fbd, is_partial_benefit_dual=is_pbd,
         medicare_status_code=member.medicare_status_code,
         medi_cal_aid_code=member.medi_cal_aid_code,
+        medi_cal_eligibility_status=medi_cal_elig_status,
         fame_county_id=member.fame_county_id, case_number=member.case_number,
         fame_card_issue_date=member.fame_card_issue_date,
         fame_redetermination_date=member.fame_redetermination_date,
@@ -583,6 +620,11 @@ def parse_834_enrollment(segments: List[List[str]], source: str = None, report_d
             member.maintenance_type = get_segment_value(segment, 3)
             member.maintenance_reason_code = get_segment_value(segment, 4)
             member.benefit_status_code = get_segment_value(segment, 5)
+            # INS12 is Member Death Date when INS11 = D8
+            if get_segment_value(segment, 11) == 'D8':
+                death_str = get_segment_value(segment, 12)
+                if death_str:
+                    member.death_date = parse_date(death_str)
 
         # REF - Reference identifiers
         elif seg_id == 'REF' and len(segment) >= 3:
@@ -641,9 +683,6 @@ def parse_834_enrollment(segments: List[List[str]], source: str = None, report_d
             if sex in X12_SEX_CODE_MAPPING:
                 member.sex = X12_SEX_CODE_MAPPING[sex]
             member.race = parse_race_code(get_segment_value(segment, 5))
-            death_str = get_segment_value(segment, 6)
-            if death_str and len(death_str) >= 8:
-                member.death_date = parse_date(death_str[:8])
 
         # DTP - Dates
         elif seg_id == 'DTP' and len(segment) >= 4:
@@ -675,7 +714,6 @@ def parse_834_enrollment(segments: List[List[str]], source: str = None, report_d
                             member.has_medicare = True
                         elif qualifier == '435':
                             member.death_date = parsed
-                            member.fame_death_date = parsed
 
         # HD - Health coverage
         elif seg_id == 'HD' and len(segment) >= 4:

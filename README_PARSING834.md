@@ -46,7 +46,9 @@ X12 834 Benefit Enrollment Transaction
 │ │ │ ║           ├── INS03: Maintenance Type ───────► maintenance_type ║ │ │ │
 │ │ │ ║           │         (001=Change, 021=Add, 024=Cancel)           ║ │ │ │
 │ │ │ ║           ├── INS04: Maintenance Reason ─► maintenance_reason   ║ │ │ │
-│ │ │ ║           └── INS05: Benefit Status ─────► benefit_status_code  ║ │ │ │
+│ │ │ ║           ├── INS05: Benefit Status ─────► benefit_status_code  ║ │ │ │
+│ │ │ ║           └── INS11/12: Death Date ──────► death_date           ║ │ │ │
+│ │ │ ║                       (when INS11=D8, INS12=YYYYMMDD)           ║ │ │ │
 │ │ │ ║                                                                 ║ │ │ │
 │ │ │ ║ ┌───────────────────────────────────────────────────────────┐   ║ │ │ │
 │ │ │ ║ │ REF SEGMENTS (multiple, various qualifiers)               │   ║ │ │ │
@@ -66,7 +68,9 @@ X12 834 Benefit Enrollment Transaction
 │ │ │ ║ │ REF*3H ── County;AID;Case# ───────► county, aid, case_num │   ║ │ │ │
 │ │ │ ║ │ REF*6O ── Address Flags ──────────► res_addr_flag, etc.   │   ║ │ │ │
 │ │ │ ║ │ REF*DX ── Contract;Carrier;Start ─► fed_contract, carrier │   ║ │ │ │
-│ │ │ ║ │ REF*17 ── Redetermination Date ───► fame_redetermination  │   ║ │ │ │
+│ │ │ ║ │ REF*17 ── FAME Dates (composite):                          │   ║ │ │ │
+│ │ │ ║ │           ├── Pos 0: Redetermination ──► fame_redetermination│   ║ │ │ │
+│ │ │ ║ │           └── Pos 1: Death Date ───────► fame_death_date    │   ║ │ │ │
 │ │ │ ║ └───────────────────────────────────────────────────────────┘   ║ │ │ │
 │ │ │ ║                                                                 ║ │ │ │
 │ │ │ ║ ┌───────────────────────────────────────────────────────────┐   ║ │ │ │
@@ -94,8 +98,7 @@ X12 834 Benefit Enrollment Transaction
 │ │ │ ║ │ DMG ───── Demographics                                    │   ║ │ │ │
 │ │ │ ║ │           ├── DMG02: DOB (YYYYMMDD) ───────► dob          │   ║ │ │ │
 │ │ │ ║ │           ├── DMG03: Sex (M/F) ────────────► sex          │   ║ │ │ │
-│ │ │ ║ │           ├── DMG05: Race Code ────────────► race (→name) │   ║ │ │ │
-│ │ │ ║ │           └── DMG06: Death Date ───────────► death_date   │   ║ │ │ │
+│ │ │ ║ │           └── DMG05: Race Code ────────────► race (→name) │   ║ │ │ │
 │ │ │ ║ │                                                           │   ║ │ │ │
 │ │ │ ║ │ LUI ───── Language                                        │   ║ │ │ │
 │ │ │ ║ │           └── LUI02: Language Code ────────► language     │   ║ │ │ │
@@ -106,6 +109,7 @@ X12 834 Benefit Enrollment Transaction
 │ │ │ ║ ├───────────────────────────────────────────────────────────┤   ║ │ │ │
 │ │ │ ║ │ DTP*348 ─ Coverage Start Date ─────────► coverage_start   │   ║ │ │ │
 │ │ │ ║ │ DTP*349 ─ Coverage End Date ───────────► coverage_end     │   ║ │ │ │
+│ │ │ ║ │           (also derives medi_cal_eligibility_status)      │   ║ │ │ │
 │ │ │ ║ │ DTP*338 ─ Medicare Effective Date ─────► has_medicare     │   ║ │ │ │
 │ │ │ ║ │ DTP*435 ─ Death Date ──────────────────► death_date       │   ║ │ │ │
 │ │ │ ║ └───────────────────────────────────────────────────────────┘   ║ │ │ │
@@ -298,13 +302,35 @@ AMT segment values are converted to numeric:
 The parser produces `EnrollmentData` objects with:
 
 - **Identifiers**: member_id, mbi, medicaid_id, hic
-- **Demographics**: dob, age, sex, race, language
+- **Demographics**: dob, age, sex, race, language, death_date
 - **Address**: address_1, address_2, city, state, zip, phone
-- **Coverage**: coverage_start_date, coverage_end_date, maintenance_type
+- **Coverage**: coverage_start_date, coverage_end_date, maintenance_type, medi_cal_eligibility_status
 - **Dual Status**: dual_elgbl_cd, is_full_benefit_dual, is_partial_benefit_dual
 - **Risk Adjustment**: orec, crec, snp, low_income, lti, new_enrollee
-- **CA DHCS**: fame_county_id, case_number, medi_cal_aid_code, primary_aid_code
+- **CA DHCS**: fame_county_id, case_number, medi_cal_aid_code, primary_aid_code, fame_death_date, fame_redetermination_date
 - **HCP History**: List of coverage periods with dates and aid codes
+
+## Derived Fields
+
+Some fields are derived at finalization time:
+
+| Field | Source | Logic |
+|-------|--------|-------|
+| `age` | `dob` | Calculated from date of birth |
+| `new_enrollee` | `coverage_start_date` | True if <= 3 months since start |
+| `medi_cal_eligibility_status` | `coverage_end_date`, `report_date` | "Active" if coverage extends through report month, "Terminated" if ended before |
+| `is_full_benefit_dual` | `dual_elgbl_cd` | True if code in {'02', '04', '08'} |
+| `is_partial_benefit_dual` | `dual_elgbl_cd` | True if code in {'01', '03', '05', '06'} |
+
+## Death Date Sources
+
+Death date can come from multiple sources with the following priority:
+
+| Source | Field | Notes |
+|--------|-------|-------|
+| INS11/INS12 | `death_date` | Primary source when INS11='D8' |
+| DTP*435 | `death_date` | Secondary source, overwrites INS if present |
+| REF*17 position 1 | `fame_death_date` | FAME system recorded date (separate field) |
 
 ## Related Documentation
 

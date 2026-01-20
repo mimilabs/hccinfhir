@@ -276,7 +276,7 @@ class EnrollmentData(BaseModel):
         is_partial_benefit_dual: Partial Benefit Dual (uses CPA_/CPD_ prefix)
         medicare_status_code: QMB, SLMB, QI, QDWI, etc.
         medi_cal_aid_code: California Medi-Cal aid code
-        medi_cal_eligibility_status: Medi-Cal eligibility status from REF*6O
+        medi_cal_eligibility_status: Medi-Cal eligibility status (derived: "Active"/"Terminated"/None)
 
         # CA DHCS / FAME Specific
         fame_county_id: FAME county ID (REF*ZX or N4*CY)

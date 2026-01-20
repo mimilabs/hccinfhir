@@ -10,6 +10,8 @@ from hccinfhir.extractor_834 import (
     determine_dual_status,
     classify_dual_benefit_level,
     is_new_enrollee,
+    derive_medi_cal_eligibility_status,
+    parse_ref_17,
     MemberContext
 )
 from hccinfhir.constants import (
@@ -626,3 +628,148 @@ def test_enrollment_to_demographics_ca_dhcs():
     assert demographics.sex == "F"
     # dual_elgbl_cd should be set (even if "00" for non-dual)
     assert demographics.dual_elgbl_cd is not None
+
+
+# ============================================================================
+# Tests for New Features: Death Date, Eligibility Status, FAME Death Date
+# ============================================================================
+
+def test_derive_medi_cal_eligibility_status():
+    """Test Medi-Cal eligibility status derivation from dates"""
+    # Active: coverage end date is in or after report month
+    assert derive_medi_cal_eligibility_status("2025-11-30", "2025-11-15") == "Active"
+    assert derive_medi_cal_eligibility_status("2025-12-31", "2025-11-15") == "Active"
+
+    # Terminated: coverage end date is before report month
+    assert derive_medi_cal_eligibility_status("2025-10-31", "2025-11-15") == "Terminated"
+    assert derive_medi_cal_eligibility_status("2025-09-30", "2025-11-15") == "Terminated"
+
+    # None: no coverage end date
+    assert derive_medi_cal_eligibility_status(None, "2025-11-15") is None
+    assert derive_medi_cal_eligibility_status("", "2025-11-15") is None
+
+    # Edge case: coverage ends on first day of report month (still Active)
+    assert derive_medi_cal_eligibility_status("2025-11-01", "2025-11-15") == "Active"
+
+    # Edge case: coverage ends on last day of previous month (Terminated)
+    assert derive_medi_cal_eligibility_status("2025-10-31", "2025-11-01") == "Terminated"
+
+
+def test_parse_ref_17_fame_death_date():
+    """Test REF*17 parsing extracts fame_death_date from position 1"""
+    member = MemberContext()
+
+    # REF*17 with death date in position 1
+    parse_ref_17("202608;20250703;202511", member)
+    assert member.fame_redetermination_date == "2026-08-01"
+    assert member.fame_death_date == "2025-07-03"
+
+    # REF*17 without death date (empty position 1)
+    member2 = MemberContext()
+    parse_ref_17("202605;;202511", member2)
+    assert member2.fame_redetermination_date == "2026-05-01"
+    assert member2.fame_death_date is None
+
+    # REF*17 with only redetermination date
+    member3 = MemberContext()
+    parse_ref_17("202601", member3)
+    assert member3.fame_redetermination_date == "2026-01-01"
+    assert member3.fame_death_date is None
+
+
+def test_death_date_from_ins_segment():
+    """Test death date extraction from INS segment (INS11=D8, INS12=date)"""
+    # Create 834 with death date in INS segment
+    content_with_ins_death = """ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *250115*1200*^*00501*000000001*0*P*:~
+GS*BE*SENDER*RECEIVER*20250115*1200*1*X*005010X220A1~
+ST*834*0001*005010X220A1~
+BGN*00*12345*20250115*1200****2~
+INS*Y*18*024*AI*A*C**TE***D8*20250115~
+REF*0F*DECEASED001~
+NM1*IL*1*DOE*JOHN****MI*DECEASED001~
+DMG*D8*19500101*M~
+SE*7*0001~
+GE*1*1~
+IEA*1*000000001~"""
+
+    enrollments = extract_enrollment_834(content_with_ins_death)
+    assert len(enrollments) == 1
+
+    member = enrollments[0]
+    assert member.member_id == "DECEASED001"
+    assert member.death_date == "2025-01-15"
+    assert member.maintenance_type == "024"  # Termination
+
+
+def test_death_date_from_dtp_435():
+    """Test death date extraction from DTP*435 segment"""
+    content_with_dtp_death = """ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *250115*1200*^*00501*000000001*0*P*:~
+GS*BE*SENDER*RECEIVER*20250115*1200*1*X*005010X220A1~
+ST*834*0001*005010X220A1~
+BGN*00*12345*20250115*1200****2~
+INS*Y*18*024*AI*A***~
+REF*0F*DECEASED002~
+NM1*IL*1*SMITH*JANE****MI*DECEASED002~
+DMG*D8*19450601*F~
+DTP*435*D8*20250110~
+SE*8*0001~
+GE*1*1~
+IEA*1*000000001~"""
+
+    enrollments = extract_enrollment_834(content_with_dtp_death)
+    assert len(enrollments) == 1
+
+    member = enrollments[0]
+    assert member.member_id == "DECEASED002"
+    assert member.death_date == "2025-01-10"
+
+
+def test_medi_cal_eligibility_status_in_enrollment():
+    """Test that medi_cal_eligibility_status is derived during enrollment parsing"""
+    # Create 834 with coverage end date in the past relative to report date
+    content_terminated = """ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *251115*1200*^*00501*000000001*0*P*:~
+GS*BE*SENDER*RECEIVER*20251115*1200*1*X*005010X220A1~
+ST*834*0001*005010X220A1~
+BGN*00*12345*20251115*1200****2~
+INS*Y*18*024***~
+REF*0F*TERM001~
+NM1*IL*1*TERMINATED*MEMBER****MI*TERM001~
+DMG*D8*19600101*M~
+DTP*348*D8*20250101~
+DTP*349*D8*20251031~
+SE*9*0001~
+GE*1*1~
+IEA*1*000000001~"""
+
+    enrollments = extract_enrollment_834(content_terminated)
+    assert len(enrollments) == 1
+
+    member = enrollments[0]
+    assert member.member_id == "TERM001"
+    assert member.coverage_end_date == "2025-10-31"
+    # Report date is 2025-11-15, coverage ended 2025-10-31 -> Terminated
+    assert member.medi_cal_eligibility_status == "Terminated"
+
+    # Create 834 with coverage end date in the report month (Active)
+    content_active = """ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *251115*1200*^*00501*000000001*0*P*:~
+GS*BE*SENDER*RECEIVER*20251115*1200*1*X*005010X220A1~
+ST*834*0001*005010X220A1~
+BGN*00*12345*20251115*1200****2~
+INS*Y*18*001***~
+REF*0F*ACTIVE001~
+NM1*IL*1*ACTIVE*MEMBER****MI*ACTIVE001~
+DMG*D8*19700101*F~
+DTP*348*D8*20250101~
+DTP*349*D8*20251130~
+SE*9*0001~
+GE*1*1~
+IEA*1*000000001~"""
+
+    enrollments = extract_enrollment_834(content_active)
+    assert len(enrollments) == 1
+
+    member = enrollments[0]
+    assert member.member_id == "ACTIVE001"
+    assert member.coverage_end_date == "2025-11-30"
+    # Report date is 2025-11-15, coverage ends 2025-11-30 -> Active
+    assert member.medi_cal_eligibility_status == "Active"

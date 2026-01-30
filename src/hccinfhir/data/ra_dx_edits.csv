@@ -1,0 +1,108 @@
+icd10,edit_type,sex,age_min,age_max,action,cc_override,model_name,description
+D66,sex,2,,,override,112,CMS-HCC Model V28,Hemophilia A in female - assign to CC 112
+D67,sex,2,,,override,112,CMS-HCC Model V28,Hemophilia B in female - assign to CC 112
+J410,age,,,17,invalid,,CMS-HCC Model V28,Simple chronic bronchitis - invalid if age < 18
+J411,age,,,17,invalid,,CMS-HCC Model V28,Mucopurulent chronic bronchitis - invalid if age < 18
+J418,age,,,17,invalid,,CMS-HCC Model V28,Mixed chronic bronchitis - invalid if age < 18
+J42,age,,,17,invalid,,CMS-HCC Model V28,Unspecified chronic bronchitis - invalid if age < 18
+J430,age,,,17,invalid,,CMS-HCC Model V28,Unilateral pulmonary emphysema - invalid if age < 18
+J431,age,,,17,invalid,,CMS-HCC Model V28,Panlobular emphysema - invalid if age < 18
+J432,age,,,17,invalid,,CMS-HCC Model V28,Centrilobular emphysema - invalid if age < 18
+J438,age,,,17,invalid,,CMS-HCC Model V28,Other emphysema - invalid if age < 18
+J439,age,,,17,invalid,,CMS-HCC Model V28,Emphysema unspecified - invalid if age < 18
+J440,age,,,17,invalid,,CMS-HCC Model V28,COPD with acute lower respiratory infection - invalid if age < 18
+J441,age,,,17,invalid,,CMS-HCC Model V28,COPD with acute exacerbation - invalid if age < 18
+J449,age,,,17,invalid,,CMS-HCC Model V28,COPD unspecified - invalid if age < 18
+J982,age,,,17,invalid,,CMS-HCC Model V28,Interstitial emphysema - invalid if age < 18
+J983,age,,,17,invalid,,CMS-HCC Model V28,Compensatory emphysema - invalid if age < 18
+J4481,age,,,17,invalid,,CMS-HCC Model V28,Bronchiolitis obliterans - invalid if age < 18
+J4489,age,,,17,invalid,,CMS-HCC Model V28,Other specified COPD - invalid if age < 18
+C50011,age,,,49,override,22,CMS-HCC Model V28,Breast cancer nipple right female - bypass MCE if age < 50
+C50012,age,,,49,override,22,CMS-HCC Model V28,Breast cancer nipple left female - bypass MCE if age < 50
+C50019,age,,,49,override,22,CMS-HCC Model V28,Breast cancer nipple unspecified female - bypass MCE if age < 50
+C50021,age,,,49,override,22,CMS-HCC Model V28,Breast cancer nipple right male - bypass MCE if age < 50
+C50022,age,,,49,override,22,CMS-HCC Model V28,Breast cancer nipple left male - bypass MCE if age < 50
+C50029,age,,,49,override,22,CMS-HCC Model V28,Breast cancer nipple unspecified male - bypass MCE if age < 50
+C50111,age,,,49,override,22,CMS-HCC Model V28,Breast cancer central portion right female - bypass MCE if age < 50
+C50112,age,,,49,override,22,CMS-HCC Model V28,Breast cancer central portion left female - bypass MCE if age < 50
+C50119,age,,,49,override,22,CMS-HCC Model V28,Breast cancer central portion unspecified female - bypass MCE if age < 50
+C50121,age,,,49,override,22,CMS-HCC Model V28,Breast cancer central portion right male - bypass MCE if age < 50
+C50122,age,,,49,override,22,CMS-HCC Model V28,Breast cancer central portion left male - bypass MCE if age < 50
+C50129,age,,,49,override,22,CMS-HCC Model V28,Breast cancer central portion unspecified male - bypass MCE if age < 50
+C50211,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-inner quadrant right female - bypass MCE if age < 50
+C50212,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-inner quadrant left female - bypass MCE if age < 50
+C50219,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-inner quadrant unspecified female - bypass MCE if age < 50
+C50221,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-inner quadrant right male - bypass MCE if age < 50
+C50222,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-inner quadrant left male - bypass MCE if age < 50
+C50229,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-inner quadrant unspecified male - bypass MCE if age < 50
+C50311,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-inner quadrant right female - bypass MCE if age < 50
+C50312,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-inner quadrant left female - bypass MCE if age < 50
+C50319,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-inner quadrant unspecified female - bypass MCE if age < 50
+C50321,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-inner quadrant right male - bypass MCE if age < 50
+C50322,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-inner quadrant left male - bypass MCE if age < 50
+C50329,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-inner quadrant unspecified male - bypass MCE if age < 50
+C50411,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-outer quadrant right female - bypass MCE if age < 50
+C50412,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-outer quadrant left female - bypass MCE if age < 50
+C50419,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-outer quadrant unspecified female - bypass MCE if age < 50
+C50421,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-outer quadrant right male - bypass MCE if age < 50
+C50422,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-outer quadrant left male - bypass MCE if age < 50
+C50429,age,,,49,override,22,CMS-HCC Model V28,Breast cancer upper-outer quadrant unspecified male - bypass MCE if age < 50
+C50511,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-outer quadrant right female - bypass MCE if age < 50
+C50512,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-outer quadrant left female - bypass MCE if age < 50
+C50519,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-outer quadrant unspecified female - bypass MCE if age < 50
+C50521,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-outer quadrant right male - bypass MCE if age < 50
+C50522,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-outer quadrant left male - bypass MCE if age < 50
+C50529,age,,,49,override,22,CMS-HCC Model V28,Breast cancer lower-outer quadrant unspecified male - bypass MCE if age < 50
+C50611,age,,,49,override,22,CMS-HCC Model V28,Breast cancer axillary tail right female - bypass MCE if age < 50
+C50612,age,,,49,override,22,CMS-HCC Model V28,Breast cancer axillary tail left female - bypass MCE if age < 50
+C50619,age,,,49,override,22,CMS-HCC Model V28,Breast cancer axillary tail unspecified female - bypass MCE if age < 50
+C50621,age,,,49,override,22,CMS-HCC Model V28,Breast cancer axillary tail right male - bypass MCE if age < 50
+C50622,age,,,49,override,22,CMS-HCC Model V28,Breast cancer axillary tail left male - bypass MCE if age < 50
+C50629,age,,,49,override,22,CMS-HCC Model V28,Breast cancer axillary tail unspecified male - bypass MCE if age < 50
+C50811,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping sites right female - bypass MCE if age < 50
+C50812,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping sites left female - bypass MCE if age < 50
+C50819,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping sites unspecified female - bypass MCE if age < 50
+C50821,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping sites right male - bypass MCE if age < 50
+C50822,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping sites left male - bypass MCE if age < 50
+C50829,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping sites unspecified male - bypass MCE if age < 50
+C50911,age,,,49,override,22,CMS-HCC Model V28,Breast cancer unspecified site right female - bypass MCE if age < 50
+C50912,age,,,49,override,22,CMS-HCC Model V28,Breast cancer unspecified site left female - bypass MCE if age < 50
+C50919,age,,,49,override,22,CMS-HCC Model V28,Breast cancer unspecified site unspecified female - bypass MCE if age < 50
+C50921,age,,,49,override,22,CMS-HCC Model V28,Breast cancer unspecified site right male - bypass MCE if age < 50
+C50922,age,,,49,override,22,CMS-HCC Model V28,Breast cancer unspecified site left male - bypass MCE if age < 50
+C50929,age,,,49,override,22,CMS-HCC Model V28,Breast cancer unspecified site unspecified male - bypass MCE if age < 50
+C50A0,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping breast tissue unspecified - bypass MCE if age < 50
+C50A1,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping breast tissue right - bypass MCE if age < 50
+C50A2,age,,,49,override,22,CMS-HCC Model V28,Breast cancer overlapping breast tissue left - bypass MCE if age < 50
+P040,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal anesthesia - invalid if age >= 2
+P041,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by other maternal medication - invalid if age >= 2
+P0411,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal antineoplastic chemotherapy - invalid if age >= 2
+P0412,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal cytotoxic drugs - invalid if age >= 2
+P0413,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal anticonvulsants - invalid if age >= 2
+P0414,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal opiates - invalid if age >= 2
+P0415,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal antidepressants - invalid if age >= 2
+P0416,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal amphetamines - invalid if age >= 2
+P0417,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal sedative-hypnotics - invalid if age >= 2
+P0418,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by other maternal medication - invalid if age >= 2
+P0419,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal medication unspecified - invalid if age >= 2
+P041A,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal cannabis use - invalid if age >= 2
+P042,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal tobacco use - invalid if age >= 2
+P043,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal alcohol use - invalid if age >= 2
+P0440,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal cocaine use unspecified - invalid if age >= 2
+P0441,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal cocaine use - invalid if age >= 2
+P0442,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal crack cocaine use - invalid if age >= 2
+P0449,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal other drugs of addiction - invalid if age >= 2
+P045,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal chemical substances - invalid if age >= 2
+P046,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal radiation exposure - invalid if age >= 2
+P048,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by other maternal noxious substances - invalid if age >= 2
+P0481,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal cannabis use - invalid if age >= 2
+P0489,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by other maternal noxious substances - invalid if age >= 2
+P049,age,,2,,invalid,,CMS-HCC Model V28,Fetus/newborn affected by maternal noxious substance unspecified - invalid if age >= 2
+P270,age,,2,,invalid,,CMS-HCC Model V28,Wilson-Mikity syndrome - invalid if age >= 2
+P271,age,,2,,invalid,,CMS-HCC Model V28,Bronchopulmonary dysplasia originating in perinatal period - invalid if age >= 2
+P278,age,,2,,invalid,,CMS-HCC Model V28,Other chronic respiratory diseases originating in perinatal period - invalid if age >= 2
+P279,age,,2,,invalid,,CMS-HCC Model V28,Unspecified chronic respiratory disease originating in perinatal period - invalid if age >= 2
+P930,age,,2,,invalid,,CMS-HCC Model V28,Grey baby syndrome - invalid if age >= 2
+P938,age,,2,,invalid,,CMS-HCC Model V28,Reactions/intoxications due to other drugs in newborn - invalid if age >= 2
+P961,age,,2,,invalid,,CMS-HCC Model V28,Neonatal withdrawal symptoms from maternal therapeutic drugs - invalid if age >= 2
+P962,age,,2,,invalid,,CMS-HCC Model V28,Withdrawal symptoms from therapeutic drugs in newborn - invalid if age >= 2

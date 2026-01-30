@@ -2,6 +2,7 @@ from typing import Set, Dict, Tuple, Optional
 from pathlib import Path
 import importlib.resources
 from hccinfhir.datamodels import ModelName, ProcFilteringFilename, DxCCMappingFilename
+from hccinfhir.model_edits import EditRule
 
 
 def resolve_data_file(file_path: str) -> str:
@@ -352,3 +353,65 @@ def load_labels(file_path: str) -> Dict[Tuple[str, ModelName], str]:
             continue  # Skip malformed lines
 
     return labels
+
+
+def load_edits(file_path: str = "ra_dx_edits.csv") -> Dict[Tuple[str, ModelName], EditRule]:
+    """
+    Load age/sex edit rules from a CSV file.
+    Expected format: icd10,edit_type,sex,age_min,age_max,action,cc_override,model,description
+
+    These edits implement the hardcoded rules from CMS SAS macros (e.g., V28I0ED3)
+    that modify CC assignments based on patient age or sex.
+
+    Args:
+        file_path: Filename or path to the CSV file
+
+    Returns:
+        Dictionary mapping (icd10, model_name) to EditRule
+
+    Raises:
+        FileNotFoundError: If file cannot be found
+        RuntimeError: If file cannot be loaded or parsed
+    """
+    edits: Dict[Tuple[str, ModelName], EditRule] = {}
+
+    try:
+        resolved_path = resolve_data_file(file_path)
+        with open(resolved_path, "r", encoding="utf-8") as file:
+            content = file.read()
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Could not load edits: {e}")
+    except Exception as e:
+        raise RuntimeError(f"Error loading edits file '{file_path}': {e}")
+
+    for line in content.splitlines()[1:]:  # Skip header
+        try:
+            parts = line.strip().split(',')
+            if len(parts) < 8:
+                continue
+
+            icd10 = parts[0].strip()
+            edit_type = parts[1].strip()
+            sex = parts[2].strip() if parts[2].strip() else None
+            age_min = int(parts[3]) if parts[3].strip() else None
+            age_max = int(parts[4]) if parts[4].strip() else None
+            action = parts[5].strip()
+            cc_override = parts[6].strip() if parts[6].strip() else None
+            model_name = parts[7].strip()
+
+            rule = EditRule(
+                edit_type=edit_type,
+                sex=sex,
+                age_min=age_min,
+                age_max=age_max,
+                action=action,
+                cc_override=cc_override
+            )
+
+            key = (icd10, model_name)
+            edits[key] = rule
+
+        except (ValueError, IndexError):
+            continue  # Skip malformed lines
+
+    return edits

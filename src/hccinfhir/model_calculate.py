@@ -2,10 +2,11 @@ from typing import List, Union, Dict, Tuple, Set, Optional
 from hccinfhir.datamodels import ModelName, RAFResult, PrefixOverride, HCCDetail
 from hccinfhir.model_demographics import categorize_demographics
 from hccinfhir.model_dx_to_cc import apply_mapping
+from hccinfhir.model_edits import apply_edits, EditRule
 from hccinfhir.model_hierarchies import apply_hierarchies
 from hccinfhir.model_coefficients import apply_coefficients
 from hccinfhir.model_interactions import apply_interactions
-from hccinfhir.defaults import dx_to_cc_default, hierarchies_default, is_chronic_default, coefficients_default, labels_default
+from hccinfhir.defaults import dx_to_cc_default, hierarchies_default, is_chronic_default, coefficients_default, labels_default, edits_default
 
 def calculate_raf(diagnosis_codes: List[str],
                   model_name: ModelName = "CMS-HCC Model V28",
@@ -24,6 +25,7 @@ def calculate_raf(diagnosis_codes: List[str],
                   hierarchies_mapping: Dict[Tuple[str, ModelName], Set[str]] = hierarchies_default,
                   coefficients_mapping: Dict[Tuple[str, ModelName], float] = coefficients_default,
                   labels_mapping: Dict[Tuple[str, ModelName], str] = labels_default,
+                  edits_mapping: Dict[Tuple[str, ModelName], EditRule] = edits_default,
                   prefix_override: Optional[PrefixOverride] = None,
                   maci: float = 0.0,
                   norm_factor: float = 1.0,
@@ -49,6 +51,7 @@ def calculate_raf(diagnosis_codes: List[str],
         hierarchies_mapping: Mapping of parent HCCs to child HCCs for hierarchical rules; defaults to packaged 2026 mappings.
         coefficients_mapping: Mapping of coefficient names to values; defaults to packaged 2026 mappings.
         labels_mapping: Mapping of (cc, model_name) to human-readable HCC labels; defaults to packaged 2026 mappings.
+        edits_mapping: Mapping of (icd10, model_name) to EditRule for age/sex-based CC modifications; defaults to packaged edits.
         prefix_override: Optional prefix to override auto-detected demographic prefix.
             Use when demographic categorization from orec/crec is incorrect.
             Common values: 'DI_' (ESRD Dialysis), 'DNE_' (ESRD Dialysis New Enrollee),
@@ -92,6 +95,10 @@ def calculate_raf(diagnosis_codes: List[str],
     cc_to_dx = apply_mapping(diagnosis_codes,
                              model_name,
                              dx_to_cc_mapping=dx_to_cc_mapping)
+
+    # Apply age/sex edits (CMS hardcoded rules from V28I0ED and similar)
+    cc_to_dx = apply_edits(cc_to_dx, age, sex, model_name, edits_mapping)
+
     hcc_set = set(cc_to_dx.keys())
     hcc_set = apply_hierarchies(hcc_set, model_name, hierarchies_mapping)
     interactions = apply_interactions(demographics, hcc_set, model_name)

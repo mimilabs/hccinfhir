@@ -16,8 +16,10 @@ from hccinfhir.utils import (
     load_is_chronic,
     load_coefficients,
     load_proc_filtering,
-    load_labels
+    load_labels,
+    load_edits
 )
+from hccinfhir.model_edits import EditRule
 
 # Load all default data files once at module import time
 # These are used by:
@@ -31,3 +33,4 @@ is_chronic_default: Dict[Tuple[str, ModelName], bool] = load_is_chronic('hcc_is_
 coefficients_default: Dict[Tuple[str, ModelName], float] = load_coefficients('ra_coefficients_2026.csv')
 proc_filtering_default: Set[str] = load_proc_filtering('ra_eligible_cpt_hcpcs_2026.csv')
 labels_default: Dict[Tuple[str, ModelName], str] = load_labels('ra_labels_2026.csv')
+edits_default: Dict[Tuple[str, ModelName], EditRule] = load_edits('ra_dx_edits.csv')

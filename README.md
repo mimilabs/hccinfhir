@@ -393,6 +393,96 @@ if result.interactions:
 | `"CMS-HCC ESRD Model V21"` | 2024-2025 | ESRD populations | ✅ |
 | `"CMS-HCC ESRD Model V24"` | 2025-2026 | ESRD populations | ✅ |
 | `"RxHCC Model V08"` | 2024-2026 | Part D prescription drug | ✅ |
+| `"RxHCC Model V08 PDP_AND_MAPD"` | 2027 (proposed) | Part D - Combined reference estimate | ✅ |
+| `"RxHCC Model V08 PDP_ONLY"` | 2027 (proposed) | Part D - Standalone PDP plans | ✅ |
+| `"RxHCC Model V08 MAPD_ONLY"` | 2027 (proposed) | Part D - MA-PD plans | ✅ |
+
+### Using Proposed 2027 Coefficients
+
+The library includes proposed CMS coefficients for 2027 payment year (`ra_proposed_coefficients_2027.csv`). These are useful for:
+- **Prospective planning**: Estimate future RAF scores before final rates are published
+- **Impact analysis**: Compare current vs. proposed coefficient changes
+- **Research**: Model different payment scenarios
+
+```python
+from hccinfhir import HCCInFHIR, Demographics
+
+# CMS-HCC with proposed 2027 coefficients
+processor_2027 = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    coefficients_filename="ra_proposed_coefficients_2027.csv"
+)
+
+demographics = Demographics(age=70, sex="M", dual_elgbl_cd="00")
+diagnosis_codes = ["E11.9", "I10", "N18.3"]
+
+result = processor_2027.calculate_from_diagnosis(diagnosis_codes, demographics)
+print(f"2027 Proposed RAF Score: {result.risk_score:.3f}")
+```
+
+**RxHCC Plan-Specific Variants**
+
+CMS is introducing plan-specific RxHCC coefficients for 2027, separating standalone PDP and MA-PD plans. The combined PDP_AND_MAPD estimate is also provided as a traditional reference:
+
+```python
+# PDP and MA-PD combined (traditional reference estimate)
+processor_pdp_mapd = HCCInFHIR(
+    model_name="RxHCC Model V08 PDP_AND_MAPD",
+    coefficients_filename="ra_proposed_coefficients_2027.csv"
+)
+
+# PDP-only plans (standalone Part D)
+processor_pdp = HCCInFHIR(
+    model_name="RxHCC Model V08 PDP_ONLY",
+    coefficients_filename="ra_proposed_coefficients_2027.csv"
+)
+
+# MA-PD only plans (Medicare Advantage with Part D)
+processor_mapd = HCCInFHIR(
+    model_name="RxHCC Model V08 MAPD_ONLY",
+    coefficients_filename="ra_proposed_coefficients_2027.csv"
+)
+
+# Compare scores across plan types
+demographics = Demographics(age=70, sex="F", low_income=True)
+diagnosis_codes = ["E11.9"]
+
+for name, proc in [("PDP_AND_MAPD", processor_pdp_mapd),
+                   ("PDP_ONLY", processor_pdp),
+                   ("MAPD_ONLY", processor_mapd)]:
+    result = proc.calculate_from_diagnosis(diagnosis_codes, demographics)
+    print(f"{name}: {result.risk_score:.3f}")
+```
+
+**Comparing 2026 vs 2027 Coefficients**
+
+```python
+from hccinfhir import HCCInFHIR, Demographics
+
+# Current 2026 coefficients
+processor_2026 = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    coefficients_filename="ra_coefficients_2026.csv"
+)
+
+# Proposed 2027 coefficients
+processor_2027 = HCCInFHIR(
+    model_name="CMS-HCC Model V28",
+    coefficients_filename="ra_proposed_coefficients_2027.csv"
+)
+
+demographics = Demographics(age=70, sex="M", dual_elgbl_cd="00")
+diagnosis_codes = ["E11.9", "I10", "N18.3"]
+
+result_2026 = processor_2026.calculate_from_diagnosis(diagnosis_codes, demographics)
+result_2027 = processor_2027.calculate_from_diagnosis(diagnosis_codes, demographics)
+
+print(f"2026 RAF Score: {result_2026.risk_score:.3f}")
+print(f"2027 RAF Score: {result_2027.risk_score:.3f}")
+print(f"Change: {((result_2027.risk_score / result_2026.risk_score) - 1) * 100:.1f}%")
+```
+
+> **Note**: Proposed coefficients are subject to change. Always verify against final CMS publications for payment calculations.
 
 ### Custom Data Files
 

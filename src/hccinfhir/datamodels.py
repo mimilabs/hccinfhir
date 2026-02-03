@@ -9,7 +9,10 @@ ModelName = Literal[
     "CMS-HCC Model V28",
     "CMS-HCC ESRD Model V21",
     "CMS-HCC ESRD Model V24",
-    "RxHCC Model V08"
+    "RxHCC Model V08",
+    "RxHCC Model V08 PDP_AND_MAPD",
+    "RxHCC Model V08 PDP_ONLY",
+    "RxHCC Model V08 MAPD_ONLY"
 ]
 
 # Filename types: allow bundled filenames (with autocomplete) OR any custom string path
@@ -50,7 +53,8 @@ IsChronicFilename = Union[
 CoefficientsFilename = Union[
     Literal[
         "ra_coefficients_2025.csv",
-        "ra_coefficients_2026.csv"
+        "ra_coefficients_2026.csv",
+        "ra_proposed_coefficients_2027.csv"
     ],
     str
 ]

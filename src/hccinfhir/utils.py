@@ -234,11 +234,24 @@ def load_coefficients(file_path: str) -> Dict[Tuple[str, ModelName], float]:
             parts = line.strip().split(',')
             coefficient, value, model_domain, model_version = parts[0], parts[1], parts[2], parts[3]
 
+            # Extract version number and optional variant suffix
+            # Handles: "C28", "R08", "D24" (old) and "R08_PDP_AND_MAPD" (new)
+            if '_' in model_version:
+                # New format with variant: "R08_PDP_AND_MAPD" -> version="08", variant="PDP_AND_MAPD"
+                version_num = model_version[1:3]
+                variant = model_version[4:]  # Everything after "R08_"
+            else:
+                # Old format: "C28", "R08", "D24" -> version="28", "08", "24"
+                version_num = model_version[-2:]
+                variant = None
+
             # Construct model name based on domain
             if model_domain == 'ESRD':
-                model_name = f"CMS-HCC {model_domain} Model V{model_version[-2:]}"
+                model_name = f"CMS-HCC {model_domain} Model V{version_num}"
             else:
-                model_name = f"{model_domain} Model V{model_version[-2:]}"
+                model_name = f"{model_domain} Model V{version_num}"
+                if variant:
+                    model_name = f"{model_name} {variant}"
 
             key = (coefficient.lower(), model_name)
             coefficients[key] = float(value)

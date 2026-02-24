@@ -13,22 +13,18 @@ pip install hccinfhir
 ```
 
 ```python
-from hccinfhir import HCCInFHIR, Demographics
+from hccinfhir import HCCInFHIR
 
-# Initialize processor
 processor = HCCInFHIR(model_name="CMS-HCC Model V28")
 
-# Calculate from diagnosis codes
-demographics = Demographics(age=67, sex="F")
-diagnosis_codes = ["E11.9", "I10", "N18.3"]
-
-result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+result = processor.calculate_from_diagnosis(["E11.9", "I10", "N18.3"], age=67, sex="F")
 print(f"Risk Score: {result.risk_score}")
 print(f"HCCs: {result.hcc_list}")
 ```
 
 ## 📋 Table of Contents
 
+- [Migrating from hccpy](#migrating-from-hccpy)
 - [Key Features](#key-features)
 - [Data Sources & Use Cases](#data-sources--use-cases)
 - [Installation](#installation)
@@ -54,6 +50,48 @@ print(f"HCCs: {result.hcc_list}")
 - [Testing](#testing)
 - [License](#license)
 
+## 🔄 Migrating from hccpy
+
+HCCInFHIR is the evolution of [hccpy](https://github.com/yubin-park/hccpy). If you're already using hccpy, the transition is straightforward:
+
+**hccpy**:
+```python
+from hccpy.hcc import HCCEngine
+
+he = HCCEngine("28")
+rp = he.profile(["E1169", "I5030", "I509", "I211", "I209", "R05"], age=70, sex="M")
+print(rp["risk_score"])
+print(rp["hcc_lst"])
+```
+
+**hccinfhir**:
+```python
+from hccinfhir import HCCInFHIR
+
+processor = HCCInFHIR(model_name="CMS-HCC Model V28")
+result = processor.calculate_from_diagnosis(["E1169", "I5030", "I509", "I211", "I209", "R05"], age=70, sex="M")
+print(result.risk_score)
+print(result.hcc_list)
+```
+
+**Why upgrade?**
+
+| | hccpy | hccinfhir |
+|---|---|---|
+| Diagnosis-to-RAF | Simple and fast | Same simplicity, same speed |
+| Input formats | Diagnosis codes only | FHIR EOB, X12 837, X12 834, diagnosis codes |
+| HCC models | V22, V24, V28, ESRD V21 | V22, V24, V28, ESRD V21, ESRD V24, RxHCC V08 |
+| Dual eligibility | Manual `elig` parameter | Auto-detection from 834 enrollment data |
+| Payment adjustments | CIF + normalization | MACI, normalization, frailty scores |
+| Data quality | No workarounds | Prefix override for incorrect source data |
+| Custom data files | Not supported | Full support for custom coefficients, mappings, hierarchies |
+| Output | Dictionary | Pydantic model (typed, serializable, dict-convertible) |
+
+**Key differences to note**:
+- hccpy's `elig` parameter (e.g., `"CNA"`) maps to hccinfhir's `dual_elgbl_cd` — the library auto-detects the eligibility segment from demographic fields
+- hccpy's `medicaid=True` maps to `dual_elgbl_cd="02"` (or other dual codes) in hccinfhir
+- hccpy returns a dict; hccinfhir returns a `RAFResult` object (use `result.model_dump()` if you need a dict)
+
 ## ✨ Key Features
 
 - **Multiple Input Formats**: FHIR EOB, X12 837, X12 834, direct diagnosis codes
@@ -65,7 +103,7 @@ print(f"HCCs: {result.hcc_list}")
 - **Custom Data Files**: Full support for custom coefficients, mappings, and hierarchies
 - **Flexible File Resolution**: Absolute paths, relative paths, or bundled data files
 - **Type-Safe**: Built on Pydantic with full type hints
-- **Well-Tested**: 189 comprehensive tests covering all features
+- **Well-Tested**: 238 comprehensive tests covering all features
 
 ## 📊 Data Sources & Use Cases
 
@@ -344,17 +382,9 @@ print(f"Service Period: {min(svc.service_date for svc in result.service_level_da
 **Scenario**: Quick HCC mapping validation or research without claims data.
 
 ```python
-from hccinfhir import HCCInFHIR, Demographics
+from hccinfhir import HCCInFHIR
 
 processor = HCCInFHIR(model_name="CMS-HCC Model V28")
-
-demographics = Demographics(
-    age=75,
-    sex="F",
-    dual_elgbl_cd="02",  # Full benefit dual
-    orig_disabled=False,
-    new_enrollee=False
-)
 
 diagnosis_codes = [
     "E11.9",   # Type 2 diabetes
@@ -364,7 +394,11 @@ diagnosis_codes = [
     "M79.3"    # Panniculitis
 ]
 
-result = processor.calculate_from_diagnosis(diagnosis_codes, demographics)
+# Pass demographics as keyword arguments
+result = processor.calculate_from_diagnosis(
+    diagnosis_codes,
+    age=75, sex="F", dual_elgbl_cd="02"  # Full benefit dual
+)
 
 print("=== HCC Risk Analysis ===")
 print(f"Risk Score: {result.risk_score:.3f}")
@@ -379,6 +413,21 @@ if result.interactions:
     print(f"\\nDisease Interactions:")
     for interaction, value in result.interactions.items():
         print(f"  {interaction}: {value:.3f}")
+```
+
+Demographics can also be passed as a `Demographics` object or a dict — all three forms are equivalent:
+
+```python
+from hccinfhir import Demographics
+
+# Keyword arguments (simplest)
+result = processor.calculate_from_diagnosis(["E11.9"], age=75, sex="F")
+
+# Dictionary
+result = processor.calculate_from_diagnosis(["E11.9"], {"age": 75, "sex": "F"})
+
+# Demographics object (full control)
+result = processor.calculate_from_diagnosis(["E11.9"], Demographics(age=75, sex="F"))
 ```
 
 ## ⚙️ Configuration
@@ -1132,7 +1181,7 @@ hatch shell
 # Install in development mode
 pip install -e .
 
-# Run all tests (189 tests)
+# Run all tests (238 tests)
 pytest tests/
 
 # Run specific test file

@@ -185,29 +185,45 @@ class HCCInFHIR:
         return raf_result.model_copy(update={'service_level_data': standardized_data})
         
     def calculate_from_diagnosis(self, diagnosis_codes: Iterable[str],
-                               demographics: Union[Demographics, Dict[str, Any]],
+                               demographics: Union[Demographics, Dict[str, Any], None] = None,
                                prefix_override: Optional[PrefixOverride] = None,
                                maci: float = 0.0,
                                norm_factor: float = 1.0,
-                               frailty_score: float = 0.0) -> RAFResult:
+                               frailty_score: float = 0.0,
+                               **kwargs) -> RAFResult:
         """Calculate RAF scores from diagnosis codes.
 
         Args:
             diagnosis_codes: Iterable of diagnosis codes (list, tuple, numpy array, etc.)
-            demographics: Demographics information
+            demographics: Demographics information as a Demographics object or dict.
+                Can be omitted if demographic fields are passed as keyword arguments.
             prefix_override: Optional prefix to override auto-detected demographic prefix.
                 Use when demographic categorization is incorrect (e.g., ESRD patients with orec=0).
             maci: Major Adjustment to Coding Intensity (0.0-1.0, default 0.0)
             norm_factor: Normalization factor (default 1.0)
             frailty_score: Frailty adjustment score (default 0.0)
+            **kwargs: Demographic fields (age, sex, dual_elgbl_cd, orec, etc.)
+                passed directly as keyword arguments. Only used when demographics is None.
 
         Returns:
             RAFResult object containing calculated scores
+
+        Examples:
+            # All three forms are equivalent:
+            processor.calculate_from_diagnosis(["E1169"], Demographics(age=70, sex="M"))
+            processor.calculate_from_diagnosis(["E1169"], {"age": 70, "sex": "M"})
+            processor.calculate_from_diagnosis(["E1169"], age=70, sex="M")
         """
         # Convert to list to ensure consistent handling downstream
         diagnosis_list = list(diagnosis_codes) if diagnosis_codes is not None else []
 
-        demographics = self._ensure_demographics(demographics)
+        if demographics is None:
+            demographics = Demographics(**kwargs)
+        elif kwargs:
+            raise ValueError("Pass demographics as an object/dict OR as keyword arguments, not both")
+        else:
+            demographics = self._ensure_demographics(demographics)
+
         raf_result = self._calculate_raf_from_demographics_and_dx_codes(
             diagnosis_list, demographics, prefix_override, maci, norm_factor, frailty_score
         )

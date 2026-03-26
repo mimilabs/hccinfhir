@@ -142,13 +142,13 @@ def test_extract_enrollment_834_sample():
     # Should have 5 members
     assert len(enrollments) == 5
 
-    # Test Member 1: Maria Garcia - QMB Plus (Full Benefit Dual), D-SNP
+    # Test Member 1: QMB Plus (Full Benefit Dual), D-SNP
     member1 = enrollments[0]
     assert member1.member_id == "MBR001"
-    assert member1.mbi == "1A23BC456D7"
-    assert member1.medicaid_id == "MC123456789"
-    assert member1.dob == "1955-03-15"
-    assert member1.age >= 69  # Age depends on current date
+    assert member1.mbi == "TESTMBI000000001"
+    assert member1.medicaid_id == "TESTMCD000000001"
+    assert member1.dob == "1900-01-01"
+    assert member1.age >= 100  # DOB masked to 1900-01-01
     assert member1.sex == "F"
     assert member1.has_medicare is True
     assert member1.has_medicaid is True
@@ -159,11 +159,11 @@ def test_extract_enrollment_834_sample():
     assert member1.snp is True  # D-SNP detected
     assert member1.maintenance_type == "021"  # Addition
 
-    # Test Member 2: Robert Johnson - QMB Only (Partial Benefit Dual) via aid code
+    # Test Member 2: QMB Only (Partial Benefit Dual) via aid code
     member2 = enrollments[1]
     assert member2.member_id == "MBR002"
-    assert member2.mbi == "2B34CD567E8"
-    assert member2.medicaid_id == "MC987654321"
+    assert member2.mbi == "TESTMBI000000002"
+    assert member2.medicaid_id == "TESTMCD000000002"
     assert member2.sex == "M"
     assert member2.has_medicare is True
     assert member2.has_medicaid is True
@@ -173,11 +173,11 @@ def test_extract_enrollment_834_sample():
     assert member2.medi_cal_aid_code == "4M"
     assert member2.maintenance_type == "001"  # Change
 
-    # Test Member 3: Carmen Rodriguez - SLMB Plus, Losing Medicaid
+    # Test Member 3: SLMB Plus, Losing Medicaid
     member3 = enrollments[2]
     assert member3.member_id == "MBR003"
-    assert member3.mbi == "3C45DE678F9"
-    assert member3.medicaid_id == "MC555666777"
+    assert member3.mbi == "TESTMBI000000003"
+    assert member3.medicaid_id == "TESTMCD000000003"
     assert member3.sex == "F"
     assert member3.has_medicare is True
     assert member3.has_medicaid is True
@@ -186,10 +186,10 @@ def test_extract_enrollment_834_sample():
     assert member3.coverage_end_date == "2025-02-28"  # Coverage ending
     assert member3.maintenance_type == "024"  # Cancellation/Termination
 
-    # Test Member 4: Thanh Nguyen - Medi-Cal Only (No Medicare)
+    # Test Member 4: Medi-Cal Only (No Medicare)
     member4 = enrollments[3]
     assert member4.member_id == "MBR004"
-    assert member4.medicaid_id == "MC111222333"
+    assert member4.medicaid_id == "TESTMCD000000004"
     assert member4.mbi is None  # No Medicare
     assert member4.sex == "M"
     assert member4.has_medicare is False
@@ -199,10 +199,10 @@ def test_extract_enrollment_834_sample():
     assert member4.is_partial_benefit_dual is False
     assert member4.maintenance_type == "021"  # Addition
 
-    # Test Member 5: John Smith - Medicare Only, New Enrollee
+    # Test Member 5: Medicare Only, New Enrollee
     member5 = enrollments[4]
     assert member5.member_id == "MBR005"
-    assert member5.mbi == "5E67FG890H1"
+    assert member5.mbi == "TESTMBI000000005"
     assert member5.medicaid_id is None  # No Medicaid
     assert member5.sex == "M"
     assert member5.has_medicare is True

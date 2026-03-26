@@ -120,7 +120,13 @@ print(result.hcc_list)
 - **Output**: Demographics with accurate dual eligibility for risk calculations
 - **Architecture**: See [834 Parsing Documentation](./README_PARSING834.md) for transaction structure and parsing logic
 
-### 3. **FHIR ExplanationOfBenefit Resources**
+### 3. **X12 820 Payment Remittance Files**
+- **Input**: X12 820 capitation payment remittance transactions
+- **Use Case**: Payment reconciliation, retroactive adjustment detection, dual eligibility verification
+- **Features**: Per-member payment amounts, ADX adjustment tracking, aid code / dual status cross-check
+- **Output**: Structured payment records linkable to RAF scores calculated from 837/834/EOB inputs
+
+### 4. **FHIR ExplanationOfBenefit Resources**
 - **Input**: FHIR EOB from CMS Blue Button 2.0 / BCDA API
 - **Use Case**: Applications processing Medicare beneficiary data
 - **Features**: FHIR-native extraction, standardized data model
@@ -294,6 +300,95 @@ for enrollment in enrollments:
 'SLMBONLY', 'SLMB'   → '03' (Partial Benefit)
 'QI', 'QI1'          → '06' (Partial Benefit)
 ```
+
+### Processing X12 820 Capitation Remittances
+
+**Scenario**: A Medicare Advantage or Medi-Cal managed care plan receives monthly
+capitation payment remittances and needs to reconcile them against internally
+calculated RAF scores, detect retroactive corrections, and verify dual eligibility
+rates were applied correctly.
+
+The 820 is **downstream** of risk adjustment — it carries the payment result, not
+the inputs. Its connection to this library is that the RAF scores calculated from
+837/834/EOB data are what CMS uses to determine the payment amounts in the 820.
+
+```
+837 / FHIR EOB ──┐
+                  ├──▶ HCC mapping ──▶ RAF score ──▶ capitation payment ──▶ 820
+834 enrollment ──┘     × benchmark
+```
+
+```python
+from hccinfhir import get_820_sample
+from hccinfhir.extractor_820 import extract_payment_820
+
+# Parse remittance file
+payment = extract_payment_820(get_820_sample(1))[0]
+print(f"{payment.payer_name} → {payment.payee_name}")
+print(f"Total: ${payment.total_amount:,.2f}  EFT: {payment.check_number}")
+
+# Per-member payment detail
+for member in payment.members:
+    for entry in member.remittance_entries:
+        print(f"  {member.member_id}  {entry.coverage_period_start}..{entry.coverage_period_end} "
+              f"${entry.payment_amount:,.2f}  {entry.description}")
+```
+
+**Reconcile against calculated RAF scores:**
+```python
+calculated_rafs = {"MBR001": 1.42, "MBR002": 0.98}
+cms_benchmark = 1200.00
+
+for member in payment.members:
+    raf = calculated_rafs.get(member.member_id)
+    if not raf:
+        continue
+    for entry in member.remittance_entries:
+        if entry.payment_amount is None:
+            continue
+        variance = entry.payment_amount - raf * cms_benchmark
+        if abs(variance) > 10:
+            print(f"Variance {member.member_id}: ${variance:+.2f} "
+                  f"(paid {entry.payment_amount:.2f}, expected {raf * cms_benchmark:.2f})")
+```
+
+**Detect retroactive adjustments** (ADX segments flag members whose risk scores
+were restated by CMS — reason code `"53"` = prior period, `"72"` = rate change):
+```python
+payment = extract_payment_820(get_820_sample(2))[0]  # sample with adjustments
+for member in payment.members:
+    for e in member.remittance_entries:
+        if e.adjustment_amount is not None:
+            print(f"{member.member_id} | {e.coverage_period_start} "
+                  f"adj={e.adjustment_amount:+.2f} reason={e.adjustment_reason}")
+```
+
+**Verify dual eligibility rates** (cross-check 820 `aid_code` against 834
+`dual_elgbl_cd` — a mismatch means the member was paid at the wrong rate):
+```python
+from hccinfhir.extractor_834 import extract_enrollment_834
+from hccinfhir import get_834_sample
+
+dual_map = {e.member_id: e.dual_elgbl_cd
+            for e in extract_enrollment_834(get_834_sample(1))}
+DUAL_AID_CODES = {"1H", "60", "10", "16", "17", "6H", "20"}
+
+for member in payment.members:
+    dual_cd = dual_map.get(member.member_id)
+    if dual_cd is None:
+        continue
+    for entry in member.remittance_entries:
+        paid_as_dual = entry.aid_code in DUAL_AID_CODES
+        enrolled_as_dual = dual_cd not in ("00", "NA", None)
+        if paid_as_dual != enrolled_as_dual:
+            print(f"Rate mismatch {member.member_id}: "
+                  f"paid as {'dual' if paid_as_dual else 'non-dual'} "
+                  f"but enrolled dual_elgbl_cd={dual_cd}")
+```
+
+Five PHI-masked sample files are included (cases 1–5), covering single-period
+payments, state-only pharmacy remittances, and files with retroactive ADX
+corrections. Use `get_820_sample(2)` for the adjustment scenario.
 
 ### Processing Clearinghouse 837 Claims
 
@@ -1145,31 +1240,31 @@ Comprehensive sample data for testing and development:
 
 ```python
 from hccinfhir import (
-    get_eob_sample,
-    get_837_sample,
+    get_eob_sample, get_eob_sample_list,
+    get_837_sample, get_837_sample_list,
     get_834_sample,
+    get_820_sample,
     list_available_samples
 )
 
 # FHIR EOB samples (3 individual + 200 batch)
-eob = get_eob_sample(1)  # Cases 1, 2, 3 (returns single dict)
-eob_list = get_eob_sample_list(limit=50)  # Returns list
+eob = get_eob_sample(1)           # cases 1-3
+eob_list = get_eob_sample_list(limit=50)
+result = processor.run([eob], demographics)  # processor.run() expects a list
 
-# Usage: processor.run() expects a list, so wrap single EOB
-result = processor.run([eob], demographics)  # Note: [eob] not eob
+# X12 837 samples (13 scenarios)
+claim = get_837_sample(0)          # cases 0-12
+claims = get_837_sample_list([0, 1, 2])
 
-# X12 837 samples (13 different scenarios)
-claim = get_837_sample(0)  # Cases 0-12 (returns string)
-claims = get_837_sample_list([0, 1, 2])  # Returns list
+# X12 834 enrollment samples (CA DHCS dual eligibility)
+enrollment_834 = get_834_sample(1)  # case 1
 
-# X12 834 enrollment samples (6 CA DHCS scenarios)
-enrollment_834 = get_834_sample(1)  # Cases 1-6 available (returns string)
+# X12 820 payment remittance samples (5 CA DHCS PACE scenarios, PHI masked)
+remittance = get_820_sample(1)     # cases 1-5; case 2 has ADX adjustments
 
 # List all available samples
 info = list_available_samples()
-print(f"EOB samples: {info['eob_case_numbers']}")
-print(f"837 samples: {info['837_case_numbers']}")
-print(f"834 samples: {info['834_case_numbers']}")
+print(info['820_case_numbers'])    # [1, 2, 3, 4, 5]
 ```
 
 ## 🧪 Testing

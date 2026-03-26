@@ -188,13 +188,42 @@ class SampleData:
             raise FileNotFoundError(f"Sample 834 case {case_number} not found")
 
     @staticmethod
+    def get_820_sample(case_number: int = 1) -> str:
+        """
+        Retrieve a specific 820 payment remittance sample by case number.
+
+        Args:
+            case_number: The case number (1 through 5). Default is 1.
+
+        Returns:
+            A string containing the 820 X12 payment remittance data
+
+        Raises:
+            ValueError: If case_number is not between 1 and 5
+            FileNotFoundError: If the sample file cannot be found
+
+        Example:
+            >>> sample_820 = SampleData.get_820_sample(1)
+            >>> print("ISA" in sample_820)
+            True
+        """
+        if case_number < 1 or case_number > 5:
+            raise ValueError("case_number must be between 1 and 5")
+
+        try:
+            with importlib.resources.open_text('hccinfhir.sample_files', f'sample_820_0{case_number}.txt') as f:
+                return f.read()
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Sample 820 case {case_number} not found")
+
+    @staticmethod
     def list_available_samples() -> Dict[str, Any]:
         """
         Get information about all available sample data.
-        
+
         Returns:
             A dictionary containing information about available samples
-            
+
         Example:
             >>> info = SampleData.list_available_samples()
             >>> print(info['eob_samples'])
@@ -213,10 +242,13 @@ class SampleData:
             "837_case_numbers": list(range(13)),
             "834_samples": ["sample_834_01.txt"],
             "834_case_numbers": [1],
+            "820_samples": [f"sample_820_0{i}.txt" for i in range(1, 6)],
+            "820_case_numbers": list(range(1, 6)),
             "description": {
                 "eob": "Explanation of Benefits (FHIR resources) for testing HCC calculations",
                 "837": "X12 837 claim data for testing claim processing",
-                "834": "X12 834 enrollment data for dual eligibility and demographics"
+                "834": "X12 834 enrollment data for dual eligibility and demographics",
+                "820": "X12 820 payment remittance data for capitation and premium payments"
             }
         }
 
@@ -287,10 +319,23 @@ def get_834_sample(case_number: int = 1) -> str:
     return SampleData.get_834_sample(case_number)
 
 
+def get_820_sample(case_number: int = 1) -> str:
+    """
+    Convenience function to get an 820 payment remittance sample.
+
+    Args:
+        case_number: The case number (1 through 5). Default is 1.
+
+    Returns:
+        A string containing the 820 X12 payment remittance data
+    """
+    return SampleData.get_820_sample(case_number)
+
+
 def list_available_samples() -> Dict[str, Any]:
     """
     Convenience function to get information about available samples.
-    
+
     Returns:
         A dictionary containing information about available samples
     """

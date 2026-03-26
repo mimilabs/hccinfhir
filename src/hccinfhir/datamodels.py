@@ -436,3 +436,105 @@ class EnrollmentData(BaseModel):
                         hcp[field] = date.fromisoformat(hcp[field])
 
         return data
+
+
+class RemittanceEntry(BaseModel):
+    """
+    A single remittance line item within a member's payment record.
+
+    Each RemittanceEntry corresponds to one RMR segment and its associated
+    REF, DTM, and ADX segments within an ENT loop of an 820 transaction.
+
+    Attributes:
+        reference_number: Invoice/check reference number (RMR02)
+        payment_amount: Net payment amount for this period; negative = recoupment (RMR04/05)
+        original_amount: Original amount before adjustment, when present (RMR05/06)
+        rate_code: Rate code from REF*18 (e.g., "957" = PACE rate)
+        aid_code: California Medi-Cal aid code from REF*ZZ (e.g., "1H", "M1", "60")
+        plan_type: Plan type from REF*ZZ composite aid_code;plan_type
+                   ("1" = primary/medical, "2" = pharmacy/state-only)
+        description: Payment description from second REF*ZZ
+                     (e.g., "Primary Capitation Dual", "Medi-Cal Only-State Only")
+        coverage_period_start: Coverage period begin date (YYYY-MM-DD) from DTM*582
+        coverage_period_end: Coverage period end date (YYYY-MM-DD) from DTM*582
+        adjustment_amount: Adjustment amount from ADX01 (negative = recoupment)
+        adjustment_reason: Adjustment reason code from ADX02 (e.g., "53" = prior period)
+    """
+    reference_number: Optional[str] = None
+    payment_amount: Optional[float] = None
+    original_amount: Optional[float] = None
+    rate_code: Optional[str] = None
+    aid_code: Optional[str] = None
+    plan_type: Optional[str] = None
+    description: Optional[str] = None
+    coverage_period_start: Optional[str] = None
+    coverage_period_end: Optional[str] = None
+    adjustment_amount: Optional[float] = None
+    adjustment_reason: Optional[str] = None
+
+
+class PaymentDetail(BaseModel):
+    """
+    Per-member payment record from an X12 820 ENT loop.
+
+    One PaymentDetail is created per ENT segment. A member may appear in
+    multiple ENT entries within the same transaction (e.g., retroactive
+    adjustments for prior periods).
+
+    Attributes:
+        entity_number: ENT sequence number (ENT01)
+        member_id: Member identifier from NM109
+        last_name: Member last name (NM103)
+        first_name: Member first name (NM104)
+        middle_name: Member middle name (NM105)
+        remittance_entries: List of remittance line items (one per RMR/DTM set)
+    """
+    entity_number: str = ""
+    member_id: Optional[str] = None
+    last_name: Optional[str] = None
+    first_name: Optional[str] = None
+    middle_name: Optional[str] = None
+    remittance_entries: List[RemittanceEntry] = []
+
+
+class PaymentData(BaseModel):
+    """
+    Payment/remittance data extracted from an X12 820 transaction.
+
+    Represents one ST*820 transaction, typically a capitation payment
+    remittance from a state Medicaid agency or CMS to a managed care plan.
+
+    Attributes:
+        source: Interchange sender ID (ISA06), e.g., "CALIFORNIA-DHCS"
+        report_date: Transaction date from GS04 (YYYY-MM-DD)
+        total_amount: Total payment amount from BPR02
+        payment_date: EFT effective date from BPR16 (YYYY-MM-DD)
+        check_number: EFT/check trace number from TRN02
+        payee_name: Receiving organization name (N1*PE)
+        payee_address_1: Payee street address (N3)
+        payee_city: Payee city (N4)
+        payee_state: Payee state (N4)
+        payee_zip: Payee ZIP code (N4)
+        payer_name: Paying organization name (N1*PR)
+        payer_address_1: Payer street address (N3)
+        payer_city: Payer city (N4)
+        payer_state: Payer state (N4)
+        payer_zip: Payer ZIP code (N4)
+        members: List of per-member payment records
+    """
+    source: Optional[str] = None
+    report_date: Optional[str] = None
+    total_amount: Optional[float] = None
+    payment_date: Optional[str] = None
+    check_number: Optional[str] = None
+    payee_name: Optional[str] = None
+    payee_address_1: Optional[str] = None
+    payee_city: Optional[str] = None
+    payee_state: Optional[str] = None
+    payee_zip: Optional[str] = None
+    payer_name: Optional[str] = None
+    payer_address_1: Optional[str] = None
+    payer_city: Optional[str] = None
+    payer_state: Optional[str] = None
+    payer_zip: Optional[str] = None
+    members: List[PaymentDetail] = []

@@ -558,6 +558,156 @@ content_834 = get_834_sample(1)
 enrollments = extract_enrollment_834(content_834)
 ```
 
+## 820 Payment Remittance Parser - Capitation Payment Tracking
+
+### Role in Risk Adjustment
+
+The 820 sits **downstream** of risk adjustment — it carries the capitation payment
+that results from RAF scores, not the inputs that produce them:
+
+```
+837 claims / FHIR EOB  ──┐
+                          ├──▶ HCC mapping ──▶ RAF score ──▶ capitation ──▶ 820
+834 enrollment         ──┘     × benchmark
+```
+
+Its value is **indirect**: reconciliation, retroactive adjustment detection, and
+dual eligibility verification.
+
+### Use Cases
+
+#### 1. Payment Reconciliation
+Verify that actual capitation (`820.payment_amount`) matches your calculated
+`RAF score × CMS benchmark rate`. A variance usually means CMS used a different
+RAF (prior-year sweep, mid-year correction) or the member's demographic prefix
+changed.
+
+```python
+from hccinfhir import get_820_sample
+from hccinfhir.extractor_820 import extract_payment_820
+
+calculated_rafs = {"TESTMBR000000001": 1.42, "TESTMBR000000002": 0.98}
+cms_benchmark = 1200.00
+
+payment = extract_payment_820(get_820_sample(1))[0]
+for member in payment.members:
+    raf = calculated_rafs.get(member.member_id)
+    if not raf:
+        continue
+    for entry in member.remittance_entries:
+        if entry.payment_amount is None:
+            continue
+        variance = entry.payment_amount - raf * cms_benchmark
+        if abs(variance) > 10:
+            print(f"{member.member_id}: paid={entry.payment_amount:.2f} "
+                  f"expected={raf * cms_benchmark:.2f} variance={variance:+.2f}")
+```
+
+#### 2. Retroactive Adjustment Detection
+Members with ADX segments had prior-period corrections applied. `adjustment_reason`
+`"53"` = Prior Period Adjustment; `"72"` = Retroactive Rate Change. These flag
+members whose risk scores may have been restated by CMS.
+
+```python
+payment = extract_payment_820(get_820_sample(2))[0]
+for member in payment.members:
+    for e in member.remittance_entries:
+        if e.adjustment_amount is not None:
+            print(f"{member.member_id} | period={e.coverage_period_start} "
+                  f"adj={e.adjustment_amount:+.2f} reason={e.adjustment_reason}")
+            if e.adjustment_reason == "53":
+                print(f"  → review HCC submissions for this member")
+```
+
+#### 3. Dual Eligibility Payment Verification
+The `aid_code` and `plan_type` fields in each `RemittanceEntry` show which
+capitation rate was applied. These map directly to `dual_elgbl_cd` from the 834
+parser. A mismatch means the member was paid under the wrong risk category.
+
+```
+plan_type "1" = primary/medical    plan_type "2" = pharmacy/state-only
+aid codes "1H","60","10","16","17" → Dual    "M1","M3" → Medi-Cal Only
+```
+
+```python
+from hccinfhir.extractor_834 import extract_enrollment_834
+from hccinfhir import get_820_sample, get_834_sample
+from hccinfhir.extractor_820 import extract_payment_820
+
+dual_map = {e.member_id: e.dual_elgbl_cd
+            for e in extract_enrollment_834(get_834_sample(1))}
+DUAL_AID_CODES = {"1H", "60", "10", "16", "17", "6H", "20"}
+
+payment = extract_payment_820(get_820_sample(1))[0]
+for member in payment.members:
+    dual_cd = dual_map.get(member.member_id)
+    if dual_cd is None:
+        continue
+    for entry in member.remittance_entries:
+        paid_as_dual = entry.aid_code in DUAL_AID_CODES
+        enrolled_as_dual = dual_cd not in ("00", "NA", None)
+        if paid_as_dual != enrolled_as_dual:
+            print(f"MISMATCH {member.member_id}: aid={entry.aid_code} "
+                  f"but dual_elgbl_cd={dual_cd}")
+```
+
+### Basic Usage
+
+```python
+from hccinfhir import get_820_sample
+from hccinfhir.extractor_820 import extract_payment_820
+
+payments = extract_payment_820(get_820_sample(1))  # one PaymentData per ST*820
+payment = payments[0]
+
+print(payment.payer_name, "→", payment.payee_name)
+print(f"Total: ${payment.total_amount:,.2f}  EFT: {payment.check_number}")
+
+for member in payment.members:
+    for entry in member.remittance_entries:
+        print(f"  {member.member_id} {entry.coverage_period_start}..{entry.coverage_period_end} "
+              f"${entry.payment_amount:,.2f} aid={entry.aid_code}/{entry.plan_type} "
+              f"{entry.description or ''}")
+```
+
+### Data Model Reference
+
+**`PaymentData`** — one per 820 transaction
+- `source`, `report_date`, `total_amount`, `payment_date`, `check_number`
+- `payer_name`, `payee_name` (+ address fields)
+- `members` → list of `PaymentDetail`
+
+**`PaymentDetail`** — one per ENT loop
+- `entity_number`, `member_id`, `last_name`, `first_name`, `middle_name`
+- `remittance_entries` → list of `RemittanceEntry`
+
+**`RemittanceEntry`** — one per RMR/DTM set
+- `payment_amount` — net; negative = recoupment
+- `original_amount` — pre-adjustment amount when present
+- `rate_code` — REF*18 (e.g. `"957"` = PACE)
+- `aid_code`, `plan_type`, `description` — from REF*ZZ
+- `coverage_period_start`, `coverage_period_end` — YYYY-MM-DD
+- `adjustment_amount`, `adjustment_reason` — from ADX
+
+### Sample Data
+
+Five PHI-masked samples from California DHCS PACE capitation remittances:
+
+| Sample | Members | Total | Scenario |
+|--------|---------|-------|---------|
+| 1 | 12 | $102,139 | State-only pharmacy, single period |
+| 2 | 13 | $91,978 | State-only with ADX prior-period adjustments |
+| 3 | 93 | $697,086 | Primary capitation, dual + Medi-Cal only mix |
+| 4 | 10 | $80,865 | Primary capitation, single period |
+| 5 | 81 | $499,188 | Primary capitation with retroactive corrections |
+
+```python
+from hccinfhir import get_820_sample
+from hccinfhir.extractor_820 import extract_payment_820
+
+payment = extract_payment_820(get_820_sample(2))[0]  # sample with ADX adjustments
+```
+
 ## Architecture Overview
 
 This is a Python library for extracting and processing healthcare data to calculate HCC (Hierarchical Condition Category) risk adjustment scores. The architecture follows a modular pipeline approach:

@@ -48,6 +48,7 @@ print(f"HCCs: {result.hcc_list}")
   - [Converting to Dictionaries](#converting-to-dictionaries)
 - [Sample Data](#sample-data)
 - [Testing](#testing)
+- [Comparison: CMS HHS-HCC Tool vs. hccinfhir](#comparison-cms-hhs-hcc-tool-vs-hccinfhir)
 - [License](#license)
 
 ## 🔄 Migrating from hccpy
@@ -1285,6 +1286,75 @@ pytest tests/test_model_calculate.py -v
 # Run with coverage
 pytest tests/ --cov=hccinfhir --cov-report=html
 ```
+
+## 🔍 Comparison: CMS HHS-HCC Tool vs. hccinfhir
+
+CMS publishes an official Python implementation of the HHS-HCC risk adjustment algorithm alongside each benefit year's DIY instructions (available at [cms.gov/marketplace/resources/regulations-guidance](https://www.cms.gov/marketplace/resources/regulations-guidance)). This section explains how that tool and hccinfhir differ in implementation philosophy — not in what they calculate, but in how they are designed to be used.
+
+> **Note:** The CMS HHS-HCC tool implements the **ACA Marketplace** (HHS-HCC) risk adjustment model. hccinfhir implements the **Medicare Advantage** (CMS-HCC) model. They cover different programs. The comparison below is about architectural philosophy, not feature equivalence.
+
+### The core difference
+
+The CMS tool treats the algorithm as **the artifact** — it is what CMS is publishing and certifying. Every intermediate step can be exposed for audit. Transparency of the pipeline is the point.
+
+hccinfhir treats the algorithm as **an ingredient** — something you compose into a larger system. The calculation is encapsulated behind a clean API. The abstraction boundary is the point.
+
+Neither is wrong. They reflect genuinely different audiences.
+
+### Philosophy comparison
+
+| Dimension | CMS HHS-HCC tool | hccinfhir | Why it matters |
+|---|---|---|---|
+| **Primary purpose** | Regulatory artifact — CMS publishes it to certify the calculation | Platform ingredient — published to be embedded in products | The CMS tool is what you validate against. hccinfhir is what you build with. |
+| **Intended user** | Compliance analyst who runs a script and reviews output CSVs | Platform engineer who imports a library and integrates into an app | Same algorithm, very different packaging needs depending on who consumes it. |
+| **Relationship to the algorithm** | Algorithm is the product — every step exposed via configurable output switches | Algorithm is hidden infrastructure — exposed only via a clean API | Auditability vs. encapsulation is a real tradeoff. Regulators want the former; engineering teams want the latter. |
+
+### Data contracts & schemas
+
+| Dimension | CMS HHS-HCC tool | hccinfhir | Why it matters |
+|---|---|---|---|
+| **Input contract** | Implicit — CSV column names enforced at runtime; bad names surface as cryptic pandas errors mid-run | Explicit — typed Pydantic `Demographics` model, validated on construction | Explicit contracts catch integration mistakes at the point of entry, critical when onboarding new data sources or partners. |
+| **Output contract** | Flat CSV — column presence depends on which config switches are on; downstream consumers must know which switches were set | Typed `RAFResult` object with stable, named fields regardless of inputs | Variable output shapes create fragile downstream dependencies in data warehouses, APIs, and dashboards. |
+| **Model versioning** | Implicit in config and data file paths — changing model years requires swapping multiple files | First-class `model_name` parameter; V22/V24/V28/ESRD/RxHCC reference data bundled | hccinfhir makes model year a one-line change. The CMS tool requires coordinated updates across config, file paths, and reference CSVs. |
+
+### Testing & validation
+
+| Dimension | CMS HHS-HCC tool | hccinfhir | Why it matters |
+|---|---|---|---|
+| **How correctness is verified** | No test suite or reference comparison is visible in the published code — correctness is implicitly trusted as a government publication | 238 unit tests covering all features, standard pytest suite | hccinfhir's test suite is reviewable and runnable in CI, which matters for orgs with software validation requirements (SOC 2, internal QA gates). |
+| **Integration testability** | Only by running the full pipeline end-to-end against known input/output pairs | Unit-testable at the patient level; Pydantic types make mocking straightforward | The CMS tool is authoritative but opaque. hccinfhir's per-patient API surface is far easier to test in isolation. |
+| **Validation responsibility** | On the user — intermediate output switches exist precisely so users can audit each pipeline stage themselves | On the maintainer — the test suite is the guarantee; users can also override all reference data files | The CMS tool's transparency is a form of trust-but-verify. hccinfhir asks you to trust the maintainer's fidelity to the spec, backed by tests. |
+
+### Error handling
+
+| Dimension | CMS HHS-HCC tool | hccinfhir | Why it matters |
+|---|---|---|---|
+| **Failure mode** | Entire batch fails — one error stops the run, logs it, and re-raises. Designed to never silently produce wrong scores. | Row-level degradation — the Spark UDF pattern returns nulls on failed rows and the batch continues | Fail-loud is correct for compliance batch jobs where a partial output is worse than none. Graceful degradation is correct for production pipelines where one bad record shouldn't stop millions of others. |
+| **Observability** | File-based logging — log written per run, reviewed after the fact | Exceptions surface to the caller — integrator routes them to their own stack (Datadog, Splunk, CloudWatch, etc.) | File-based logs are harder to operationalize in modern cloud environments than structured exceptions routed to existing observability tooling. |
+
+### Scalability & performance
+
+| Dimension | CMS HHS-HCC tool | hccinfhir | Why it matters |
+|---|---|---|---|
+| **Scale design** | Single-process pandas — designed for analyst-scale cohort runs, no parallelism built in | Stateless per-patient design — explicitly benchmarked on Databricks pandas UDF at ~1M members in 2 minutes | If you score members continuously, the CMS tool's architecture doesn't scale without significant wrapping work. hccinfhir maps naturally to distributed compute. |
+| **Deployment pattern** | Script you run — file in, file out | Library you embed — REST API, Spark job, Lambda function, CLI wrapper | The CMS tool's deployment model is a strength if you want simplicity and auditability. hccinfhir's is a strength if risk scores need to power operational systems rather than periodic reports. |
+
+### Governance & maintenance
+
+| Dimension | CMS HHS-HCC tool | hccinfhir | Why it matters |
+|---|---|---|---|
+| **Update cadence** | Follows CMS regulatory calendar — updated when a new benefit year is published | Community-maintained under Apache 2.0; bug fixes and features ship independently of the regulatory calendar | The CMS tool is authoritative but slow. hccinfhir can patch bugs faster but requires trusting the maintainer's ongoing accuracy. |
+| **License** | Government work — public domain | Apache 2.0 | Both are permissive for commercial use. Apache 2.0 includes an explicit patent grant, which matters if your legal team is cautious about open source in regulated healthcare software. |
+| **Risk of spec divergence** | None — it is the spec | Possible — maintainer must track CMS changes as they are published | Any third-party implementation can drift from CMS intent. Using hccinfhir in production means accepting a dependency on mimilabs' ongoing accuracy — reasonable, but worth a validation strategy. |
+
+### Practical guidance
+
+Most organizations end up needing both tools:
+
+- Use the **CMS tool** to understand and verify the algorithm, for compliance reporting, and as the authoritative reference when validating any other implementation.
+- Use **hccinfhir** when you need to embed scoring into an operational system — a real-time API, a nightly Spark pipeline, a clinical analytics platform.
+
+The interesting architectural challenge is that the CMS tool's pipeline philosophy makes extracting a clean, reusable scoring function non-trivial. If you are wrapping the CMS logic for operational use, expect meaningful adaptation work. hccinfhir does that wrapping for the CMS-HCC (Medicare) model; an equivalent for the HHS-HCC (ACA) model does not yet exist as a mature library.
 
 ## 📄 License
 

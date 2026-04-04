@@ -385,6 +385,11 @@ class EnrollmentData(BaseModel):
     lti: bool = False
     new_enrollee: bool = False
 
+    # Medicare Part A/B/D payment indicators (REF*9V, CA DHCS specific)
+    medicare_prt_a: Optional[str] = None
+    medicare_prt_b: Optional[str] = None
+    medicare_prt_d: Optional[str] = None
+
     # HCP Info
     hcp_code: Optional[str] = None
     hcp_status: Optional[str] = None

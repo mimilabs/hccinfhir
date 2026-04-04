@@ -126,6 +126,11 @@ class MemberContext(BaseModel):
     low_income: bool = False
     lti: bool = False
 
+    # Medicare Part A/B/D payment indicators (REF*9V in HD loop)
+    medicare_prt_a: Optional[str] = None
+    medicare_prt_b: Optional[str] = None
+    medicare_prt_d: Optional[str] = None
+
     # HCP Info
     hcp_code: Optional[str] = None
     hcp_status: Optional[str] = None
@@ -427,11 +432,20 @@ def medicaid_status_summary(enrollment: EnrollmentData) -> Dict:
 def _process_ref_segment(qualifier: str, value: str, member: MemberContext, in_hd_loop: bool) -> None:
     """Process REF segment based on qualifier"""
     # HD-loop specific
-    if in_hd_loop and member.current_hcp and qualifier == 'CE':
+    if in_hd_loop and qualifier == 'CE' and member.current_hcp:
         member.current_hcp.aid_codes = value
-        # Also set primary_aid_code from position 0 if not already set
         if not member.primary_aid_code:
             member.primary_aid_code = get_composite_part(value, 0)
+        return
+
+    if in_hd_loop and qualifier == '9V':
+        # REF*9V: {Part A code};{Part B code};{Part D code} — use first HD loop seen
+        if not member.medicare_prt_a:
+            member.medicare_prt_a = get_composite_part(value, 0)
+        if not member.medicare_prt_b:
+            member.medicare_prt_b = get_composite_part(value, 1)
+        if not member.medicare_prt_d:
+            member.medicare_prt_d = get_composite_part(value, 2)
         return
 
     # Member identifiers
@@ -577,6 +591,9 @@ def _finalize_member(member: MemberContext, source: str, report_date: str) -> En
         res_zip_deliv_code=member.res_zip_deliv_code,
         orec=member.orec, crec=member.crec, snp=member.snp,
         low_income=member.low_income, lti=member.lti, new_enrollee=new_enrollee,
+        medicare_prt_a=member.medicare_prt_a,
+        medicare_prt_b=member.medicare_prt_b,
+        medicare_prt_d=member.medicare_prt_d,
         hcp_code=member.hcp_code, hcp_status=member.hcp_status,
         amount_qualifier=member.amount_qualifier, amount=member.amount,
         hcp_history=hcp_history

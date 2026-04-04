@@ -6,7 +6,7 @@
 
 A comprehensive Python library for calculating HCC (Hierarchical Condition Category) risk adjustment scores from healthcare claims data. Supports multiple data sources including FHIR resources, X12 837 claims, X12 834 enrollment files, and direct diagnosis processing.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 pip install hccinfhir
@@ -22,7 +22,7 @@ print(f"Risk Score: {result.risk_score}")
 print(f"HCCs: {result.hcc_list}")
 ```
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Migrating from hccpy](#migrating-from-hccpy)
 - [Key Features](#key-features)
@@ -51,7 +51,7 @@ print(f"HCCs: {result.hcc_list}")
 - [Comparison: CMS HHS-HCC Tool vs hccinfhir](#comparison-cms-hhs-hcc-tool-vs-hccinfhir)
 - [License](#license)
 
-## 🔄 Migrating from hccpy
+## Migrating from hccpy
 
 HCCInFHIR is the evolution of [hccpy](https://github.com/yubin-park/hccpy). If you're already using hccpy, the transition is straightforward:
 
@@ -93,7 +93,7 @@ print(result.hcc_list)
 - hccpy's `medicaid=True` maps to `dual_elgbl_cd="02"` (or other dual codes) in hccinfhir
 - hccpy returns a dict; hccinfhir returns a `RAFResult` object (use `result.model_dump()` if you need a dict)
 
-## ✨ Key Features
+## Key Features
 
 - **Multiple Input Formats**: FHIR EOB, X12 837, X12 834, direct diagnosis codes
 - **Comprehensive HCC Models**: Support for CMS-HCC V22/V24/V28, ESRD models, RxHCC
@@ -106,7 +106,7 @@ print(result.hcc_list)
 - **Type-Safe**: Built on Pydantic with full type hints
 - **Well-Tested**: 238 comprehensive tests covering all features
 
-## 📊 Data Sources & Use Cases
+## Data Sources & Use Cases
 
 ### 1. **X12 837 Claims (Professional & Institutional)**
 - **Input**: X12 837 5010 transaction files + demographics
@@ -139,7 +139,7 @@ print(result.hcc_list)
 - **Features**: No claims data needed, fast calculation
 - **Output**: HCC mappings and risk scores
 
-## 🛠️ Installation
+## Installation
 
 ### Basic Installation
 ```bash
@@ -157,7 +157,7 @@ pip install -e .
 - Python 3.9+
 - Pydantic >= 2.10.3
 
-## 📖 How-To Guides
+## How-To Guides
 
 ### Working with CMS Encounter Data (837 Claims)
 
@@ -526,7 +526,7 @@ result = processor.calculate_from_diagnosis(["E11.9"], {"age": 75, "sex": "F"})
 result = processor.calculate_from_diagnosis(["E11.9"], Demographics(age=75, sex="F"))
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### Supported HCC Models
 
@@ -738,7 +738,7 @@ demographics = Demographics(
 )
 ```
 
-## 📚 API Reference
+## API Reference
 
 ### Main Classes
 
@@ -832,7 +832,7 @@ from hccinfhir.filter import apply_filter  # Apply CMS filtering
 from hccinfhir.model_calculate import calculate_raf  # Direct calculation
 ```
 
-## 🔧 Advanced Features
+## Advanced Features
 
 ### Payment RAF Adjustments
 
@@ -1235,7 +1235,7 @@ def calculate_risk(diagnosis_codes: list, demographics: dict):
     return result.model_dump(mode='json')  # Automatic JSON serialization
 ```
 
-## 📝 Sample Data
+## Sample Data
 
 Comprehensive sample data for testing and development:
 
@@ -1268,7 +1268,7 @@ info = list_available_samples()
 print(info['820_case_numbers'])    # [1, 2, 3, 4, 5]
 ```
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Activate virtual environment
@@ -1287,7 +1287,7 @@ pytest tests/test_model_calculate.py -v
 pytest tests/ --cov=hccinfhir --cov-report=html
 ```
 
-## 🔍 Comparison: CMS HHS-HCC Tool vs hccinfhir
+## Comparison: CMS HHS-HCC Tool vs hccinfhir
 
 CMS publishes an official Python implementation of the HHS-HCC risk adjustment algorithm alongside each benefit year's DIY instructions (available at [cms.gov/marketplace/resources/regulations-guidance](https://www.cms.gov/marketplace/resources/regulations-guidance)). This section explains how that tool and hccinfhir differ in implementation philosophy — not in what they calculate, but in how they are designed to be used.
 
@@ -1356,17 +1356,17 @@ Most organizations end up needing both tools:
 
 The interesting architectural challenge is that the CMS tool's pipeline philosophy makes extracting a clean, reusable scoring function non-trivial. If you are wrapping the CMS logic for operational use, expect meaningful adaptation work. hccinfhir does that wrapping for the CMS-HCC (Medicare) model; an equivalent for the HHS-HCC (ACA) model does not yet exist as a mature library.
 
-## 📄 License
+## License
 
 Apache License 2.0. See [LICENSE](LICENSE) for details.
 
-## 📞 Support
+## Support
 
 - **Claude Code Documentation**: [CLAUDE.md](./CLAUDE.md) - Comprehensive developer guide
 - **834 Parsing Architecture**: [README_PARSING834.md](./README_PARSING834.md) - X12 834 transaction structure and parsing logic
 - **Issues**: [GitHub Issues](https://github.com/mimilabs/hccinfhir/issues)
 
-## 👥 Contributors
+## Contributors
 
 We're grateful to all contributors who have helped improve this project:
 

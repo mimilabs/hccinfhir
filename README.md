@@ -48,7 +48,7 @@ print(f"HCCs: {result.hcc_list}")
   - [Converting to Dictionaries](#converting-to-dictionaries)
 - [Sample Data](#sample-data)
 - [Testing](#testing)
-- [Comparison: CMS HHS-HCC Tool vs. hccinfhir](#comparison-cms-hhs-hcc-tool-vs-hccinfhir)
+- [Comparison: CMS HHS-HCC Tool vs hccinfhir](#comparison-cms-hhs-hcc-tool-vs-hccinfhir)
 - [License](#license)
 
 ## 🔄 Migrating from hccpy
@@ -1287,7 +1287,7 @@ pytest tests/test_model_calculate.py -v
 pytest tests/ --cov=hccinfhir --cov-report=html
 ```
 
-## 🔍 Comparison: CMS HHS-HCC Tool vs. hccinfhir
+## 🔍 Comparison: CMS HHS-HCC Tool vs hccinfhir
 
 CMS publishes an official Python implementation of the HHS-HCC risk adjustment algorithm alongside each benefit year's DIY instructions (available at [cms.gov/marketplace/resources/regulations-guidance](https://www.cms.gov/marketplace/resources/regulations-guidance)). This section explains how that tool and hccinfhir differ in implementation philosophy — not in what they calculate, but in how they are designed to be used.
 

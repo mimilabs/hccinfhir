@@ -133,7 +133,7 @@ print(result.hcc_list)
 - **Features**: FHIR-native extraction, standardized data model
 - **Output**: Service-level analysis with risk adjustment calculations
 
-### 4. **Direct Diagnosis Codes**
+### 5. **Direct Diagnosis Codes**
 - **Input**: ICD-10 diagnosis codes + demographics
 - **Use Case**: Quick validation, research, prospective risk scoring
 - **Features**: No claims data needed, fast calculation
@@ -148,7 +148,7 @@ pip install hccinfhir
 
 ### Development Installation
 ```bash
-git clone https://github.com/yourusername/hccinfhir.git
+git clone https://github.com/mimilabs/hccinfhir.git
 cd hccinfhir
 pip install -e .
 ```

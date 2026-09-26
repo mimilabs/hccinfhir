@@ -218,7 +218,7 @@ def categorize_demographics(age: Union[int, float],
         # Standard logic with grouped 65_69 (for non-new-enrollee OR ESRD)
         else:
             age_ranges = [
-                (0, 34, '0_34'),
+                (-1, 34, '0_34'),
                 (34, 44, '35_44'),
                 (44, 54, '45_54'),
                 (54, 59, '55_59'),

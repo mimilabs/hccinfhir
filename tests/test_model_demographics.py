@@ -72,9 +72,11 @@ def test_age_boundaries():
     assert categorize_demographics(99, 'M', version='V6').category == 'MAGE_LAST_60_GT'
 
     # Test V2 boundaries
+    assert categorize_demographics(0, 'M', orec='0', version='V2').category == 'M0_34'
+    assert categorize_demographics(0, 'F', orec='2', version='V2').category == 'F0_34'  # ESRD infant
     assert categorize_demographics(34, 'M', orec='0', version='V2').category == 'M0_34'
     assert categorize_demographics(35, 'M', orec='0', version='V2').category == 'M35_44'
-    assert categorize_demographics(95, 'M', orec='0', version='V2').category == 'M95_GT' 
+    assert categorize_demographics(95, 'M', orec='0', version='V2').category == 'M95_GT'
 
 def test_dual_eligibility_flags():
     """Test dual eligibility categorization"""

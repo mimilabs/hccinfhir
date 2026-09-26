@@ -145,11 +145,51 @@ others CC23), hierarchies, diagnosis categories + interactions (`DIABETES_HF`,
 `HF_CHR_LUNG`, `DISABLED_*`), demographic segments, and coefficient values together.
 Reproduce with `resources/parity_harness/run_parity.py`.
 
-> **Run the CMS engine with `switch_edits=True` (its default).** The
-> `switch_edits=False` branch has a bug — `if model_cc in cc_ids_list` compares an
-> int against `'CCxxx'` strings, so it assigns **no CCs at all**. With edits on, MCE
-> does not affect adults (age ≥ 15), so parity with hccinfhir (which has no MCE
-> layer) holds for the adult population.
+> Parity was run with the CMS engine's default `switch_edits=True`. **Do not use
+> `switch_edits=False` — it is broken (see below).** With edits on, MCE doesn't affect
+> adults (age ≥ 15), so parity with hccinfhir (which has no MCE layer) holds for the
+> adult population.
+
+### Confirmed bug in the CMS V28 Python engine (`switch_edits=False`)
+
+Running the CMS-published V28 **Python** package with `switch_edits=False` produces
+**zero HCCs for every beneficiary** — every score collapses to the demographic
+(age/sex) term. This is a **bug**, verified below, not an intended behavior.
+
+**Where:** `common/CMS_HCC_utils.py`, `get_bene_diagnosis_ccs`. `cc_ids_list` is a
+list of CC *column names* (strings: `'CC17'`, `'CC37'`, …). The mapped CC exists as
+both `model_cc` (int `37`) and `cc_col_name` (str `'CC37'`). The two branches end with
+different guards:
+
+```python
+if switch_edits:                     # default (correct)
+    ...
+    if cc_col_name in cc_ids_list:   # 'CC37' in [...]  -> True  ✓
+        bene_info_cc_init_df.loc[..., cc_col_name] = 1
+else:                                # buggy
+    ...
+    if model_cc in cc_ids_list:      # 37 in [...]      -> always False ✗
+        bene_info_cc_init_df.loc[..., cc_col_name] = 1
+```
+
+`37 in ['CC17','CC37', …]` is always `False` (int vs. strings), so the flag is never
+set. **One-line fix:** make the `else` branch use `cc_col_name` (like the `if` branch).
+
+**Why it's a bug, not a feature (verified):**
+- The `else` branch *contains* the flag-assignment line and an *identical* comment to
+  the working branch — it clearly intends to set CCs.
+- Applying only that one-line fix makes `switch_edits=False` produce **identical HCCs**
+  to `switch_edits=True` for adult beneficiaries (the sole intended difference is MCE,
+  which doesn't affect age ≥ 15). Confirmed across all parity beneficiaries.
+- Documented semantics say `switch_edits` toggles *MCE age criteria*, not whether
+  mapping happens at all.
+
+**Why it's insidious:** it fails silently (no error; plausible demographic-only
+scores), and the intermediate tracking table `bene_diagnosis_cc_df` still populates —
+so it *looks* like diagnoses were processed. The working default (`True`) masks it.
+
+**Scope:** the CMS **Python** V28 package specifically (a porting artifact; the SAS
+macros are unaffected). Trivial, unambiguous fix — reportable to CMS.
 
 ### Not yet verified
 - **Only V28 got the deep structural comparison.** For V22/V24/ESRD/RxHCC only the

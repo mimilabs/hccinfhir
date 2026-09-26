@@ -49,6 +49,7 @@ print(f"HCCs: {result.hcc_list}")
 - [Sample Data](#sample-data)
 - [Testing](#testing)
 - [Comparison: CMS HHS-HCC Tool vs hccinfhir](#comparison-cms-hhs-hcc-tool-vs-hccinfhir)
+- 📄 [CMS-HCC V28 vs hccinfhir — deep comparison (docs)](docs/cms_v28_comparison.md)
 - [License](#license)
 
 ## Migrating from hccpy

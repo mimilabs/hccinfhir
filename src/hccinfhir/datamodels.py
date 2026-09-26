@@ -21,7 +21,8 @@ ProcFilteringFilename = Union[
         "ra_eligible_cpt_hcpcs_2023.csv",
         "ra_eligible_cpt_hcpcs_2024.csv",
         "ra_eligible_cpt_hcpcs_2025.csv",
-        "ra_eligible_cpt_hcpcs_2026.csv"
+        "ra_eligible_cpt_hcpcs_2026.csv",
+        "ra_eligible_cpt_hcpcs_2027.csv"
     ],
     str  # Allow any custom file path
 ]
@@ -29,7 +30,8 @@ ProcFilteringFilename = Union[
 DxCCMappingFilename = Union[
     Literal[
         "ra_dx_to_cc_2025.csv",
-        "ra_dx_to_cc_2026.csv"
+        "ra_dx_to_cc_2026.csv",
+        "ra_dx_to_cc_2027.csv"
     ],
     str
 ]

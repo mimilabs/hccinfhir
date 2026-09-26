@@ -759,6 +759,8 @@ Located in `src/hccinfhir/data/`:
 - **Filtering**: `ra_eligible_cpt_hcpcs_*.csv` - Eligible procedure codes
 - **Chronic Conditions**: `hcc_is_chronic.csv` - Chronic condition flags
 
+> **Regenerating CSVs from mimilabs**: See [`src/hccinfhir/data/README.md`](src/hccinfhir/data/README.md) for source tables, regeneration SQL, the file↔year naming convention, and model coverage by year.
+
 ### Sample Data System
 - Comprehensive sample data in `src/hccinfhir/samples/`
 - **EOB samples**: 3 individual cases + 200 sample dataset

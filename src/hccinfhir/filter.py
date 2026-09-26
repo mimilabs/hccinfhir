@@ -3,7 +3,7 @@ from hccinfhir.datamodels import ServiceLevelData
 from hccinfhir.utils import load_proc_filtering
 
 # use import importlib.resources to load the professional_cpt_fn file as a list of strings
-professional_cpt_default_fn = 'ra_eligible_cpt_hcpcs_2025.csv'
+professional_cpt_default_fn = 'ra_eligible_cpt_hcpcs_2026.csv'
 professional_cpt_default = load_proc_filtering(professional_cpt_default_fn)
 
 def apply_filter(

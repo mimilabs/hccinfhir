@@ -25,8 +25,9 @@ Age/sex edits applied to ICD-10→CC mappings **after** the base mapping and
 **before** hierarchies (see `model_edits.py`). Unlike the mapping/CPT files, these
 are **not** in mimilabs — they live only in the CMS model software packages.
 
-**Source:** the mandatory ("RTI") edit blocks of the CMS SAS edit macros (2026
-midyear-final packages), staged in `resources/sas_edit_macros/`:
+**Sources:** (1) the mandatory ("RTI") edit blocks of the CMS SAS edit macros (2026
+midyear-final packages), staged in `resources/sas_edit_macros/`; and (2) the V28
+package's resolved `MCE_AGE_CONDITION` column, for the `mce_age` rows (see below).
 
 | Macro | model_name(s) produced |
 |---|---|
@@ -46,9 +47,12 @@ midyear-final packages), staged in `resources/sas_edit_macros/`:
 - **No standalone CMS-HCC V24 (community) package** was available; its edits come
   from `V24I0ED3.TXT` (shipped in the ESRD V24 package), which is the CMS-HCC V24
   edit macro and applies to both the community and ESRD V24 models.
-- **MCE edits are NOT ported.** The macros' `%IF &SEDITS` block (Medicare Code
-  Editor age/sex validity) is intentionally excluded — it's a separate,
-  user-toggled behavior and near-empty in impact for the aged/disabled population.
+- **MCE edits ARE included** as `edit_type='mce_age'` rows (V28 only), gated at
+  runtime by the `switch_edits` parameter (default `True`, matching CMS). Source: the
+  V28 package's resolved `MCE_AGE_CONDITION` column (the SAS `%IF &SEDITS` block only
+  references the named format `IAGEHYBCY25MCE`, which doesn't ship as text). That MCE
+  format is shared by V22/V24/ESRD V21/V24 (so the rules apply there too for shared
+  codes); RxHCC V08 uses a different variant and is not covered.
 - **Bounded ranges** (e.g. F3481 valid only ages 6–18) are encoded with *both*
   `age_min` and `age_max` set; `apply_edits`' OR-logic fires "outside [lo,hi]",
   which is exactly the invalidate-outside-range semantics these edits need.

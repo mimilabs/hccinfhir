@@ -86,7 +86,7 @@ spec-faithful. Two dependencies to manage when relying on hccinfhir: keeping
 |---|---|---|---|
 | ICD-10 → CC mapping | mapping file + edit macro | `model_dx_to_cc` + `ra_dx_edits.csv` | ✅ Aligned |
 | Age/sex edits (mandatory) | `V28I0ED3` mandatory blocks | `ra_dx_edits.csv` (V28) | ✅ **Exact** — 107 rows = 2 sex + 16 age<18 + 57 breast + 32 newborn |
-| MCE edits (`SEDITS`) | age/sex validity formats, toggled | *not implemented* | ⏸️ Deferred (see findings) |
+| MCE edits (`SEDITS`) | age/sex validity formats, toggled | `ra_dx_edits.csv` (`mce_age`) + `switch_edits` param | ✅ Implemented (toggle, default on) |
 | CC223 recode | zero unless CC221/222/224/225/226 | `model_hierarchies.py` | ✅ Identical rule |
 | CC → HCC hierarchies | `V28_HCC_Hierarchies.csv` | `ra_hierarchies_2026.csv` | ✅ **Exact** — 60 parents / 149 edges, 0 diffs |
 | Diagnosis categories | `V28_Diagnosis_Categories.csv` (11) | `get_diagnostic_categories` | ✅ **Exact** — identical HCC membership (cosmetic name diffs only) |
@@ -100,8 +100,9 @@ spec-faithful. Two dependencies to manage when relying on hccinfhir: keeping
 | Coefficient **values** | `V28_CE/NE_Relative_Factors` | `ra_coefficients_2026` (C28) | ✅ **Checksum-identical** (default set; the opt-in *proposed* 2027 file differs by design) |
 
 **Bottom line:** for the scored Medicare population, hccinfhir's V28 **logic,
-structure, and coefficient values are CMS-identical**. The only remaining divergence
-is the (unimplemented) MCE layer — negligible impact on the aged/disabled population.
+structure, coefficient values, and edits (including MCE) are CMS-identical**, verified
+by exact numeric parity across community/institutional segments and a pediatric
+(MCE-exercising) beneficiary.
 
 ---
 
@@ -121,12 +122,17 @@ is the (unimplemented) MCE layer — negligible impact on the aged/disabled popu
   factor set effective **2024–2027**, so there is no separate "2027 final" set to
   chase. The only file that differs is the opt-in `ra_proposed_coefficients_2027.csv`,
   which holds *Advance-Notice proposed* values **by design** — not the payment set.
-
-### Deferred by choice
-- **MCE edits** (`V28I0ED3`'s `%IF &SEDITS` block) — age/sex code-validity edits,
-  ~409 conditions (mostly `age ≥ 15`). Unimplemented. Impact is negligible for the
-  aged/disabled population (would only affect beneficiaries under ~15); it's a
-  CMS-parity completeness item, not a scoring bug on real members.
+- **MCE edits — implemented.** The Medicare Code Editor age-validity edits
+  (`V28I0ED3`'s `%IF &SEDITS` block; 303 codes) are now ported as `mce_age` rows in
+  `ra_dx_edits.csv`, gated by a `switch_edits` parameter (default `True`, matching the
+  CMS default) on `calculate_raf` and `HCCInFHIR`. Source: the V28 package's resolved
+  `MCE_AGE_CONDITION` column. Verified by numeric parity on a pediatric beneficiary
+  (below). **MCE is model-independent** across the CMS-HCC/ESRD family — V22/V24/V28/
+  ESRD V21/V24 all load the same `IAGEHYBCY25MCE`/`ISEXHYBCY25MCE` format, so these
+  rules apply to those models too (currently emitted for V28, since the readable
+  source is V28-scoped); **RxHCC V08 uses a different variant** (`I0…`) and is not
+  covered. MCE sex-validity is a non-issue for V28 payment codes (only D66/D67, already
+  handled as mandatory sex edits).
 
 ### Numeric parity — verified
 Ran the CMS V28 engine and hccinfhir on the same synthetic beneficiaries and diffed
@@ -139,16 +145,18 @@ HCC lists **and** scores. **Exact match** (Δ = 0.000) across segments:
 | disabled | CND | ✅ | 1.827 | 1.827 |
 | aged, orig-disabled | CNA | ✅ | 2.170 | 2.170 |
 | young disabled (age<50) | CND | ✅ | 2.017 | 2.017 |
+| pediatric disabled (age 10) | CND | ✅ | 1.128 | 1.128 |
 
 This exercises mapping + edits (incl. the C50 age split — the young bene gets CC22,
-others CC23), hierarchies, diagnosis categories + interactions (`DIABETES_HF`,
+others CC23), **MCE** (the pediatric bene's `age ≥ 15` codes are invalidated on both
+engines), hierarchies, diagnosis categories + interactions (`DIABETES_HF`,
 `HF_CHR_LUNG`, `DISABLED_*`), demographic segments, and coefficient values together.
 Reproduce with `resources/parity_harness/run_parity.py`.
 
-> Parity was run with the CMS engine's default `switch_edits=True`. **Do not use
-> `switch_edits=False` — it is broken (see below).** With edits on, MCE doesn't affect
-> adults (age ≥ 15), so parity with hccinfhir (which has no MCE layer) holds for the
-> adult population.
+> Parity was run with the CMS engine's default `switch_edits=True`, and hccinfhir now
+> implements MCE (also default on), so parity holds for **both** adult and pediatric
+> beneficiaries. **Do not use the CMS engine's `switch_edits=False` — it is broken
+> (see below).**
 
 ### Confirmed bug in the CMS V28 Python engine (`switch_edits=False`)
 

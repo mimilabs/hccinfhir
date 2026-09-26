@@ -40,6 +40,9 @@ BENES = {
     'B3': dict(dob='01/01/1972', age=55, sex='M', orec='1', dual='00', seg='COMMUNITY_ND'),
     'B4': dict(dob='01/01/1959', age=68, sex='F', orec='1', dual='00', seg='COMMUNITY_NA'),
     'B5': dict(dob='01/01/1982', age=45, sex='F', orec='1', dual='00', seg='COMMUNITY_ND'),
+    # pediatric disabled bene: exercises MCE (age >= 15 codes get invalidated on
+    # both engines when switch_edits=True), so it verifies MCE parity too.
+    'B6': dict(dob='01/01/2017', age=10, sex='M', orec='1', dual='00', seg='COMMUNITY_ND'),
 }
 
 

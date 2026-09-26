@@ -48,3 +48,25 @@ def test_breast_cancer_age_split_v28_only():
     # C50011 age < 50 -> CC22 (V28 override); age >= 50 -> base CC23.
     assert _hccs('C50011', 'CMS-HCC Model V28', age=40, sex='F') == {'22'}
     assert _hccs('C50011', 'CMS-HCC Model V28', age=60, sex='F') == {'23'}
+
+
+def _hccs_sw(dx, model, switch_edits, **kw):
+    args = {**COMMUNITY, **kw}
+    return set(calculate_raf([dx], model, switch_edits=switch_edits, **args).hcc_list)
+
+
+def test_mce_age_edit_gated_by_switch_edits():
+    # C9150 (leukemia) is MCE-valid only age >= 15.
+    # Default (switch_edits=True): invalidated below 15; kept at/above 15.
+    assert _hccs('C9150', 'CMS-HCC Model V28', age=10, sex='M', orec='1') == set()
+    assert _hccs('C9150', 'CMS-HCC Model V28', age=40, sex='M', orec='1') == {'19'}
+    # switch_edits=False disables MCE -> code retained even below 15.
+    assert _hccs_sw('C9150', 'CMS-HCC Model V28', False, age=10, sex='M', orec='1') == {'19'}
+
+
+def test_mce_bounded_range():
+    # C58 is MCE-valid only 9 <= age <= 64; invalid outside that range.
+    assert _hccs('C58', 'CMS-HCC Model V28', age=40, sex='M', orec='1') == {'22'}   # in range
+    assert _hccs('C58', 'CMS-HCC Model V28', age=70, sex='M', orec='1') == set()    # > 64
+    assert _hccs('C58', 'CMS-HCC Model V28', age=5,  sex='M', orec='1') == set()    # < 9
+    assert _hccs_sw('C58', 'CMS-HCC Model V28', False, age=70, sex='M', orec='1') == {'22'}

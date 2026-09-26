@@ -17,7 +17,8 @@ def apply_edits(
     age: Union[int, float],
     sex: str,
     model_name: ModelName,
-    edits_mapping: Dict[Tuple[str, ModelName], EditRule]
+    edits_mapping: Dict[Tuple[str, ModelName], EditRule],
+    switch_edits: bool = True
 ) -> Dict[str, Set[str]]:
     """
     Apply age/sex edits to CC mappings based on CMS edit rules.
@@ -69,10 +70,15 @@ def apply_edits(
             if rule.sex == sex_normalized:
                 should_apply = True
 
-        elif rule.edit_type == "age":
+        elif rule.edit_type in ("age", "mce_age"):
+            # MCE (Medicare Code Editor) age-validity edits are gated by switch_edits,
+            # mirroring the CMS SEDITS parameter. Mandatory ("age") edits always apply.
+            if rule.edit_type == "mce_age" and not switch_edits:
+                continue
             # Age-based edit: check age bounds
             # age_max set means "if age <= age_max" (e.g., age < 50 means age_max=49)
             # age_min set means "if age >= age_min" (e.g., age >= 2 means age_min=2)
+            # Both set (bounded range) fires outside [.]: age<=age_max OR age>=age_min
             if rule.age_max is not None and age <= rule.age_max:
                 should_apply = True
             elif rule.age_min is not None and age >= rule.age_min:

@@ -27,6 +27,7 @@ def calculate_raf(diagnosis_codes: List[str],
                   labels_mapping: Dict[Tuple[str, ModelName], str] = labels_default,
                   edits_mapping: Dict[Tuple[str, ModelName], EditRule] = edits_default,
                   prefix_override: Optional[PrefixOverride] = None,
+                  switch_edits: bool = True,
                   maci: float = 0.0,
                   norm_factor: float = 1.0,
                   frailty_score: float = 0.0) -> RAFResult:
@@ -97,7 +98,7 @@ def calculate_raf(diagnosis_codes: List[str],
                              dx_to_cc_mapping=dx_to_cc_mapping)
 
     # Apply age/sex edits (CMS hardcoded rules from V28I0ED and similar)
-    cc_to_dx = apply_edits(cc_to_dx, age, sex, model_name, edits_mapping)
+    cc_to_dx = apply_edits(cc_to_dx, age, sex, model_name, edits_mapping, switch_edits=switch_edits)
 
     hcc_set = set(cc_to_dx.keys())
     hcc_set = apply_hierarchies(hcc_set, model_name, hierarchies_mapping)

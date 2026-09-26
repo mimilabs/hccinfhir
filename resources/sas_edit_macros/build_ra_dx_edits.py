@@ -32,6 +32,18 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, '..', '..'))
 OUT = os.path.join(REPO, 'src', 'hccinfhir', 'data', 'ra_dx_edits.csv')
 
+# MCE (Medicare Code Editor) age-validity source. Not in the SAS macros as text
+# (they reference the named format IAGEHYBCY25MCE); CMS pre-resolved it into the
+# MCE_AGE_CONDITION column of the V28 Python package's mapping file. The same MCE
+# format is shared by V22/V24/ESRD V21/V24 (verified via AGEFMT0 assignments), so
+# these rules also apply there for shared codes; RxHCC V08 uses a different variant.
+# Emitted as edit_type='mce_age' rows, gated at runtime by switch_edits.
+MCE_MAPPING = os.path.join(
+    REPO, 'resources', 'CMS_HCC_v28_2027_T1_initial_package_v1', 'software',
+    'CMS_HCC_v28', 'data', 'input', 'internal',
+    'ICD10_CC_mappings_CMS_HCC_2027_v28_initial.csv')
+MCE_MODELS = ['CMS-HCC Model V28']
+
 # macro file -> list of model_name(s) it applies to
 MACRO_MODELS = {
     'V28I0ED3.TXT': ['CMS-HCC Model V28'],
@@ -96,6 +108,42 @@ def parse_macro(text):
     return rules
 
 
+def parse_mce_condition(cond):
+    """Turn an MCE_AGE_CONDITION 'valid range' string into (age_min, age_max) in
+    invalidate-outside terms (apply_edits fires for age<=age_max OR age>=age_min).
+      'age >= 15'        -> valid [15, inf)  -> age_max=14
+      '0 <= age <= 17'   -> valid [0, 17]    -> age_min=18
+      '9 <= age <= 64'   -> valid [9, 64]    -> age_max=8, age_min=65
+      'age = 0'          -> valid [0, 0]     -> age_min=1
+    """
+    c = cond.strip().lower()
+    if m := re.fullmatch(r'(\d+)\s*<=\s*age\s*<=\s*(\d+)', c):
+        lo, hi = int(m.group(1)), int(m.group(2))
+    elif m := re.fullmatch(r'age\s*>=\s*(\d+)', c):
+        lo, hi = int(m.group(1)), None
+    elif m := re.fullmatch(r'age\s*<=\s*(\d+)', c):
+        lo, hi = None, int(m.group(1))
+    elif m := re.fullmatch(r'age\s*=\s*(\d+)', c):
+        lo = hi = int(m.group(1))
+    else:
+        raise ValueError(f"unrecognized MCE_AGE_CONDITION: {cond!r}")
+    age_max = lo - 1 if lo not in (None, 0) else None   # invalid below the valid range
+    age_min = hi + 1 if hi is not None else None        # invalid above the valid range
+    return age_min, age_max
+
+
+def parse_mce(path):
+    """One mce_age rule per distinct ICD10 that has an MCE age condition."""
+    seen = {}
+    for r in csv.DictReader(open(path, encoding='utf-8-sig')):
+        icd, cond = (r.get('ICD10') or '').strip(), (r.get('MCE_AGE_CONDITION') or '').strip()
+        if not icd or not cond:
+            continue
+        age_min, age_max = parse_mce_condition(cond)
+        seen.setdefault(icd, (age_min, age_max, cond))
+    return seen
+
+
 def describe(model, r, code):
     parts = [model.replace('CMS-HCC ', '').replace('Model ', '')]
     if r['edit_type'] == 'sex':
@@ -133,6 +181,18 @@ def main():
                         'model_name': model,
                         'description': describe(model, r, code),
                     })
+
+    # MCE age-validity rows (edit_type='mce_age', gated by switch_edits at runtime)
+    mce = parse_mce(MCE_MAPPING)
+    for model in MCE_MODELS:
+        for icd, (age_min, age_max, cond) in mce.items():
+            out_rows.append({
+                'icd10': icd, 'edit_type': 'mce_age', 'sex': '',
+                'age_min': age_min if age_min is not None else '',
+                'age_max': age_max if age_max is not None else '',
+                'action': 'invalid', 'cc_override': '', 'model_name': model,
+                'description': f"{model.replace('CMS-HCC ','').replace('Model ','')} MCE valid '{cond}'",
+            })
 
     fields = ['icd10', 'edit_type', 'sex', 'age_min', 'age_max', 'action',
               'cc_override', 'model_name', 'description']

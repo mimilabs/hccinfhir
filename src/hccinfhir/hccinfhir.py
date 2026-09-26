@@ -20,7 +20,8 @@ class HCCInFHIR:
                  dx_cc_mapping_filename: DxCCMappingFilename = "ra_dx_to_cc_2026.csv",
                  hierarchies_filename: HierarchiesFilename = "ra_hierarchies_2026.csv",
                  is_chronic_filename: IsChronicFilename = "hcc_is_chronic.csv",
-                 coefficients_filename: CoefficientsFilename = "ra_coefficients_2026.csv"):
+                 coefficients_filename: CoefficientsFilename = "ra_coefficients_2026.csv",
+                 switch_edits: bool = True):
         """
         Initialize the HCCInFHIR processor.
 
@@ -32,8 +33,10 @@ class HCCInFHIR:
             hierarchies_filename: Filename or path to the hierarchies file. Default is "ra_hierarchies_2026.csv".
             is_chronic_filename: Filename or path to the chronic conditions file. Default is "hcc_is_chronic.csv".
             coefficients_filename: Filename or path to the coefficients file. Default is "ra_coefficients_2026.csv".
+            switch_edits: Whether to apply MCE (Medicare Code Editor) age-validity edits, mirroring the CMS SEDITS parameter. Default is True (CMS default). Negligible impact for the aged/disabled population; only affects beneficiaries outside a code's MCE-valid age range.
         """
         self.filter_claims = filter_claims
+        self.switch_edits = switch_edits
         self.model_name = model_name
         self.proc_filtering_filename = proc_filtering_filename
         self.dx_cc_mapping_filename = dx_cc_mapping_filename
@@ -80,6 +83,7 @@ class HCCInFHIR:
             hierarchies_mapping=self.hierarchies_mapping,
             coefficients_mapping=self.coefficients_mapping,
             prefix_override=prefix_override,
+            switch_edits=self.switch_edits,
             maci=maci,
             norm_factor=norm_factor,
             frailty_score=frailty_score

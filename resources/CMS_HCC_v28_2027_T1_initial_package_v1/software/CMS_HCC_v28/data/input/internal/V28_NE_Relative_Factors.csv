@@ -1,0 +1,109 @@
+﻿Variable,New Enrollees,NEW_ENROLLEE,SNP_NEW_ENROLLEE
+NMCAID_NORIGDIS_NEF0_34, Baseline – Neither MCAIDicaid nor Originally Disabled Female 0-34,0.711,1.332
+NMCAID_NORIGDIS_NEF35_44, Baseline – Neither MCAIDicaid nor Originally Disabled Female 35-44,0.95,1.332
+NMCAID_NORIGDIS_NEF45_54, Baseline – Neither MCAIDicaid nor Originally Disabled Female 45-54,1.155,1.536
+NMCAID_NORIGDIS_NEF55_59, Baseline – Neither MCAIDicaid nor Originally Disabled Female 55-59,1.152,1.536
+NMCAID_NORIGDIS_NEF60_64, Baseline – Neither MCAIDicaid nor Originally Disabled Female 60-64,1.212,1.628
+NMCAID_NORIGDIS_NEF65, Baseline – Neither MCAIDicaid nor Originally Disabled Female 65,0.532,0.9
+NMCAID_NORIGDIS_NEF66, Baseline – Neither MCAIDicaid nor Originally Disabled Female 66,0.532,0.9
+NMCAID_NORIGDIS_NEF67, Baseline – Neither MCAIDicaid nor Originally Disabled Female 67,0.557,0.94
+NMCAID_NORIGDIS_NEF68, Baseline – Neither MCAIDicaid nor Originally Disabled Female 68,0.584,1.004
+NMCAID_NORIGDIS_NEF69, Baseline – Neither MCAIDicaid nor Originally Disabled Female 69,0.625,1.02
+NMCAID_NORIGDIS_NEF70_74, Baseline – Neither MCAIDicaid nor Originally Disabled Female 70-74,0.694,1.195
+NMCAID_NORIGDIS_NEF75_79, Baseline – Neither MCAIDicaid nor Originally Disabled Female 75-79,0.901,1.419
+NMCAID_NORIGDIS_NEF80_84, Baseline – Neither MCAIDicaid nor Originally Disabled Female 80-84,0.988,1.612
+NMCAID_NORIGDIS_NEF85_89, Baseline – Neither MCAIDicaid nor Originally Disabled Female 85-89,1.287,1.833
+NMCAID_NORIGDIS_NEF90_94, Baseline – Neither MCAIDicaid nor Originally Disabled Female 90-94,1.287,2.016
+NMCAID_NORIGDIS_NEF95_GT, Baseline – Neither MCAIDicaid nor Originally Disabled Female 95+,1.287,2.016
+NMCAID_NORIGDIS_NEM0_34, Baseline – Neither MCAIDicaid nor Originally Disabled Male 0-34,0.409,1.206
+NMCAID_NORIGDIS_NEM35_44, Baseline – Neither MCAIDicaid nor Originally Disabled Male 35-44,0.669,1.206
+NMCAID_NORIGDIS_NEM45_54, Baseline – Neither MCAIDicaid nor Originally Disabled Male 45-54,0.906,1.472
+NMCAID_NORIGDIS_NEM55_59, Baseline – Neither MCAIDicaid nor Originally Disabled Male 55-59,0.984,1.552
+NMCAID_NORIGDIS_NEM60_64, Baseline – Neither MCAIDicaid nor Originally Disabled Male 60-64,1.057,1.642
+NMCAID_NORIGDIS_NEM65, Baseline – Neither MCAIDicaid nor Originally Disabled Male 65,0.567,0.944
+NMCAID_NORIGDIS_NEM66, Baseline – Neither MCAIDicaid nor Originally Disabled Male 66,0.576,0.944
+NMCAID_NORIGDIS_NEM67, Baseline – Neither MCAIDicaid nor Originally Disabled Male 67,0.617,0.985
+NMCAID_NORIGDIS_NEM68, Baseline – Neither MCAIDicaid nor Originally Disabled Male 68,0.678,1.005
+NMCAID_NORIGDIS_NEM69, Baseline – Neither MCAIDicaid nor Originally Disabled Male 69,0.684,1.065
+NMCAID_NORIGDIS_NEM70_74, Baseline – Neither MCAIDicaid nor Originally Disabled Male 70-74,0.808,1.216
+NMCAID_NORIGDIS_NEM75_79, Baseline – Neither MCAIDicaid nor Originally Disabled Male 75-79,1.049,1.496
+NMCAID_NORIGDIS_NEM80_84, Baseline – Neither MCAIDicaid nor Originally Disabled Male 80-84,1.245,1.704
+NMCAID_NORIGDIS_NEM85_89, Baseline – Neither MCAIDicaid nor Originally Disabled Male 85-89,1.516,1.924
+NMCAID_NORIGDIS_NEM90_94, Baseline – Neither MCAIDicaid nor Originally Disabled Male 90-94,1.516,2.142
+NMCAID_NORIGDIS_NEM95_GT, Baseline – Neither MCAIDicaid nor Originally Disabled Male 95+,1.516,2.142
+MCAID_NORIGDIS_NEF0_34, MCAIDicaid Only – Not Originally Disabled Female 0-34,1.025,1.655
+MCAID_NORIGDIS_NEF35_44, MCAIDicaid Only – Not Originally Disabled Female 35-44,1.303,1.655
+MCAID_NORIGDIS_NEF45_54, MCAIDicaid Only – Not Originally Disabled Female 45-54,1.415,1.965
+MCAID_NORIGDIS_NEF55_59, MCAIDicaid Only – Not Originally Disabled Female 55-59,1.289,1.989
+MCAID_NORIGDIS_NEF60_64, MCAIDicaid Only – Not Originally Disabled Female 60-64,1.396,2.03
+MCAID_NORIGDIS_NEF65, MCAIDicaid Only – Not Originally Disabled Female 65,0.986,1.285
+MCAID_NORIGDIS_NEF66, MCAIDicaid Only – Not Originally Disabled Female 66,0.99,1.285
+MCAID_NORIGDIS_NEF67, MCAIDicaid Only – Not Originally Disabled Female 67,1.004,1.351
+MCAID_NORIGDIS_NEF68, MCAIDicaid Only – Not Originally Disabled Female 68,1.004,1.351
+MCAID_NORIGDIS_NEF69, MCAIDicaid Only – Not Originally Disabled Female 69,1.004,1.467
+MCAID_NORIGDIS_NEF70_74, MCAIDicaid Only – Not Originally Disabled Female 70-74,1.043,1.634
+MCAID_NORIGDIS_NEF75_79, MCAIDicaid Only – Not Originally Disabled Female 75-79,1.128,1.885
+MCAID_NORIGDIS_NEF80_84, MCAIDicaid Only – Not Originally Disabled Female 80-84,1.342,2.061
+MCAID_NORIGDIS_NEF85_89, MCAIDicaid Only – Not Originally Disabled Female 85-89,1.563,2.25
+MCAID_NORIGDIS_NEF90_94, MCAIDicaid Only – Not Originally Disabled Female 90-94,1.712,2.4
+MCAID_NORIGDIS_NEF95_GT, MCAIDicaid Only – Not Originally Disabled Female 95+,1.712,2.4
+MCAID_NORIGDIS_NEM0_34, MCAIDicaid Only – Not Originally Disabled Male 0-34,0.738,1.485
+MCAID_NORIGDIS_NEM35_44, MCAIDicaid Only – Not Originally Disabled Male 35-44,1.264,1.485
+MCAID_NORIGDIS_NEM45_54, MCAIDicaid Only – Not Originally Disabled Male 45-54,1.42,1.845
+MCAID_NORIGDIS_NEM55_59, MCAIDicaid Only – Not Originally Disabled Male 55-59,1.477,1.994
+MCAID_NORIGDIS_NEM60_64, MCAIDicaid Only – Not Originally Disabled Male 60-64,1.542,2.035
+MCAID_NORIGDIS_NEM65, MCAIDicaid Only – Not Originally Disabled Male 65,1.182,1.422
+MCAID_NORIGDIS_NEM66, MCAIDicaid Only – Not Originally Disabled Male 66,1.234,1.422
+MCAID_NORIGDIS_NEM67, MCAIDicaid Only – Not Originally Disabled Male 67,1.319,1.477
+MCAID_NORIGDIS_NEM68, MCAIDicaid Only – Not Originally Disabled Male 68,1.367,1.477
+MCAID_NORIGDIS_NEM69, MCAIDicaid Only – Not Originally Disabled Male 69,1.455,1.477
+MCAID_NORIGDIS_NEM70_74, MCAIDicaid Only – Not Originally Disabled Male 70-74,1.455,1.735
+MCAID_NORIGDIS_NEM75_79, MCAIDicaid Only – Not Originally Disabled Male 75-79,1.455,1.952
+MCAID_NORIGDIS_NEM80_84, MCAIDicaid Only – Not Originally Disabled Male 80-84,1.503,2.194
+MCAID_NORIGDIS_NEM85_89, MCAIDicaid Only – Not Originally Disabled Male 85-89,1.682,2.403
+MCAID_NORIGDIS_NEM90_94, MCAIDicaid Only – Not Originally Disabled Male 90-94,1.981,2.403
+MCAID_NORIGDIS_NEM95_GT, MCAIDicaid Only – Not Originally Disabled Male 95+,1.981,2.403
+NMCAID_ORIGDIS_NEF65, Originally Disabled Only – Not MCAIDicaid Female 65,1.212,1.708
+NMCAID_ORIGDIS_NEF66, Originally Disabled Only – Not MCAIDicaid Female 66,1.276,1.708
+NMCAID_ORIGDIS_NEF67, Originally Disabled Only – Not MCAIDicaid Female 67,1.276,1.719
+NMCAID_ORIGDIS_NEF68, Originally Disabled Only – Not MCAIDicaid Female 68,1.276,1.745
+NMCAID_ORIGDIS_NEF69, Originally Disabled Only – Not MCAIDicaid Female 69,1.276,1.755
+NMCAID_ORIGDIS_NEF70_74, Originally Disabled Only – Not MCAIDicaid Female 70-74,1.276,1.929
+NMCAID_ORIGDIS_NEF75_79, Originally Disabled Only – Not MCAIDicaid Female 75-79,1.276,2.032
+NMCAID_ORIGDIS_NEF80_84, Originally Disabled Only – Not MCAIDicaid Female 80-84,1.276,2.239
+NMCAID_ORIGDIS_NEF85_89, Originally Disabled Only – Not MCAIDicaid Female 85-89,1.287,2.239
+NMCAID_ORIGDIS_NEF90_94, Originally Disabled Only – Not MCAIDicaid Female 90-94,1.287,2.239
+NMCAID_ORIGDIS_NEF95_GT, Originally Disabled Only – Not MCAIDicaid Female 95+,1.287,2.239
+NMCAID_ORIGDIS_NEM65, Originally Disabled Only – Not MCAIDicaid Male 65,1.057,1.642
+NMCAID_ORIGDIS_NEM66, Originally Disabled Only – Not MCAIDicaid Male 66,1.155,1.659
+NMCAID_ORIGDIS_NEM67, Originally Disabled Only – Not MCAIDicaid Male 67,1.155,1.659
+NMCAID_ORIGDIS_NEM68, Originally Disabled Only – Not MCAIDicaid Male 68,1.155,1.659
+NMCAID_ORIGDIS_NEM69, Originally Disabled Only – Not MCAIDicaid Male 69,1.297,1.677
+NMCAID_ORIGDIS_NEM70_74, Originally Disabled Only – Not MCAIDicaid Male 70-74,1.297,1.807
+NMCAID_ORIGDIS_NEM75_79, Originally Disabled Only – Not MCAIDicaid Male 75-79,1.297,2.039
+NMCAID_ORIGDIS_NEM80_84, Originally Disabled Only – Not MCAIDicaid Male 80-84,1.297,2.155
+NMCAID_ORIGDIS_NEM85_89, Originally Disabled Only – Not MCAIDicaid Male 85-89,1.516,2.346
+NMCAID_ORIGDIS_NEM90_94, Originally Disabled Only – Not MCAIDicaid Male 90-94,1.516,2.346
+NMCAID_ORIGDIS_NEM95_GT, Originally Disabled Only – Not MCAIDicaid Male 95+,1.516,2.346
+MCAID_ORIGDIS_NEF65, MCAIDicaid and Originally Disabled Female 65,1.599,2.085
+MCAID_ORIGDIS_NEF66, MCAIDicaid and Originally Disabled Female 66,1.599,2.085
+MCAID_ORIGDIS_NEF67, MCAIDicaid and Originally Disabled Female 67,1.599,2.148
+MCAID_ORIGDIS_NEF68, MCAIDicaid and Originally Disabled Female 68,2.021,2.148
+MCAID_ORIGDIS_NEF69, MCAIDicaid and Originally Disabled Female 69,2.021,2.233
+MCAID_ORIGDIS_NEF70_74, MCAIDicaid and Originally Disabled Female 70-74,2.021,2.295
+MCAID_ORIGDIS_NEF75_79, MCAIDicaid and Originally Disabled Female 75-79,2.021,2.484
+MCAID_ORIGDIS_NEF80_84, MCAIDicaid and Originally Disabled Female 80-84,2.021,2.735
+MCAID_ORIGDIS_NEF85_89, MCAIDicaid and Originally Disabled Female 85-89,2.021,2.735
+MCAID_ORIGDIS_NEF90_94, MCAIDicaid and Originally Disabled Female 90-94,2.021,2.735
+MCAID_ORIGDIS_NEF95_GT, MCAIDicaid and Originally Disabled Female 95+,2.021,2.735
+MCAID_ORIGDIS_NEM65, MCAIDicaid and Originally Disabled Male 65,1.727,2.035
+MCAID_ORIGDIS_NEM66, MCAIDicaid and Originally Disabled Male 66,1.959,2.15
+MCAID_ORIGDIS_NEM67, MCAIDicaid and Originally Disabled Male 67,1.959,2.195
+MCAID_ORIGDIS_NEM68, MCAIDicaid and Originally Disabled Male 68,1.959,2.195
+MCAID_ORIGDIS_NEM69, MCAIDicaid and Originally Disabled Male 69,1.959,2.246
+MCAID_ORIGDIS_NEM70_74, MCAIDicaid and Originally Disabled Male 70-74,1.959,2.316
+MCAID_ORIGDIS_NEM75_79, MCAIDicaid and Originally Disabled Male 75-79,2.813,2.487
+MCAID_ORIGDIS_NEM80_84, MCAIDicaid and Originally Disabled Male 80-84,2.813,2.573
+MCAID_ORIGDIS_NEM85_89, MCAIDicaid and Originally Disabled Male 85-89,2.813,2.573
+MCAID_ORIGDIS_NEM90_94, MCAIDicaid and Originally Disabled Male 90-94,2.813,2.573
+MCAID_ORIGDIS_NEM95_GT, MCAIDicaid and Originally Disabled Male 95+,2.813,2.573

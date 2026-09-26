@@ -56,6 +56,63 @@ flowchart TB
 | **Scope** | one model × one year per package | multi-model, multi-year, `prefix_override` |
 | **Nature** | authoritative (it *is* the spec) | validated interpretation, built to embed |
 
+### Code organization
+
+The file layout is the clearest physical expression of the two philosophies —
+a **monolithic, config-driven script** vs. **many single-responsibility modules**.
+
+**CMS V28 package** — one linear pipeline, one folder per model-year:
+
+```text
+software/
+├── CMS_HCC_v28/
+│   ├── config.py         # run_spec, file paths, payment_year, Feb-1 cutoff
+│   ├── transform.py      # THE pipeline — one linear pandas script, end to end
+│   └── data/
+│       ├── input/internal/      # 6 CSVs: mappings, hierarchies, CE/NE factors,
+│       │                        #         interactions, diagnosis categories
+│       ├── input/user_defined/  # beneficiaries.csv, diagnoses.csv (you fill in)
+│       ├── output/              # scores.csv   (generated)
+│       └── logs/                # run log      (generated)
+└── common/
+    ├── CMS_HCC_utils.py   # bene info, age/sex vars, dx→CC, diagnosis flags
+    └── utils.py           # calculate_age, evaluate_age_rule, map_ccs_to_hccs, counts
+```
+*A V22 or a 2028 build is a **separate sibling package**; most logic lives in `transform.py`.*
+
+**hccinfhir** — one module per stage, a separate ingestion layer, typed models:
+
+```text
+src/hccinfhir/
+├── hccinfhir.py           # HCCInFHIR class — high-level orchestrator
+├── model_calculate.py     # calculate_raf() — scoring orchestrator
+├── model_dx_to_cc.py      # ─┐
+├── model_edits.py         #  │ one module per
+├── model_hierarchies.py   #  │ pipeline stage
+├── model_interactions.py  #  │ (mapping · edits · hierarchies ·
+├── model_coefficients.py  #  │  interactions · coefficients ·
+├── model_demographics.py  # ─┘ demographics)
+├── extractor_fhir.py      # ─┐
+├── extractor_837.py       #  │ ingestion layer
+├── extractor_834.py       #  │ (CMS engine has none)
+├── extractor_820.py       #  │
+├── extractor.py           # ─┘ unified service-level interface
+├── filter.py              # CMS CPT/HCPCS + TOB claim filtering
+├── datamodels.py          # Pydantic models (Demographics, RAFResult, …)
+├── defaults.py            # default data loaded once at import
+├── constants.py, utils.py, samples.py
+└── data/                  # all models × years in one place (CSV)
+```
+*Model and year are **runtime parameters** (`model_name`, filenames) over shared data — not separate packages.*
+
+| | CMS engine | hccinfhir |
+|---|---|---|
+| **Decomposition** | monolithic `transform.py` + 2 util modules | ~8 stage modules + ingestion layer |
+| **Model / year** | one folder per model-year (build-time) | parameters over shared data (runtime) |
+| **Data typing** | positional CSV columns | typed Pydantic models |
+| **Smallest reuse unit** | the whole script | any single stage function |
+| **Reflects** | *algorithm is the artifact* (transparent) | *algorithm is an ingredient* (composable) |
+
 ---
 
 ## When to use which

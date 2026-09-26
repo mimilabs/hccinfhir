@@ -97,11 +97,11 @@ spec-faithful. Two dependencies to manage when relying on hccinfhir: keeping
 | NE age/sex bands (16) + age-64 rule | single-year 65–69, OREC-64 bump | new-enrollee branch | ✅ **Exact** (incl. the age-64 `OREC` rule) |
 | NE Medicaid/orig-dis interactions | `NMCAID_*`/`MCAID_*` | `model_interactions` | ✅ Match (NEMCAID source differs: derived vs explicit flag) |
 | Scoring structure | all 7 CE + 2 NE columns | selects the one applicable segment | ✅ Equivalent (ours = CMS's matching column) |
-| Coefficient **values** | `V28_CE/NE_Relative_Factors` (initial) | `ra_coefficients_2026` / `_proposed_2027` | ❌ Differ (see findings) |
+| Coefficient **values** | `V28_CE/NE_Relative_Factors` | `ra_coefficients_2026` (C28) | ✅ **Checksum-identical** (default set; the opt-in *proposed* 2027 file differs by design) |
 
-**Bottom line:** for the scored Medicare population, hccinfhir's V28 **logic and
-structure are CMS-identical**. The only substantive divergences are coefficient
-*values* and the (unimplemented) MCE layer.
+**Bottom line:** for the scored Medicare population, hccinfhir's V28 **logic,
+structure, and coefficient values are CMS-identical**. The only remaining divergence
+is the (unimplemented) MCE layer — negligible impact on the aged/disabled population.
 
 ---
 
@@ -114,21 +114,44 @@ structure are CMS-identical**. The only substantive divergences are coefficient
 - *(Cross-model, beyond V28)* `ra_dx_edits.csv` was V28-only; rebuilt from the CMS
   SAS macros to cover V22/V24/ESRD as well. V28 rows verified **byte-identical** to
   the prior hand-curated set.
+- **Coefficient values — verified matching, not a divergence.** The default
+  `ra_coefficients_2026.csv` C28 rows are **checksum-identical** to CMS's V28 factors
+  (n=1237, sum=1194.018, avg=0.96525, min=0, max=32.199 — same in the CMS package,
+  in mimilabs `ra_coefficients` model `C2824T2N`, and in our file). V28 uses a single
+  factor set effective **2024–2027**, so there is no separate "2027 final" set to
+  chase. The only file that differs is the opt-in `ra_proposed_coefficients_2027.csv`,
+  which holds *Advance-Notice proposed* values **by design** — not the payment set.
 
 ### Deferred by choice
-- **Coefficient values** — hccinfhir's `ra_proposed_coefficients_2027.csv` are the
-  *proposed* factors and differ from the CMS 2027 *initial* factors (e.g. `CNA_HCC1`
-  0.297 vs 0.301). Coefficients change frequently and are trivial to swap; the CMS
-  package ships the authoritative full tables when needed.
 - **MCE edits** (`V28I0ED3`'s `%IF &SEDITS` block) — age/sex code-validity edits,
   ~409 conditions (mostly `age ≥ 15`). Unimplemented. Impact is negligible for the
   aged/disabled population (would only affect beneficiaries under ~15); it's a
   CMS-parity completeness item, not a scoring bug on real members.
 
+### Numeric parity — verified
+Ran the CMS V28 engine and hccinfhir on the same synthetic beneficiaries and diffed
+HCC lists **and** scores. **Exact match** (Δ = 0.000) across segments:
+
+| Bene | Segment | HCCs | CMS | ours |
+|---|---|---|---|---|
+| aged non-dual | CNA | ✅ | 2.007 | 2.007 |
+| aged full-dual | CFA | ✅ | 2.583 | 2.583 |
+| disabled | CND | ✅ | 1.827 | 1.827 |
+| aged, orig-disabled | CNA | ✅ | 2.170 | 2.170 |
+| young disabled (age<50) | CND | ✅ | 2.017 | 2.017 |
+
+This exercises mapping + edits (incl. the C50 age split — the young bene gets CC22,
+others CC23), hierarchies, diagnosis categories + interactions (`DIABETES_HF`,
+`HF_CHR_LUNG`, `DISABLED_*`), demographic segments, and coefficient values together.
+Reproduce with `resources/parity_harness/run_parity.py`.
+
+> **Run the CMS engine with `switch_edits=True` (its default).** The
+> `switch_edits=False` branch has a bug — `if model_cc in cc_ids_list` compares an
+> int against `'CCxxx'` strings, so it assigns **no CCs at all**. With edits on, MCE
+> does not affect adults (age ≥ 15), so parity with hccinfhir (which has no MCE
+> layer) holds for the adult population.
+
 ### Not yet verified
-- **Numeric parity was never run.** Everything above is *logic/data* comparison, not
-  an end-to-end run of both engines on the same beneficiaries with an output diff.
-  A coefficient-agnostic **HCC-level** parity harness would empirically confirm it.
 - **Only V28 got the deep structural comparison.** For V22/V24/ESRD/RxHCC only the
   edit macros were compared; their hierarchies, categories, and interactions were not
   cross-checked against CMS packages (which are now available in `~/Downloads`).
@@ -151,4 +174,5 @@ truth for edits.
 3. Rebuild edits: `python resources/sas_edit_macros/build_ra_dx_edits.py`, then
    confirm the V28 subset is unchanged (or reconcile intended changes).
 4. Refresh coefficients from `V28_CE/NE_Relative_Factors.csv` if adopting that year.
-5. (Ideal) run the HCC-level parity harness on a sample and diff HCC lists.
+5. Run the numeric parity harness and diff HCCs + scores:
+   `CMS_PYTHON=<python-with-pandas> hatch run python resources/parity_harness/run_parity.py`

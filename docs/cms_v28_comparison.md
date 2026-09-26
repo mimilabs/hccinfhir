@@ -1,0 +1,154 @@
+# CMS-HCC V28 — Reference Engine vs. hccinfhir
+
+A component-by-component comparison of the **official CMS-HCC V28 Python package**
+(payment year 2027, "T1 initial") against **hccinfhir**'s V28 implementation, plus
+guidance on when to use each.
+
+> This is about the **Medicare Advantage** CMS-HCC model. It is **not** the
+> ACA/Marketplace HHS-HCC comparison in the top-level `README.md` — that section
+> covers a different program and is philosophy-only. This document is CMS-HCC (V28)
+> specific and backed by a direct code + data review.
+
+**Scope reviewed:** CMS-HCC V28. V28 is *the* CMS-HCC payment model for 2026–2027,
+so it is the right focus. Other models (V22/V24/ESRD/RxHCC) were **not** given the
+same deep structural comparison here — see [Not yet verified](#not-yet-verified).
+
+**Sources**
+- CMS Python engine: `resources/CMS_HCC_v28_2027_T1_initial_package_v1/`
+- CMS SAS edit macro: `resources/sas_edit_macros/V28I0ED3.TXT`
+- hccinfhir: `src/hccinfhir/model_*.py`, `src/hccinfhir/data/`
+
+---
+
+## When to use which
+
+The two tools are built for **different jobs**, not competing at the same one.
+
+**The CMS engine is a reference implementation of the scoring math** — its job is to
+be *definitionally correct* for one model, one payment year:
+- File-in / file-out **batch** (pandas); rigid minimal input (`ID, DOB, SEX, OREC,
+  LTIMCAID, NEMCAID` + raw ICD-10).
+- **Computes every segment for every person** (all 7 CE + 2 NE scores) and returns
+  them all — it refuses to choose which applies.
+- Ships its own authoritative data inside the package; **one package = one model ×
+  one year**.
+- Output is **raw relative-factor scores** (3 decimals). No claims filtering, no
+  FHIR/X12 ingestion, no payment adjustments, no traceability.
+
+**hccinfhir is a production data-processing library** — its job is to turn messy
+real-world data into an actionable, payment-oriented answer per member:
+- **Per-beneficiary functional API** (`calculate_raf(...)`), composable, embeddable.
+- **Picks the one segment that applies** (`CNA/CFA/INS/NE/DI_/Rx_…`) and returns a
+  single RAF plus decomposition (`risk_score_demographics/_hcc/_chronic_only`) and a
+  **payment score** (normalization, MACI, frailty).
+- **Ingests FHIR EOB / X12 837 / X12 834 / service-level / raw dx**, with CMS claims
+  filtering (CPT/HCPCS + TOB) and demographic derivation built in.
+- **Multi-model, multi-year** in one package, with data-quality escape hatches
+  (`prefix_override`) and traceability (`cc_to_dx`, labels, chronic flags).
+- It is an **interpretation** — it *can* drift from CMS, which is why this review
+  exists.
+
+One line: **CMS = the oracle** (authoritative, rigid, "here are all the numbers");
+**hccinfhir = the operational engine** (flexible ingestion, one opinionated answer,
+payment-ready — but validated, not definitional).
+
+### Use the CMS engine when
+- You need the **authoritative, defensible** number — RADV/audit, regulatory filing,
+  payment disputes. You cannot be "wrong" against the spec.
+- You are **validating** another implementation (including hccinfhir).
+- Input is already **clean and structured**; you don't need ingestion or filtering.
+- You want **every segment's** score and full variable-level transparency.
+- Batch, offline, single model-year runs.
+
+### Use hccinfhir when
+- You start from **raw data** (FHIR EOB / X12) and need extraction + CMS filtering
+  before scoring.
+- You want **one payment-oriented answer per member** (RAF + payment score), not nine
+  raw scores to post-process.
+- You need **multiple models/years** side by side.
+- You must handle **data-quality reality** (`prefix_override`, dual/ESRD/LTI
+  miscoding).
+- You're **embedding scoring in an app/service/pipeline** or doing **prospective**
+  work (gap closure, risk capture, what-if).
+- You need **traceability and decomposition**.
+
+### They're complementary
+The strongest setup uses both: hccinfhir for ingestion + operations + payment logic,
+and the CMS engine as the **periodic oracle** to confirm hccinfhir stays
+spec-faithful. Two dependencies to manage when relying on hccinfhir: keeping
+**coefficients current**, and **re-validating** against each new CMS package.
+
+---
+
+## Component-by-component alignment (V28)
+
+| Component | CMS engine | hccinfhir | Verdict |
+|---|---|---|---|
+| ICD-10 → CC mapping | mapping file + edit macro | `model_dx_to_cc` + `ra_dx_edits.csv` | ✅ Aligned |
+| Age/sex edits (mandatory) | `V28I0ED3` mandatory blocks | `ra_dx_edits.csv` (V28) | ✅ **Exact** — 107 rows = 2 sex + 16 age<18 + 57 breast + 32 newborn |
+| MCE edits (`SEDITS`) | age/sex validity formats, toggled | *not implemented* | ⏸️ Deferred (see findings) |
+| CC223 recode | zero unless CC221/222/224/225/226 | `model_hierarchies.py` | ✅ Identical rule |
+| CC → HCC hierarchies | `V28_HCC_Hierarchies.csv` | `ra_hierarchies_2026.csv` | ✅ **Exact** — 60 parents / 149 edges, 0 diffs |
+| Diagnosis categories | `V28_Diagnosis_Categories.csv` (11) | `get_diagnostic_categories` | ✅ **Exact** — identical HCC membership (cosmetic name diffs only) |
+| Interactions | `V28_Interactions.csv` (11) | `create_disease_interactions` | ✅ **Exact** — identical var pairs |
+| HCC counts (D1–D10P) | total HCC count | `create_hcc_counts` | ✅ Identical |
+| Disabled / orig-disabled | `DISABL`, `ORIGDIS` | `model_demographics.py` | ✅ Match |
+| CE age/sex bands (12) | inclusive bands | 12 bands | ✅ Match (age-0 fixed this review) |
+| NE age/sex bands (16) + age-64 rule | single-year 65–69, OREC-64 bump | new-enrollee branch | ✅ **Exact** (incl. the age-64 `OREC` rule) |
+| NE Medicaid/orig-dis interactions | `NMCAID_*`/`MCAID_*` | `model_interactions` | ✅ Match (NEMCAID source differs: derived vs explicit flag) |
+| Scoring structure | all 7 CE + 2 NE columns | selects the one applicable segment | ✅ Equivalent (ours = CMS's matching column) |
+| Coefficient **values** | `V28_CE/NE_Relative_Factors` (initial) | `ra_coefficients_2026` / `_proposed_2027` | ❌ Differ (see findings) |
+
+**Bottom line:** for the scored Medicare population, hccinfhir's V28 **logic and
+structure are CMS-identical**. The only substantive divergences are coefficient
+*values* and the (unimplemented) MCE layer.
+
+---
+
+## Findings
+
+### Resolved this review
+- **Age-0 categorization bug** — the V2/V4 age-band loop excluded age exactly 0 and
+  raised `ValueError` (reachable for ESRD-model infants). Fixed (`(0,34)`→`(-1,34)`)
+  with a regression test.
+- *(Cross-model, beyond V28)* `ra_dx_edits.csv` was V28-only; rebuilt from the CMS
+  SAS macros to cover V22/V24/ESRD as well. V28 rows verified **byte-identical** to
+  the prior hand-curated set.
+
+### Deferred by choice
+- **Coefficient values** — hccinfhir's `ra_proposed_coefficients_2027.csv` are the
+  *proposed* factors and differ from the CMS 2027 *initial* factors (e.g. `CNA_HCC1`
+  0.297 vs 0.301). Coefficients change frequently and are trivial to swap; the CMS
+  package ships the authoritative full tables when needed.
+- **MCE edits** (`V28I0ED3`'s `%IF &SEDITS` block) — age/sex code-validity edits,
+  ~409 conditions (mostly `age ≥ 15`). Unimplemented. Impact is negligible for the
+  aged/disabled population (would only affect beneficiaries under ~15); it's a
+  CMS-parity completeness item, not a scoring bug on real members.
+
+### Not yet verified
+- **Numeric parity was never run.** Everything above is *logic/data* comparison, not
+  an end-to-end run of both engines on the same beneficiaries with an output diff.
+  A coefficient-agnostic **HCC-level** parity harness would empirically confirm it.
+- **Only V28 got the deep structural comparison.** For V22/V24/ESRD/RxHCC only the
+  edit macros were compared; their hierarchies, categories, and interactions were not
+  cross-checked against CMS packages (which are now available in `~/Downloads`).
+
+### Methodology note (why the SAS macro is the edit authority)
+Early on, `P041`/`P048` looked like "stray" edits because they're absent from the
+package's **mapping CSV** — but that CSV is "payment HCCs only" and drops codes that
+map to no CC. The **SAS edit macro** (`V28I0ED3`) *does* list them (newborn `age ≥ 2`
+→ invalid). Lesson: treat the **edit macro**, not the mapping CSV, as the source of
+truth for edits.
+
+---
+
+## How to re-validate against a future CMS package
+
+1. Drop the new CMS-HCC V28 package under `resources/` (and the SAS edit macro under
+   `resources/sas_edit_macros/`).
+2. Re-run the structural diffs: hierarchies (parent→child edges), diagnosis
+   categories, interactions — expect exact matches unless CMS changed the model.
+3. Rebuild edits: `python resources/sas_edit_macros/build_ra_dx_edits.py`, then
+   confirm the V28 subset is unchanged (or reconcile intended changes).
+4. Refresh coefficients from `V28_CE/NE_Relative_Factors.csv` if adopting that year.
+5. (Ideal) run the HCC-level parity harness on a sample and diff HCC lists.

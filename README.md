@@ -1292,6 +1292,8 @@ pytest tests/ --cov=hccinfhir --cov-report=html
 CMS publishes an official Python implementation of the HHS-HCC risk adjustment algorithm alongside each benefit year's DIY instructions (available at [cms.gov/marketplace/resources/regulations-guidance](https://www.cms.gov/marketplace/resources/regulations-guidance)). This section explains how that tool and hccinfhir differ in implementation philosophy — not in what they calculate, but in how they are designed to be used.
 
 > **Note:** The CMS HHS-HCC tool implements the **ACA Marketplace** (HHS-HCC) risk adjustment model. hccinfhir implements the **Medicare Advantage** (CMS-HCC) model. They cover different programs. The comparison below is about architectural philosophy, not feature equivalence.
+>
+> **CMS also publishes a Medicare CMS-HCC reference engine.** As of the 2027 payment year, CMS ships an official Python implementation of the **CMS-HCC (Medicare)** model (e.g. the V28 package) — the same program hccinfhir implements. For a CMS-HCC-specific, evidence-based comparison of that engine against hccinfhir (V28), see [docs/cms_v28_comparison.md](docs/cms_v28_comparison.md).
 
 ### The core difference
 
@@ -1321,7 +1323,7 @@ Neither is wrong. They reflect genuinely different audiences.
 
 | Dimension | CMS HHS-HCC tool | hccinfhir | Why it matters |
 |---|---|---|---|
-| **How correctness is verified** | No test suite or reference comparison is visible in the published code — correctness is implicitly trusted as a government publication | 238 unit tests covering all features, standard pytest suite | hccinfhir's test suite is reviewable and runnable in CI, which matters for orgs with software validation requirements (SOC 2, internal QA gates). |
+| **How correctness is verified** | No test suite or reference comparison is visible in the published code — correctness is implicitly trusted as a government publication | 242 unit tests covering all features, standard pytest suite | hccinfhir's test suite is reviewable and runnable in CI, which matters for orgs with software validation requirements (SOC 2, internal QA gates). |
 | **Integration testability** | Only by running the full pipeline end-to-end against known input/output pairs | Unit-testable at the patient level; Pydantic types make mocking straightforward | The CMS tool is authoritative but opaque. hccinfhir's per-patient API surface is far easier to test in isolation. |
 | **Validation responsibility** | On the user — intermediate output switches exist precisely so users can audit each pipeline stage themselves | On the maintainer — the test suite is the guarantee; users can also override all reference data files | The CMS tool's transparency is a form of trust-but-verify. hccinfhir asks you to trust the maintainer's fidelity to the spec, backed by tests. |
 
@@ -1364,6 +1366,7 @@ Apache License 2.0. See [LICENSE](LICENSE) for details.
 
 - **Claude Code Documentation**: [CLAUDE.md](./CLAUDE.md) - Comprehensive developer guide
 - **834 Parsing Architecture**: [README_PARSING834.md](./README_PARSING834.md) - X12 834 transaction structure and parsing logic
+- **CMS-HCC V28 Comparison**: [docs/cms_v28_comparison.md](./docs/cms_v28_comparison.md) - hccinfhir vs the official CMS-HCC V28 reference engine, with alignment evidence and when-to-use guidance
 - **Issues**: [GitHub Issues](https://github.com/mimilabs/hccinfhir/issues)
 
 ## Contributors

@@ -20,6 +20,44 @@ same deep structural comparison here — see [Not yet verified](#not-yet-verifie
 
 ---
 
+## Architecture at a glance
+
+Both tools wrap the **same scoring core** — for V28 the mapping, edits, hierarchies,
+categories, interactions, and coefficient values are identical (verified: exact score
+parity). They differ in the *shell* around that core: how data gets **in**, whether a
+**single segment** is chosen, and what comes **out**.
+
+```mermaid
+flowchart TB
+    subgraph CMS["CMS V28 reference engine — the oracle"]
+        direction TB
+        CIN["Fixed CSV input<br/>ID, DOB, SEX, OREC, LTIMCAID, NEMCAID + raw ICD-10"]
+        CCORE["dx to CC · edits + MCE · hierarchies<br/>categories · counts · interactions<br/>+ coefficients for ALL 7 CE + 2 NE segments"]
+        COUT["Wide CSV: every segment score<br/>raw, rounded 3 dp — caller picks which applies"]
+        CIN --> CCORE --> COUT
+    end
+    subgraph OURS["hccinfhir — the operational engine"]
+        direction TB
+        OIN["FHIR EOB · X12 837/834 · service-level · raw dx codes"]
+        OEXT["Extractors + CMS claim filter (CPT/HCPCS, TOB)"]
+        OCORE["dx to CC · edits + MCE (switch_edits) · hierarchies<br/>categories · counts · interactions<br/>+ coefficients for the ONE applicable segment"]
+        OOUT["RAFResult: one RAF + payment score<br/>+ decomposition, dx to CC trace, labels, chronic flags"]
+        OIN --> OEXT --> OCORE --> OOUT
+    end
+    CCORE -. "identical logic and coefficient values<br/>(V28, verified: exact score parity)" .-> OCORE
+```
+
+| | CMS engine | hccinfhir |
+|---|---|---|
+| **Input** | fixed CSV (structured, pre-adjudicated) | FHIR EOB / X12 837/834 / raw dx |
+| **Filtering** | none (assumes clean input) | CMS CPT/HCPCS + TOB filtering built in |
+| **Segment** | computes **all 7 CE + 2 NE** | selects **the one** that applies |
+| **Output** | wide CSV of raw scores | `RAFResult`: RAF + payment score + trace |
+| **Scope** | one model × one year per package | multi-model, multi-year, `prefix_override` |
+| **Nature** | authoritative (it *is* the spec) | validated interpretation, built to embed |
+
+---
+
 ## When to use which
 
 The two tools are built for **different jobs**, not competing at the same one.
@@ -77,6 +115,17 @@ The strongest setup uses both: hccinfhir for ingestion + operations + payment lo
 and the CMS engine as the **periodic oracle** to confirm hccinfhir stays
 spec-faithful. Two dependencies to manage when relying on hccinfhir: keeping
 **coefficients current**, and **re-validating** against each new CMS package.
+
+```mermaid
+flowchart TD
+    START(["Need an HCC risk score"]) --> Q1{"Need the authoritative,<br/>defensible number?<br/>RADV · audit · filing ·<br/>validating an implementation"}
+    Q1 -- Yes --> CMS["CMS engine<br/>(it is the spec)"]
+    Q1 -- No --> Q2{"Raw input (FHIR / X12), or need<br/>filtering · one RAF · payment score ·<br/>multiple models · embedding in a service?"}
+    Q2 -- Yes --> OURS["hccinfhir"]
+    Q2 -- "No — clean input,<br/>want all segments" --> CMS
+    CMS --> BOTH["Ideal: use both — hccinfhir for<br/>ingestion + ops, CMS as periodic oracle"]
+    OURS --> BOTH
+```
 
 ---
 

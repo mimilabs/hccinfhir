@@ -1,3 +1,72 @@
+# CHANGELOG v0.4.0 — CMS-HCC V28 validation, MCE edits, 2026/2027 data
+
+## Summary
+
+A validation-and-data release focused on CMS-HCC **V28** (the payment model for
+2026–2027). hccinfhir's V28 output was verified **numerically identical** to the
+official CMS V28 reference engine (mapping, edits, hierarchies, categories,
+interactions, coefficients — exact score parity across community/institutional
+segments and a pediatric case). Along the way: refreshed 2026 reference data,
+added 2027 data, ported the multi-model and MCE diagnosis edits, and fixed an
+age-0 bug.
+
+**Backward compatibility:** No API breaks — every new parameter has a default and
+no signatures/return types changed. Scores *can* change on upgrade (see
+[Upgrade notes](#upgrade-notes-scores-may-change)); the changes are corrections and,
+for V28, strictly additive.
+
+## New features
+
+- **`switch_edits` parameter** on `calculate_raf` and `HCCInFHIR` (default `True`,
+  matching the CMS default) — toggles the MCE (Medicare Code Editor) age-validity
+  edits. Set `False` to reproduce pre-0.4.0 behavior exactly.
+- **MCE age-validity edits** ported for V28 (303 codes) as `mce_age` rows in
+  `ra_dx_edits.csv`.
+- **Multi-model diagnosis edits** — `ra_dx_edits.csv` now covers V22, V24, ESRD V21,
+  and ESRD V24 (previously V28-only), rebuilt from the CMS SAS edit macros.
+- **2027 reference data** added as opt-in options: `ra_dx_to_cc_2027.csv`,
+  `ra_eligible_cpt_hcpcs_2027.csv` (registered in the filename type literals).
+- **Docs & tooling:** `docs/cms_v28_comparison.md` (CMS-vs-hccinfhir comparison,
+  when-to-use guidance, findings), `resources/parity_harness/run_parity.py`
+  (reproducible numeric parity), and `src/hccinfhir/data/README.md` (data provenance
+  + regeneration).
+
+## Data updates
+
+- **`ra_dx_to_cc_2026.csv` refreshed** from mimilabs. The prior file was mislabeled
+  (it held the CMS *2025* model-year mappings); it now holds 2026. For V28 the change
+  is **purely additive** — 134 newer ICD-10 codes gained mappings, **0 existing
+  mappings changed or removed**.
+- **`ra_eligible_cpt_hcpcs_2026.csv` refreshed** (6,748 → 6,792 codes).
+
+## Fixes
+
+- **Age-0 categorization** — `categorize_demographics(age=0, …)` raised `ValueError`
+  on the community/continued path (reachable for ESRD-model infants). Now categorizes
+  to the `0_34` band. This only *removes* a crash.
+- **`filter.py` default** CPT file aligned `2025 → 2026` (was a year behind the rest
+  of the defaults).
+
+## Upgrade notes (scores may change)
+
+All changes are corrections; no code changes are required to keep running. Numeric
+output can move in these cases:
+
+- **V28 (default):** strictly additive — a beneficiary's RAF is unchanged unless they
+  carry one of the 134 newly-mapped ICD-10 codes, in which case it can only *increase*.
+  No existing mapping changed.
+- **V22 / V24 / ESRD:** now apply their CMS age/sex edits (e.g. hemophilia D66/D67 in
+  females → CC48). Affects only beneficiaries with those specific diagnoses.
+- **MCE (on by default):** invalidates codes outside their MCE-valid age range. **Zero
+  impact for beneficiaries age ≥ 15** (the entire aged population and nearly all
+  disabled); affects only pediatric/edge cases. Set `switch_edits=False` to disable.
+
+If you keep golden/regression baselines on scores, re-baseline on upgrade. For
+bit-identical pre-0.4.0 output: `switch_edits=False` plus
+`dx_cc_mapping_filename="ra_dx_to_cc_2025.csv"`.
+
+---
+
 # CHANGELOG v0.2.7 - Bug Fixes and Interaction Improvements
 
 ## Summary

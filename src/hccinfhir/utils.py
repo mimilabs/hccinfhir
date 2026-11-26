@@ -194,6 +194,8 @@ def load_hierarchies(file_path: str) -> Dict[Tuple[str, ModelName], Set[str]]:
                 model_name = LEAD_PROSPECTIVE_MODEL
             elif model_domain == 'ESRD':
                 model_name = f"CMS-HCC {model_domain} Model {model_version}"
+            elif model_domain == 'RxHCC' and model_version.startswith('R'):
+                model_name = f"{model_domain} Model V{model_version[1:]}"
             else:
                 model_name = f"{model_domain} Model {model_version}"
 
@@ -347,8 +349,13 @@ def load_labels(file_path: str) -> Dict[Tuple[str, ModelName], str]:
                 continue
             cc_raw, label, model_domain, model_version = parts[0], parts[1], parts[2], parts[3]
 
-            # Strip HCC prefix if present to get just the number
-            cc = cc_raw.replace('HCC', '').replace('RxHCC', '')
+            # Strip RXHCC/HCC prefix if present to get just the number
+            if cc_raw.upper().startswith('RXHCC'):
+                cc = cc_raw[5:]
+            elif cc_raw.upper().startswith('HCC'):
+                cc = cc_raw[3:]
+            else:
+                cc = cc_raw
 
             # Handle quoted labels with commas
             if label.startswith('"'):
@@ -367,8 +374,8 @@ def load_labels(file_path: str) -> Dict[Tuple[str, ModelName], str]:
             # Construct model name based on domain
             if model_domain == 'ESRD':
                 model_name = f"CMS-HCC {model_domain} Model {model_version}"
-            elif model_domain == 'RxHCC':
-                model_name = f"{model_domain} Model {model_version}"
+            elif model_domain == 'RxHCC' and model_version.startswith('R'):
+                model_name = f"{model_domain} Model V{model_version[1:]}"
             else:
                 model_name = f"{model_domain} Model {model_version}"
 

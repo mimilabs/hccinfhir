@@ -536,12 +536,40 @@ result = processor.calculate_from_diagnosis(["E11.9"], Demographics(age=75, sex=
 | `"CMS-HCC Model V22"` | 2024-2025 | Community populations | ✅ |
 | `"CMS-HCC Model V24"` | 2024-2026 | Community populations (current) | ✅ |
 | `"CMS-HCC Model V28"` | 2025-2026 | Community populations (latest) | ✅ |
+| `"CMMI-HCC Concurrent Model V2"` | LEAD (2027+) | High Needs beneficiaries | ✅ |
+| `"CMMI-HCC Prospective Model V1"` | LEAD (2027+) | Non-High Needs community beneficiaries | ✅ |
 | `"CMS-HCC ESRD Model V21"` | 2024-2025 | ESRD populations | ✅ |
 | `"CMS-HCC ESRD Model V24"` | 2025-2026 | ESRD populations | ✅ |
 | `"RxHCC Model V08"` | 2024-2026 | Part D prescription drug | ✅ |
 | `"RxHCC Model V08 PDP_AND_MAPD"` | 2027 (proposed) | Part D - Combined reference estimate | ✅ |
 | `"RxHCC Model V08 PDP_ONLY"` | 2027 (proposed) | Part D - Standalone PDP plans | ✅ |
 | `"RxHCC Model V08 MAPD_ONLY"` | 2027 (proposed) | Part D - MA-PD plans | ✅ |
+
+Both LEAD models reuse the CMS-HCC V28 ICD-10 mapping and hierarchy. Their
+coefficients and interaction specifications differ from CMS-HCC V28.
+
+```python
+from hccinfhir import Demographics, HCCInFHIR
+
+# CMMI prospective model for non-High Needs community beneficiaries
+prospective = HCCInFHIR(model_name="CMMI-HCC Prospective Model V1")
+
+# CMMI concurrent model for High Needs beneficiaries
+concurrent = HCCInFHIR(model_name="CMMI-HCC Concurrent Model V2")
+result = concurrent.calculate_from_diagnosis(
+    ["E11.9"],
+    Demographics(
+        age=70,
+        sex="M",
+        lead_high_needs_start="Q3",  # JAN1, Q2, Q3, or Q4
+        lead_post_graft_4_9_month_fraction=0.5,
+    ),
+)
+```
+
+The post-graft inputs are fractions of eligible months and must be between 0 and
+1. The separate LEAD institutional adjustment described by CMMI is a program
+policy adjustment and is not included in the published coefficient table.
 
 ### Using Proposed 2027 Coefficients
 

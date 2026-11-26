@@ -1,5 +1,6 @@
 from typing import Dict, Set, Tuple
 from hccinfhir.datamodels import ModelName
+from hccinfhir.constants import LEAD_MODELS
 
 def apply_hierarchies(
     cc_set: Set[str],
@@ -21,7 +22,7 @@ def apply_hierarchies(
     to_remove = set()
     
     # For V28, if none of 221, 222, 224, 225, 226 are present, remove 223
-    if model_name == "CMS-HCC Model V28":
+    if model_name == "CMS-HCC Model V28" or model_name in LEAD_MODELS:
         if ("223" in cc_set and 
             not any(cc in cc_set for cc in ["221", "222", "224", "225", "226"])):
             cc_set.remove("223")

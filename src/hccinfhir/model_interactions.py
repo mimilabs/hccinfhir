@@ -1,4 +1,5 @@
 from hccinfhir.datamodels import Demographics, ModelName
+from hccinfhir.constants import LEAD_CONCURRENT_MODEL, LEAD_PROSPECTIVE_MODEL
 from typing import Optional, List, Set, Dict
 
 def has_any_hcc(hcc_list: List[str], hcc_set: Set[str]) -> int:
@@ -176,10 +177,16 @@ def create_dual_interactions(demographics: Demographics) -> dict:
         
     return interactions
 
-def create_hcc_counts(hcc_set: Set[str]) -> Dict:
+def create_hcc_counts(hcc_set: Set[str], model_name: ModelName = "CMS-HCC Model V28") -> Dict:
     """Creates HCC count variables"""
     counts = {}
     hcc_count = len(hcc_set)
+
+    if model_name == LEAD_CONCURRENT_MODEL:
+        for i in range(5, 15):
+            counts[f'D{i}'] = int(hcc_count == i)
+        counts['D15P'] = int(hcc_count >= 15)
+        return {key: value for key, value in counts.items() if value > 0}
     
     for i in range(1, 10):
         counts[f'D{i}'] = int(hcc_count == i)
@@ -194,7 +201,7 @@ def get_diagnostic_categories(model_name: ModelName, hcc_set: Set[str]) -> Dict:
     """Creates disease categories based on model version"""
     categories = {}
     
-    if model_name == "CMS-HCC Model V28":
+    if model_name in ("CMS-HCC Model V28", LEAD_PROSPECTIVE_MODEL):
         categories = {
             'CANCER_V28': has_any_hcc(['17', '18', '19', '20', '21', '22', '23'], hcc_set),
             'DIABETES_V28': has_any_hcc(['35', '36', '37', '38'], hcc_set),
@@ -284,7 +291,21 @@ def create_disease_interactions(model_name: ModelName,
     """
     interactions = {}
     
-    if model_name == "CMS-HCC Model V28":
+    if model_name == LEAD_CONCURRENT_MODEL:
+        # Concurrent V2 has seven additive age-under-65 HCC interactions.
+        for hcc in ('107', '108', '109', '111', '277', '326', '327'):
+            interactions[f'HCC{hcc}_LT65'] = int(demographics.age < 65 and hcc in hcc_set)
+    elif model_name == LEAD_PROSPECTIVE_MODEL:
+        # Prospective V1 uses the six V28 disease interactions published by CMMI.
+        interactions.update({
+            'DIABETES_HF_V28': diagnostic_cats['DIABETES_V28'] * diagnostic_cats['HF_V28'],
+            'HF_CHR_LUNG_V28': diagnostic_cats['HF_V28'] * diagnostic_cats['CHR_LUNG_V28'],
+            'HF_KIDNEY_V28': diagnostic_cats['HF_V28'] * diagnostic_cats['KIDNEY_V28'],
+            'CHR_LUNG_CARD_RESP_FAIL_V28': diagnostic_cats['CHR_LUNG_V28'] * diagnostic_cats['CARD_RESP_FAIL_V28'],
+            'HF_HCC238_V28': diagnostic_cats['HF_V28'] * int('238' in hcc_set),
+            'gSubUseDisorder_gPsych_V28': diagnostic_cats['gSubUseDisorder_V28'] * diagnostic_cats['gPsychiatric_V28'],
+        })
+    elif model_name == "CMS-HCC Model V28":
         # Base V28 disease interactions
         interactions.update({
             'DIABETES_HF_V28': diagnostic_cats['DIABETES_V28'] * diagnostic_cats['HF_V28'],
@@ -454,8 +475,18 @@ def apply_interactions(demographics: Demographics,
     diagnostic_cats = get_diagnostic_categories(model_name, hcc_set)
     
     interactions.update(create_disease_interactions(model_name, diagnostic_cats, demographics, hcc_set))
+
+    if model_name == LEAD_CONCURRENT_MODEL:
+        if demographics.lead_high_needs_start:
+            interactions[f'HN_{demographics.lead_high_needs_start}'] = 1
+
+        age_prefix = 'LT65' if demographics.age < 65 else 'GE65'
+        if demographics.lead_post_graft_4_9_month_fraction > 0:
+            interactions[f'{age_prefix}_PG49_FRAC'] = demographics.lead_post_graft_4_9_month_fraction
+        if demographics.lead_post_graft_10_plus_month_fraction > 0:
+            interactions[f'{age_prefix}_PG10P_FRAC'] = demographics.lead_post_graft_10_plus_month_fraction
         
     # Add HCC counts
-    interactions.update(create_hcc_counts(hcc_set))
+    interactions.update(create_hcc_counts(hcc_set, model_name))
     
     return interactions

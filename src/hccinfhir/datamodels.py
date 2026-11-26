@@ -7,6 +7,8 @@ ModelName = Literal[
     "CMS-HCC Model V22",
     "CMS-HCC Model V24",
     "CMS-HCC Model V28",
+    "CMMI-HCC Concurrent Model V2",
+    "CMMI-HCC Prospective Model V1",
     "CMS-HCC ESRD Model V21",
     "CMS-HCC ESRD Model V24",
     "RxHCC Model V08",
@@ -180,6 +182,18 @@ class Demographics(BaseModel):
     lti: Optional[bool] = Field(False, description="[derived] True if LTI (LTI Model)") 
     fbd: Optional[bool] = Field(False, description="[derived] True if FBD (FBD Model)") 
     pbd: Optional[bool] = Field(False, description="[derived] True if PBD (PBD Model)")
+    lead_high_needs_start: Optional[Literal['JAN1', 'Q2', 'Q3', 'Q4']] = Field(
+        None,
+        description="First High Needs identification period for the LEAD concurrent model"
+    )
+    lead_post_graft_4_9_month_fraction: float = Field(
+        0.0, ge=0.0, le=1.0,
+        description="Fraction of eligible months 4-9 months post-graft for LEAD concurrent scoring"
+    )
+    lead_post_graft_10_plus_month_fraction: float = Field(
+        0.0, ge=0.0, le=1.0,
+        description="Fraction of eligible months 10+ months post-graft for LEAD concurrent scoring"
+    )
 
 
 class RAFResult(BaseModel):

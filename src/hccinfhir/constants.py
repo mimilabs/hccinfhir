@@ -12,6 +12,17 @@ References:
 
 from typing import Set, Dict
 
+LEAD_CONCURRENT_MODEL = "CMMI-HCC Concurrent Model V2"
+LEAD_PROSPECTIVE_MODEL = "CMMI-HCC Prospective Model V1"
+LEAD_MODELS = frozenset({LEAD_CONCURRENT_MODEL, LEAD_PROSPECTIVE_MODEL})
+
+
+def get_clinical_model_name(model_name: str) -> str:
+    """Return the CMS clinical model supplying mappings, edits, and labels."""
+    if model_name in LEAD_MODELS:
+        return "CMS-HCC Model V28"
+    return model_name
+
 # =============================================================================
 # DUAL ELIGIBILITY CODES
 # =============================================================================

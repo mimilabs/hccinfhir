@@ -7,6 +7,7 @@ from hccinfhir.model_hierarchies import apply_hierarchies
 from hccinfhir.model_coefficients import apply_coefficients
 from hccinfhir.model_interactions import apply_interactions
 from hccinfhir.defaults import dx_to_cc_default, hierarchies_default, is_chronic_default, coefficients_default, labels_default, edits_default
+from hccinfhir.constants import get_clinical_model_name
 
 def calculate_raf(diagnosis_codes: List[str],
                   model_name: ModelName = "CMS-HCC Model V28",
@@ -20,6 +21,9 @@ def calculate_raf(diagnosis_codes: List[str],
                   low_income: bool = False,
                   lti: bool = False,
                   graft_months: int =  None,
+                  lead_high_needs_start: Optional[str] = None,
+                  lead_post_graft_4_9_month_fraction: float = 0.0,
+                  lead_post_graft_10_plus_month_fraction: float = 0.0,
                   dx_to_cc_mapping: Dict[Tuple[str, ModelName], Set[str]] = dx_to_cc_default,
                   is_chronic_mapping: Dict[Tuple[str, ModelName], bool] = is_chronic_default,
                   hierarchies_mapping: Dict[Tuple[str, ModelName], Set[str]] = hierarchies_default,
@@ -47,6 +51,12 @@ def calculate_raf(diagnosis_codes: List[str],
         low_income: Low income subsidy indicator.
         lti: Long-term institutional status indicator.
         graft_months: Number of months since transplant.
+        lead_high_needs_start: First LEAD High Needs identification period
+            (`JAN1`, `Q2`, `Q3`, or `Q4`) for Concurrent Model V2.
+        lead_post_graft_4_9_month_fraction: Fraction of eligible months 4-9
+            months post-graft for Concurrent Model V2.
+        lead_post_graft_10_plus_month_fraction: Fraction of eligible months
+            10+ months post-graft for Concurrent Model V2.
         dx_to_cc_mapping: Mapping of diagnosis codes to condition categories; defaults to packaged 2026 mappings.
         is_chronic_mapping: Mapping of HCCs to a chronic flag for the selected model; defaults to packaged mappings.
         hierarchies_mapping: Mapping of parent HCCs to child HCCs for hierarchical rules; defaults to packaged 2026 mappings.
@@ -92,13 +102,19 @@ def calculate_raf(diagnosis_codes: List[str],
                                            lti,
                                            graft_months,
                                            prefix_override=prefix_override)
+    demographics.lead_high_needs_start = lead_high_needs_start
+    demographics.lead_post_graft_4_9_month_fraction = lead_post_graft_4_9_month_fraction
+    demographics.lead_post_graft_10_plus_month_fraction = lead_post_graft_10_plus_month_fraction
+
+    # LEAD uses the V28 ICD-10 mapping, age/sex edits, chronic flags, and labels.
+    clinical_model_name = get_clinical_model_name(model_name)
     
     cc_to_dx = apply_mapping(diagnosis_codes,
-                             model_name,
+                             clinical_model_name,
                              dx_to_cc_mapping=dx_to_cc_mapping)
 
     # Apply age/sex edits (CMS hardcoded rules from V28I0ED and similar)
-    cc_to_dx = apply_edits(cc_to_dx, age, sex, model_name, edits_mapping, switch_edits=switch_edits)
+    cc_to_dx = apply_edits(cc_to_dx, age, sex, clinical_model_name, edits_mapping, switch_edits=switch_edits)
 
     hcc_set = set(cc_to_dx.keys())
     hcc_set = apply_hierarchies(hcc_set, model_name, hierarchies_mapping)
@@ -109,7 +125,7 @@ def calculate_raf(diagnosis_codes: List[str],
     hcc_chronic = set()
     interactions_chronic = {}
     for hcc in hcc_set:
-        if is_chronic_mapping.get((hcc, model_name), False):
+        if is_chronic_mapping.get((hcc, clinical_model_name), False):
             hcc_chronic.add(hcc)
         interactions_chronic = apply_interactions(demographics, hcc_chronic, model_name)
 
@@ -151,8 +167,8 @@ def calculate_raf(diagnosis_codes: List[str],
     # Build HCC details with labels and chronic status
     hcc_details = []
     for hcc in hcc_set:
-        label = labels_mapping.get((hcc, model_name))
-        is_chronic = is_chronic_mapping.get((hcc, model_name), False)
+        label = labels_mapping.get((hcc, clinical_model_name))
+        is_chronic = is_chronic_mapping.get((hcc, clinical_model_name), False)
         coef = coefficients.get(hcc)
         hcc_details.append(HCCDetail(
             hcc=hcc,

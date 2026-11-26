@@ -1,5 +1,6 @@
 from typing import Dict, Tuple, Optional, Set
 from hccinfhir.datamodels import ModelName, Demographics, PrefixOverride
+from hccinfhir.constants import LEAD_CONCURRENT_MODEL
 
 def get_coefficent_prefix(demographics: Demographics, 
                           model_name: ModelName = "CMS-HCC Model V28") -> str:
@@ -14,6 +15,8 @@ def get_coefficent_prefix(demographics: Demographics,
         String prefix used to look up coefficients for this beneficiary type
     """
     # Get base prefix based on model type
+    if model_name == LEAD_CONCURRENT_MODEL:
+        return ''
     if 'ESRD' in model_name:
         if demographics.esrd:
             if demographics.graft_months is not None:
@@ -91,7 +94,10 @@ def apply_coefficients(demographics: Demographics,
         for variables that are present (HCC in hcc_set or interaction value = 1)
     """
     # Get the coefficient prefix
-    prefix = prefix_override if prefix_override is not None else get_coefficent_prefix(demographics, model_name)
+    if model_name == LEAD_CONCURRENT_MODEL:
+        prefix = ''
+    else:
+        prefix = prefix_override if prefix_override is not None else get_coefficent_prefix(demographics, model_name)
     
     output = {}
 
@@ -113,13 +119,13 @@ def apply_coefficients(demographics: Demographics,
 
     # Add interactions
     for interaction_key, interaction_value in interactions.items():
-        if interaction_value < 1:
+        if interaction_value <= 0:
             continue
 
         # Standard prefix-based lookup
         key = (f"{prefix}{interaction_key}".lower(), model_name)
         if key in coefficients:
-            value = coefficients[key]
+            value = coefficients[key] * interaction_value
             output[interaction_key] = value
 
         # No-prefix lookup for ESRD duration coefficients stored without prefix

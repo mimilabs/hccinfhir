@@ -2,7 +2,8 @@ from typing import List, Dict, Any, Union, Optional, Tuple, Set, Iterable
 from hccinfhir.extractor import extract_sld_list
 from hccinfhir.filter import apply_filter
 from hccinfhir.model_calculate import calculate_raf
-from hccinfhir.datamodels import Demographics, ServiceLevelData, RAFResult, ModelName, ProcFilteringFilename, DxCCMappingFilename, HierarchiesFilename, IsChronicFilename, CoefficientsFilename, PrefixOverride
+from hccinfhir.datamodels import Demographics, ServiceLevelData, RAFResult, ModelNameInput, ModelInputs, ProcFilteringFilename, DxCCMappingFilename, HierarchiesFilename, IsChronicFilename, CoefficientsFilename, PrefixOverride
+from hccinfhir.constants import normalize_model_name
 from hccinfhir.utils import load_proc_filtering, load_dx_to_cc_mapping, load_hierarchies, load_is_chronic, load_coefficients
 
 class HCCInFHIR:
@@ -15,7 +16,7 @@ class HCCInFHIR:
     
     def __init__(self,
                  filter_claims: bool = True,
-                 model_name: ModelName = "CMS-HCC Model V28",
+                 model_name: ModelNameInput = "CMS-HCC Model V28",
                  proc_filtering_filename: ProcFilteringFilename = "ra_eligible_cpt_hcpcs_2026.csv",
                  dx_cc_mapping_filename: DxCCMappingFilename = "ra_dx_to_cc_2026.csv",
                  hierarchies_filename: HierarchiesFilename = "ra_hierarchies_2026.csv",
@@ -27,7 +28,8 @@ class HCCInFHIR:
 
         Args:
             filter_claims: Whether to apply filtering rules to claims. Default is True.
-            model_name: The name of the model to use for the calculation. Default is "CMS-HCC Model V28".
+            model_name: Canonical model name or versioned alias (for example,
+                "CMS-HCC Model V28" or "cms-v28").
             proc_filtering_filename: Filename or path to the CPT/HCPCS filtering file. Default is "ra_eligible_cpt_hcpcs_2026.csv".
             dx_cc_mapping_filename: Filename or path to the diagnosis to CC mapping file. Default is "ra_dx_to_cc_2026.csv".
             hierarchies_filename: Filename or path to the hierarchies file. Default is "ra_hierarchies_2026.csv".
@@ -37,7 +39,7 @@ class HCCInFHIR:
         """
         self.filter_claims = filter_claims
         self.switch_edits = switch_edits
-        self.model_name = model_name
+        self.model_name = normalize_model_name(model_name)
         self.proc_filtering_filename = proc_filtering_filename
         self.dx_cc_mapping_filename = dx_cc_mapping_filename
         self.hierarchies_filename = hierarchies_filename
@@ -63,7 +65,8 @@ class HCCInFHIR:
                                                       prefix_override: Optional[PrefixOverride] = None,
                                                       maci: float = 0.0,
                                                       norm_factor: float = 1.0,
-                                                      frailty_score: float = 0.0) -> RAFResult:
+                                                      frailty_score: float = 0.0,
+                                                      model_inputs: Optional[ModelInputs] = None) -> RAFResult:
         """Calculate RAF score using demographics data and loaded data files."""
         return calculate_raf(
             diagnosis_codes=diagnosis_codes,
@@ -78,9 +81,7 @@ class HCCInFHIR:
             low_income=demographics.low_income,
             lti=demographics.lti,
             graft_months=demographics.graft_months,
-            lead_high_needs_start=demographics.lead_high_needs_start,
-            lead_post_graft_4_9_month_fraction=demographics.lead_post_graft_4_9_month_fraction,
-            lead_post_graft_10_plus_month_fraction=demographics.lead_post_graft_10_plus_month_fraction,
+            model_inputs=model_inputs,
             dx_to_cc_mapping=self.dx_to_cc_mapping,
             is_chronic_mapping=self.is_chronic_mapping,
             hierarchies_mapping=self.hierarchies_mapping,
@@ -101,7 +102,8 @@ class HCCInFHIR:
             prefix_override: Optional[PrefixOverride] = None,
             maci: float = 0.0,
             norm_factor: float = 1.0,
-            frailty_score: float = 0.0) -> RAFResult:
+            frailty_score: float = 0.0,
+            model_inputs: Optional[ModelInputs] = None) -> RAFResult:
         """Process EOB resources and calculate RAF scores.
 
         Args:
@@ -112,6 +114,7 @@ class HCCInFHIR:
             maci: Major Adjustment to Coding Intensity (0.0-1.0, default 0.0)
             norm_factor: Normalization factor (default 1.0)
             frailty_score: Frailty adjustment score (default 0.0)
+            model_inputs: Optional typed inputs required by the selected model.
 
         Returns:
             RAFResult object containing calculated scores and processed data
@@ -130,7 +133,8 @@ class HCCInFHIR:
         # Calculate RAF score
         unique_dx_codes = self._get_unique_diagnosis_codes(sld_list)
         raf_result = self._calculate_raf_from_demographics_and_dx_codes(
-            unique_dx_codes, demographics, prefix_override, maci, norm_factor, frailty_score
+            unique_dx_codes, demographics, prefix_override, maci, norm_factor,
+            frailty_score, model_inputs
         )
 
         # Create new result with service data included
@@ -141,7 +145,8 @@ class HCCInFHIR:
                              prefix_override: Optional[PrefixOverride] = None,
                              maci: float = 0.0,
                              norm_factor: float = 1.0,
-                             frailty_score: float = 0.0) -> RAFResult:
+                             frailty_score: float = 0.0,
+                             model_inputs: Optional[ModelInputs] = None) -> RAFResult:
         """Process service-level data and calculate RAF scores.
 
         Args:
@@ -152,6 +157,7 @@ class HCCInFHIR:
             maci: Major Adjustment to Coding Intensity (0.0-1.0, default 0.0)
             norm_factor: Normalization factor (default 1.0)
             frailty_score: Frailty adjustment score (default 0.0)
+            model_inputs: Optional typed inputs required by the selected model.
 
         Returns:
             RAFResult object containing calculated scores and processed data
@@ -185,7 +191,8 @@ class HCCInFHIR:
         # Calculate RAF score
         unique_dx_codes = self._get_unique_diagnosis_codes(standardized_data)
         raf_result = self._calculate_raf_from_demographics_and_dx_codes(
-            unique_dx_codes, demographics, prefix_override, maci, norm_factor, frailty_score
+            unique_dx_codes, demographics, prefix_override, maci, norm_factor,
+            frailty_score, model_inputs
         )
 
         # Create new result with service data included
@@ -197,6 +204,7 @@ class HCCInFHIR:
                                maci: float = 0.0,
                                norm_factor: float = 1.0,
                                frailty_score: float = 0.0,
+                               model_inputs: Optional[ModelInputs] = None,
                                **kwargs) -> RAFResult:
         """Calculate RAF scores from diagnosis codes.
 
@@ -209,6 +217,7 @@ class HCCInFHIR:
             maci: Major Adjustment to Coding Intensity (0.0-1.0, default 0.0)
             norm_factor: Normalization factor (default 1.0)
             frailty_score: Frailty adjustment score (default 0.0)
+            model_inputs: Optional typed inputs required by the selected model.
             **kwargs: Demographic fields (age, sex, dual_elgbl_cd, orec, etc.)
                 passed directly as keyword arguments. Only used when demographics is None.
 
@@ -232,6 +241,7 @@ class HCCInFHIR:
             demographics = self._ensure_demographics(demographics)
 
         raf_result = self._calculate_raf_from_demographics_and_dx_codes(
-            diagnosis_list, demographics, prefix_override, maci, norm_factor, frailty_score
+            diagnosis_list, demographics, prefix_override, maci, norm_factor,
+            frailty_score, model_inputs
         )
         return raf_result

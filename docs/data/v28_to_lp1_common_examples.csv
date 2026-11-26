@@ -1,0 +1,9 @@
+case,hccs,v28_score,lp1_score,absolute_change,percent_change
+No payment HCCs,none,0.396,0.6459,0.2499,63.1
+Diabetes with chronic complications,37,0.562,0.6459,0.0839,14.9
+Morbid obesity,48,0.582,0.8799,0.2979,51.2
+Specified heart arrhythmia,238,0.695,1.046,0.351,50.5
+Acute-on-chronic heart failure,224,0.756,0.9769,0.2209,29.2
+Diabetes + heart failure,37;224,1.034,1.091,0.057,5.5
+Heart failure + stage 4 CKD,224;327,1.446,1.3114,-0.1346,-9.3
+Six-condition profile,37;48;224;238;280;327,2.785,2.3671,-0.4179,-15.0

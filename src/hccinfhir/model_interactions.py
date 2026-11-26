@@ -1,4 +1,4 @@
-from hccinfhir.datamodels import Demographics, ModelName
+from hccinfhir.datamodels import Demographics, ModelInputs, ModelName
 from hccinfhir.constants import LEAD_CONCURRENT_MODEL, LEAD_PROSPECTIVE_MODEL
 from typing import Optional, List, Set, Dict
 
@@ -181,6 +181,10 @@ def create_hcc_counts(hcc_set: Set[str], model_name: ModelName = "CMS-HCC Model 
     """Creates HCC count variables"""
     counts = {}
     hcc_count = len(hcc_set)
+
+    # LP1 does not include HCC-count variables in its specification.
+    if model_name == LEAD_PROSPECTIVE_MODEL:
+        return {}
 
     if model_name == LEAD_CONCURRENT_MODEL:
         for i in range(5, 15):
@@ -461,7 +465,8 @@ def create_disease_interactions(model_name: ModelName,
 
 def apply_interactions(demographics: Demographics,
                       hcc_set: Set[str],
-                      model_name: ModelName = "CMS-HCC Model V28") -> Dict:
+                      model_name: ModelName = "CMS-HCC Model V28",
+                      model_inputs: Optional[ModelInputs] = None) -> Dict:
     """
     Calculate HCC interactions across CMS models. Handles CMS-HCC, ESRD, and RxHCC models.
     """
@@ -476,15 +481,15 @@ def apply_interactions(demographics: Demographics,
     
     interactions.update(create_disease_interactions(model_name, diagnostic_cats, demographics, hcc_set))
 
-    if model_name == LEAD_CONCURRENT_MODEL:
-        if demographics.lead_high_needs_start:
-            interactions[f'HN_{demographics.lead_high_needs_start}'] = 1
+    if model_name == LEAD_CONCURRENT_MODEL and model_inputs is not None:
+        if model_inputs.high_needs_start:
+            interactions[f'HN_{model_inputs.high_needs_start}'] = 1
 
         age_prefix = 'LT65' if demographics.age < 65 else 'GE65'
-        if demographics.lead_post_graft_4_9_month_fraction > 0:
-            interactions[f'{age_prefix}_PG49_FRAC'] = demographics.lead_post_graft_4_9_month_fraction
-        if demographics.lead_post_graft_10_plus_month_fraction > 0:
-            interactions[f'{age_prefix}_PG10P_FRAC'] = demographics.lead_post_graft_10_plus_month_fraction
+        if model_inputs.post_graft_4_9_month_fraction > 0:
+            interactions[f'{age_prefix}_PG49_FRAC'] = model_inputs.post_graft_4_9_month_fraction
+        if model_inputs.post_graft_10_plus_month_fraction > 0:
+            interactions[f'{age_prefix}_PG10P_FRAC'] = model_inputs.post_graft_10_plus_month_fraction
         
     # Add HCC counts
     interactions.update(create_hcc_counts(hcc_set, model_name))

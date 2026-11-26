@@ -50,6 +50,7 @@ print(f"HCCs: {result.hcc_list}")
 - [Testing](#testing)
 - [Comparison: CMS HHS-HCC Tool vs hccinfhir](#comparison-cms-hhs-hcc-tool-vs-hccinfhir)
 - 📄 [CMS-HCC V28 vs hccinfhir — deep comparison (docs)](docs/cms_v28_comparison.md)
+- 📊 [Transitioning from CMS-HCC V28 to LEAD Prospective V1](docs/v28_to_lead_lp1_transition.md)
 - [License](#license)
 
 ## Migrating from hccpy
@@ -531,38 +532,52 @@ result = processor.calculate_from_diagnosis(["E11.9"], Demographics(age=75, sex=
 
 ### Supported HCC Models
 
-| Model Name | Model Years | Use Case | Supported |
-|------------|-------------|----------|-----------|
-| `"CMS-HCC Model V22"` | 2024-2025 | Community populations | ✅ |
-| `"CMS-HCC Model V24"` | 2024-2026 | Community populations (current) | ✅ |
-| `"CMS-HCC Model V28"` | 2025-2026 | Community populations (latest) | ✅ |
-| `"CMMI-HCC Concurrent Model V2"` | LEAD (2027+) | High Needs beneficiaries | ✅ |
-| `"CMMI-HCC Prospective Model V1"` | LEAD (2027+) | Non-High Needs community beneficiaries | ✅ |
-| `"CMS-HCC ESRD Model V21"` | 2024-2025 | ESRD populations | ✅ |
-| `"CMS-HCC ESRD Model V24"` | 2025-2026 | ESRD populations | ✅ |
-| `"RxHCC Model V08"` | 2024-2026 | Part D prescription drug | ✅ |
-| `"RxHCC Model V08 PDP_AND_MAPD"` | 2027 (proposed) | Part D - Combined reference estimate | ✅ |
-| `"RxHCC Model V08 PDP_ONLY"` | 2027 (proposed) | Part D - Standalone PDP plans | ✅ |
-| `"RxHCC Model V08 MAPD_ONLY"` | 2027 (proposed) | Part D - MA-PD plans | ✅ |
+| Model Name | Alias | Model Years | Use Case |
+|------------|-------|-------------|----------|
+| `"CMS-HCC Model V22"` | `"cms-v22"` | 2024-2025 | Community populations |
+| `"CMS-HCC Model V24"` | `"cms-v24"` | 2024-2026 | Community populations |
+| `"CMS-HCC Model V28"` | `"cms-v28"` | 2025-2026 | Community populations |
+| `"CMMI-HCC Concurrent Model V2"` | `"lead-c-v2"` | LEAD (2027+) | High Needs beneficiaries |
+| `"CMMI-HCC Prospective Model V1"` | `"lead-p-v1"` | LEAD (2027+) | Non-High Needs community beneficiaries |
+| `"CMS-HCC ESRD Model V21"` | `"esrd-v21"` | 2024-2025 | ESRD populations |
+| `"CMS-HCC ESRD Model V24"` | `"esrd-v24"` | 2025-2026 | ESRD populations |
+| `"RxHCC Model V08"` | `"rxhcc-v08"` | 2024-2026 | Part D prescription drug |
+| `"RxHCC Model V08 PDP_AND_MAPD"` | `"rxhcc-v08-pdp-and-mapd"` | 2027 proposed | Combined reference estimate |
+| `"RxHCC Model V08 PDP_ONLY"` | `"rxhcc-v08-pdp-only"` | 2027 proposed | Standalone PDP plans |
+| `"RxHCC Model V08 MAPD_ONLY"` | `"rxhcc-v08-mapd-only"` | 2027 proposed | MA-PD plans |
+
+Aliases are case-insensitive. Results always contain the canonical full model
+name so saved outputs remain explicit and reproducible.
+
+```python
+processor = HCCInFHIR(model_name="cms-v28")
+```
+
+### Model-dependent inputs
+
+Pass common beneficiary characteristics through `Demographics`. Models that
+require additional, model-specific variables use the single typed
+`model_inputs` argument. Supplying an input object to an incompatible model
+raises an error rather than silently ignoring it. Future models can add their
+own typed input class without expanding every calculation method's signature.
 
 Both LEAD models reuse the CMS-HCC V28 ICD-10 mapping and hierarchy. Their
 coefficients and interaction specifications differ from CMS-HCC V28.
 
 ```python
-from hccinfhir import Demographics, HCCInFHIR
+from hccinfhir import Demographics, HCCInFHIR, LeadConcurrentInputs
 
 # CMMI prospective model for non-High Needs community beneficiaries
-prospective = HCCInFHIR(model_name="CMMI-HCC Prospective Model V1")
+prospective = HCCInFHIR(model_name="lead-p-v1")
 
 # CMMI concurrent model for High Needs beneficiaries
-concurrent = HCCInFHIR(model_name="CMMI-HCC Concurrent Model V2")
+concurrent = HCCInFHIR(model_name="lead-c-v2")
 result = concurrent.calculate_from_diagnosis(
     ["E11.9"],
-    Demographics(
-        age=70,
-        sex="M",
-        lead_high_needs_start="Q3",  # JAN1, Q2, Q3, or Q4
-        lead_post_graft_4_9_month_fraction=0.5,
+    Demographics(age=70, sex="M"),
+    model_inputs=LeadConcurrentInputs(
+        high_needs_start="Q3",  # JAN1, Q2, Q3, or Q4
+        post_graft_4_9_month_fraction=0.5,
     ),
 )
 ```
@@ -828,8 +843,9 @@ Comprehensive risk adjustment calculation results.
 - `coefficients: Dict[str, float]` - Applied coefficients
 - `interactions: Dict[str, float]` - Disease interactions
 - `demographics: Demographics` - Demographics used
+- `model_inputs: Optional[ModelInputs]` - Model-specific beneficiary inputs used
 - `model_name: str` - HCC model used
-- `version: str` - Library version
+- `version: str` - Demographic categorization version (`V2`, `V4`, or `V6`)
 - `diagnosis_codes: List[str]` - Input diagnosis codes
 - `service_level_data: Optional[List[ServiceLevelData]]` - Service records
 
@@ -1396,6 +1412,7 @@ Apache License 2.0. See [LICENSE](LICENSE) for details.
 - **Claude Code Documentation**: [CLAUDE.md](./CLAUDE.md) - Comprehensive developer guide
 - **834 Parsing Architecture**: [README_PARSING834.md](./README_PARSING834.md) - X12 834 transaction structure and parsing logic
 - **CMS-HCC V28 Comparison**: [docs/cms_v28_comparison.md](./docs/cms_v28_comparison.md) - hccinfhir vs the official CMS-HCC V28 reference engine, with alignment evidence and when-to-use guidance
+- **V28 → LEAD LP1 Transition**: [docs/v28_to_lead_lp1_transition.md](./docs/v28_to_lead_lp1_transition.md) - behavioral differences, concrete examples, and a prevalence-weighted mock population study
 - **Issues**: [GitHub Issues](https://github.com/mimilabs/hccinfhir/issues)
 
 ## Contributors

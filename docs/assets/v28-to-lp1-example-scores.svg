@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 980 545">
+
+    <style>
+      :root { --bg:#ffffff; --fg:#172033; --muted:#60708a; --grid:#d7deea;
+              --v28:#2563eb; --lp1:#d97706; --positive:#047857; --negative:#b91c1c; }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg:#111827; --fg:#f3f4f6; --muted:#b3bfd1; --grid:#374151;
+                --v28:#60a5fa; --lp1:#fbbf24; --positive:#34d399; --negative:#f87171; }
+      }
+      .bg { fill:var(--bg); } .fg { fill:var(--fg); } .muted { fill:var(--muted); }
+      .grid { stroke:var(--grid); stroke-width:1; } .v28 { fill:var(--v28); stroke:var(--v28); }
+      .lp1 { fill:var(--lp1); stroke:var(--lp1); } .positive { fill:var(--positive); }
+      .negative { fill:var(--negative); } text { font-family:system-ui,-apple-system,sans-serif; }
+      .title { font-size:20px; font-weight:600; } .subtitle { font-size:12px; }
+      .label { font-size:12px; } .value { font-size:11px; font-variant-numeric:tabular-nums; }
+      .axis { font-size:11px; fill:var(--muted); }
+    </style>
+    
+<rect class="bg" width="980" height="545"/>
+<title id="title">Representative V28 and LP1 scores</title>
+<desc id="desc">Grouped horizontal bars compare risk scores for eight non-dual aged example profiles.</desc>
+<text class="title fg" x="20" y="30">Representative scores: non-dual aged, male age 72</text>
+<text class="subtitle muted" x="20" y="52">Same V28 HCCs; only scoring behavior changes</text>
+<rect class="v28" x="285" y="62" width="12" height="12"/><text class="label fg" x="303" y="72">CMS V28</text>
+<rect class="lp1" x="380" y="62" width="12" height="12"/><text class="label fg" x="398" y="72">LEAD LP1</text>
+<line class="grid" x1="285.0" y1="80" x2="285.0" y2="510"/>
+<text class="axis" text-anchor="middle" x="285.0" y="530">0.0</text>
+<line class="grid" x1="417.0" y1="80" x2="417.0" y2="510"/>
+<text class="axis" text-anchor="middle" x="417.0" y="530">0.6</text>
+<line class="grid" x1="549.0" y1="80" x2="549.0" y2="510"/>
+<text class="axis" text-anchor="middle" x="549.0" y="530">1.2</text>
+<line class="grid" x1="681.0" y1="80" x2="681.0" y2="510"/>
+<text class="axis" text-anchor="middle" x="681.0" y="530">1.8</text>
+<line class="grid" x1="813.0" y1="80" x2="813.0" y2="510"/>
+<text class="axis" text-anchor="middle" x="813.0" y="530">2.4</text>
+<line class="grid" x1="945.0" y1="80" x2="945.0" y2="510"/>
+<text class="axis" text-anchor="middle" x="945.0" y="530">3.0</text>
+<text class="label fg" x="275" y="107" text-anchor="end">No payment HCCs</text>
+<rect class="v28" x="285" y="93" width="86.9" height="13" opacity="0.88"/>
+<text class="value fg" x="376.9" y="104">0.396</text>
+<rect class="lp1" x="285" y="112" width="141.7" height="13" opacity="0.88"/>
+<text class="value fg" x="431.7" y="123">0.646</text>
+<text class="label fg" x="275" y="157" text-anchor="end">Diabetes with chronic complications</text>
+<rect class="v28" x="285" y="143" width="123.3" height="13" opacity="0.88"/>
+<text class="value fg" x="413.3" y="154">0.562</text>
+<rect class="lp1" x="285" y="162" width="141.7" height="13" opacity="0.88"/>
+<text class="value fg" x="431.7" y="173">0.646</text>
+<text class="label fg" x="275" y="207" text-anchor="end">Morbid obesity</text>
+<rect class="v28" x="285" y="193" width="127.7" height="13" opacity="0.88"/>
+<text class="value fg" x="417.7" y="204">0.582</text>
+<rect class="lp1" x="285" y="212" width="193.1" height="13" opacity="0.88"/>
+<text class="value fg" x="483.1" y="223">0.880</text>
+<text class="label fg" x="275" y="257" text-anchor="end">Specified heart arrhythmia</text>
+<rect class="v28" x="285" y="243" width="152.5" height="13" opacity="0.88"/>
+<text class="value fg" x="442.5" y="254">0.695</text>
+<rect class="lp1" x="285" y="262" width="229.5" height="13" opacity="0.88"/>
+<text class="value fg" x="519.5" y="273">1.046</text>
+<text class="label fg" x="275" y="307" text-anchor="end">Acute-on-chronic heart failure</text>
+<rect class="v28" x="285" y="293" width="165.9" height="13" opacity="0.88"/>
+<text class="value fg" x="455.9" y="304">0.756</text>
+<rect class="lp1" x="285" y="312" width="214.4" height="13" opacity="0.88"/>
+<text class="value fg" x="504.4" y="323">0.977</text>
+<text class="label fg" x="275" y="357" text-anchor="end">Diabetes + heart failure</text>
+<rect class="v28" x="285" y="343" width="226.9" height="13" opacity="0.88"/>
+<text class="value fg" x="516.9" y="354">1.034</text>
+<rect class="lp1" x="285" y="362" width="239.4" height="13" opacity="0.88"/>
+<text class="value fg" x="529.4" y="373">1.091</text>
+<text class="label fg" x="275" y="407" text-anchor="end">Heart failure + stage 4 CKD</text>
+<rect class="v28" x="285" y="393" width="317.3" height="13" opacity="0.88"/>
+<text class="value fg" x="607.3" y="404">1.446</text>
+<rect class="lp1" x="285" y="412" width="287.8" height="13" opacity="0.88"/>
+<text class="value fg" x="577.8" y="423">1.311</text>
+<text class="label fg" x="275" y="457" text-anchor="end">Six-condition profile</text>
+<rect class="v28" x="285" y="443" width="611.1" height="13" opacity="0.88"/>
+<text class="value fg" x="901.1" y="454">2.785</text>
+<rect class="lp1" x="285" y="462" width="519.4" height="13" opacity="0.88"/>
+<text class="value fg" x="809.4" y="473">2.367</text>
+<text class="axis" text-anchor="middle" x="615.0" y="544">Risk score</text>
+</svg>

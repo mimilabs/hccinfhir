@@ -12,6 +12,48 @@ References:
 
 from typing import Set, Dict
 
+LEAD_CONCURRENT_MODEL = "CMMI-HCC Concurrent Model V2"
+LEAD_PROSPECTIVE_MODEL = "CMMI-HCC Prospective Model V1"
+LEAD_MODELS = frozenset({LEAD_CONCURRENT_MODEL, LEAD_PROSPECTIVE_MODEL})
+
+MODEL_ALIASES = {
+    "cms-v22": "CMS-HCC Model V22",
+    "cms-v24": "CMS-HCC Model V24",
+    "cms-v28": "CMS-HCC Model V28",
+    "esrd-v21": "CMS-HCC ESRD Model V21",
+    "esrd-v24": "CMS-HCC ESRD Model V24",
+    "rxhcc-v08": "RxHCC Model V08",
+    "rxhcc-v08-pdp-and-mapd": "RxHCC Model V08 PDP_AND_MAPD",
+    "rxhcc-v08-pdp-only": "RxHCC Model V08 PDP_ONLY",
+    "rxhcc-v08-mapd-only": "RxHCC Model V08 MAPD_ONLY",
+    "lead-c-v2": LEAD_CONCURRENT_MODEL,
+    "lead-p-v1": LEAD_PROSPECTIVE_MODEL,
+}
+CANONICAL_MODEL_NAMES = frozenset(MODEL_ALIASES.values())
+
+
+def normalize_model_name(model_name: str) -> str:
+    """Resolve a public model alias to its canonical model name."""
+    if model_name in CANONICAL_MODEL_NAMES:
+        return model_name
+
+    alias = model_name.strip().lower()
+    if alias in MODEL_ALIASES:
+        return MODEL_ALIASES[alias]
+
+    valid_aliases = ", ".join(sorted(MODEL_ALIASES))
+    raise ValueError(
+        f"Unsupported model_name '{model_name}'. Use a canonical model name or "
+        f"one of: {valid_aliases}"
+    )
+
+
+def get_clinical_model_name(model_name: str) -> str:
+    """Return the CMS clinical model supplying mappings, edits, and labels."""
+    if model_name in LEAD_MODELS:
+        return "CMS-HCC Model V28"
+    return model_name
+
 # =============================================================================
 # DUAL ELIGIBILITY CODES
 # =============================================================================

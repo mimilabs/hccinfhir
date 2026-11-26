@@ -10,7 +10,8 @@ from .extractor import extract_sld, extract_sld_list
 from .filter import apply_filter
 from .model_calculate import calculate_raf
 from .datamodels import (
-    Demographics, ServiceLevelData, RAFResult, ModelName, HCCDetail,
+    Demographics, ServiceLevelData, RAFResult, ModelName, ModelAlias, ModelNameInput, HCCDetail,
+    LeadConcurrentInputs, ModelInputs,
     PaymentData, PaymentDetail, RemittanceEntry
 )
 from .extractor_820 import extract_payment_820
@@ -27,7 +28,7 @@ from .samples import (
     list_available_samples
 )
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 __author__ = "Yubin Park"
 __email__ = "yubin.park@mimilabs.ai"
 
@@ -42,6 +43,10 @@ __all__ = [
     "ServiceLevelData",
     "RAFResult",
     "ModelName",
+    "ModelAlias",
+    "ModelNameInput",
+    "LeadConcurrentInputs",
+    "ModelInputs",
     "HCCDetail",
 
     # 820 payment parser

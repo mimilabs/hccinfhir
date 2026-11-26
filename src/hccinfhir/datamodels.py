@@ -7,6 +7,8 @@ ModelName = Literal[
     "CMS-HCC Model V22",
     "CMS-HCC Model V24",
     "CMS-HCC Model V28",
+    "CMMI-HCC Concurrent Model V2",
+    "CMMI-HCC Prospective Model V1",
     "CMS-HCC ESRD Model V21",
     "CMS-HCC ESRD Model V24",
     "RxHCC Model V08",
@@ -14,6 +16,22 @@ ModelName = Literal[
     "RxHCC Model V08 PDP_ONLY",
     "RxHCC Model V08 MAPD_ONLY"
 ]
+
+ModelAlias = Literal[
+    "cms-v22",
+    "cms-v24",
+    "cms-v28",
+    "esrd-v21",
+    "esrd-v24",
+    "rxhcc-v08",
+    "rxhcc-v08-pdp-and-mapd",
+    "rxhcc-v08-pdp-only",
+    "rxhcc-v08-mapd-only",
+    "lead-c-v2",
+    "lead-p-v1",
+]
+
+ModelNameInput = Union[ModelName, ModelAlias]
 
 # Filename types: allow bundled filenames (with autocomplete) OR any custom string path
 ProcFilteringFilename = Union[
@@ -182,6 +200,29 @@ class Demographics(BaseModel):
     pbd: Optional[bool] = Field(False, description="[derived] True if PBD (PBD Model)")
 
 
+class LeadConcurrentInputs(BaseModel):
+    """Beneficiary-level inputs specific to CMMI-HCC Concurrent Model V2."""
+
+    high_needs_start: Optional[Literal['JAN1', 'Q2', 'Q3', 'Q4']] = Field(
+        None,
+        description="First High Needs identification period"
+    )
+    post_graft_4_9_month_fraction: float = Field(
+        0.0, ge=0.0, le=1.0,
+        description="Fraction of eligible months 4-9 months post-graft"
+    )
+    post_graft_10_plus_month_fraction: float = Field(
+        0.0, ge=0.0, le=1.0,
+        description="Fraction of eligible months 10+ months post-graft"
+    )
+
+    model_config = {"extra": "forbid"}
+
+
+# Expand this alias as additional models require model-specific inputs.
+ModelInputs = LeadConcurrentInputs
+
+
 class RAFResult(BaseModel):
     """Risk adjustment calculation results"""
     risk_score: float = Field(..., description="Final RAF score")
@@ -195,8 +236,11 @@ class RAFResult(BaseModel):
     coefficients: Dict[str, float] = Field(default_factory=dict, description="Applied model coefficients")
     interactions: Dict[str, float] = Field(default_factory=dict, description="Disease interaction coefficients")
     demographics: Demographics = Field(..., description="Patient demographics used in calculation")
+    model_inputs: Optional[ModelInputs] = Field(
+        None, description="Model-specific beneficiary inputs used in calculation"
+    )
     model_name: ModelName = Field(..., description="HCC model used for calculation")
-    version: str = Field(..., description="Library version")
+    version: str = Field(..., description="Demographic categorization version (V2, V4, or V6)")
     diagnosis_codes: List[str] = Field(default_factory=list, description="Input diagnosis codes")
     service_level_data: Optional[List[ServiceLevelData]] = Field(default=None, description="Processed service records")
     

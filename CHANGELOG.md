@@ -1,3 +1,34 @@
+# CHANGELOG v0.5.0 — LEAD CMMI-HCC models
+
+## Summary
+
+Adds the CMMI-HCC models used by the Long-term Enhanced ACO Design (LEAD):
+Concurrent V2 for High Needs beneficiaries and Prospective V1 for non-High Needs
+community beneficiaries.
+
+## New features
+
+- Added `CMMI-HCC Concurrent Model V2` (`lead-c-v2`) and
+  `CMMI-HCC Prospective Model V1` (`lead-p-v1`).
+- Added LEAD LC2/LP1 coefficients and hierarchies to the bundled 2026 reference
+  data. Both models reuse the CMS-HCC V28 diagnosis mapping, edits, labels, and
+  chronic-condition flags.
+- Added concise, case-insensitive aliases for all supported models. Results retain
+  canonical model names for explicit, reproducible output.
+- Added typed `LeadConcurrentInputs` through the extensible `model_inputs`
+  argument for High Needs timing and post-graft fractions.
+- Added a V28-to-LP1 transition article with concrete beneficiary examples,
+  coefficient charts, and a reproducible prevalence-weighted mock study.
+
+## Compatibility
+
+Existing canonical model names and calculation calls remain supported. Supplying
+`model_inputs` to an incompatible model raises an error instead of silently
+ignoring the values. Package metadata now correctly requires Python 3.9+, matching
+the existing type syntax and README support badge.
+
+---
+
 # CHANGELOG v0.4.0 — CMS-HCC V28 validation, MCE edits, 2026/2027 data
 
 ## Summary

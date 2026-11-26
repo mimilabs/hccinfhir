@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1160 608">
+
+    <style>
+      :root { --bg:#ffffff; --fg:#172033; --muted:#60708a; --grid:#d7deea;
+              --v28:#2563eb; --lp1:#d97706; --positive:#047857; --negative:#b91c1c; }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg:#111827; --fg:#f3f4f6; --muted:#b3bfd1; --grid:#374151;
+                --v28:#60a5fa; --lp1:#fbbf24; --positive:#34d399; --negative:#f87171; }
+      }
+      .bg { fill:var(--bg); } .fg { fill:var(--fg); } .muted { fill:var(--muted); }
+      .grid { stroke:var(--grid); stroke-width:1; } .v28 { fill:var(--v28); stroke:var(--v28); }
+      .lp1 { fill:var(--lp1); stroke:var(--lp1); } .positive { fill:var(--positive); }
+      .negative { fill:var(--negative); } text { font-family:system-ui,-apple-system,sans-serif; }
+      .title { font-size:20px; font-weight:600; } .subtitle { font-size:12px; }
+      .label { font-size:12px; } .value { font-size:11px; font-variant-numeric:tabular-nums; }
+      .axis { font-size:11px; fill:var(--muted); }
+    </style>
+    
+<rect class="bg" width="1160" height="608"/>
+<title id="title">Common HCC coefficient comparison</title>
+<desc id="desc">Dumbbell chart compares V28 and LP1 CNA coefficients for the twelve most prevalent HCCs with reported counts.</desc>
+<text class="title fg" x="20" y="30">Common HCCs can move in very different directions</text>
+<text class="subtitle muted" x="20" y="52">CNA segment; 12 highest Report-to-Congress marginal prevalences</text>
+<circle class="v28" cx="490" cy="69" r="5"/><text class="label fg" x="501" y="73">CMS V28</text>
+<circle class="lp1" cx="585" cy="69" r="5"/><text class="label fg" x="596" y="73">LEAD LP1</text>
+<line class="grid" x1="490.0" y1="81" x2="490.0" y2="580"/>
+<text class="axis" text-anchor="middle" x="490.0" y="598">0.0</text>
+<line class="grid" x1="613.0" y1="81" x2="613.0" y2="580"/>
+<text class="axis" text-anchor="middle" x="613.0" y="598">0.2</text>
+<line class="grid" x1="736.0" y1="81" x2="736.0" y2="580"/>
+<text class="axis" text-anchor="middle" x="736.0" y="598">0.3</text>
+<line class="grid" x1="859.0" y1="81" x2="859.0" y2="580"/>
+<text class="axis" text-anchor="middle" x="859.0" y="598">0.5</text>
+<line class="grid" x1="982.0" y1="81" x2="982.0" y2="580"/>
+<text class="axis" text-anchor="middle" x="982.0" y="598">0.7</text>
+<line class="grid" x1="1105.0" y1="81" x2="1105.0" y2="580"/>
+<text class="axis" text-anchor="middle" x="1105.0" y="598">0.8</text>
+<text class="label fg" x="480" y="104" text-anchor="end">HCC 238 · Specified Heart Arrhythmias (13.3%)</text>
+<line x1="711.8" y1="100" x2="786.8" y2="100" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="711.8" cy="100" r="5"/>
+<circle class="lp1" cx="786.8" cy="100" r="5"/>
+<text class="label fg" x="480" y="143" text-anchor="end">HCC 280 · Chronic Obstructive Pulmonary Dis… (12.8%)</text>
+<line x1="726.7" y1="139" x2="718.1" y2="139" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="726.7" cy="139" r="5"/>
+<circle class="lp1" cx="718.1" cy="139" r="5"/>
+<text class="label fg" x="480" y="182" text-anchor="end">HCC 37 · Diabetes with Chronic Complications (12.4%)</text>
+<line x1="613.1" y1="178" x2="490.0" y2="178" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="613.1" cy="178" r="5"/>
+<circle class="lp1" cx="490.0" cy="178" r="5"/>
+<text class="label fg" x="480" y="221" text-anchor="end">HCC 38 · Diabetes with Glycemic, Unspecifi… (12.2%)</text>
+<line x1="613.1" y1="217" x2="490.0" y2="217" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="613.1" cy="217" r="5"/>
+<circle class="lp1" cx="490.0" cy="217" r="5"/>
+<text class="label fg" x="480" y="260" text-anchor="end">HCC 226 · Heart Failure, Except End-Stage a… (7.9%)</text>
+<line x1="757.1" y1="256" x2="735.6" y2="256" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="757.1" cy="256" r="5"/>
+<circle class="lp1" cx="735.6" cy="256" r="5"/>
+<text class="label fg" x="480" y="299" text-anchor="end">HCC 329 · Chronic Kidney Disease, Moderate… (7.8%)</text>
+<line x1="584.2" y1="295" x2="490.0" y2="295" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="584.2" cy="295" r="5"/>
+<circle class="lp1" cx="490.0" cy="295" r="5"/>
+<text class="label fg" x="480" y="338" text-anchor="end">HCC 23 · Prostate, Breast, and Other Cance… (6.5%)</text>
+<line x1="628.0" y1="334" x2="699.1" y2="334" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="628.0" cy="334" r="5"/>
+<circle class="lp1" cx="699.1" cy="334" r="5"/>
+<text class="label fg" x="480" y="377" text-anchor="end">HCC 127 · Dementia, Mild or Unspecified (6.1%)</text>
+<line x1="743.0" y1="373" x2="909.0" y2="373" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="743.0" cy="373" r="5"/>
+<circle class="lp1" cx="909.0" cy="373" r="5"/>
+<text class="label fg" x="480" y="416" text-anchor="end">HCC 48 · Morbid Obesity (6.0%)</text>
+<line x1="628.0" y1="412" x2="663.6" y2="412" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="628.0" cy="412" r="5"/>
+<circle class="lp1" cx="663.6" cy="412" r="5"/>
+<text class="label fg" x="480" y="455" text-anchor="end">HCC 155 · Major Depression, Moderate or Sev… (3.4%)</text>
+<line x1="711.8" y1="451" x2="756.2" y2="451" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="711.8" cy="451" r="5"/>
+<circle class="lp1" cx="756.2" cy="451" r="5"/>
+<text class="label fg" x="480" y="494" text-anchor="end">HCC 93 · Rheumatoid Arthritis and Other Sp… (3.2%)</text>
+<line x1="947.7" y1="490" x2="1059.4" y2="490" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="947.7" cy="490" r="5"/>
+<circle class="lp1" cx="1059.4" cy="490" r="5"/>
+<text class="label fg" x="480" y="533" text-anchor="end">HCC 213 · Cardio-Respiratory Failure and Shock (3.2%)</text>
+<line x1="764.5" y1="529" x2="653.1" y2="529" stroke="var(--grid)" stroke-width="3"/>
+<circle class="v28" cx="764.5" cy="529" r="5"/>
+<circle class="lp1" cx="653.1" cy="529" r="5"/>
+</svg>

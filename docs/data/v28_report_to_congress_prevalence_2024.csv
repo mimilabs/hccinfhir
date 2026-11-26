@@ -1,0 +1,116 @@
+hcc,hcc_label,is_chronic,sample_size,prevalence
+1,HIV/AIDS,Y,95147,0.0033681567711006367
+2,"Septicemia, Sepsis, Systemic Inflammatory Response Syndrome/Shock",,724204,0.025636463643185444
+6,Opportunistic Infections,,93514,0.003310349378253701
+17,"Cancer Metastatic to Lung, Liver, Brain, and Other Organs; Acute Myeloid Leukemia Except Promyelocytic",Y,200753,0.0071065569725663035
+18,"Cancer Metastatic to Bone, Other and Unspecified Metastatic Cancer; Acute Leukemia Except Myeloid",Y,166455,0.005892424725252046
+19,"Myelodysplastic Syndromes, Multiple Myeloma, and Other Cancers",Y,132056,0.004674717127859687
+20,Lung and Other Severe Cancers,Y,349343,0.012366569528062994
+21,Lymphoma and Other Cancers,Y,263569,0.00933021232411136
+22,"Bladder, Colorectal, and Other Cancers",Y,631428,0.022352239100155893
+23,"Prostate, Breast, and Other Cancers and Tumors",Y,1823307,0.06454416658271084
+35,Pancreas Transplant Status,Y,345,1.2212829474704611E-5
+36,Diabetes with Severe Acute Complications,Y,117226,0.0041497424579760075
+37,Diabetes with Chronic Complications,Y,3515883,0.124460520382646
+38,"Diabetes with Glycemic, Unspecified, or No Complications",Y,3436400,0.12164686146920267
+48,Morbid Obesity,Y,1707331,0.060438673506889556
+49,Specified Lysosomal Storage Disorders,Y,1817,6.432090190011094E-5
+50,"Amyloidosis, Porphyria, and Other Specified Metabolic Disorders",Y,53172,0.0018822625183449089
+51,"Addison's and Cushing's Diseases, Acromegaly, and Other Specified Endocrine Disorders",Y,23576,8.345787469438722E-4
+62,Liver Transplant Status/Complications,Y,21833,7.728774084673211E-4
+63,Chronic Liver Failure/End-Stage Liver Disorders,Y,109139,0.003863466655187787
+64,Cirrhosis of Liver,Y,123756,0.004380901230352301
+65,Chronic Hepatitis,Y,155535,0.0055058621227483525
+68,Cholangitis and Obstruction of Bile Duct Without Gallstones,,61413,0.002173989845014592
+77,Intestine Transplant Status/Complications,Y,200,7.079901144756296E-6
+78,Intestinal Obstruction/Perforation,,375402,0.013289045247719015
+79,Chronic Pancreatitis,Y,67194,0.0023786343876037726
+80,Crohn's Disease (Regional Enteritis),Y,126437,0.004475807305197759
+81,Ulcerative Colitis,Y,154142,0.005456550611275125
+92,Bone/Joint/Muscle/Severe Soft Tissue Infections/Necrosis,,247310,0.008754651760548397
+93,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders,Y,908532,0.032161583734238636
+94,Systemic Lupus Erythematosus and Other Specified Systemic Connective Tissue Disorders,Y,197856,0.007004004604484509
+107,Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero,Y,10150,3.5930498309638204E-4
+108,"Sickle Cell Disorders, Except Sickle Cell Anemia (Hb-SS) and Thalassemia Beta Zero; Beta Thalassemia Major",Y,5158,1.8259065052326487E-4
+109,"Acquired Hemolytic, Aplastic, and Sideroblastic Anemias",Y,147713,0.005228967188976934
+111,"Hemophilia, Male",Y,3102,1.0980926675517015E-4
+112,Immune Thrombocytopenia and Specified Coagulation Defects and Hemorrhagic Conditions,Y,109438,0.0038740511073991975
+114,Common Variable and Combined Immunodeficiencies,Y,21976,7.779395377858218E-4
+115,Specified Immunodeficiencies and White Blood Cell Disorders,Y,33264,0.0011775291583958672
+125,"Dementia, Severe",Y,,
+126,"Dementia, Moderate",Y,,
+127,"Dementia, Mild or Unspecified",Y,1726311,0.06111055612552693
+135,Drug Use with Psychotic Complications,Y,12891,4.563350282852671E-4
+136,Alcohol Use with Psychotic Complications,Y,30647,0.001084888651916731
+137,"Drug Use Disorder, Moderate/Severe, or Drug Use with Non-Psychotic Complications",Y,486978,0.017238780498355658
+138,"Drug Use Disorder, Mild, Uncomplicated, Except Cannabis",Y,77410,0.002740275738077924
+139,"Alcohol Use Disorder, Moderate/Severe, or Alcohol Use with Specified Non-Psychotic Complications",Y,203607,0.007207587161901976
+151,Schizophrenia,Y,496094,0.01756148239253365
+152,"Psychosis, Except Schizophrenia",,260890,0.00923537704827735
+153,Personality Disorders; Anorexia/Bulimia Nervosa,Y,82781,0.0029304064833203546
+154,Bipolar Disorders without Psychosis,Y,434527,0.015382041023637594
+155,"Major Depression, Moderate or Severe, without Psychosis",Y,948489,0.033576041784443775
+180,Quadriplegia,Y,56357,0.001995009944075153
+181,Paraplegia,Y,58577,0.0020735968467819475
+182,Spinal Cord Disorders/Injuries,Y,166029,0.005877344535813715
+190,"Amyotrophic Lateral Sclerosis and Other Motor Neuron Disease, Spinal Muscular Atrophy",Y,15850,5.610821657219365E-4
+191,Quadriplegic Cerebral Palsy,Y,17946,6.352795297189824E-4
+192,"Cerebral Palsy, Except Quadriplegic",Y,82369,0.002915821886962157
+193,Chronic Inflammatory Demyelinating Polyneuritis and Multifocal Motor Neuropathy,Y,22094,7.82116679461228E-4
+195,Myasthenia Gravis with (Acute) Exacerbation,Y,8726,3.088960869457172E-4
+196,Myasthenia Gravis without (Acute) Exacerbation and Other Myoneural Disorders,Y,49172,0.001740664495449783
+197,Muscular Dystrophy,Y,17049,6.035261730847505E-4
+198,Multiple Sclerosis,Y,155336,0.00549881762110932
+199,Parkinson and Other Degenerative Disease of Basal Ganglia,Y,416750,0.014752744010385932
+200,Friedreich and Other Hereditary Ataxias; Huntington Disease,Y,28765,0.0010182667821445742
+201,Seizure Disorders and Convulsions,Y,824572,0.02918944123366994
+202,"Coma, Brain Compression/Anoxic Damage",Y,84381,0.002987045692478405
+211,Respirator Dependence/Tracheostomy Status/Complications,Y,75612,0.0026766274267865653
+212,Respiratory Arrest,,5201,1.8411282926938748E-4
+213,Cardio-Respiratory Failure and Shock,,907720,0.032132839335590926
+221,Heart Transplant Status/Complications,Y,10787,3.818544682424308E-4
+222,End-Stage Heart Failure,Y,6484,2.2953039511299913E-4
+223,Heart Failure with Heart Assist Device/Artificial Heart,Y,5667,2.0060899893666964E-4
+224,Acute on Chronic Heart Failure,Y,521181,0.018449549792626155
+225,Acute Heart Failure (Excludes Acute on Chronic),Y,156792,0.005550359301443146
+226,"Heart Failure, Except End-Stage and Acute",Y,2243680,0.07942516300233403
+227,Cardiomyopathy/Myocarditis,Y,303977,0.010760635551397923
+228,Acute Myocardial Infarction,Y,459263,0.016257683197221054
+229,Unstable Angina and Other Acute Ischemic Heart Disease,Y,358378,0.012686404062277359
+238,Specified Heart Arrhythmias,Y,3758550,0.13305081223811888
+248,Intracranial Hemorrhage,Y,146978,0.005202948552269954
+249,Ischemic or Unspecified Stroke,Y,811912,0.02874128349120687
+253,Hemiplegia/Hemiparesis,Y,394627,0.013969600745258715
+254,"Monoplegia, Other Paralytic Syndromes",Y,44612,0.0015792427493493393
+263,Atherosclerosis of Arteries of the Extremities with Ulceration or Gangrene,Y,135826,0.004808173264438343
+264,Vascular Disease with Complications,Y,166360,0.005889061772208287
+267,Deep Vein Thrombosis and Pulmonary Embolism,,676795,0.023958208476326688
+276,Lung Transplant Status/Complications,Y,6570,2.3257475260524433E-4
+277,Cystic Fibrosis,Y,3552,1.2573904433087183E-4
+278,Idiopathic Pulmonary Fibrosis and Lung Involvement in Systemic Sclerosis,Y,43422,0.0015371173375380394
+279,Severe Persistent Asthma,Y,70061,0.0024801247705138543
+280,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders",Y,3627781,0.1284216542741257
+282,Aspiration and Specified Bacterial Pneumonias,,248025,0.008779962407140901
+283,"Empyema, Lung Abscess",,14880,5.267446451698684E-4
+298,"Severe Diabetic Eye Disease, Retinal Vein Occlusion, and Vitreous Hemorrhage",Y,532341,0.01884460827650356
+300,Exudative Macular Degeneration,Y,524201,0.018556456299911976
+326,"Chronic Kidney Disease, Stage 5",Y,115851,0.004101068137605808
+327,"Chronic Kidney Disease, Severe (Stage 4)",Y,380181,0.013458219485572968
+328,"Chronic Kidney Disease, Moderate (Stage 3B)",Y,,
+329,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)",Y,2190681,0.07754902459847933
+379,"Pressure Ulcer of Skin with Necrosis Through to Muscle, Tendon, or Bone",Y,45188,0.0015996328646462376
+380,"Chronic Ulcer of Skin, Except Pressure, Through to Bone or Muscle",Y,71796,0.0025415429129446152
+381,Pressure Ulcer of Skin with Full Thickness Skin Loss,Y,114855,0.004065810229904922
+382,Pressure Ulcer of Skin with Partial Thickness Skin Loss,Y,107850,0.0038178366923098325
+383,"Chronic Ulcer of Skin, Except Pressure, Not Specified as Through to Bone or Muscle",Y,531618,0.01881901443386526
+385,Severe Skin Burn,,1342,4.750613668131475E-5
+387,"Pemphigus, Pemphigoid, and Other Specified Autoimmune Skin Disorders",Y,31635,0.0011198633635718272
+397,Major Head Injury with Loss of Consciousness > 1 Hour,,2826,1.0003900317540647E-4
+398,Major Head Injury with Loss of Consciousness < 1 Hour or Unspecified,,83750,0.002964708604366699
+399,Major Head Injury without Loss of Consciousness,,62936,0.0022279032922319112
+401,Vertebral Fractures without Spinal Cord Injury,,328670,0.011634755546235259
+402,Hip Fracture/Dislocation,,279856,0.00990676407383459
+405,Traumatic Amputations and Complications,,7371,2.609297566899933E-4
+409,"Amputation Status, Lower Limb/Amputation Complications",Y,75556,0.0026746450544660335
+454,"Stem Cell, Including Bone Marrow, Transplant Status/Complications",Y,28071,9.936995251722698E-4
+463,Artificial Openings for Feeding or Elimination,Y,260175,0.009210066401684846

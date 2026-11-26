@@ -1,0 +1,13 @@
+hcc,hcc_label,short_label,sample_size,prevalence,v28_coefficient,lp1_coefficient,absolute_change
+238,Specified Heart Arrhythmias,Specified Heart Arrhythmias,3758550,0.13305081223811888,0.299,0.4001,0.10110000000000002
+280,"Chronic Obstructive Pulmonary Disease, Interstitial Lung Disorders, and Other Chronic Lung Disorders",Chronic Obstructive Pulmonary Dis…,3627781,0.1284216542741257,0.319,0.3075,-0.01150000000000001
+37,Diabetes with Chronic Complications,Diabetes with Chronic Complications,3515883,0.124460520382646,0.166,0.0,-0.166
+38,"Diabetes with Glycemic, Unspecified, or No Complications","Diabetes with Glycemic, Unspecifi…",3436400,0.12164686146920267,0.166,0.0,-0.166
+226,"Heart Failure, Except End-Stage and Acute","Heart Failure, Except End-Stage a…",2243680,0.07942516300233403,0.36,0.331,-0.02899999999999997
+329,"Chronic Kidney Disease, Moderate (Stage 3, Except 3B)","Chronic Kidney Disease, Moderate…",2190681,0.07754902459847933,0.127,0.0,-0.127
+23,"Prostate, Breast, and Other Cancers and Tumors","Prostate, Breast, and Other Cance…",1823307,0.06454416658271084,0.186,0.2819,0.09589999999999999
+127,"Dementia, Mild or Unspecified","Dementia, Mild or Unspecified",1726311,0.06111055612552693,0.341,0.5648,0.22379999999999994
+48,Morbid Obesity,Morbid Obesity,1707331,0.060438673506889556,0.186,0.234,0.048000000000000015
+155,"Major Depression, Moderate or Severe, without Psychosis","Major Depression, Moderate or Sev…",948489,0.033576041784443775,0.299,0.3588,0.05980000000000002
+93,Rheumatoid Arthritis and Other Specified Inflammatory Rheumatic Disorders,Rheumatoid Arthritis and Other Sp…,908532,0.032161583734238636,0.617,0.7676,0.15059999999999996
+213,Cardio-Respiratory Failure and Shock,Cardio-Respiratory Failure and Shock,907720,0.032132839335590926,0.37,0.2199,-0.15009999999999998

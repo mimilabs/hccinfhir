@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1020 570">
+
+    <style>
+      :root { --bg:#ffffff; --fg:#172033; --muted:#60708a; --grid:#d7deea;
+              --v28:#2563eb; --lp1:#d97706; --positive:#047857; --negative:#b91c1c; }
+      @media (prefers-color-scheme: dark) {
+        :root { --bg:#111827; --fg:#f3f4f6; --muted:#b3bfd1; --grid:#374151;
+                --v28:#60a5fa; --lp1:#fbbf24; --positive:#34d399; --negative:#f87171; }
+      }
+      .bg { fill:var(--bg); } .fg { fill:var(--fg); } .muted { fill:var(--muted); }
+      .grid { stroke:var(--grid); stroke-width:1; } .v28 { fill:var(--v28); stroke:var(--v28); }
+      .lp1 { fill:var(--lp1); stroke:var(--lp1); } .positive { fill:var(--positive); }
+      .negative { fill:var(--negative); } text { font-family:system-ui,-apple-system,sans-serif; }
+      .title { font-size:20px; font-weight:600; } .subtitle { font-size:12px; }
+      .label { font-size:12px; } .value { font-size:11px; font-variant-numeric:tabular-nums; }
+      .axis { font-size:11px; fill:var(--muted); }
+    </style>
+    
+<rect class="bg" width="1020" height="570"/>
+<title id="title">Prevalence-weighted mock population results</title>
+<desc id="desc">Grouped bars compare mean V28 and LP1 scores across six community segments and an illustrative weighted mix.</desc>
+<text class="title fg" x="20" y="30">Mock population: impact differs sharply by segment</text>
+<text class="subtitle muted" x="20" y="52">10,000 independent HCC profiles per segment · fixed representative ages · not a forecast</text>
+<rect class="v28" x="75" y="64" width="12" height="12"/><text class="label fg" x="93" y="74">CMS V28</text>
+<rect class="lp1" x="170" y="64" width="12" height="12"/><text class="label fg" x="188" y="74">LEAD LP1</text>
+<line class="grid" x1="75" y1="465.0" x2="985" y2="465.0"/>
+<text class="axis" text-anchor="end" x="67" y="469.0">0.0</text>
+<line class="grid" x1="75" y1="389.0" x2="985" y2="389.0"/>
+<text class="axis" text-anchor="end" x="67" y="393.0">0.3</text>
+<line class="grid" x1="75" y1="313.0" x2="985" y2="313.0"/>
+<text class="axis" text-anchor="end" x="67" y="317.0">0.6</text>
+<line class="grid" x1="75" y1="237.0" x2="985" y2="237.0"/>
+<text class="axis" text-anchor="end" x="67" y="241.0">0.9</text>
+<line class="grid" x1="75" y1="161.0" x2="985" y2="161.0"/>
+<text class="axis" text-anchor="end" x="67" y="165.0">1.2</text>
+<line class="grid" x1="75" y1="85.0" x2="985" y2="85.0"/>
+<text class="axis" text-anchor="end" x="67" y="89.0">1.5</text>
+<rect class="v28" x="101.6" y="216.5" width="36.4" height="248.5" opacity="0.88"/>
+<rect class="lp1" x="142.0" y="168.7" width="36.4" height="296.3" opacity="0.88"/>
+<text class="value positive" text-anchor="middle" x="140.0" y="487">+19.2%</text>
+<text class="label fg" text-anchor="middle" x="140.0" y="507">CNA</text>
+<text class="axis" text-anchor="middle" x="140.0" y="523">Non-dual aged</text>
+<rect class="v28" x="231.6" y="217.3" width="36.4" height="247.7" opacity="0.88"/>
+<rect class="lp1" x="272.0" y="186.7" width="36.4" height="278.3" opacity="0.88"/>
+<text class="value positive" text-anchor="middle" x="270.0" y="487">+12.3%</text>
+<text class="label fg" text-anchor="middle" x="270.0" y="507">CND</text>
+<text class="axis" text-anchor="middle" x="270.0" y="523">Non-dual disabled</text>
+<rect class="v28" x="361.6" y="151.1" width="36.4" height="313.9" opacity="0.88"/>
+<rect class="lp1" x="402.0" y="134.6" width="36.4" height="330.4" opacity="0.88"/>
+<text class="value positive" text-anchor="middle" x="400.0" y="487">+5.3%</text>
+<text class="label fg" text-anchor="middle" x="400.0" y="507">CFA</text>
+<text class="axis" text-anchor="middle" x="400.0" y="523">Full-dual aged</text>
+<rect class="v28" x="491.6" y="169.4" width="36.4" height="295.6" opacity="0.88"/>
+<rect class="lp1" x="532.0" y="167.8" width="36.4" height="297.2" opacity="0.88"/>
+<text class="value positive" text-anchor="middle" x="530.0" y="487">+0.6%</text>
+<text class="label fg" text-anchor="middle" x="530.0" y="507">CFD</text>
+<text class="axis" text-anchor="middle" x="530.0" y="523">Full-dual disabled</text>
+<rect class="v28" x="621.6" y="213.2" width="36.4" height="251.8" opacity="0.88"/>
+<rect class="lp1" x="662.0" y="203.9" width="36.4" height="261.1" opacity="0.88"/>
+<text class="value positive" text-anchor="middle" x="660.0" y="487">+3.7%</text>
+<text class="label fg" text-anchor="middle" x="660.0" y="507">CPA</text>
+<text class="axis" text-anchor="middle" x="660.0" y="523">Partial-dual aged</text>
+<rect class="v28" x="751.6" y="219.7" width="36.4" height="245.3" opacity="0.88"/>
+<rect class="lp1" x="792.0" y="202.0" width="36.4" height="263.0" opacity="0.88"/>
+<text class="value positive" text-anchor="middle" x="790.0" y="487">+7.2%</text>
+<text class="label fg" text-anchor="middle" x="790.0" y="507">CPD</text>
+<text class="axis" text-anchor="middle" x="790.0" y="523">Partial-dual disabled</text>
+<rect class="v28" x="881.6" y="204.1" width="36.4" height="260.9" opacity="0.88"/>
+<rect class="lp1" x="922.0" y="172.3" width="36.4" height="292.7" opacity="0.88"/>
+<text class="value positive" text-anchor="middle" x="920.0" y="487">+12.2%</text>
+<text class="label fg" text-anchor="middle" x="920.0" y="507">Mix</text>
+<text class="axis" text-anchor="middle" x="920.0" y="523">Illustrative mix</text>
+<text class="axis" text-anchor="middle" transform="translate(18 275.0) rotate(-90)">Mean risk score</text>
+</svg>

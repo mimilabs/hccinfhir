@@ -14,10 +14,11 @@ conventions the loader code depends on.
 |---|---|
 | `ra_dx_to_cc_*.csv` | `mimi_ws_1.cmspayment.ra_dx_to_cc_mapping` |
 | `ra_eligible_cpt_hcpcs_*.csv` | `mimi_ws_1.cmspayment.ra_eligible_cpt_hcpcs` |
+| `ra_hierarchies_*.csv` | `mimi_ws_1.cmspayment.ra_hierarchies` |
+| `ra_coefficients_*.csv` | `mimi_ws_1.cmspayment.ra_coefficients` |
 
 `ra_dx_edits.csv` has a different source — see [Diagnosis edits](#diagnosis-edits-ra_dx_editscsv)
-below. Other files (`ra_hierarchies_*.csv`, `ra_coefficients_*.csv`,
-`hcc_is_chronic.csv`) are **not** covered here yet.
+below. `hcc_is_chronic.csv` is **not** covered here yet.
 
 ## Diagnosis edits (`ra_dx_edits.csv`)
 
@@ -83,6 +84,10 @@ doesn't silently mix in. In `ra_eligible_cpt_hcpcs` there is **no** `year` colum
 - **CPT/HCPCS** (`ra_eligible_cpt_hcpcs_*.csv`): single column `cpt_hcpcs_code`.
   Codes are **strings** — leading zeros (`00520`) and alpha codes (`C7544`) must be
   preserved; do not cast to integer.
+- **hierarchies** (`ra_hierarchies_*.csv`): header
+  `cc_parent,cc_child,model_domain,model_version,model_fullname`.
+- **coefficients** (`ra_coefficients_*.csv`): header
+  `coefficient,value,model_domain,model_version`.
 
 ## Regeneration SQL
 
@@ -110,6 +115,63 @@ FROM mimi_ws_1.cmspayment.ra_eligible_cpt_hcpcs
 WHERE mimi_src_file_date = DATE '<YYYY-01-01>'
   AND is_included = 'yes'
 ORDER BY cpt_hcpcs_code;
+```
+
+### HCC hierarchies
+
+Hierarchy records are model definitions rather than performance-year records. Select
+the latest effective record set independently for each model. This includes LEAD ACO
+models, which use the `CMMI-HCC` domain (`LC2` and `LP1`).
+
+LEAD does not publish a separate diagnosis mapping: both LEAD models use the
+CMS-HCC V28 ICD-10-CM mapping, edits, and labels. The runtime aliases those clinical
+inputs to `CMS-HCC Model V28`, while using the CMMI-specific hierarchies and
+coefficients below.
+
+```sql
+WITH latest_dates AS (
+  SELECT model_domain,
+         model_version,
+         model_fullname,
+         MAX(eff_last_date) AS latest_eff_last_date
+  FROM mimi_ws_1.cmspayment.ra_hierarchies
+  GROUP BY model_domain, model_version, model_fullname
+)
+SELECT r.cc_parent,
+       r.cc_child,
+       r.model_domain,
+       r.model_version,
+       r.model_fullname
+FROM mimi_ws_1.cmspayment.ra_hierarchies r
+INNER JOIN latest_dates l
+  ON r.model_domain = l.model_domain
+ AND r.model_version = l.model_version
+ AND r.model_fullname = l.model_fullname
+ AND r.eff_last_date = l.latest_eff_last_date
+ORDER BY r.model_domain, r.model_version, r.model_fullname,
+         r.cc_parent, r.cc_child;
+```
+
+### RAF coefficients
+
+```sql
+WITH preferred_records AS (
+  SELECT model_domain,
+         model_version,
+         MAX(eff_last_date) AS latest_eff_last_date
+  FROM mimi_ws_1.cmspayment.ra_coefficients
+  GROUP BY model_domain, model_version
+)
+SELECT r.coefficient,
+       r.value,
+       r.model_domain,
+       r.model_version
+FROM mimi_ws_1.cmspayment.ra_coefficients r
+INNER JOIN preferred_records p
+  ON r.model_domain = p.model_domain
+ AND r.model_version = p.model_version
+ AND r.eff_last_date = p.latest_eff_last_date
+ORDER BY r.model_domain, r.model_version, r.coefficient;
 ```
 
 ## Model coverage by year (dx → cc)

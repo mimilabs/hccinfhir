@@ -1,5 +1,5 @@
 from hccinfhir.datamodels import Demographics, ModelInputs, ModelName
-from hccinfhir.constants import LEAD_CONCURRENT_MODEL, LEAD_PROSPECTIVE_MODEL
+from hccinfhir.constants import LEAD_CONCURRENT_MODEL, LEAD_PROSPECTIVE_MODEL, RXHCC_V08_MODELS
 from typing import Optional, List, Set, Dict
 
 def has_any_hcc(hcc_list: List[str], hcc_set: Set[str]) -> int:
@@ -271,7 +271,7 @@ def get_diagnostic_categories(model_name: ModelName, hcc_set: Set[str]) -> Dict:
             'SEPSIS': int('2' in hcc_set), 
             'PRESSURE_ULCER': has_any_hcc(['157', '158', '159', '160'], hcc_set)
         }
-    elif model_name == "RxHCC Model V08":
+    elif model_name in RXHCC_V08_MODELS:
         # RxModel doesn't seem to have any diagnostic category interactions
         return {}
     
@@ -446,7 +446,7 @@ def create_disease_interactions(model_name: ModelName,
             'NONAGED_HCC77': demographics.non_aged * int('77' in hcc_set)
         })
             
-    elif model_name == "RxHCC Model V08":
+    elif model_name in RXHCC_V08_MODELS:
         # RxHCC NonAged interactions
         interactions.update({
             'NonAged_RXHCC1': demographics.non_aged * int('1' in hcc_set),

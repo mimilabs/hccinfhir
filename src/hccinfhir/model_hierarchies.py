@@ -1,6 +1,6 @@
 from typing import Dict, Set, Tuple
 from hccinfhir.datamodels import ModelName
-from hccinfhir.constants import LEAD_MODELS
+from hccinfhir.constants import LEAD_MODELS, get_clinical_model_name
 
 def apply_hierarchies(
     cc_set: Set[str],
@@ -34,12 +34,15 @@ def apply_hierarchies(
             if cc in cc_set:
                 cc_set.remove(cc)
 
+    clinical_model_name = get_clinical_model_name(model_name)
+
     # Apply hierarchies
     for cc in cc_set:
-        hierarchy_key = (cc, model_name)
-        if hierarchy_key in hierarchies:
+        child_ccs = hierarchies.get((cc, model_name))
+        if child_ccs is None and clinical_model_name != model_name:
+            child_ccs = hierarchies.get((cc, clinical_model_name))
+        if child_ccs is not None:
             # If parent CC exists, remove all child CCs
-            child_ccs = hierarchies[hierarchy_key]
             to_remove.update(child_ccs & cc_set)
 
     # Return CCs with hierarchical exclusions removed
